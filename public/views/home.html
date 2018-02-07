@@ -1,0 +1,92 @@
+<!doctype html>
+<html>
+<head>
+    <title>Off My Chest</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+    <script src="./javascripts/jquery-3.2.1.min.js"></script>
+    
+
+    <script type = "text/javascript">
+        angular.module("sample", []);
+    </script>
+
+    <meta charset="utf-8" />
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+
+    <!--W3-CSS-->
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="../stylesheets/chat.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="../stylesheets/home.css">
+</head>
+
+<body>
+    <br><br><br>
+    
+     <!--TITLE-->
+    <div class="container">
+        <!--TITLE & BUTTONS-->
+        <div class="jumbotron">
+            <h1>Off My Chest</h1>
+            <button class = "panel-button" id="btn1" ></button>
+            <button class = "panel-button" id="btn2" ></button>
+            <button class = "panel-button" id="btn3" ></button>
+            <button class = "panel-button" id="btn4" ></button>
+        </div>
+    </div>
+
+     <!--PEEK BOX-->
+    <div  class = "OMC_peek_box" data-cell-id = "row-0-col-0">
+    </div>
+    
+    <!--TEXT INPUT BOX-->
+    <div class = "OMC_post_wrapper">
+        <form method = "post" action = "/post" style = "width:100%; height:100%">
+            <div class = "OMC_post_input" style = "width:100%; height:100%;">
+                <input 
+                type = "text" 
+                style = "position: absolute; right:25%; margin-right:-25%; width: 100%; height: 60%; top: 5%" 
+                name = "user_post">
+                <br>
+                <input 
+                type = "submit" 
+                style = "position: absolute; right:25%; margin-right:-25%; width: 100%; bottom: 0;" 
+                id = "submit_post"
+                value = "get it the fuck off me">
+                <br>
+            </div>
+        </form>
+    </div>
+
+   <!--FORUM CONTENT BACKGROUND-->
+    <div class = "w3-container">
+        <div id = "includedContent">
+        </div>
+    </div>
+    
+    <script src="./javascripts/home.js"> </script>
+    <script>
+        $(document).ready(function(){
+            initialise();
+
+            $(window).scroll(function() {
+                if($(window).scrollTop() + $(window).height() == $(document).height()) {
+                    nextRow();
+                }
+            });
+        });
+    </script>
+
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+</h2>
+
+
+</body>
+</html>
