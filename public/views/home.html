@@ -1,10 +1,10 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
 <head>
-    <title>Off My Chest</title>
+    <meta charset="UTF-8">
+    <title>Listen To This Image</title>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
     <script src="./javascripts/jquery-3.2.1.min.js"></script>
-    
 
     <script type = "text/javascript">
         angular.module("sample", []);
@@ -31,24 +31,18 @@
     
      <!--TITLE-->
     <div class="container">
-        <!--TITLE & BUTTONS-->
         <div class="jumbotron">
             <h1>Listen To This Image</h1>
         </div>
     </div>
-
-
-
-
-
-
     
+    <div id="drop_zone" ondrop="drop_handler(event);" ondragover="dragover_handler(event);" ondragend="dragend_handler(event);">
+      
+    </div>
+
     <script src="./javascripts/home.js"> </script>
     <script>
         $(document).ready(function(){
-           
-
-            
         });
     </script>
 

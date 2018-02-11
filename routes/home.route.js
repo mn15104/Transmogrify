@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var path = require('path');
+var formidable = require('formidable');
 
 
 var Home = require('../models/home.model');
@@ -10,17 +11,13 @@ router.get('/', function(req, res, next) {
   res.sendFile(path.join(__dirname + '/../public/views/home.html'));
 });
 
-router.post('/getPost', function(req, res, next) {
-    console.log("entry is" + req.body.entry);
-      Home.getPost(req.body.entry, function(postObject, success){
-                          if(success){
-                            var postJSON = JSON.stringify(postObject);
-                            res.send(postJSON); 
-                          }
-                          else{
-                            res.send(204);
-                          }
-                        });
+router.get('/drag', function(req, res, next) {
+  res.sendFile(path.join(__dirname + '/../public/views/drag.html'));
+});
+
+router.post('/drag/uploadAudio', function(req, res, next) {
+      Home.uploadAudio(req, res, next);
+
 });
 
 router.post('/post', function(req, res, next) {
