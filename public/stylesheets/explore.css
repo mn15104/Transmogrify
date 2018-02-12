@@ -1,0 +1,136 @@
+
+:root {
+    --inset-color: rgb(193, 195, 199);
+}
+
+body {
+    background: var(--inset-color);
+}
+
+/* H1 @ Title font */
+h1 { 
+    color: #272728; 
+    font-family: 'Helvetica Neue', sans-serif; 
+    font-size: 200px; font-weight: bold; 
+    letter-spacing: -1px; line-height: 1; 
+    text-align: center; 
+      
+}
+.inset-text {
+    color: rgba(20, 20, 21, 0.8);
+    text-shadow: 1px 4px 6px var(--inset-color), 0 0 0 #000, 1px 4px 6px var(--inset-color);
+}
+::-moz-selection { background: #5af; color: #fff; text-shadow: none; }
+::selection { background: #5af; color: #fff; text-shadow: none; }
+
+
+/* Wrapper @ Wrapper around bricks container */
+.wrapper {
+    margin: 2em auto;
+    max-width: 1400px;
+}
+  
+img {
+    vertical-align: middle;
+    max-width: 100%;
+}
+  
+/* Brick-wall @ Brick container */
+.brick-wall {
+    display: flex;
+    flex-flow: row wrap;
+    margin-left: -8px; /* Adjustment for the gutter */
+    counter-reset: brick;
+}
+
+.brick {
+    overflow: hidden;
+    border-radius: 5px;
+    margin: 0 0 8px 8px;  /* Some Gutter */
+    background-color: #333;
+    color: white;
+    position: relative;
+}
+
+.brick:after {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 5000;
+    transform: translate(-50%, -50%);
+    transition: font-size .25s, opacity .25s ease-in-out;
+    font-weight: 700;
+    opacity: .5;
+    font-size: 1.25em;
+  }
+  
+.brick:hover:after {
+    font-size: 2.25em;
+    opacity: 1;
+}
+  
+.brick {
+    flex: auto;
+    height: 250px;
+    min-width: 150px;
+}
+  
+@media only screen and (min-width: 1024px) {
+    /* Horizontal bricks on desktop-sized screen */
+    .brick:nth-child(4n+1) {
+      width: 250px;
+    }
+    .brick:nth-child(4n+2) {
+      width: 325px;
+    }
+    .brick:nth-child(4n+3) {
+      width: 180px;
+    }
+    .brick:nth-child(4n+4) {
+      width: 380px;
+    }
+  
+  }
+  
+  @media only screen and (max-width: 1023px) and (min-width: 768px) {
+    /* Horizontal bricks on tabled-sized screen */
+    .brick:nth-child(4n+1) {
+      width: 200px;
+    }
+    .brick:nth-child(4n+2) {
+      width: 250px;
+    }
+    .brick:nth-child(4n+3) {
+      width: 120px;
+    }
+    .brick:nth-child(4n+4) {
+      width: 280px;
+    }
+  
+}
+  
+.brick-img {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    filter: brightness(90%);
+}
+
+.labs-pagination {
+    margin-bottom: 1.5rem;
+    font-size: 12px;
+}
+  
+.labs-page {
+    text-transform: uppercase;
+    display: inline-block;
+    padding: .5em .75em;
+    border: 2px solid #333;
+}
+  
+.labs-page:hover,
+.labs-page--current {
+    background-color: #333;
+    color: rgba(255, 255, 255, .75);
+}
+  

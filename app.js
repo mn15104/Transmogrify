@@ -23,8 +23,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 //Set up routers
 var index_route = require('./routes/index.route');
 var home_route = require('./routes/home.route');
+var explore_route = require('./routes/explore.route');
 app.use('/home', home_route);
-
+app.use('/explore', explore_route);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');

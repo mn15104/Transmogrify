@@ -18,12 +18,14 @@ let db = new sqlite3.Database('./Dev.db', sqlite3.OPEN_CREATE | sqlite3.OPEN_REA
       return console.error(err.message);
     }
     console.log('Connected to the in-memory SQlite database.');
-  });
+});
+
 db.run(`CREATE TABLE IF NOT EXISTS HOME_image_files (file_name VARCHAR(255), 
                                                      file_size VARCHAR(10), 
                                                      file_upload_date VARCHAR(255), 
                                                      file_id INT (100),
-                                                     FOREIGN KEY(file_id) REFERENCES HOME_audio_files(file_id),
+                                                     partner_id INT(100),
+                                                     FOREIGN KEY(partner_id) REFERENCES HOME_audio_files(file_id),
                                                      PRIMARY KEY(file_id))`, (err) => {
     if (err) {
         console.error(err.message);
@@ -32,11 +34,13 @@ db.run(`CREATE TABLE IF NOT EXISTS HOME_image_files (file_name VARCHAR(255),
         console.log("Table created");
     }
 });
+
 db.run(`CREATE TABLE IF NOT EXISTS HOME_audio_files (file_name VARCHAR(255), 
                                                      file_size VARCHAR(10), 
                                                      file_upload_date VARCHAR(255), 
                                                      file_id INT (100),
-                                                     FOREIGN KEY(file_id) REFERENCES HOME_image_files(file_id),
+                                                     partner_id INT(100),
+                                                     FOREIGN KEY(partner_id) REFERENCES HOME_image_files(file_id),
                                                      PRIMARY KEY(file_id))`, (err) => {
     if (err) {
         console.error(err.message);

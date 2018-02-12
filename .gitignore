@@ -2,3 +2,4 @@ HTML_JS_JQ.odt
 *.log
 *.db
 package.json
+node_modules
