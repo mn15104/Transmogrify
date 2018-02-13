@@ -17,7 +17,6 @@ router.get('/drag', function(req, res, next) {
 
 router.post('/drag/uploadAudio', function(req, res, next) {
       Home.uploadAudio(req, res, next);
-
 });
 
 router.post('/post', function(req, res, next) {

@@ -26,6 +26,9 @@ var home_route = require('./routes/home.route');
 var explore_route = require('./routes/explore.route');
 app.use('/home', home_route);
 app.use('/explore', explore_route);
+app.use('/sidepanel', function(req, res, next){
+  res.sendFile(path.join(__dirname + '/public/views/sidepanel.html'));
+});
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');

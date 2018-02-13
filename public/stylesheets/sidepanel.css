@@ -1,0 +1,60 @@
+body {
+    font-family: "Lato", sans-serif;
+}
+
+.index-container {
+    height: 9%;
+    width: 100px;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #111;
+    overflow-y: hidden;
+    overflow-x: hidden;
+}
+
+.index-container a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+}
+#open_nav_button{
+    align-self: auto;
+    right: 0;
+}
+.index-container a:hover {
+    color: #f1f1f1;
+}
+
+.index-container .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+}
+.index-wrapper {
+    position: relative;
+    margin-left: 5px;
+}
+#menuList{
+    text-align: left;
+}
+
+span a {
+    background:#222;
+    color:#fff;
+    display:inline-block;
+   
+    margin:10px 10px 0 0;
+    padding:5px 10px
+}
+@media screen and (max-height: 450px) {
+  .index-container {padding-top: 15px;}
+  .index-container a {font-size: 18px;}
+}
+
+.index_item { position: relative; }
