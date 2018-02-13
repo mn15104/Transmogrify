@@ -15,23 +15,30 @@
 </head>
 <body>
 
+
+
+
 <div id="index" class="index-container">
   <div class="index-wrapper">
     <span>
       <a id="open_nav_button" style="font-size:30px;cursor:pointer" onclick="toggleNav()"> &#9776; </a>
     </span>
     <div id="index_content">
-        <a class = "index_item" id = "index-item-0" href="#">About     </a>
-        <a class = "index_item" id = "index-item-1" href="#">Services  </a>
-        <a class = "index_item" id = "index-item-2" href="#">Clients   </a>
-        <a class = "index_item" id = "index-item-3" href="#">Contact   </a>
+        <a class = "index_item" id = "index-item-0" href="#"> Home     </a>
+        <a class = "index_item" id = "index-item-1" href="#"> Explore  </a>
+        <a class = "index_item" id = "index-item-2" href="#"> Profile  </a>
     </div>
   </div>
 </div>
 
-<div id="main_content">
 
+
+
+<div id="main_content">
+    <!-- Main page to go here -->
 </div>
+
+
 <script>
 
 var nav_closed = false;
@@ -54,9 +61,7 @@ function openNav() {
       $(".index-container").animate({width:"15%"}, "slow", function(){
         slideIndexItems();
       });
-      $(".open_nav_button").animate({width:"100%"}, "slow", function(){
-
-      });
+      $(".open_nav_button").animate({width:"100%"}, "slow");
     });
 
 }
@@ -66,8 +71,7 @@ function closeNav() {
     // $("#index_content").hide();
     slideIndexItemsLeft();
     $(".index-container").animate({height:"9%"}, "slow", function(){
-      $(".index-container").animate({width:"9%"}, "slow", function(){
-      });
+      $(".index-container").animate({width:"9%"}, "slow");
     });
    
   }
@@ -88,6 +92,7 @@ function slideIndexItemsLeft(){
   }
 }
 
+closeNav();
 </script>
      
 </body>

@@ -39,9 +39,7 @@ body {
 .index-wrapper {
     position: relative;
     margin-left: 5px;
-}
-#menuList{
-    text-align: left;
+    text-align: center;
 }
 
 span a {
@@ -50,11 +48,14 @@ span a {
     display:inline-block;
    
     margin:10px 10px 0 0;
-    padding:5px 10px
 }
 @media screen and (max-height: 450px) {
   .index-container {padding-top: 15px;}
   .index-container a {font-size: 18px;}
 }
 
-.index_item { position: relative; }
+#index-content{
+    text-align:left;
+}
+
+.index_item { position: relative; left: 0;}
