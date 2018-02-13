@@ -20,79 +20,113 @@
 
 <div id="index" class="index-container">
   <div class="index-wrapper">
-    <span>
-      <a id="open_nav_button" style="font-size:30px;cursor:pointer" onclick="toggleNav()"> &#9776; </a>
+    <span class = "index-button-container" data-index-open="false">
+      <div class='index-title' id="index_button" style="font-size:30px; cursor:pointer" onclick="toggleNav()">
+          &#9776; Sidebar  
+      </div>
     </span>
     <div id="index_content">
-        <a class = "index_item" id = "index-item-0" href="#"> Home     </a>
-        <a class = "index_item" id = "index-item-1" href="#"> Explore  </a>
-        <a class = "index_item" id = "index-item-2" href="#"> Profile  </a>
+        <div class='wrapper'>
+            <div class='sidebar'>
+              <ul class='nav'>
+                <li class = "index_item" href="#">
+                  <a>Dashboard</a>
+                </li>
+                <li class = "index_item" href="#">
+                  <a>Statistics</a>
+                </li>
+                <li class = "index_item" href="#">
+                  <a class='active'>Milestones</a>
+                </li >
+                <li class = "index_item" href="#">
+                  <a>Experiments</a>
+                </li>
+                <li class = "index_item" href="#">
+                  <a>Previews</a>
+                </li>
+                <li class = "index_item" href="#">
+                  <a>Assets</a>
+                </li>
+                <li class = "index_item" href="#">
+                  <a>Profile</a>
+                </li>
+                <li class = "index_item" href="#">
+                  <a>Logout</a>
+                </li>
+              </ul>
+            </div>
+          </div>
     </div>
   </div>
 </div>
 
-
-
-
 <div id="main_content">
-    <!-- Main page to go here -->
+    
 </div>
-
 
 <script>
 
-var nav_closed = false;
+///////////Insert Main Page/////////////
+$("#main_content").load("../views/explore.html");
+////////////////////////////////////////
 
 function toggleNav(){
-   if(!nav_closed){
+   if($(".index-button-container").attr("data-index-open") === "false"){
       openNav();
-      nav_closed = true;
+      $(".index-button-container").attr("data-index-open","true");
+      $(".index-title").toggleClass("container-closed");
    }
    else {
       closeNav();
-      nav_closed = false;
+      $(".index-button-container").attr("data-index-open","false");
+      $(".index-title").toggleClass("container-closed");
    }
 }
  
 function openNav() {
-    var window_height = $(window).height(); 
-    // $("#index_content").show();
+    var window_height = $(window).height();
+
+    $("#main_content").fadeTo("slow", 0.5);
+
     $(".index-container").animate({height:window_height}, "slow", function(){
-      $(".index-container").animate({width:"15%"}, "slow", function(){
-        slideIndexItems();
+      $(".index-container").animate({width:"175px"}, "slow", function(){
+        slideIndexItemsRight();
       });
-      $(".open_nav_button").animate({width:"100%"}, "slow");
+      $(".index_button").animate({width:"100%"}, "slow");
     });
 
 }
 
 function closeNav() {
     var window_height = $(window).height(); 
-    // $("#index_content").hide();
+
+    $("#main_content").fadeTo("slow", 1);
+
     slideIndexItemsLeft();
-    $(".index-container").animate({height:"9%"}, "slow", function(){
-      $(".index-container").animate({width:"9%"}, "slow");
+    $(".index-container").animate({height:"50px"}, "slow", function(){
+      $(".index-container").animate({width:"60px"}, "slow");
     });
    
   }
 
-function slideIndexItems(){
-  var len = $("#index_content").children().length; 
-  console.log(len);
-  for(var i = 0; i < len; i++){
-    console.log("#index-item-" + i.toString());
-    $("#index-item-" + i.toString()).show("slide", "swing", i * 500);
-  }
+function slideIndexItemsRight(){
+  var len = $(".nav").children().length; 
+
+  $(".index_item").each( function(index){
+    $(this).show("slide", "swing", index * 300);
+  });
 }
 
 function slideIndexItemsLeft(){
-  var len = $("#index_content").children().length; 
-  for(var i = 0; i < len; i++){
-    $("#index-item-" + i.toString()).hide("slide", "swing", i * 500);
-  }
+  var len = $(".nav").children().length; 
+   $(".index_item").each( function(index){
+    $(this).hide("slide", "swing", index * 300);
+  });
 }
 
 closeNav();
+
+
 </script>
      
 </body>
