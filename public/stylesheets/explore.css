@@ -4,32 +4,34 @@
 }
 
 body {
-    background: var(--inset-color);
+    height: 100vh;
+    background:-webkit-linear-gradient(180deg, rgb(229, 198, 164) 21%, rgb(221, 179, 135) 53%, rgb(223, 187, 130) 78%);
+    background:-o-linear-gradient(180deg, rgb(229, 198, 164) 21%, rgb(221, 179, 135) 53%, rgb(223, 187, 130) 78%);
+    background:-moz-linear-gradient(180deg, rgb(229, 198, 164) 21%, rgb(221, 179, 135) 53%, rgb(223, 187, 130) 78%);
+    background:linear-gradient(180deg, rgb(229, 198, 164) 21%, rgb(221, 179, 135) 53%, rgb(223, 187, 130) 78%);
 }
-
+/* #4b3832 • #854442 • #fff4e6 • #3c2f2f • #be9b7b */
 /* H1 @ Title font */
 h1 { 
-    color: #272728; 
-    font-family: 'Helvetica Neue', sans-serif; 
-    font-size: 100px; 
-    font-weight: bold; 
-    letter-spacing: -1px; 
-    line-height: 1; 
+    color: #854442; 
+    font-family:Georgia,serif;
+    text-transform: none; font-weight: 100; margin-bottom: 0;
+    font-size: 50px; 
+    letter-spacing: 2px; 
+    line-height: 5; 
     text-align: center; 
+    padding-bottom: 1em;
 }
 
-.inset-text {
-    color: rgba(20, 20, 21, 0.8);
-    text-shadow: 1px 4px 6px var(--inset-color), 0 0 0 #000, 1px 4px 6px var(--inset-color);
+.container{
+    width: 80%;
 }
-::-moz-selection { background: #5af; color: #fff; text-shadow: none; }
-::selection { background: #5af; color: #fff; text-shadow: none; }
-
 
 /* Wrapper @ Wrapper around bricks container */
 .wrapper {
-    margin: 2em auto;
-    max-width: 1400px;
+    margin: 0em auto;
+    max-width: 2200px;
+    width: 100%;
 }
   
 img {
@@ -41,14 +43,14 @@ img {
 .brick-wall {
     display: flex;
     flex-flow: row wrap;
-    margin-left: -8px; /* Adjustment for the gutter */
+    margin-left: 2em; /* Adjustment for the gutter */
     counter-reset: brick;
 }
 
 .brick {
     overflow: hidden;
-    border-radius: 5px;
-    margin: 0 0 8px 8px;  /* Some Gutter */
+    /* border-radius: 5px; */
+    margin: 0 0 0px 0px;  /* Some Gutter */
     background-color: #333;
     color: white;
     position: relative;
@@ -116,6 +118,9 @@ img {
     width: 100%;
     height: 100%;
     filter: brightness(90%);
+    
+filter: grayscale(50%) sepia(0.3) brightness(150%) hue-rotate(320deg);
+-webkit-filter: grayscale(50%) sepia(0.3) brightness(150%) hue-rotate(320deg);
 }
 
 .labs-pagination {

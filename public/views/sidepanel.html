@@ -22,7 +22,37 @@
   <div class="index-wrapper">
     <span class = "index-button-container" data-index-open="false">
       <div class='index-title' id="index_button" style="font-size:30px; cursor:pointer" onclick="toggleNav()">
-          &#9776; Sidebar  
+          <span></span>
+          <span></span>
+          <span></span>
+      </div>
+      <div id='sidebar-horizontal'>
+          <ul id='nav-horizontal'>
+            <li class = "index_item_H"  href="#">
+              <a>dashboard</a>
+            </li>
+            <li class = "index_item_H" href="#">
+              <a>statistics</a>
+            </li>
+            <li class = "index_item_H" href="#">
+              <a class='active'>milestones</a>
+            </li >
+            <li class = "index_item_H" href="#">
+              <a>experiments</a>
+            </li>
+            <li class = "index_item_H" href="#">
+              <a>previews</a>
+            </li>
+            <li class = "index_item_H" href="#">
+              <a>assets</a>
+            </li>
+            <li class = "index_item_H" href="#">
+              <a>profile</a>
+            </li>
+            <li class = "index_item_H" href="#">
+              <a>logout</a>
+            </li>
+        </ul>
       </div>
     </span>
     <div id="index_content">
@@ -30,33 +60,34 @@
             <div class='sidebar'>
               <ul class='nav'>
                 <li class = "index_item" href="#">
-                  <a>Dashboard</a>
+                  <a>dashboard</a>
                 </li>
                 <li class = "index_item" href="#">
-                  <a>Statistics</a>
+                  <a>statistics</a>
                 </li>
                 <li class = "index_item" href="#">
-                  <a class='active'>Milestones</a>
+                  <a class='active'>milestones</a>
                 </li >
                 <li class = "index_item" href="#">
-                  <a>Experiments</a>
+                  <a>experiments</a>
                 </li>
                 <li class = "index_item" href="#">
-                  <a>Previews</a>
+                  <a>previews</a>
                 </li>
                 <li class = "index_item" href="#">
-                  <a>Assets</a>
+                  <a>assets</a>
                 </li>
                 <li class = "index_item" href="#">
-                  <a>Profile</a>
+                  <a>profile</a>
                 </li>
                 <li class = "index_item" href="#">
-                  <a>Logout</a>
+                  <a>logout</a>
                 </li>
-              </ul>
-            </div>
+            </ul>
           </div>
+        </div>
     </div>
+    
   </div>
 </div>
 
@@ -71,6 +102,7 @@ $("#main_content").load("../views/explore.html");
 ////////////////////////////////////////
 
 function toggleNav(){
+   $("#index_button").toggleClass('open');
    if($(".index-button-container").attr("data-index-open") === "false"){
       openNav();
       $(".index-button-container").attr("data-index-open","true");
@@ -87,14 +119,12 @@ function openNav() {
     var window_height = $(window).height();
 
     $("#main_content").fadeTo("slow", 0.5);
-
-    $(".index-container").animate({height:window_height}, "slow", function(){
-      $(".index-container").animate({width:"175px"}, "slow", function(){
-        slideIndexItemsRight();
+    slideIndexItemsRight();
+    $("#index_content").animate({height:window_height}, "slow", function(){
+      $("#index_content").animate({width:"1500px"}, "slow", function(){
       });
-      $(".index_button").animate({width:"100%"}, "slow");
     });
-
+    
 }
 
 function closeNav() {
@@ -103,8 +133,8 @@ function closeNav() {
     $("#main_content").fadeTo("slow", 1);
 
     slideIndexItemsLeft();
-    $(".index-container").animate({height:"50px"}, "slow", function(){
-      $(".index-container").animate({width:"60px"}, "slow");
+    $("#index_content").animate({height:"200px"}, "slow", function(){
+      $("#index_content").animate({width:"200px"}, "slow");
     });
    
   }
@@ -113,18 +143,22 @@ function slideIndexItemsRight(){
   var len = $(".nav").children().length; 
 
   $(".index_item").each( function(index){
-    $(this).show("slide", "swing", index * 300);
+    $(this).show("slide", "swing", index * 200);
+  });
+  $(".index_item_H").each( function(indexa){
+    $(this).hide("slide", "swing", indexa * 300);
   });
 }
 
 function slideIndexItemsLeft(){
-  var len = $(".nav").children().length; 
-   $(".index_item").each( function(index){
+
+  $(".index_item").each( function(index){
     $(this).hide("slide", "swing", index * 300);
   });
+  $(".index_item_H").each( function(indexa){
+    $(this).show("slide", "swing", indexa * 300);
+  });
 }
-
-closeNav();
 
 
 </script>
