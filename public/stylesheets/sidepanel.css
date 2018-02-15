@@ -36,7 +36,8 @@ h1{
   width: 60px;
   height: 45px;
   position: relative;
-  margin: 50px auto;
+  margin-top: 60px;
+  margin-left:50px;
   -webkit-transform: rotate(0deg);
   -moz-transform: rotate(0deg);
   -o-transform: rotate(0deg);
@@ -51,7 +52,7 @@ h1{
 #index_button span {
   display: block;
   position: absolute;
-  height: 9px;
+  height: 5px;
   width: 100%;
   background: #854442;
   border-radius: 9px;
@@ -67,6 +68,7 @@ h1{
   transition: .25s ease-in-out;
 }
 
+
 #index_button span:nth-child(1) {
   top: 0px;
   -webkit-transform-origin: left center;
@@ -76,7 +78,7 @@ h1{
 }
 
 #index_button span:nth-child(2) {
-  top: 18px;
+  top: 10px;
   -webkit-transform-origin: left center;
   -moz-transform-origin: left center;
   -o-transform-origin: left center;
@@ -84,7 +86,7 @@ h1{
 }
 
 #index_button span:nth-child(3) {
-  top: 36px;
+  top: 20px;
   -webkit-transform-origin: left center;
   -moz-transform-origin: left center;
   -o-transform-origin: left center;
@@ -113,6 +115,13 @@ h1{
   top: 39px;
   left: 8px;
 }
+
+@keyframes iconcolorchange{
+  0% {background-color: #854442;}
+  100% {background-color: #bd4242}
+}
+
+
 .index-container a {
     text-decoration: none;
     font-size: 25px;
@@ -142,7 +151,7 @@ span a {
 .index_item { 
     font-family: 42px index-font;
     position: relative; 
-    margin-top: 4%;
+    margin-top: 8%;
     text-align:left;
     left: 0;
 }
@@ -210,7 +219,7 @@ span a {
 }
 
 #sidebar-horizontal{
-  width: 200em;
+  width: 300em;
   position: absolute;
   
 }
@@ -222,7 +231,7 @@ span a {
   margin-left: 1em;
   margin-bottom: 50em;
   left: 12em;
-  top: -9em;
+  top: -6em;
   overflow: hidden;
 }
 
@@ -231,11 +240,30 @@ span a {
 }
 
 #nav-horizontal li a{
+  display: block;
   font-family: Georgia, 'Times New Roman', Times, serif;
   text-transform: none; font-weight: 100; margin-bottom: 0;
   font-size: 20px;
   color: #854442;
+  margin-top: 12px;
   text-align: center;
-  padding: 24px 60px;
+  padding: 12px 60px;
 }
 
+#nav-horizontal li a:hover {
+  background: #be9b7b;
+  color: rgb(231, 209, 181);
+  -webkit-transition:background 1s, color 1s;
+  -moz-transition:background 1s, color 1s;
+  -o-transition:background 1s, color 1s;
+  transition:background 1s, color 1s;
+
+}
+
+.nav-horizontal li a.active {
+  color: #fff4e6;
+  background:-webkit-linear-gradient(180deg, rgb(165, 104, 38) 21%, rgb(151, 97, 39) 53%, rgb(155, 103, 20) 78%);
+  background:-o-linear-gradient(180deg, rgb(165, 104, 38) 21%, rgb(151, 97, 39) 53%, rgb(155, 103, 20) 78%);
+  background:-moz-linear-gradient(180deg, rgb(165, 104, 38) 21%, rgb(151, 97, 39) 53%, rgb(155, 103, 20) 78%);
+  background:linear-gradient(180deg, rgb(165, 104, 38) 21%, rgb(151, 97, 39) 53%, rgb(155, 103, 20) 78%);
+}

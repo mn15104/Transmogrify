@@ -77,7 +77,7 @@
                 <li class = "index_item" href="#">
                   <a>assets</a>
                 </li>
-                <li class = "index_item" href="#">
+                <li class = "index_item" href="http://localhost:3000/profile">
                   <a>profile</a>
                 </li>
                 <li class = "index_item" href="#">
@@ -98,67 +98,83 @@
 <script>
 
 ///////////Insert Main Page/////////////
-$("#main_content").load("../views/explore.html");
+
 ////////////////////////////////////////
+  $(document).ready(function(){
+    $("#main_content").load("../views/explore.html");
+    toggleNav();
 
-function toggleNav(){
-   $("#index_button").toggleClass('open');
-   if($(".index-button-container").attr("data-index-open") === "false"){
-      openNav();
-      $(".index-button-container").attr("data-index-open","true");
-      $(".index-title").toggleClass("container-closed");
-   }
-   else {
-      closeNav();
-      $(".index-button-container").attr("data-index-open","false");
-      $(".index-title").toggleClass("container-closed");
-   }
-}
- 
-function openNav() {
-    var window_height = $(window).height();
+    // $(".index_item, .index_item_H").click(function(event){
+    //     event.preventDefault();
+    //     linkLocation = this.href;
+    //     $("body").fadeOut(2000, redirectPage(linkLocation));      
+    // });
+         
+    // function redirectPage(linkLocation) {
+    //     window.location = linkLocation;
+    // }
+  });
 
-    $("#main_content").fadeTo("slow", 0.5);
-    slideIndexItemsRight();
-    $("#index_content").animate({height:window_height}, "slow", function(){
-      $("#index_content").animate({width:"1500px"}, "slow", function(){
-      });
-    });
+  function toggleNav(){
+      $("#index_button").toggleClass('open');
+      if($(".index-button-container").attr("data-index-open") === "false"){
+          $(".index-title").children("span").stop().animate({backgroundColor:'#854442'}, 300);
+          openNav();
+          $(".index-button-container").attr("data-index-open","true");
+          $(".index-title").toggleClass("container-closed");
+      }
+      else {
+          $(".index-title").children("span").stop().animate({backgroundColor:'#bd4242'}, 100);
+          closeNav();
+          $(".index-button-container").attr("data-index-open","false");
+          $(".index-title").toggleClass("container-closed");
+      }
+    }
     
-}
+    function openNav() {
+        var window_height = $(window).height();
 
-function closeNav() {
-    var window_height = $(window).height(); 
+        $("#main_content").fadeTo("slow", 0.5);
+        slideIndexItemsRight();
+        $("#index_content").animate({height:window_height}, "medium", function(){
+          $("#index_content").animate({width:"1500px"}, "medium", function(){
+       
+          });
+        });
+    }
 
-    $("#main_content").fadeTo("slow", 1);
+    function closeNav() {
+        var window_height = $(window).height(); 
+        slideIndexItemsLeft();
+        $("#main_content").fadeTo("slow", 1);
+        $("#index_content").animate({height:"200px"}, "medium", function(){
+          $("#index_content").animate({width:"200px"}, "medium", function(){
+           
+          });
+        });
+      
+      }
 
-    slideIndexItemsLeft();
-    $("#index_content").animate({height:"200px"}, "slow", function(){
-      $("#index_content").animate({width:"200px"}, "slow");
-    });
-   
-  }
+    function slideIndexItemsRight(){
+      var len = $(".nav").children().length; 
 
-function slideIndexItemsRight(){
-  var len = $(".nav").children().length; 
+      $(".index_item").each( function(index){
+        $(this).show("slide", "swing", index * 300);
+      });
+      $(".index_item_H").each( function(indexa){
+        $(this).hide("slide", "swing", indexa * 200);
+      });
+    }
 
-  $(".index_item").each( function(index){
-    $(this).show("slide", "swing", index * 200);
-  });
-  $(".index_item_H").each( function(indexa){
-    $(this).hide("slide", "swing", indexa * 300);
-  });
-}
+    function slideIndexItemsLeft(){
 
-function slideIndexItemsLeft(){
-
-  $(".index_item").each( function(index){
-    $(this).hide("slide", "swing", index * 300);
-  });
-  $(".index_item_H").each( function(indexa){
-    $(this).show("slide", "swing", indexa * 300);
-  });
-}
+      $(".index_item").each( function(index){
+        $(this).hide("slide", "swing", index * 200);
+      });
+      $(".index_item_H").each( function(indexa){
+        $(this).show("slide", "swing", indexa * 200);
+      });
+    }
 
 
 </script>
