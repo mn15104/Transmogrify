@@ -1,5 +1,155 @@
+element{
+    --filterVal: 180;
+}
+.background{
+    top: 0;
+    position: fixed;
+    background-image:url(https://i.imgur.com/hqEzvRn.jpg);
+    -webkit-filter: hue-rotate(123deg);
+    -moz-filter: hue-rotate(123deg);
+    -o-filter: hue-rotate(123deg);
+    -ms-filter: hue-rotate(123deg);
+    filter: hue-rotate(123deg);
+    width: 100vw;
+    height: 100vh;
+}
+.click{
+    background: url('https://cdn2.digitalartsonline.co.uk/cmsdata/slideshow/3513552/polybreno_1500.jpg');
+    background-size:contain;
+    position: relative;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+    -webkit-transition:cubic-bezier(.34,.43,0,1.02) 0.5s;
+    -moz-transition:cubic-bezier(.34,.43,0,1.02) 0.5s;
+    transition:cubic-bezier(.34,.43,0,1.02) 0.5s;
+    box-shadow: 0px 0px 0px 2pt transparent;
+    border: 0px solid #FFF;
+    margin: auto;
+    cursor: pointer;
+    width:120px;
+    height:120px;
+}
+.Profile{
+    margin-left:auto;
+    z-index: 9999;
+    margin-right:auto;
+    text-align:center;
+    -webkit-transition:cubic-bezier(.34,.43,0,1.02) 0.5s;
+    -moz-transition:cubic-bezier(.34,.43,0,1.02) 0.5s;
+    transition:cubic-bezier(.34,.43,0,1.02) 0.5s;
+    width:300px;
+    height:200px;
+    border-radius:50%;
+    margin-top:34vh;
+}
+.clickProfile{
+    margin-left:auto;
+    border-top-left-radius:20px;
+    border-top-right-radius:20px;
+    margin-right:auto;
+    background:#191919;
+    text-align:center;
+    padding:20px 0px 20px 0px;
+    -webkit-transition:cubic-bezier(.34,.43,0,1.02) 0.5s;
+    -moz-transition:cubic-bezier(.34,.43,0,1.02) 0.5s;
+    transition:cubic-bezier(.34,.43,0,1.02) 0.5s;
+    width:300px;
+    height:120px;
+    margin-top:24vh;
+    }
+.Img{
+    background: url('https://cdn2.digitalartsonline.co.uk/cmsdata/slideshow/3513552/polybreno_1500.jpg');
+    background-size:contain;
+    z-index: 9999;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+    -webkit-transition:cubic-bezier(.34,.43,0,1.02) 0.2s;
+    -moz-transition:cubic-bezier(.34,.43,0,1.02) 0.2s;
+    transition:cubic-bezier(.34,.43,0,1.02) 0.2s;
+    box-shadow: 0px 0px 0px 2pt transparent;
+    border: 0px solid #FFF;
+    margin: auto;
+    cursor: pointer;
+    width:200px;
+    height:200px;
+    margin: 0;
+    display: block;
+    position: absolute;
+    backface-visibility: hidden;
+}
+.container { 
+    width:200px;
+    height:200px;
+    /* position: relative; */
+    perspective: 800px;
+}
+#card{
+    width: 100%;
+    height: 100%;
+    left:45vw;
+    position: absolute;
+    transform-origin: right center;
+    transform-style: preserve-3d;
+    transition: transform 1s;
+}
+#card #image1 {
+    
+}
+#card #image2 {
+    transform: rotateY( 180deg );
+}
+#card.flipped {
+    transform: translateX( -100% ) rotateY( -180deg );
+}
 
-html {
-    /*If you had a black or close to black background*/
-    background-color: #D75848;
+
+#sidebar-horizontal{
+    margin-top:9em;
+    width: 300em;
+    position: absolute;
+}
+  
+#nav-horizontal {
+    background: rgba(184, 55, 184, 0.111);
+    position: absolute;
+    float: left;
+    list-style-type: none;
+    margin-bottom: 50em;
+    left: 12em;
+    top: -6em;
+    overflow: hidden;
+}
+  
+#nav-horizontal li{
+    float: left;    
+}
+
+#nav-horizontal li a{
+    display: block;
+    font-family: Georgia, serif, bold;
+    text-transform: none; font-weight: 100; margin-bottom: 0;
+    font-size: 20px;
+    color: #D7B148;
+    margin-top: 0px;
+    text-align: center;
+    padding: 12px 25px;
+}
+
+#nav-horizontal li a:hover {
+    background: #be9b7b;
+    color: rgb(231, 209, 181);
+    -webkit-transition:background 1s, color 1s;
+    -moz-transition:background 1s, color 1s;
+    -o-transition:background 1s, color 1s;
+    transition:background 1s, color 1s;
+}
+
+.nav-horizontal li a.active {
+    color: #fff4e6;
+    background:-webkit-linear-gradient(180deg, rgb(165, 104, 38) 21%, rgb(151, 97, 39) 53%, rgb(155, 103, 20) 78%);
+    background:-o-linear-gradient(180deg, rgb(165, 104, 38) 21%, rgb(151, 97, 39) 53%, rgb(155, 103, 20) 78%);
+    background:-moz-linear-gradient(180deg, rgb(165, 104, 38) 21%, rgb(151, 97, 39) 53%, rgb(155, 103, 20) 78%);
+    background:linear-gradient(180deg, rgb(165, 104, 38) 21%, rgb(151, 97, 39) 53%, rgb(155, 103, 20) 78%);
 }

@@ -18,16 +18,76 @@
     <link rel="stylesheet" type="text/css" media="screen" href="../stylesheets/profile.css">
     <script src="https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.js"></script>
 </head>
-
 <body>
+    <a class = "background"></a>
+    <section class="container">
+        <div class="ACon" id="card">
+            <div class="Profile">
+                <div class="Img" id="image1">
+                    <span><img /></span>
+                </div>
+                <div class="Img" id = "image2">
+                    <span><img /></span>
+                </div>
+                <div id='sidebar-horizontal'>
+                        <ul id='nav-horizontal'>
+                          <li class = "index_item_H"  href="#">
+                            <a>dashboard</a>
+                          </li>
+                          <li class = "index_item_H" href="#">
+                            <a>statistics</a>
+                          </li>
+                          <li class = "index_item_H" href="#">
+                            <a class='active'>milestones</a>
+                          </li >
+                          <li class = "index_item_H" href="#">
+                            <a>experiments</a>
+                          </li>
+                          <li class = "index_item_H" href="#">
+                            <a>previews</a>
+                          </li>
+                          <li class = "index_item_H" href="#">
+                            <a>assets</a>
+                          </li>
+                          <li class = "index_item_H" href="#">
+                            <a>profile</a>
+                          </li>
+                          <li class = "index_item_H" href="#">
+                            <a>logout</a>
+                          </li>
+                      </ul>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    hello
+
+<script src="../javascripts/triangulate.min.js"></script>
 <script>
-
-    $(document).ready(function() {
-        $('body').fadeIn(1000).removeClass('hidden');
+    $(document).ready(function(){
+    var $Menu = $('.Img');
+    $("#sidebar-horizontal").hide();
+    $('.Img').hide();
+    $('.Img').fadeIn("slow");
+    $('#card').toggleClass("flipped");
+    $('.Img').mouseenter(function() {
+        $('.PopUp').css('opacity', '1');
+        $('.PopUp').css('margin-top', '20px');
     });
-
+    $('.Img').click(function() {
+        $("#card").toggleClass("flipped", function(){
+            $(".ACon").css({"margin-right":"2000px"}).animate({"left":"0px"}, "slow");
+        });
+        $("#sidebar-horizontal").fadeIn("slow");
+        var margin = "-2000px";
+        console.log(left);
+        
+    });
+    $('.Img').mouseleave(function() {
+        $('.PopUp').css('opacity', '0');
+        $('.PopUp').css('margin-top', '0px');
+    })});
+    
 </script>
 
 </body>
