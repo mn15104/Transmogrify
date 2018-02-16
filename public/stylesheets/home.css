@@ -92,7 +92,8 @@ div.OMC_post_input {
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    width: 30%;
+    width: 40vh;
+    height: 40vh;
     font-size: 16px;
     /* border: 2px solid var(--colour4); */
     /* border-radius: 10px; */
@@ -125,6 +126,20 @@ div.OMC_post_input {
     background-color: var(--colour2);
 }
 
+.button-help {
+    background-color: var(--colour5);
+    padding: 2px 2px;
+    position: absolute;;
+    /* text-align: right; */
+    top: 15px;
+    right: 15px;
+    display: inline-block;
+    width: 5vh;
+    height: 5vh;
+    font-size: 16px;
+    /* border: 2px solid var(--colour4); */
+    border-radius: 25px;
+}
 
 /* Add animation (fade in the popup) */
 @-webkit-keyframes fadeIn {
