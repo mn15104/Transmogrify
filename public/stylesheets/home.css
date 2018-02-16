@@ -1,15 +1,21 @@
 /* Global Colours */
 :root {
-  --colour1: #E5E4E2;
+  /* --colour1: #E5E4E2;
   --colour2: #8DC6EF;
-  --colour3: #659EC7;/* Light Blue */
+  --colour3: #659EC7;
   --colour4: #2B65EC;
-  --colour5: #000000;
+  --colour5: #000000; */
+  --colour1: #0C090A; /* Black */
+  --colour2: #BCC6CC; /* Silver */
+  --colour3: #EBF4FA; /* Light Grey */
+  --colour4: #FAFFFF; /* Off White */
+  --colour5: #79BAEC; /* Blue */
+  --colour6: #79BAFC; /* Blue */
 }
 
 body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-  background-color: var(--colour1);
+  background-color: var(--colour4);
 }
 
 
@@ -19,7 +25,7 @@ body {
 }
 .jumbotron {
   text-align: center;
-  background-color: var(--colour1);
+  background-color: var(--colour4);
 }
 .button-default {
   width: 100px;
@@ -94,16 +100,16 @@ div.OMC_post_input {
 .button:hover {
     -webkit-transition: initial;
     transition: initial;
-    background-color: var(--colour1);
-    color: var(--colour4);
+    background-color: var(--colour3);
+    color: var(--colour5);
 }
 .gradient {
-    background-image: linear-gradient(to right, var(--colour2) 0%, var(--colour3) 100%) ; /* Light Blue */
+    background-image: linear-gradient(to right, var(--colour5) 0%, var(--colour6) 100%) ; /* Light Blue */
 }
 
 
 .button-arrow {
-    background-color: var(--colour1); /* Light Blue */
+    background-color: var(--colour4); /* Light Blue */
     border: none;
     color: var(--colour1);
     text-align: center;
