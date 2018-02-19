@@ -61,6 +61,16 @@ div.OMC_post_input {
   display: block;
   margin: 0 auto;
 }
+placement1 {
+    position: relative;
+    top: 5px;
+}
+placement2 {
+    position: relative;
+    top: 25%;
+}
+
+
 
 /* Popup container - can be anything you want */
 .col-cell .popup {
@@ -75,6 +85,17 @@ div.OMC_post_input {
   -ms-user-select: none;
   user-select: none;
 }
+
+/*Filter styles*/
+.saturate { filter: saturate(3); }
+.grayscale { filter: grayscale(100%); }
+.contrast { filter: contrast(160%); }
+.brightness { filter: brightness(0.25); }
+.blur { filter: blur(3px); }
+.invert { filter: invert(100%); }
+.sepia { filter: sepia(100%); }
+.huerotate { filter: hue-rotate(180deg); }
+.rss.opacity { filter: opacity(50%); }
 
 
 .buttonRow {
@@ -95,8 +116,8 @@ div.OMC_post_input {
     width: 40vh;
     height: 40vh;
     font-size: 16px;
-    /* border: 2px solid var(--colour4); */
-    /* border-radius: 10px; */
+    border: 2px solid var(--colour4);
+    border-radius: 10px;
 }
 .button:hover {
     -webkit-transition: initial;
@@ -116,14 +137,20 @@ div.OMC_post_input {
     text-align: center;
     text-decoration: none;
     display: inline-block;
+    position: relative;
     width: 15%;
+    height: 15%;
+    top: 10vh;
     font-size: 16px;
     border-radius: 10px;
+
 }
 .button-arrow:hover {
     -webkit-transition: initial;
     transition: initial;
-    background-color: var(--colour2);
+    filter: invert(30%);
+    /* background-color: var(--colour2); */
+
 }
 
 .button-help {
@@ -140,6 +167,11 @@ div.OMC_post_input {
     /* border: 2px solid var(--colour4); */
     border-radius: 25px;
 }
+pulsing {
+    -webkit-animation-name: pulse;
+    -webkit-animation-duration: 3s;
+    -webkit-animation-iteration-count: infinite;
+}
 
 /* Add animation (fade in the popup) */
 @-webkit-keyframes fadeIn {
@@ -150,4 +182,10 @@ div.OMC_post_input {
 @keyframes fadeIn {
   from {opacity: 0;}
   to {opacity:1 ;}
+}
+
+@-webkit-keyframes pulse {
+    0% { filter: invert(0%); }
+    50% { filter: invert(50%);}
+    100% { filter: invert(0%);}
 }
