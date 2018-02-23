@@ -37,24 +37,6 @@
                           <li class = "index_item_H" href="#">
                             <a>statistics</a>
                           </li>
-                          <li class = "index_item_H" href="#">
-                            <a class='active'>milestones</a>
-                          </li >
-                          <li class = "index_item_H" href="#">
-                            <a>experiments</a>
-                          </li>
-                          <li class = "index_item_H" href="#">
-                            <a>previews</a>
-                          </li>
-                          <li class = "index_item_H" href="#">
-                            <a>assets</a>
-                          </li>
-                          <li class = "index_item_H" href="#">
-                            <a>profile</a>
-                          </li>
-                          <li class = "index_item_H" href="#">
-                            <a>logout</a>
-                          </li>
                       </ul>
                 </div>
             </div>
@@ -76,7 +58,8 @@
     });
     $('.Img').click(function() {
         $("#card").toggleClass("flipped", function(){
-            $(".ACon").css({"margin-right":"2000px"}).animate({"left":"0px"}, "slow");
+            $(".ACon").css({"margin-right":"2000px"}).animate({"left":"10px"}, "slow");
+            $(".ACon").css({"margin-right":"2000px"}).animate({"top":"-30vh"}, "slow");
         });
         $("#sidebar-horizontal").fadeIn("slow");
         var margin = "-2000px";

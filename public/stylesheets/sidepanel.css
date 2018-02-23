@@ -6,13 +6,19 @@
     src: url('https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
 }
 
-body {
-  font: 600 12px/1 'Open Sans', sans-serif;
-  color: rgb(44, 36, 36);
-  background: #333;
-  overflow-x: hidden;
-}
 
+.background{
+  top: 0;
+  position: fixed;
+  background-image:url("../images/background.jpg");
+  -webkit-filter: hue-rotate(20deg);
+  -moz-filter: hue-rotate(20deg);
+  -o-filter: hue-rotate(20deg);
+  -ms-filter: hue-rotate(20deg);
+  filter: hue-rotate(20deg);
+  width: 100vw;
+  height: 100vh;
+}
 h1{
   color: #854442; 
   font-family:Georgia,serif;

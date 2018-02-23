@@ -12,7 +12,6 @@ body {
   background-color: var(--colour1);
 }
 
-
 @font-face{
   font-family: BebasNeue;
   src: url("path/BebasNeue Bold.otf") format("opentype");
