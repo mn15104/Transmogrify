@@ -8,15 +8,15 @@
 
 
 .background{
-  top: 0;
-  position: fixed;
   background-image:url("../images/background.jpg");
   -webkit-filter: hue-rotate(20deg);
   -moz-filter: hue-rotate(20deg);
   -o-filter: hue-rotate(20deg);
   -ms-filter: hue-rotate(20deg);
   filter: hue-rotate(20deg);
-  width: 100vw;
+  margin: 0;
+  padding:0;
+  width: 100%;
   height: 100vh;
 }
 h1{
@@ -36,6 +36,40 @@ h1{
     z-index: 1;
     top: 10em;
     left: 2em;
+}
+.site {
+  height: 100vh;
+  width: 100vw;
+}
+.container {
+  position: relative;
+  z-index: 2;
+  width: 100vw;
+  height: 100%;
+  -webkit-transform-style : preserve-3d;
+  -moz-transform-style    : preserve-3d;
+  -o-transform-style      : preserve-3d;
+  -ms-transform-style     : preserve-3d;
+  transform-style         : preserve-3d;
+}
+.main_content {
+  margin: 0;
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  
+  -webkit-transform-style : preserve-3d;
+  -moz-transform-style    : preserve-3d;
+  -o-transform-style      : preserve-3d;
+  -ms-transform-style     : preserve-3d;
+  transform-style         : preserve-3d;
+}
+.page-content {
+  position: absolute;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
 }
 
 #index_button {
