@@ -20,7 +20,19 @@
     src: url('../fonts/oswald/Oswald-Bold.ttf'); 
   }
   
-  
+  @import "compass/css3";
+
+    @include keyframes(bounce) {
+      0%, 20%, 50%, 80%, 100% {
+        @include transform(translateY(0));
+      }
+      40% {
+        @include transform(translateY(-30px));
+      }
+      60% {
+        @include transform(translateY(-15px));
+      }
+  }
   
   /*//////////////////////////////////////////////////////////////////
   [ RESTYLE TAG ]*/
@@ -32,7 +44,12 @@
   }
   
   body, html {
-      height: 100%;
+      position: absolute;
+      top: 10%;    
+      left:0;
+      right:0;
+      margin:0 auto;
+      width:100%;min-width:1500px;max-width:2000px;
       font-family: Oswald-Regular, sans-serif;
   }
   
@@ -57,7 +74,7 @@
       text-decoration: none;
     color: #111111;
   }
-  
+
   /*---------------------------------------------*/
   h1,h2,h3,h4,h5,h6 {
       margin: 0px;
@@ -167,13 +184,14 @@
   [ login ]*/
   
   .limiter {
-    width: 100%;
+    width: 50%;
     margin: 0 auto;
+    margin-top:10vh;
   }
   
-  .container-login100 {
+  .container-login {
     width: 100%;  
-    min-height: 100vh;
+    min-height: 50vh;
     display: -webkit-box;
     display: -webkit-flex;
     display: -moz-box;
@@ -187,7 +205,7 @@
     background-color: #e6e6e6;
   }
   
-  .wrap-login100 {
+  .wrap-login {
     width: 320px;
     background: transparent;
     border-radius: 0px;
@@ -197,16 +215,16 @@
   /*==================================================================
   [ Form ]*/
   
-  .login100-form {
+  .login-form {
     width: 100%;
     position: relative;
   }
   
-  .login100-form-title {
+  .login-form-title {
     font-family: Oswald-Medium;
     font-size: 30px;
     color: #43383e;
-    line-height: 1.2;
+    line-height: 1;
     text-align: center;
   
     display: block;
@@ -247,15 +265,16 @@
   /*------------------------------------------------------------------
   [ Input ]*/
   
-  .wrap-input100 {
+  .wrap-input {
     width: 100%;
     background-color: #fff;
     border-radius: 31px;
     position: relative;
+    margin:5px;
     z-index: 1;
   }
   
-  .input100 {
+  .input {
     font-family: Oswald-Medium;
     font-size: 16px;
     color: #43383e;
@@ -273,8 +292,73 @@
   
   /*------------------------------------------------------------------
   [ Focus Input ]*/
+  .arrow-container{
+    position: relative;
+    right: -90%;
+    float: right;
+  }
+ 
+  @-moz-keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+      -moz-transform: translateX(0);
+      transform: translateX(0);
+    }
+    40% {
+      -moz-transform: translateX(-30px);
+      transform: translateX(-30px);
+    }
+    60% {
+      -moz-transform: translateX(-15px);
+      transform: translateX(-15px);
+    }
+  }
+  @-webkit-keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+      -webkit-transform: translateX(0);
+      transform: translateX(0);
+    }
+    40% {
+      -webkit-transform: translateX(-30px);
+      transform: translateX(-30px);
+    }
+    60% {
+      -webkit-transform: translateX(-15px);
+      transform: translateX(-15px);
+    }
+  }
+  @keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+      -moz-transform: translateX(0);
+      -ms-transform: translateX(0);
+      -webkit-transform: translateX(0);
+      transform: translateX(0);
+    }
+    40% {
+      -moz-transform: translateX(-30px);
+      -ms-transform: translateX(-30px);
+      -webkit-transform: translateX(-30px);
+      transform: translateX(-30px);
+    }
+    60% {
+      -moz-transform: translateX(-15px);
+      -ms-transform: translateX(-15px);
+      -webkit-transform: translateX(-15px);
+      transform: translateX(-15px);
+    }
+  }
+
+  .arrow {
+    position: absolute;
+    width: 40px;
+    background-size: contain;
+  }
+  .bounce {
+    -moz-animation: bounce 2s infinite;
+    -webkit-animation: bounce 2s infinite;
+    animation: bounce 2s infinite;
+  }
   
-  .focus-input100 {
+  .focus-input {
     display: block;
     position: absolute;
     z-index: -1;
@@ -297,7 +381,7 @@
     transition: all 0.4s;
   }
   
-  .input100:focus + .focus-input100 {
+  .input:focus + .focus-input {
     width: calc(100% + 20px);
   }
   
@@ -335,7 +419,7 @@
   
   /*------------------------------------------------------------------
   [ Button ]*/
-  .container-login100-form-btn {
+  .container-login-form-btn {
     width: 100%;
     display: -webkit-box;
     display: -webkit-flex;
@@ -346,7 +430,7 @@
     justify-content: center;
   }
   
-  .login100-form-btn {
+  .login-form-btn {
     display: -webkit-box;
     display: -webkit-flex;
     display: -moz-box;
@@ -374,7 +458,7 @@
     z-index: 1;
   }
   
-  .login100-form-btn::before {
+  .login-form-btn::before {
     content: "";
     display: block;
     position: absolute;
@@ -398,7 +482,7 @@
     transition: all 0.4s;
   }
   
-  .login100-form-btn:hover:before {
+  .login-form-btn:hover:before {
     background-color: #222222;
     width: calc(100% + 20px);
   }
@@ -479,7 +563,7 @@
   /*//////////////////////////////////////////////////////////////////
   [ Responsive ]*/
   @media (max-width: 576px) {
-    .wrap-login100 {
+    .wrap-login {
       padding-top: 20px
     }
   }
