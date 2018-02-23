@@ -3,13 +3,8 @@
     --inset-color: rgb(193, 195, 199);
 }
 
-body {
-    height: 100vh;
-    background:-webkit-linear-gradient(180deg, rgb(229, 198, 164) 21%, rgb(221, 179, 135) 53%, rgb(223, 187, 130) 78%);
-    background:-o-linear-gradient(180deg, rgb(229, 198, 164) 21%, rgb(221, 179, 135) 53%, rgb(223, 187, 130) 78%);
-    background:-moz-linear-gradient(180deg, rgb(229, 198, 164) 21%, rgb(221, 179, 135) 53%, rgb(223, 187, 130) 78%);
-    background:linear-gradient(180deg, rgb(229, 198, 164) 21%, rgb(221, 179, 135) 53%, rgb(223, 187, 130) 78%);
-}
+
+  
 /* #4b3832 • #854442 • #fff4e6 • #3c2f2f • #be9b7b */
 /* H1 @ Title font */
 h1 { 
@@ -19,6 +14,7 @@ h1 {
     font-size: 50px; 
     letter-spacing: 2px; 
     line-height: 5; 
+    
     text-align: center; 
     padding-bottom: 1em;
 }
@@ -51,7 +47,6 @@ img {
     overflow: hidden;
     /* border-radius: 5px; */
     margin: 0 0 0px 0px;  /* Some Gutter */
-    background-color: #333;
     color: white;
     position: relative;
 }
@@ -118,9 +113,8 @@ img {
     width: 100%;
     height: 100%;
     filter: brightness(90%);
-    
-filter: grayscale(50%) sepia(0.3) brightness(150%) hue-rotate(320deg);
--webkit-filter: grayscale(50%) sepia(0.3) brightness(150%) hue-rotate(320deg);
+    filter: grayscale(50%) sepia(0.3) brightness(150%) hue-rotate(320deg);
+    -webkit-filter: grayscale(50%) sepia(0.3) brightness(150%) hue-rotate(320deg);
 }
 
 .labs-pagination {
@@ -137,7 +131,6 @@ filter: grayscale(50%) sepia(0.3) brightness(150%) hue-rotate(320deg);
   
 .labs-page:hover,
 .labs-page--current {
-    background-color: #333;
     color: rgba(255, 255, 255, .75);
 }
   
