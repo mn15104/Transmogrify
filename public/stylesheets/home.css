@@ -1,16 +1,11 @@
 /* Global Colours */
 :root {
-  /* --colour1: #E5E4E2;
-  --colour2: #8DC6EF;
-  --colour3: #659EC7;
-  --colour4: #2B65EC;
-  --colour5: #000000; */
   --colour1: #0C090A; /* Black */
   --colour2: #BCC6CC; /* Silver */
   --colour3: #EBF4FA; /* Light Grey */
   --colour4: #FAFFFF; /* Off White */
   --colour5: #79BAEC; /* Blue */
-  --colour6: #79BAFC; /* Blue */
+  --colour6: #BEEAF8; /* Lighter Blue */
 }
 
 body {
@@ -125,7 +120,7 @@ placement2 {
     color: var(--colour5);
 }
 .gradient {
-    background-image: linear-gradient(to right, var(--colour5) 0%, var(--colour6) 100%) ; /* Light Blue */
+    background-image: linear-gradient(to right, var(--colour5) 0%, var(--colour5) 100%) ; /* Light Blue */
 }
 
 
@@ -153,8 +148,8 @@ placement2 {
 }
 
 .button-help {
-    background-color: var(--colour5);
-    padding: 2px 2px;
+    /* background-color: var(--colour5); */
+    /* padding: 2px 2px; */
     position: absolute;;
     /* text-align: right; */
     top: 15px;
@@ -164,7 +159,7 @@ placement2 {
     height: 5vh;
     font-size: 16px;
     /* border: 2px solid var(--colour4); */
-    border-radius: 25px;
+    /* border-radius: 25px; */
 }
 pulsing {
     -webkit-animation-name: pulse;

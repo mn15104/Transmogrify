@@ -6,6 +6,22 @@
     src: url('https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
 }
 
+/* Global Colour */
+:root {
+    --colour1: #0C090A; /* Black */
+    --colour2: #BCC6CC; /* Silver */
+    --colour3: #EBF4FA; /* Light Grey */
+    --colour4: #FAFFFF; /* Off White */
+    --colour5: #79BAEC; /* Blue */
+    --colour6: #BEEAF8; /* Lighter Blue */
+}
+
+body {
+  font: 600 12px/1 'Open Sans', sans-serif;
+  color: rgb(44, 36, 36);
+  /* background: #333; */
+  overflow-x: hidden;
+}
 
 .background{
   top: 0;
@@ -20,17 +36,17 @@
   height: 100vh;
 }
 h1{
-  color: #854442; 
+  color: #854442;
   font-family:Georgia,serif;
   text-transform: none; font-weight: 100; margin-bottom: 0;
-  font-size: 50px; 
-  letter-spacing: 2px; 
-  line-height: 5; 
-  text-align: center; 
+  font-size: 50px;
+  letter-spacing: 2px;
+  line-height: 5;
+  text-align: center;
 }
 
 .index-container {
-    height: 7%; 
+    height: 7%;
     width: 150px;
     position: fixed;
     z-index: 1;
@@ -151,12 +167,12 @@ span a {
 }
 
 #index-content{
-    position: relative; 
+    position: relative;
 }
 
-.index_item { 
+.index_item {
     font-family: 42px index-font;
-    position: relative; 
+    position: relative;
     margin-top: 8%;
     text-align:left;
     left: 0;
@@ -227,7 +243,7 @@ span a {
 #sidebar-horizontal{
   width: 300em;
   position: absolute;
-  
+
 }
 
 #nav-horizontal {

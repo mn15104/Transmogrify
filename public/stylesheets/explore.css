@@ -1,26 +1,44 @@
 
 :root {
     --inset-color: rgb(193, 195, 199);
+
+    --colour1: #0C090A; /* Black */
+    --colour2: #BCC6CC; /* Silver */
+    --colour3: #EBF4FA; /* Light Grey */
+    --colour4: #FAFFFF; /* Off White */
+    --colour5: #79BAEC; /* Blue */
+    --colour6: #BEEAF8; /* Lighter Blue */
 }
 
-
-  
+body {
+    /* height: 100vh; */
+    background: var(--colour4);
+    /* background:-webkit-linear-gradient(180deg, rgb(229, 198, 164) 21%, rgb(221, 179, 135) 53%, rgb(223, 187, 130) 78%);
+    background:-o-linear-gradient(180deg, rgb(229, 198, 164) 21%, rgb(221, 179, 135) 53%, rgb(223, 187, 130) 78%);
+    background:-moz-linear-gradient(180deg, rgb(229, 198, 164) 21%, rgb(221, 179, 135) 53%, rgb(223, 187, 130) 78%);
+    background:linear-gradient(180deg, rgb(229, 198, 164) 21%, rgb(221, 179, 135) 53%, rgb(223, 187, 130) 78%); */
+}
 /* #4b3832 • #854442 • #fff4e6 • #3c2f2f • #be9b7b */
 /* H1 @ Title font */
-h1 { 
-    color: #854442; 
-    font-family:Georgia,serif;
+
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+
+h1 {
+    /* color: #854442; */
+    font-family:'Open Sans';
     text-transform: none; font-weight: 100; margin-bottom: 0;
-    font-size: 50px; 
-    letter-spacing: 2px; 
-    line-height: 5; 
-    
-    text-align: center; 
+    font-size: 50px;
+    letter-spacing: 2px;
+    /* line-height: 5; */
+    text-align: center;
     padding-bottom: 1em;
 }
 
 .container{
+    margin-left: auto;
+    margin-right: auto;
     width: 80%;
+    align-content: center;
 }
 
 /* Wrapper @ Wrapper around bricks container */
@@ -29,12 +47,97 @@ h1 {
     max-width: 2200px;
     width: 100%;
 }
-  
+
 img {
     vertical-align: middle;
     max-width: 100%;
 }
-  
+
+/* Josh's code */
+.pair-wall {
+    display: flex;
+    position: relative;
+    /* background: var(--colour2); */
+    flex-flow: row wrap;
+    justify-content: center;
+    align-items: center;
+    align-content: flex-start;
+}
+
+.pair-border {
+    position: relative;
+    width: 18%;
+    margin-left: 2%;
+    margin-right: 2%;
+    text-align: center;
+    /* border: 1px solid black; */
+}
+
+.pair-title {
+    position: absolute;
+    font-size: small;
+    top: 6px;
+    width: 100%
+}
+.pair-info {
+    position: absolute;
+    font-size: small;
+    bottom: 6px;
+    width: 100%
+}
+.pair-image {
+    position: absolute;
+    left: 6%;
+    width:88%;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 0.7;
+    -webkit-animation-name: in-focus-reverse;
+    -webkit-animation-duration: 1s;
+}
+.pair-audio {
+    position: absolute;
+    left: 6%;
+    width:88%;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 0.3;
+    -webkit-animation-name: out-focus-reverse;
+    -webkit-animation-duration: 1s;
+}
+.pair-border:hover .pair-image{
+    -webkit-animation-name: in-focus;
+    -webkit-animation-duration: 1s;
+    /* 0% { opacity: 0.7;}
+    100% {opacity: 1.0;} */
+}
+.pair-border:hover .pair-audio{
+    -webkit-animation-name: out-focus;
+    -webkit-animation-duration: 1s;
+    /* 0% { opacity: 0.3;}
+    100% {opacity: 0.0;} */
+}
+
+@-webkit-keyframes in-focus {
+0% { opacity: 0.7;}
+100% {opacity: 1.0;}
+}
+@-webkit-keyframes out-focus {
+    0% { opacity: 0.3;}
+    100% {opacity: 0.0;}
+}
+@-webkit-keyframes in-focus-reverse {
+0% { opacity: 1.0;}
+100% {opacity: 0.7;}
+}
+@-webkit-keyframes out-focus-reverse {
+    0% { opacity: 0.0;}
+    100% {opacity: 0.3;}
+}
+
+
+
+/* Min's Code */
 /* Brick-wall @ Brick container */
 .brick-wall {
     display: flex;
@@ -62,18 +165,18 @@ img {
     opacity: .5;
     font-size: 1.25em;
   }
-  
+
 .brick:hover:after {
     font-size: 2.25em;
     opacity: 1;
 }
-  
+
 .brick {
     flex: auto;
     height: 250px;
     min-width: 150px;
 }
-  
+
 @media only screen and (min-width: 1024px) {
     /* Horizontal bricks on desktop-sized screen */
     .brick:nth-child(4n+1) {
@@ -88,9 +191,9 @@ img {
     .brick:nth-child(4n+4) {
       width: 380px;
     }
-  
+
   }
-  
+
   @media only screen and (max-width: 1023px) and (min-width: 768px) {
     /* Horizontal bricks on tabled-sized screen */
     .brick:nth-child(4n+1) {
@@ -105,32 +208,32 @@ img {
     .brick:nth-child(4n+4) {
       width: 280px;
     }
-  
+
 }
-  
+
 .brick-img {
     object-fit: cover;
     width: 100%;
     height: 100%;
     filter: brightness(90%);
-    filter: grayscale(50%) sepia(0.3) brightness(150%) hue-rotate(320deg);
-    -webkit-filter: grayscale(50%) sepia(0.3) brightness(150%) hue-rotate(320deg);
+
+filter: grayscale(50%) sepia(0.3) brightness(150%) hue-rotate(320deg);
+-webkit-filter: grayscale(50%) sepia(0.3) brightness(150%) hue-rotate(320deg);
 }
 
 .labs-pagination {
     margin-bottom: 1.5rem;
     font-size: 12px;
 }
-  
+
 .labs-page {
     text-transform: uppercase;
     display: inline-block;
     padding: .5em .75em;
     border: 2px solid #333;
 }
-  
+
 .labs-page:hover,
 .labs-page--current {
     color: rgba(255, 255, 255, .75);
 }
-  
