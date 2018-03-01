@@ -6,6 +6,28 @@ function docReady(){
 [ Validate ]*/
 var input = $('.validate-input .input');
 
+var box = document.querySelector('.site').children[0],
+            panelClassName = 'show-front',
+onButtonClick = function( event ){
+  box.removeClassName( panelClassName );
+  panelClassName = event.target.className;
+  box.addClassName( panelClassName );
+};
+
+
+$('#arrow').hover(
+    function(){
+        $(this).addClass('bounce');
+    }, function(){
+        $(this).removeClass('bounce');
+    })
+$('#arrow').click(function(){
+    $('#cube').addClass('show-right');
+    $('#cube').removeClass('show-front');
+})
+
+
+
 $('.validate-form').on('submit',function(){
     var check = true;
 
@@ -15,7 +37,6 @@ $('.validate-form').on('submit',function(){
             check=false;
         }
     }
-
     return check;
 });
 
@@ -27,16 +48,6 @@ $('.validate-form .input').each(function(){
 });
 
 
-$('#arrow').hover(
-    function(){
-        $(this).addClass('bounce');
-    }, function(){
-        $(this).removeClass('bounce');
-    })
-$('#arrow').click(function(){
-    $('#cube').addClass('show-front');
-    $('#cube').removeClass('show-right');
-})
 function validate (input) {
     if($(input).attr('type') == 'email' || $(input).attr('name') == 'email') {
         if($(input).val().trim().match(/^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{1,5}|[0-9]{1,3})(\]?)$/) == null) {
