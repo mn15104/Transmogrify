@@ -11,9 +11,11 @@
 // function redirectPage(linkLocation) {
 //     window.location = linkLocation;
 // }
+
+
 function init(urlpath){
-    $("#page_1").load(urlpath);
-    // $("#page_2").load("../views/login.html");
+    //$("#page_1").load(urlpath);
+    //$("#page_2").load("../views/login.html");
     $('.link').click(function(){
         changeContent();
     })

@@ -15,15 +15,31 @@ onButtonClick = function( event ){
 };
 
 
-$('#arrow').hover(
+$('#arrow-login').hover(
     function(){
         $(this).addClass('bounce');
     }, function(){
         $(this).removeClass('bounce');
     })
-$('#arrow').click(function(){
+$('#arrow-login').click(function(){
     $('#cube').addClass('show-right');
-    $('#cube').removeClass('show-front');
+    $('#cube').removeClass('show-front');    
+    $(".site").fadeTo(1000, 0.1, function(){
+        $(".site").fadeTo(1000, 1);
+    });
+})
+$('#arrow-create-account').hover(
+    function(){
+        $(this).addClass('bounce');
+    }, function(){
+        $(this).removeClass('bounce');
+    })
+$('#arrow-create-account').click(function(){
+    $('#cube').addClass('show-front');
+    $('#cube').removeClass('show-right');    
+    $(".site").fadeTo(1000, 0.1, function(){
+        $(".site").fadeTo(1000, 1);
+    });
 })
 
 

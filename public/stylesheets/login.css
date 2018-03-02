@@ -218,16 +218,24 @@
     position: relative;
   }
   
-  .login-form-title {
+  .login-form-title-1 {
+    font-family: Oswald-Medium;
+    font-size: 50px;
+    color: #43383e;
+    line-height: 2;
+    text-align: center;
+    
+    display: block;
+  }
+  .login-form-title-2 {
     font-family: Oswald-Medium;
     font-size: 30px;
     color: #43383e;
-    line-height: 1;
+    line-height: 1.5;
     text-align: center;
-  
+    
     display: block;
   }
-  
   
   /*------------------------------------------------------------------
   [ Button Login with ]*/
@@ -266,9 +274,10 @@
   .wrap-input {
     width: 100%;
     background-color: #fff;
+    height: 55px;
     border-radius: 31px;
     position: relative;
-    margin:5px;
+    margin:20px;
     z-index: 1;
   }
   
@@ -281,7 +290,7 @@
     position: relative;
     display: block;
     width: 100%;
-    height: 62px;
+    height: inherit;
     background: #fff;
     border-radius: 31px;
     padding: 0 35px 0 35px;
@@ -290,12 +299,31 @@
   
   /*------------------------------------------------------------------
   [ Focus Input ]*/
-  .arrow-container{
-    position: relative;
+  .arrow-container-login{
+    position: absolute;
     right: -90%;
     float: right;
   }
- 
+  .arrow-container-create-account{
+    position: absolute;
+    left: -310px;
+    float: left;
+  }
+  .arrow-login {
+    position: absolute;
+    width: 40px;
+    background-size: contain;
+    padding-left: 30%;
+    font-size:100px;
+  }
+  .arrow-create-account {
+    position: absolute;
+    width: 35px;
+    right: 90px;
+    margin-top: 15px;
+    font-size:100px;
+    background-size: contain;
+  }
   @-moz-keyframes bounce {
     0%, 20%, 50%, 80%, 100% {
       -moz-transform: translateX(0);
@@ -343,12 +371,6 @@
       -webkit-transform: translateX(-15px);
       transform: translateX(-15px);
     }
-  }
-
-  .arrow {
-    position: absolute;
-    width: 40px;
-    background-size: contain;
   }
   .bounce {
     -moz-animation: bounce 2s infinite;
@@ -588,10 +610,10 @@
        -moz-transform-style: preserve-3d;
          -o-transform-style: preserve-3d;
             transform-style: preserve-3d;
-    -webkit-transition: -webkit-transform 1.5s;
-       -moz-transition: -moz-transform 1.5s;
-         -o-transition: -o-transform 1.5s;
-            transition: transform 1.5s;
+    -webkit-transition: -webkit-transform 3s;
+       -moz-transition: -moz-transform 3s;
+         -o-transition: -o-transform 3s;
+            transition: transform 3s;
   }
 
   #cube figure {
