@@ -198,6 +198,7 @@ element{
 }
 .snip1344 h3 span {
   display: block;
+  margin-top:3px;
   font-size: 0.7em;
   color: #f39c12;
   opacity: 0.75;
@@ -221,4 +222,15 @@ element{
 .snip1344.hover .backdrop {
   -webkit-transform: scale(1);
   transform: scale(1);
+}
+h4{
+    font-family: 'Open Sans', Arial, sans-serif;
+    color:  rgba(255, 255, 255, 0.5);
+    font-size: 1.3em;
+}
+h5{
+    font-family: 'Open Sans', Arial, sans-serif;
+    color: #f39c12;
+    font-size: 1.2em;
+    opacity: 0.75;
 }

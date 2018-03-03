@@ -32,6 +32,8 @@
             </div>
             <figcaption id = "profile-description">
                 <h3>Joshua Crippinson<span>Web Developer</span></h3>
+                <h4>About Me</h4>
+                <h5>I really love cats</h5>
             </figcaption>
         </figure>
     </section>
@@ -55,8 +57,9 @@
         $("#card").toggleClass("flipped", function(){
             $(".snip1344").css({"margin-right":"2000px"}).animate({"left":"10px"}, "slow");
             $(".snip1344").css({"margin-right":"2000px"}).animate({"top":"-30vh"}, "slow", function(){
-                $('#profile-description').fadeIn('slow');
+                $('#profile-description').slideDown(600);
                 $(".snip1344").animate({"background-color":"#141414"}, 'slow');
+              
             });
         });
         $("#sidebar-horizontal").fadeIn("slow");
