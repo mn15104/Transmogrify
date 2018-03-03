@@ -21,26 +21,19 @@
 <body>
     <a class = "background"></a>
     <section class="container">
-        <div class="ACon" id="card">
-            <div class="Profile">
-                <div class="Img" id="image1">
+        <figure class="snip1344" id="card" >
+            <div class=" ACon Profile">
+                <div class="Img" id = "image">
                     <span><img /></span>
                 </div>
                 <div class="Img" id = "image2">
                     <span><img /></span>
                 </div>
-                <div id='sidebar-horizontal'>
-                        <ul id='nav-horizontal'>
-                          <li class = "index_item_H"  href="#">
-                            <a>dashboard</a>
-                          </li>
-                          <li class = "index_item_H" href="#">
-                            <a>statistics</a>
-                          </li>
-                      </ul>
-                </div>
             </div>
-        </div>
+            <figcaption id = "profile-description">
+                <h3>Joshua Crippinson<span>Web Developer</span></h3>
+            </figcaption>
+        </figure>
     </section>
 
 
@@ -48,29 +41,32 @@
 <script>
     $(document).ready(function(){
     var $Menu = $('.Img');
-    $("#sidebar-horizontal").hide();
+    $("#card").toggleClass("flipped");
+    $(".snip1344").css({"background-color":"white"});
+    $(".snip1344").css({"background-color":"white"});
+    $('#profile-description').hide();
     $('.Img').hide();
     $('.Img').fadeIn("slow");
-    $('#card').toggleClass("flipped");
     $('.Img').mouseenter(function() {
         $('.PopUp').css('opacity', '1');
         $('.PopUp').css('margin-top', '20px');
     });
     $('.Img').click(function() {
         $("#card").toggleClass("flipped", function(){
-            $(".ACon").css({"margin-right":"2000px"}).animate({"left":"10px"}, "slow");
-            $(".ACon").css({"margin-right":"2000px"}).animate({"top":"-30vh"}, "slow");
+            $(".snip1344").css({"margin-right":"2000px"}).animate({"left":"10px"}, "slow");
+            $(".snip1344").css({"margin-right":"2000px"}).animate({"top":"-30vh"}, "slow", function(){
+                $('#profile-description').fadeIn('slow');
+                $(".snip1344").animate({"background-color":"#141414"}, 'slow');
+            });
         });
         $("#sidebar-horizontal").fadeIn("slow");
         var margin = "-2000px";
-        console.log(left);
         
     });
     $('.Img').mouseleave(function() {
         $('.PopUp').css('opacity', '0');
         $('.PopUp').css('margin-top', '0px');
     })});
-    
 </script>
 
 </body>

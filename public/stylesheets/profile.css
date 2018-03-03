@@ -1,18 +1,7 @@
 element{
     --filterVal: 180;
 }
-.background{
-    top: 0;
-    position: fixed;
-    background-image:url(https://i.imgur.com/hqEzvRn.jpg);
-    -webkit-filter: hue-rotate(123deg);
-    -moz-filter: hue-rotate(123deg);
-    -o-filter: hue-rotate(123deg);
-    -ms-filter: hue-rotate(123deg);
-    filter: hue-rotate(123deg);
-    width: 100vw;
-    height: 100vh;
-}
+
 .click{
     background: url('https://cdn2.digitalartsonline.co.uk/cmsdata/slideshow/3513552/polybreno_1500.jpg');
     background-size:contain;
@@ -31,17 +20,14 @@ element{
     height:120px;
 }
 .Profile{
-    margin-left:auto;
     z-index: 9999;
-    margin-right:auto;
     text-align:center;
     -webkit-transition:cubic-bezier(.34,.43,0,1.02) 0.5s;
     -moz-transition:cubic-bezier(.34,.43,0,1.02) 0.5s;
     transition:cubic-bezier(.34,.43,0,1.02) 0.5s;
-    width:300px;
+    width:100%;
     height:200px;
     border-radius:50%;
-    margin-top:34vh;
 }
 .clickProfile{
     margin-left:auto;
@@ -70,11 +56,11 @@ element{
     transition:cubic-bezier(.34,.43,0,1.02) 0.2s;
     box-shadow: 0px 0px 0px 2pt transparent;
     border: 0px solid #FFF;
-    margin: auto;
+    left:1em;
     cursor: pointer;
     width:200px;
     height:200px;
-    margin: 0;
+    margin: auto;
     display: block;
     position: absolute;
     backface-visibility: hidden;
@@ -82,14 +68,12 @@ element{
 .container { 
     width:200px;
     height:200px;
-    /* position: relative; */
+    position: relative;
     perspective: 800px;
 }
 #card{
     width: 100%;
     height: 100%;
-    left:45vw;
-    position: absolute;
     transform-origin: right center;
     transform-style: preserve-3d;
     transition: transform 1s;
@@ -152,4 +136,89 @@ element{
     background:-o-linear-gradient(180deg, rgb(165, 104, 38) 21%, rgb(151, 97, 39) 53%, rgb(155, 103, 20) 78%);
     background:-moz-linear-gradient(180deg, rgb(165, 104, 38) 21%, rgb(151, 97, 39) 53%, rgb(155, 103, 20) 78%);
     background:linear-gradient(180deg, rgb(165, 104, 38) 21%, rgb(151, 97, 39) 53%, rgb(155, 103, 20) 78%);
+}
+
+.snip1344 {
+    position:absolute;
+  font-family: 'Open Sans', Arial, sans-serif;
+  float: left;
+  overflow: show;
+  margin-top:34vh;
+  min-width: 230px;
+  max-width: 315px;
+  width: 100%;
+  left:45vw;
+  position: absolute;
+  text-align: center;
+  line-height: 1.4em;
+  background-color: #141414;
+}
+/* .snip1344 * {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-transition: all 0.25s ease;
+  transition: all 0.25s ease;
+} */
+.snip1344 .backdrop {
+  position:absolute;
+  width: 100%;
+  right:0%;
+  height: 100%;
+  opacity: 0.2;
+  -webkit-filter: grayscale(100%) blur(10px);
+  filter: grayscale(100%) blur(10px);
+  -webkit-transition: all 2s ease;
+  transition: all 2s ease;
+}
+.snip1344 figcaption {
+  width: 100%;
+  padding: 15px 25px;
+  position: relative;
+  left: 0;
+  background-color: #141414;
+}
+.snip1344 .profile {
+  border-radius: 50%;
+  position: absolute;
+  bottom: 50%;
+  left: 50%;
+  max-width: 100px;
+  opacity: 1;
+  box-shadow: 3px 3px 20px rgba(0, 0, 0, 0.5);
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  -webkit-transform: translate(-50%, 0%);
+  transform: translate(-50%, 0%);
+}
+.snip1344 h3 {
+  margin: 0 0 5px;
+  font: 20px;
+  font-weight: 400;
+  color: rgb(201, 198, 198);
+  background-color: #191919;
+}
+.snip1344 h3 span {
+  display: block;
+  font-size: 0.7em;
+  color: #f39c12;
+  opacity: 0.75;
+}
+.snip1344 i {
+  padding: 10px 5px;
+  display: inline-block;
+  font-size: 32px;
+  text-align: center;
+  opacity: 0.65;
+}
+.snip1344 a {
+  text-decoration: none;
+}
+.snip1344 i:hover {
+  opacity: 1;
+  -webkit-transition: all 0.35s ease;
+  transition: all 0.35s ease;
+}
+.snip1344:hover .backdrop,
+.snip1344.hover .backdrop {
+  -webkit-transform: scale(1);
+  transform: scale(1);
 }
