@@ -15,8 +15,11 @@ app.set('view engine', 'jade');
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
+
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(function(req, res, next){
@@ -31,6 +34,7 @@ app.use(function(req, res, next){
 var index_route = require('./routes/index.route');
 var home_route = require('./routes/home.route');
 var explore_route = require('./routes/explore.route');
+var login_route = require('./routes/login.route');
 app.use('/profile', function(req, res, next){
   res.sendFile(path.join(__dirname + '/public/views/profile.html'));
 });
@@ -39,9 +43,7 @@ app.use('/explore', explore_route);
 app.use('/sidepanel', function(req, res, next){
   res.sendFile(path.join(__dirname + '/public/views/sidepanel.html'));
 });
-app.use('/login', function(req, res, next){
-  res.sendFile(path.join(__dirname + '/public/views/login.html'));
-});
+app.use('/login', login_route);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
