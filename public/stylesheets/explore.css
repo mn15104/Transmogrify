@@ -34,6 +34,39 @@ h1 {
     padding-bottom: 1em;
 }
 
+
+
+.menu{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background: var(--colour5);
+
+}
+.menu li{
+    float: left;
+}
+.menu-item{
+    display: block;
+    color: white;
+    text-align: center;
+}
+h2.menu-title{
+    position: absolute;
+    top: 0%;  /* position the top  edge of the element at the middle of the parent */
+    left: 50%; /* position the left edge of the element at the middle of the parent */
+    font-size: xx-large;
+    transform: translate(-50%, -20%);
+
+}
+
+h2.category {
+  font-family:'Open Sans';
+  font-size: x-large;
+  text-align: center;
+}
+
 .container{
     margin-left: auto;
     margin-right: auto;
@@ -76,12 +109,14 @@ img {
 
 .pair-title {
     position: absolute;
+    font-family:'Open Sans';
     font-size: small;
     top: 6px;
     width: 100%
 }
 .pair-info {
     position: absolute;
+    font-family:'Open Sans';
     font-size: small;
     bottom: 6px;
     width: 100%
