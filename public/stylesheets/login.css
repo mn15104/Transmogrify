@@ -22,7 +22,7 @@
   
   @import "compass/css3";
 
-    @include keyframes(bounce) {
+  @include keyframes(bounce) {
       0%, 20%, 50%, 80%, 100% {
         @include transform(translateY(0));
       }
@@ -47,7 +47,6 @@
       position: relative; 
       top: 0;
       left:0;
-      right:0;
       width:100vw;
       font-family: Oswald-Regular, sans-serif;
   }
@@ -55,7 +54,7 @@
   /*---------------------------------------------*/
   a {
       font-family: Oswald-Regular;
-      font-size: 14px;
+      font-size: 20px;
       line-height: 1.7;
       color: #666666;
       margin: 0px;
@@ -81,7 +80,7 @@
   
   p {
       font-family: Oswald-Regular;
-      font-size: 14px;
+      font-size: 20px;
       line-height: 1.7;
       color: #666666;
       margin: 0px;
@@ -151,19 +150,19 @@
     font-family: Oswald-Bold;
     font-size: 20px;
     color: #333333;
-    line-height: 1.2;
+    line-height: 1.4;
   }
   
   .txt2 {
     font-family: Oswald-Regular;
-    font-size: 16px;
+    font-size: 20px;
     color: #999999;
     line-height: 1.4;
   }
   
   .txt3 {
     font-family: Oswald-Regular;
-    font-size: 16px;
+    font-size: 20px;
     color: #333333;
     line-height: 1.2;
     text-transform: uppercase;
@@ -182,13 +181,14 @@
   /*//////////////////////////////////////////////////////////////////
   [ login ]*/
   
-  .limiter {
-    width: 100%;
+  /* .limiter {
+    width: 100vw;
     margin: 0 auto;
     margin-top:10vh;
-  }
+  } */
   
   .container-login {
+    margin-top:10vh;
     width: 100vw;  
     min-height: 50vh;
     display: -webkit-box;
@@ -220,7 +220,7 @@
   
   .login-form-title-1 {
     font-family: Oswald-Medium;
-    font-size: 50px;
+    font-size: 70px;
     color: #43383e;
     line-height: 2;
     text-align: center;
@@ -229,7 +229,7 @@
   }
   .login-form-title-2 {
     font-family: Oswald-Medium;
-    font-size: 30px;
+    font-size:40px;
     color: #43383e;
     line-height: 1.5;
     text-align: center;
@@ -242,7 +242,7 @@
   
   .btn-login-with {
     font-family: Oswald-Medium;
-    font-size: 16px;
+    font-size: 20px;
     color: #fff;
     line-height: 1.2;
     margin:5px;
@@ -283,7 +283,7 @@
   
   .input {
     font-family: Oswald-Medium;
-    font-size: 16px;
+    font-size: 20px;
     color: #43383e;
     line-height: 1.2;
   
@@ -301,10 +301,12 @@
   [ Focus Input ]*/
   .arrow-container-login{
     position: absolute;
-    right: -90%;
+    right: -100%;
     float: right;
+    font-size: 20px;
   }
   .arrow-container-create-account{
+    font-size: 20px;
     position: absolute;
     left: -310px;
     float: left;
@@ -407,7 +409,7 @@
   
   /*---------------------------------------------*/
   .btn-show-pass {
-    font-size: 15px;
+    font-size: 20px;
     color: #aaaaaa;
   
     display: -webkit-box;
@@ -465,7 +467,7 @@
     border-radius: 31px;
   
     font-family: Oswald-Regular;
-    font-size: 16px;
+    font-size: 20px;
     color: #fff;
     line-height: 1.2;
     text-transform: uppercase;
@@ -538,7 +540,7 @@
   
     font-family: Oswald-Regular;
     color: #c80000;
-    font-size: 13px;
+    font-size: 20px;
     line-height: 1.4;
     text-align: left;
   

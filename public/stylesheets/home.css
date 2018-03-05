@@ -101,7 +101,7 @@ placement2 {
 
 /* Messing about with buttons */
 .button {
-    /* background-color: var(--colour2); /* Light Blue */ */
+    /* background-color: var(--colour2); /* Light Blue */ 
     color: var(--colour1);
     padding: 16px 32px;
     text-align: center;
@@ -113,6 +113,7 @@ placement2 {
     border: 2px solid var(--colour4);
     border-radius: 10px;
 }
+
 .button:hover {
     -webkit-transition: initial;
     transition: initial;
