@@ -52,6 +52,9 @@ h1 {
     color: white;
     text-align: center;
 }
+.menu-item:hover{
+    opacity: 0.5;
+}
 h2.menu-title{
     position: absolute;
     top: 0%;  /* position the top  edge of the element at the middle of the parent */
