@@ -31,7 +31,7 @@ db.run(`CREATE TABLE IF NOT EXISTS HOME_image_files (file_name VARCHAR(255),
         console.error(err.message);
     }
     else {
-        console.log("Table created");
+        console.log("Home image data table created");
     }
 });
 
@@ -46,7 +46,7 @@ db.run(`CREATE TABLE IF NOT EXISTS HOME_audio_files (file_name VARCHAR(255),
         console.error(err.message);
     }
     else {
-        console.log("Table created");
+        console.log("Home audio data table created");
     }
 });
 
