@@ -15,61 +15,54 @@
   <link rel="stylesheet" href="./stylesheets/sidepanel.css">
 </head>
 <body>
-
-
-<div id="index" class="index-container">
-  <div class="index-wrapper">
+  <ul class="menu">
+      <!-- <li class="menu-item"><a href="#home">Home</a></li> -->
+      <li style="float:right" class="menu-item"><img src="images/menu-4-profile.svg" width="50px" height="50px"></li>
+      <li style="float:right" class="menu-item"><img src="images/menu-3-explore.svg" width="50px" height="50px"></li>
+      <li style="float:right" class="menu-item"><img src="images/menu-2-new.svg"     width="50px" height="50px"></li>
+      <li style="float:right" class="menu-item"><img src="images/menu-1-search.svg"  width="50px" height="50px"></li>
+      <h2 class="menu-title">EXPLORE<h2>
+      <!-- <li class="menu-item"><a href="#news">News</a></li> -->
+      <!-- <li class="menu-item"><a href="#contact">Contact</a></li> -->
+      <!-- <li style="float:right"><a class="active" href="#about">About</a></li> -->
+  </ul>
+  <div id="index" class="index-container">
+    <div class="index-wrapper">
     <span class = "index-button-container" data-index-open="false">
       <div class='index-title' id="index_button" style="font-size:30px; cursor:pointer" onclick="toggleNav()">
           <span></span>
           <span></span>
           <span></span>
       </div>
-      <div id='sidebar-horizontal'>
-          <ul id='nav-horizontal'>
-            <li class = "index_item_H"  href="#">
-                <img src="images/menu-bar-segment.svg" class="segment" >
-                <div class="segment-text">EXPLORE</div>
-              <!-- <a>explore</a> -->
-            </li>
-            <li class = "index_item_H" href="#">
-                <img src="images/menu-bar-segment.svg" class="segment" >
-              <a>experiment</a>
-            </li>
-            <li class = "index_item_H" href="#">
-                <img src="images/menu-bar-segment.svg" class="segment" >
-              <a>friends</a>
-            </li >
-            <li class = "index_item_H" href="#">
-                <img src="images/menu-bar-segment.svg" class="segment" >
-              <a>my page</a>
-            </li>
-            <li class = "index_item_H link" href="#">
-                <img src="images/menu-bar-segment.svg" class="segment" >
-              <a>profile</a>
-            </li>
-            <li class = "index_item_H" href="#">
-                <img src="images/menu-bar-segment.svg" class="segment" >
-              <a>logout</a>
-            </li>
-        </ul>
-      </div>
     </span>
     <div>
         <div class='wrapper'>
             <div class='sidebar'>
               <ul class='nav'>
-                <li class = "index_item" href="#">
-                  <a>popular</a>
+              <li class = "index_item_H"  href="#">
+                <img src="images/menu-bar-segment.svg" class="segment" >
+                <a>explore</a>
+              <!-- <a>explore</a> -->
                 </li>
-                <li class = "index_item" href="#">
-                  <a>random</a>
+                <li class = "index_item_H" href="#">
+                    <img src="images/menu-bar-segment.svg" class="segment" >
+                  <a>experiment</a>
                 </li>
-                <li class = "index_item" href="#">
-                  <a>new</a>
+                <li class = "index_item_H" href="#">
+                    <img src="images/menu-bar-segment.svg" class="segment" >
+                  <a>friends</a>
+                </li >
+                <li class = "index_item_H" href="#">
+                    <img src="images/menu-bar-segment.svg" class="segment" >
+                  <a>my page</a>
                 </li>
-                <li class = "index_item" href="#">
-                  <a>search</a>
+                <li class = "index_item_H link" href="#">
+                    <img src="images/menu-bar-segment.svg" class="segment" >
+                  <a>profile</a>
+                </li>
+                <li class = "index_item_H" href="#">
+                    <img src="images/menu-bar-segment.svg" class="segment" >
+                  <a>logout</a>
                 </li>
             </ul>
           </div>

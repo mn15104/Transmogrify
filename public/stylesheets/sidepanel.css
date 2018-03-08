@@ -46,12 +46,12 @@ h1{
 }
 
 .index-container {
-    height: 7%;
-    width: 150px;
+    text-align: center;
+    width: 220px;
     position: fixed;
     z-index: 1;
     top: 0em; /* This was 10em? */
-    left: 2em; /* This was 2em? */
+
 }
 .site {
   height: 100vh;
@@ -136,7 +136,8 @@ h1{
 
 
 #index_button span:nth-child(1) {
-  top: 0px;
+  top: -45px;
+  left: 22px;
   -webkit-transform-origin: left center;
   -moz-transform-origin: left center;
   -o-transform-origin: left center;
@@ -144,7 +145,7 @@ h1{
 }
 
 #index_button span:nth-child(2) {
-  top: 10px;
+  top: -35px; left: 22px;
   -webkit-transform-origin: left center;
   -moz-transform-origin: left center;
   -o-transform-origin: left center;
@@ -152,7 +153,7 @@ h1{
 }
 
 #index_button span:nth-child(3) {
-  top: 20px;
+  top: -25px;  left: 22px;
   -webkit-transform-origin: left center;
   -moz-transform-origin: left center;
   -o-transform-origin: left center;
@@ -164,12 +165,13 @@ h1{
   -moz-transform: rotate(45deg);
   -o-transform: rotate(45deg);
   transform: rotate(45deg);
-  top: -3px;
-  left: 8px;
+  top: -51px;  
+  left: 27px;
 }
 
 #index_button.open span:nth-child(2) {
-  width: 0%;
+  /* top: px;   */
+  left: 27px;
   opacity: 0;
 }
 
@@ -178,8 +180,7 @@ h1{
   -moz-transform: rotate(-45deg);
   -o-transform: rotate(-45deg);
   transform: rotate(-45deg);
-  top: 39px;
-  left: 8px;
+  top: -10px;  left: 27px;
 }
 
 @keyframes iconcolorchange{
@@ -199,16 +200,19 @@ h1{
 }
 
 .index-wrapper {
-    position: relative;
-    text-align: center;
-    font-size: 12px;
+    width: 100%;
+    position: absolute;
+    float: left;
+    top: - 30px;
 }
 span a {
     display:inline-block;
     bottom: 50%;
 }
 .index-button-container{
-  padding: 0;
+  text-align: center;  
+  width: 100%;
+  padding: auto;
 }
 
 #index-content{
@@ -242,11 +246,12 @@ span a {
 
 
 .index-title {
+  width: 100%;
   font-size: 5px;
-  line-height: 10px;
-  text-align: center;
   text-transform: uppercase;
   letter-spacing: 3px;
+
+  margin-left: 120px;
 }
 
 .nav li a {
@@ -334,4 +339,35 @@ span a {
   background:-o-linear-gradient(180deg, rgb(165, 104, 38) 21%, rgb(151, 97, 39) 53%, rgb(155, 103, 20) 78%);
   background:-moz-linear-gradient(180deg, rgb(165, 104, 38) 21%, rgb(151, 97, 39) 53%, rgb(155, 103, 20) 78%);
   background:linear-gradient(180deg, rgb(165, 104, 38) 21%, rgb(151, 97, 39) 53%, rgb(155, 103, 20) 78%);
+}
+
+.menu{
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background: var(--colour5);
+
+}
+.menu li{
+  float: left;
+}
+.menu-item{
+  display: block;
+  color: white;
+  text-align: center;
+}
+h2.menu-title{
+  position: absolute;
+  top: 0%;  /* position the top  edge of the element at the middle of the parent */
+  left: 50%; /* position the left edge of the element at the middle of the parent */
+  font-size: xx-large;
+  transform: translate(-50%, -20%);
+
+}
+
+h2.category {
+font-family:'Open Sans';
+font-size: x-large;
+text-align: center;
 }
