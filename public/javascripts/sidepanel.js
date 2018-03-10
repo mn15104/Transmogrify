@@ -14,19 +14,17 @@
 
 
 function init(content){
-    //$("#page_1").load(urlpath);
-    //$("#page_2").load("../views/login.html");
-    // if(content){
-    //   $("#page-1").load(content);
-    // }
-    // $('.link').click(function(){
-    //     changeContent();
-    // })
     toggleNav();
     $('.sidepanel_menu-link-right').click(function(){
-      $('#page_1').load("../views/explore.html")
+      $('#page_1').load("../views/profile.html")
     })
     $('.sidepanel_menu-link-left').click(function(){
+      $('#page_1').load("../views/home.html")
+    })
+    $('.sidepanel_menu-title').click(function(){
+      $('#page_1').load("../views/explore.html")
+    })
+    $('.sidepanel_menu-link-login').click(function(){
       $('#page_1').load("../views/login.html")
     })
 }

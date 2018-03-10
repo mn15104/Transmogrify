@@ -281,7 +281,7 @@ h2.sidepanel_menu-title{
   position: relative;
   float: left;
   top: -0.2em;  /* position the top  edge of the element at the middle of the parent */
-  left: 40%; /* position the left edge of the element at the middle of the parent */
+  left: 30%; /* position the left edge of the element at the middle of the parent */
 
   font: 600 3em/1 'Raleway', sans-serif;
   color: rgba(0,0,0);
@@ -293,7 +293,7 @@ h2.sidepanel_menu-link-left{
   position: relative;
   float: left;
   top: 0.2em;  /* position the top  edge of the element at the middle of the parent */
-  left: 20%; /* position the left edge of the element at the middle of the parent */
+  left: 10%; /* position the left edge of the element at the middle of the parent */
 
   font: 600 2.5em/1'Raleway', sans-serif;
   color: rgba(0,0,0,.5);
@@ -305,9 +305,22 @@ h2.sidepanel_menu-link-right{
   position: relative;
   float: left;
    /* position the top  edge of the element at the middle of the parent */
-  left: 65%; /* position the left edge of the element at the middle of the parent */
+  left: 50%; /* position the left edge of the element at the middle of the parent */
 
   font: 600 2.5em/1 'Raleway', sans-serif;
+  color: rgba(0,0,0,.5);
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: .3em;
+  top: -0.2em; 
+}
+h2.sidepanel_menu-link-login{
+  position: relative;
+  float: left;
+   /* position the top  edge of the element at the middle of the parent */
+  left: 70%; /* position the left edge of the element at the middle of the parent */
+
+  font: 600 2.0em/1 'Raleway', sans-serif;
   color: rgba(0,0,0,.5);
   text-align: center;
   text-transform: uppercase;
