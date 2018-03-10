@@ -8,6 +8,8 @@ var Home = require('../models/home.model');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
+  // if(req.session.current_url != '/sidebar')
+  // name = "home.html";
   res.sendFile(path.join(__dirname + '/../public/views/home.html'));
 });
 

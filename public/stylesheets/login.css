@@ -43,7 +43,7 @@
       box-sizing: border-box;
   }
   
-  body, html {
+  .login_body {
       position: relative; 
       top: 0;
       left:0;
@@ -52,7 +52,7 @@
   }
   
   /*---------------------------------------------*/
-  a {
+  a.login_body {
       font-family: Oswald-Regular;
       font-size: 20px;
       line-height: 1.7;
@@ -64,21 +64,17 @@
     -moz-transition: all 0.4s;
   }
   
-  a:focus {
+  a.login_body:focus {
       outline: none !important;
   }
   
-  a:hover {
+  a.login_body:hover {
       text-decoration: none;
     color: #111111;
   }
 
-  /*---------------------------------------------*/
-  h1,h2,h3,h4,h5,h6 {
-      margin: 0px;
-  }
   
-  p {
+  p.login_body.login_body {
       font-family: Oswald-Regular;
       font-size: 20px;
       line-height: 1.7;
@@ -86,57 +82,57 @@
       margin: 0px;
   }
   
-  ul, li {
+  ul.login_body, li.login_body {
       margin: 0px;
       list-style-type: none;
   }
   
   
   /*---------------------------------------------*/
-  input {
+  input.login_body {
       outline: none;
       border: none;
   }
   
-  input[type="number"] {
+  input.login_body[type="number"] {
       -moz-appearance: textfield;
       appearance: none;
       -webkit-appearance: none;
   }
   
-  input[type="number"]::-webkit-outer-spin-button,
-  input[type="number"]::-webkit-inner-spin-button {
+  input.login_body[type="number"]::-webkit-outer-spin-button,
+  input.login_body[type="number"]::-webkit-inner-spin-button {
       -webkit-appearance: none;
   }
   
-  textarea {
+  textarea.login_body {
     outline: none;
     border: none;
   }
   
-  textarea:focus, input:focus {
+  textarea.login_body:focus, input.login_body:focus {
     border-color: transparent !important;
   }
   
   
-  input::-webkit-input-placeholder { color: #43383e;}
-  input:-moz-placeholder { color: #43383e;}
-  input::-moz-placeholder { color: #43383e;}
-  input:-ms-input-placeholder { color: #43383e;}
+  input.login_body::-webkit-input-placeholder { color: #43383e;}
+  input.login_body:-moz-placeholder { color: #43383e;}
+  input.login_body::-moz-placeholder { color: #43383e;}
+  input.login_body:-ms-input-placeholder { color: #43383e;}
   
-  textarea::-webkit-input-placeholder { color: #43383e;}
-  textarea:-moz-placeholder { color: #43383e;}
-  textarea::-moz-placeholder { color: #43383e;}
-  textarea:-ms-input-placeholder { color: #43383e;}
+  textarea.login_body::-webkit-input-placeholder { color: #43383e;}
+  textarea.login_body:-moz-placeholder { color: #43383e;}
+  textarea.login_body::-moz-placeholder { color: #43383e;}
+  textarea.login_body:-ms-input-placeholder { color: #43383e;}
   
   /*---------------------------------------------*/
-  button {
+  button.login_body {
       outline: none !important;
       border: none;
       background: transparent;
   }
   
-  button:hover {
+  button.login_body:hover {
       cursor: pointer;
   }
   
@@ -146,21 +142,21 @@
   
   /*//////////////////////////////////////////////////////////////////
   [ Utility ]*/
-  .txt1 {
+  .login_body .txt1 {
     font-family: Oswald-Bold;
     font-size: 20px;
     color: #333333;
     line-height: 1.4;
   }
   
-  .txt2 {
+  .login_body .txt2 {
     font-family: Oswald-Regular;
     font-size: 20px;
     color: #999999;
     line-height: 1.4;
   }
   
-  .txt3 {
+  .login_body .txt3{
     font-family: Oswald-Regular;
     font-size: 20px;
     color: #333333;
@@ -168,10 +164,10 @@
     text-transform: uppercase;
   }
   
-  .bg1 {background-color: #3b5998;}
-  .bg2 {background-color: #1da1f2;}
+  .login_body .bg1 {background-color: #3b5998;}
+  .login_body .bg2 {background-color: #1da1f2;}
   
-  .bo1 {border-bottom: 1px solid #929292;}
+  .login_body .bo1 {border-bottom: 1px solid #929292;}
   
   .hov1:hover {
     border-bottom: 1px solid #111111;
@@ -187,7 +183,7 @@
     margin-top:10vh;
   } */
   
-  .container-login {
+  .login_container {
     margin-top:10vh;
     width: 100vw;  
     min-height: 50vh;
@@ -203,7 +199,7 @@
     background-color: #e6e6e6;
   }
   
-  .wrap-login {
+  .login_wrapper {
     width: 320px;
     background: transparent;
     border-radius: 0px;
@@ -213,12 +209,12 @@
   /*==================================================================
   [ Form ]*/
   
-  .login-form {
+  .login_form {
     width: 100%;
     position: relative;
   }
   
-  .login-form-title-1 {
+  .login_form-title-1 {
     font-family: Oswald-Medium;
     font-size: 70px;
     color: #43383e;
@@ -227,7 +223,7 @@
     
     display: block;
   }
-  .login-form-title-2 {
+  .login_form-title-2 {
     font-family: Oswald-Medium;
     font-size:40px;
     color: #43383e;
@@ -240,7 +236,7 @@
   /*------------------------------------------------------------------
   [ Button Login with ]*/
   
-  .btn-login-with {
+  .login_btn-login-with {
     font-family: Oswald-Medium;
     font-size: 20px;
     color: #fff;
@@ -258,12 +254,12 @@
     border-radius: 25px;
   }
   
-  .btn-login-with i {
+  .login_btn-login-with i {
     font-size: 20px;
     margin-right: 10px;
   }
   
-  .btn-login-with:hover {
+  .login_btn-login-with:hover {
     color: #fff;
     background-color: #333333;
   }
@@ -271,7 +267,7 @@
   /*------------------------------------------------------------------
   [ Input ]*/
   
-  .wrap-input {
+  .login_wrap-input {
     width: 100%;
     background-color: #fff;
     height: 55px;
@@ -281,7 +277,7 @@
     z-index: 1;
   }
   
-  .input {
+  .login_input {
     font-family: Oswald-Medium;
     font-size: 20px;
     color: #43383e;
@@ -299,26 +295,26 @@
   
   /*------------------------------------------------------------------
   [ Focus Input ]*/
-  .arrow-container-login{
+  .login_arrow-container-login{
     position: absolute;
     right: -100%;
     float: right;
     font-size: 20px;
   }
-  .arrow-container-create-account{
+  .login_arrow-container-create-account{
     font-size: 20px;
     position: absolute;
     left: -310px;
     float: left;
   }
-  .arrow-login {
+  .login_arrow-login {
     position: absolute;
     width: 40px;
     background-size: contain;
     padding-left: 30%;
     font-size:100px;
   }
-  .arrow-create-account {
+  .login_arrow-create-account {
     position: absolute;
     width: 35px;
     right: 90px;
@@ -380,7 +376,7 @@
     animation: bounce 2s infinite;
   }
   
-  .focus-input {
+  .login_focus-input {
     display: block;
     position: absolute;
     z-index: -1;
@@ -403,12 +399,12 @@
     transition: all 0.4s;
   }
   
-  .input:focus + .focus-input {
+  .login_input:focus + .login_focus-input {
     width: calc(100% + 20px);
   }
   
   /*---------------------------------------------*/
-  .btn-show-pass {
+  .login_btn-show-pass {
     font-size: 20px;
     color: #aaaaaa;
   
@@ -431,17 +427,17 @@
     transition: background 0.4s;
   }
   
-  .btn-show-pass:hover {
+  .login_btn-show-pass:hover {
     color: #111111;
   }
   
-  .btn-show-pass.active {
+  .login_btn-show-pass.active {
     color: #111111;
   }
   
   /*------------------------------------------------------------------
   [ Button ]*/
-  .container-login-form-btn {
+  .login_container-login-form-btn {
     width: 100%;
     display: -webkit-box;
     display: -webkit-flex;
@@ -452,7 +448,7 @@
     justify-content: center;
   }
   
-  .login-form-btn {
+  .login_login-form-btn {
     display: -webkit-box;
     display: -webkit-flex;
     display: -moz-box;
@@ -480,7 +476,7 @@
     z-index: 1;
   }
   
-  .login-form-btn::before {
+  .login_login-form-btn::before {
     content: "";
     display: block;
     position: absolute;
@@ -504,7 +500,7 @@
     transition: all 0.4s;
   }
   
-  .login-form-btn:hover:before {
+  .login_login-form-btn:hover:before {
     background-color: #222222;
     width: calc(100% + 20px);
   }
@@ -512,15 +508,15 @@
   
   /*------------------------------------------------------------------
   [ Alert validate ]*/
-  .alert-validate .btn-show-pass {
+  .login_alert-validate .login_btn-show-pass {
     visibility: hidden;
   }
   
-  .validate-input {
+  .login_validate-input {
     position: relative;
   }
   
-  .alert-validate::before {
+  .login_alert-validate::before {
     content: attr(data-validate);
     position: absolute;
     z-index: 1000;
@@ -553,7 +549,7 @@
     transition: opacity 0.4s;
   }
   
-  .alert-validate::after {
+  .login_alert-validate::after {
     content: "\f06a";
     font-family: FontAwesome;
     display: block;
@@ -570,13 +566,13 @@
     right: 16px;
   }
   
-  .alert-validate:hover:before {
+  .login_alert-validate:hover:before {
     visibility: visible;
     opacity: 1;
   }
   
   @media (max-width: 992px) {
-    .alert-validate::before {
+    .login_alert-validate::before {
       visibility: visible;
       opacity: 1;
     }
@@ -585,13 +581,13 @@
   /*//////////////////////////////////////////////////////////////////
   [ Responsive ]*/
   @media (max-width: 576px) {
-    .wrap-login {
+    .login_wrapper {
       padding-top: 20px
     }
   }
 
 
-  .site {
+  .login_site {
     height: 100vh;
     width: 100vw;
     position:relative;
@@ -701,24 +697,3 @@
          -o-transform: translateZ( -100px )  translateY( 50vw ) rotateX(   90deg );
             transform: translateZ( -100px )  translateY( 50vw ) rotateX(   90deg );
   }
-
-  .main_content {
-    margin: 0;
-    position: relative;
-    z-index: 2;
-    width: 100%;
-    height: 100%;
-    
-    -webkit-transform-style : preserve-3d;
-    -moz-transform-style    : preserve-3d;
-    -o-transform-style      : preserve-3d;
-    -ms-transform-style     : preserve-3d;
-    transform-style         : preserve-3d;
-  }
-  .page-content {
-    position: absolute;
-    z-index: 2;
-    width: 100%;
-    height: 100%;
-  }
-  

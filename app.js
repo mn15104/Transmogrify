@@ -1,4 +1,5 @@
 var express = require('express');
+var session = require('express-session');
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
@@ -11,6 +12,18 @@ var app = express();
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
+
+app.use(session({
+  cookieName: 'session',
+  secret: 'eg[isfd-8yF9-7w2315df{}+Ijsli;;to8',
+  duration: 30 * 60 * 1000,
+  activeDuration: 5 * 60 * 1000,
+  httpOnly: true,
+  secure: true,
+  ephemeral: true,
+  resave: true,
+  saveUninitialized: true
+}));
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -33,14 +46,21 @@ var home_route = require('./routes/home.route');
 var explore_route = require('./routes/explore.route');
 app.use('/profile', function(req, res, next){
   res.sendFile(path.join(__dirname + '/public/views/profile.html'));
+  req.session.current_url = '/profile';
 });
-app.use('/home', home_route);
-app.use('/explore', explore_route);
+app.use('/home', home_route, function(){
+  req.session.current_url = '/home';
+});
+app.use('/explore', explore_route, function(){
+  req.session.current_url = '/explore';
+});
 app.use('/sidepanel', function(req, res, next){
   res.sendFile(path.join(__dirname + '/public/views/sidepanel.html'));
+  req.session.current_url = '/sidepanel';
 });
 app.use('/login', function(req, res, next){
   res.sendFile(path.join(__dirname + '/public/views/login.html'));
+  req.session.current_url = '/login';
 });
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

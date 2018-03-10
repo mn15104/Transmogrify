@@ -4,9 +4,9 @@ function docReady(){
 
 /*==================================================================
 [ Validate ]*/
-var input = $('.validate-input .input');
+var input = $('.login_validate-input .login_input');
 
-var box = document.querySelector('.site').children[0],
+var box = document.querySelector('.login_site').children[0],
             panelClassName = 'show-front',
 onButtonClick = function( event ){
   box.removeClassName( panelClassName );
@@ -15,36 +15,36 @@ onButtonClick = function( event ){
 };
 
 
-$('#arrow-login').hover(
+$('#login_arrow').hover(
     function(){
         $(this).addClass('bounce');
     }, function(){
         $(this).removeClass('bounce');
     })
-$('#arrow-login').click(function(){
+$('#login_arrow').click(function(){
     $('#cube').addClass('show-right');
     $('#cube').removeClass('show-front');    
-    $(".site").fadeTo(1000, 0.1, function(){
-        $(".site").fadeTo(1000, 1);
+    $(".login_site").fadeTo(1000, 0.1, function(){
+        $(".login_site").fadeTo(1000, 1);
     });
 })
-$('#arrow-create-account').hover(
+$('#login_arrow-create-account').hover(
     function(){
         $(this).addClass('bounce');
     }, function(){
         $(this).removeClass('bounce');
     })
-$('#arrow-create-account').click(function(){
+$('#login_arrow-create-account').click(function(){
     $('#cube').addClass('show-front');
     $('#cube').removeClass('show-right');    
-    $(".site").fadeTo(1000, 0.1, function(){
-        $(".site").fadeTo(1000, 1);
+    $(".login_site").fadeTo(1000, 0.1, function(){
+        $(".login_site").fadeTo(1000, 1);
     });
 })
 
 
 
-$('.validate-form').on('submit',function(){
+$('.login_validate-form').on('submit',function(){
     var check = true;
 
     for(var i=0; i<input.length; i++) {
@@ -57,7 +57,7 @@ $('.validate-form').on('submit',function(){
 });
 
 
-$('.validate-form .input').each(function(){
+$('.login_validate-form .login_input').each(function(){
     $(this).focus(function(){
         hideValidate(this);
     });
@@ -80,19 +80,19 @@ function validate (input) {
 function showValidate(input) {
     var thisAlert = $(input).parent();
 
-    $(thisAlert).addClass('alert-validate');
+    $(thisAlert).addClass('login_alert-validate');
 }
 
 function hideValidate(input) {
     var thisAlert = $(input).parent();
 
-    $(thisAlert).removeClass('alert-validate');
+    $(thisAlert).removeClass('login_alert-validate');
 }
 
 /*==================================================================
 [ Show pass ]*/
 var showPass = 0;
-$('.btn-show-pass').on('click', function(){
+$('.login_btn-show-pass').on('click', function(){
     if(showPass == 0) {
         $(this).next('input').attr('type','text');
         $(this).find('i').removeClass('fa-eye');
@@ -112,8 +112,8 @@ $('.btn-show-pass').on('click', function(){
 var siteW = $(window).width();
 var siteH = $(window).height();
 
-TweenMax.set(".site", { perspective: 5000 });
-TweenMax.set(".container", {
+TweenMax.set(".login_site", { perspective: 5000 });
+TweenMax.set(".login_container", {
   transformStyle: "preserve-3d",
   transformOrigin: "-0% 50%"
 });
@@ -127,13 +127,13 @@ function changeContent(){
       });
       
       tlFlip
-        .to(".site", 0.5, { scale: 0.8, ease: Power2.easeInOut }, "start")
+        .to(".login_site", 0.5, { scale: 0.8, ease: Power2.easeInOut }, "start")
         .to(
-          ".container",
+          ".login_container",
           0.4,
           { rotationY: -90, z: -siteW, ease: Power2.easeInOut },
           "start+=0.7"
         )
-        .to(".site", 0.5, { scale: 1, ease: Power2.easeInOut }, "start+=1.2");
+        .to(".login_site", 0.5, { scale: 1, ease: Power2.easeInOut }, "start+=1.2");
 }
 
