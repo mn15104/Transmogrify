@@ -46,14 +46,14 @@ function changeContent(){
       });
       
       tlFlip
-        .to(".site", 0.5, { scale: 0.8, ease: Power2.easeInOut }, "start")
+        .to(".sidepanel_site", 0.5, { scale: 0.8, ease: Power2.easeInOut }, "start")
         .to(
-          ".container",
+          ".sidepanel_container",
           0.4,
           { rotationY: -90, z: -siteW, ease: Power2.easeInOut },
           "start+=0.7"
         )
-        .to(".site", 0.5, { scale: 1, ease: Power2.easeInOut }, "start+=1.2");
+        .to(".sidepanel_site", 0.5, { scale: 1, ease: Power2.easeInOut }, "start+=1.2");
 }
 
 
