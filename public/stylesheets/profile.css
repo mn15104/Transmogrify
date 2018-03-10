@@ -2,7 +2,7 @@ element{
     --filterVal: 180;
 }
 
-.click{
+.profile_click{
     background: url('https://cdn2.digitalartsonline.co.uk/cmsdata/slideshow/3513552/polybreno_1500.jpg');
     background-size:contain;
     position: relative;
@@ -19,7 +19,7 @@ element{
     width:120px;
     height:120px;
 }
-.Profile{
+.profile_profile{
     z-index: 9999;
     text-align:center;
     -webkit-transition:cubic-bezier(.34,.43,0,1.02) 0.5s;
@@ -29,7 +29,7 @@ element{
     height:200px;
     border-radius:50%;
 }
-.clickProfile{
+.profile_clickprofile{
     margin-left:auto;
     border-top-left-radius:20px;
     border-top-right-radius:20px;
@@ -44,7 +44,7 @@ element{
     height:120px;
     margin-top:24vh;
     }
-.Img{
+.profile_img{
     background: url('https://cdn2.digitalartsonline.co.uk/cmsdata/slideshow/3513552/polybreno_1500.jpg');
     background-size:contain;
     z-index: 9999;
@@ -65,26 +65,26 @@ element{
     position: absolute;
     backface-visibility: hidden;
 }
-.container { 
+.profile_container { 
     width:200px;
     height:200px;
     position: relative;
     perspective: 800px;
 }
-#card{
+#profile_card{
     width: 100%;
     height: 100%;
     transform-origin: right center;
     transform-style: preserve-3d;
     transition: transform 1s;
 }
-#card #image1 {
+#profile_card #profile_image1 {
     
 }
-#card #image2 {
+#profile_card #profile_image2 {
     transform: rotateY( 180deg );
 }
-#card.flipped {
+#profile_card.flipped {
     transform: translateX( -100% ) rotateY( -180deg );
 }
 
@@ -153,12 +153,12 @@ element{
   line-height: 1.4em;
   background-color: #141414;
 }
-/* .snip1344 * {
+.snip1344 * {
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
   -webkit-transition: all 0.25s ease;
   transition: all 0.25s ease;
-} */
+}
 .snip1344 .backdrop {
   position:absolute;
   width: 100%;
@@ -175,20 +175,10 @@ element{
   padding: 15px 25px;
   position: relative;
   left: 0;
+
   background-color: #141414;
 }
-.snip1344 .profile {
-  border-radius: 50%;
-  position: absolute;
-  bottom: 50%;
-  left: 50%;
-  max-width: 100px;
-  opacity: 1;
-  box-shadow: 3px 3px 20px rgba(0, 0, 0, 0.5);
-  border: 2px solid rgba(255, 255, 255, 0.5);
-  -webkit-transform: translate(-50%, 0%);
-  transform: translate(-50%, 0%);
-}
+
 .snip1344 h3 {
   margin: 0 0 5px;
   font: 20px;
@@ -196,21 +186,21 @@ element{
   color: rgb(201, 198, 198);
   background-color: #141414;
 }
-.snip1344 h3 span {
+ .snip1344 h3 span {
   display: block;
   margin-top:3px;
   font-size: 0.7em;
   color: #f39c12;
   opacity: 0.75;
-}
+} 
 .snip1344 i {
   padding: 10px 5px;
   display: inline-block;
   font-size: 32px;
   text-align: center;
   opacity: 0.65;
-}
-.snip1344 a {
+} 
+ .snip1344 a {
   text-decoration: none;
 }
 .snip1344 i:hover {
@@ -222,19 +212,19 @@ element{
 .snip1344.hover .backdrop {
   -webkit-transform: scale(1);
   transform: scale(1);
-}
-h4{
+} 
+.profile_body h4{
     font-family: 'Open Sans', Arial, sans-serif;
     color:  rgba(255, 255, 255, 0.5);
     font-size: 1.3em;
 }
-h5{
+.profile_body h5{
     font-family: 'Open Sans', Arial, sans-serif;
     color: #f39c12;
     font-size: 1.2em;
     opacity: 0.75;
 }
-#webcam-icon{
+#profile_webcam-icon{
     position: absolute;
     background-position: 24px 24px;
     background-repeat: no-repeat;
@@ -247,7 +237,7 @@ h5{
     top: 0px;
 }
 
-.profile-icons{
+.profile_profile-icons{
     position: absolute;
     width: 100%;
     height: 100px;
@@ -255,7 +245,7 @@ h5{
     left: 0;
     background-color: #141414;
 }
-#chat-btn {
+#profile_chat-btn {
     width: 40px;
     height: 28px;
     background-color: #62cfc1;
@@ -263,7 +253,7 @@ h5{
     position: relative;
     margin-left: 20px;margin-top:5px;
   }
-  #chat-btn:after {
+#profile_chat-btn:after {
       content: "";
       display: block;
       position: absolute;
@@ -274,8 +264,8 @@ h5{
       border-left: 10px solid transparent;
       border-right: 2px solid transparent;
       border-top: 10px solid #62CFC1;
-  }
-  .brick-wall {
+}
+.brick-wall {
     display: flex;
     flex-flow: row wrap;
     margin-left: 1em; /*Adjustment for the gutter*/
@@ -355,14 +345,15 @@ h5{
 filter: grayscale(50%) sepia(0.3) brightness(150%) hue-rotate(320deg);
 -webkit-filter: grayscale(50%) sepia(0.3) brightness(150%) hue-rotate(320deg);
 }
-.wrapper {
+.profile_gallery-wrapper {
     padding-left: 10%;
     padding-right:8%;
     width: 100%;
 }
-.gallery-container{
+.profile_gallery-container{
     margin-left: auto;
     margin-right: auto;
     width: 80%;
+    height:100%;
     align-content: center;
 }
