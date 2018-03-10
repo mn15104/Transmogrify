@@ -102,7 +102,7 @@ h1{
   width: 60px;
   height: 45px;
   position: relative;
-  margin-top: 60px;
+  margin-top: 70px;
   margin-left:50px;
   -webkit-transform: rotate(0deg);
   -moz-transform: rotate(0deg);
@@ -340,9 +340,9 @@ span a {
   background:-moz-linear-gradient(180deg, rgb(165, 104, 38) 21%, rgb(151, 97, 39) 53%, rgb(155, 103, 20) 78%);
   background:linear-gradient(180deg, rgb(165, 104, 38) 21%, rgb(151, 97, 39) 53%, rgb(155, 103, 20) 78%);
 }
-
+@import url(https://fonts.googleapis.com/css?family=BenchNine:700);
+@import url(https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300);
 .menu{  
-
   z-index: 1000;
   overflow:hidden;
   position: fixed;
@@ -351,26 +351,69 @@ span a {
   list-style-type: none;
   margin: 0;
   padding: 0;
-  background: #79BAEC;
+  background: #9cb8b3;
   width: 100vw;
+  min-width:1300px;
 }
 .menu li{
   float: left;
+}
+.menu-items{
+  position:relative;
+  display: block;
+  color: white;
+  text-align: center;
 }
 .menu-item{
   display: block;
   color: white;
   text-align: center;
+  right:80%;
+}
+.menu-texts{
+  position: relative;
+  text-align:center;
+  max-width:100%;
+  min-width:960px;
+  overflow: hidden;
 }
 h2.menu-title{
-  position: absolute;
-  top: 0%;  /* position the top  edge of the element at the middle of the parent */
-  left: 50%; /* position the left edge of the element at the middle of the parent */
-  font-size: xx-large;
+  position: relative;
+  float: left;
+  top: -0.3em;  /* position the top  edge of the element at the middle of the parent */
+  left: 40%; /* position the left edge of the element at the middle of the parent */
   transform: translate(-50%, -20%);
-
+  font: 600 3em/1 'Raleway', sans-serif;
+  color: rgba(0,0,0);
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: .3em;
 }
-
+h2.menu-link-left{
+  position: relative;
+  float: left;
+  top: -0.3em;  /* position the top  edge of the element at the middle of the parent */
+  left: 20%; /* position the left edge of the element at the middle of the parent */
+  transform: translate(-50%, -20%);
+  font: 600 2.5em/1'Raleway', sans-serif;
+  color: rgba(0,0,0,.5);
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: .3em;
+}
+h2.menu-link-right{
+  position: relative;
+  float: left;
+   /* position the top  edge of the element at the middle of the parent */
+  left: 65%; /* position the left edge of the element at the middle of the parent */
+  transform: translate(-50%, -20%);
+  font: 600 2.5em/1 'Raleway', sans-serif;
+  color: rgba(0,0,0,.5);
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: .3em;
+  top: -0.3em; 
+}
 h2.category {
 font-family:'Open Sans';
 font-size: x-large;
