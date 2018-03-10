@@ -24,7 +24,10 @@ function init(content){
     // })
     toggleNav();
     $('.sidepanel_menu-link-right').click(function(){
-      $('#page_1').load("../views/profile.html")
+      $('#page_1').load("../views/explore.html")
+    })
+    $('.sidepanel_menu-link-left').click(function(){
+      $('#page_1').load("../views/login.html")
     })
 }
 
