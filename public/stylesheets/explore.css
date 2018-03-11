@@ -11,7 +11,9 @@
     --colour5: #79BAEC; /* Blue */
     --colour6: #BEEAF8; /* Lighter Blue */
 }
-
+html {
+    overflow-y: scroll;
+}
 explore_body {
 
 }
@@ -29,7 +31,10 @@ explore_body {
     width: 80%;
     align-content: center;
 }
-
+.clear
+{
+    clear: both;
+}
 /* Wrapper @ Wrapper around bricks container */
 .explore_wrapper {
     padding-left: 10%;

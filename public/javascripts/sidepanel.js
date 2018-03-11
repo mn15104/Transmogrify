@@ -15,11 +15,12 @@ function init(content){
     })
 }
 
+
 var siteW = $(window).width();
 var siteH = $(window).height();
 
-TweenMax.set(".site", { perspective: 5000 });
-TweenMax.set(".container", {
+TweenMax.set(".login_site", { perspective: 5000 });
+TweenMax.set(".login_container", {
   transformStyle: "preserve-3d",
   transformOrigin: "-0% 50%"
 });
@@ -33,15 +34,16 @@ function changeContent(){
       });
       
       tlFlip
-        .to(".sidepanel_site", 0.5, { scale: 0.8, ease: Power2.easeInOut }, "start")
+        .to(".login_site", 0.5, { scale: 0.8, ease: Power2.easeInOut }, "start")
         .to(
-          ".sidepanel_container",
+          ".login_container",
           0.4,
           { rotationY: -90, z: -siteW, ease: Power2.easeInOut },
           "start+=0.7"
         )
-        .to(".sidepanel_site", 0.5, { scale: 1, ease: Power2.easeInOut }, "start+=1.2");
+        .to(".login_site", 0.5, { scale: 1, ease: Power2.easeInOut }, "start+=1.2");
 }
+
 
 
 function toggleNav(){
