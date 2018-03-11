@@ -1,8 +1,10 @@
 element{
     --filterVal: 180;
 }
-
-.click{
+@media all and (max-width: 30em) {
+    /* Alternative narrow styles */
+}
+.profile_click{
     background: url('https://cdn2.digitalartsonline.co.uk/cmsdata/slideshow/3513552/polybreno_1500.jpg');
     background-size:contain;
     position: relative;
@@ -19,7 +21,7 @@ element{
     width:120px;
     height:120px;
 }
-.Profile{
+.profile_profile{
     z-index: 9999;
     text-align:center;
     -webkit-transition:cubic-bezier(.34,.43,0,1.02) 0.5s;
@@ -29,7 +31,7 @@ element{
     height:200px;
     border-radius:50%;
 }
-.clickProfile{
+.profile_clickprofile{
     margin-left:auto;
     border-top-left-radius:20px;
     border-top-right-radius:20px;
@@ -44,7 +46,7 @@ element{
     height:120px;
     margin-top:24vh;
     }
-.Img{
+.profile_img{
     background: url('https://cdn2.digitalartsonline.co.uk/cmsdata/slideshow/3513552/polybreno_1500.jpg');
     background-size:contain;
     z-index: 9999;
@@ -65,26 +67,27 @@ element{
     position: absolute;
     backface-visibility: hidden;
 }
-.container { 
+.profile_container { 
     width:200px;
     height:200px;
     position: relative;
     perspective: 800px;
+    margin-right:100px;
 }
-#card{
+#profile_card{
     width: 100%;
     height: 100%;
     transform-origin: right center;
     transform-style: preserve-3d;
     transition: transform 1s;
 }
-#card #image1 {
+#profile_card #profile_image1 {
     
 }
-#card #image2 {
+#profile_card #profile_image2 {
     transform: rotateY( 180deg );
 }
-#card.flipped {
+#profile_card.flipped {
     transform: translateX( -100% ) rotateY( -180deg );
 }
 
@@ -153,12 +156,12 @@ element{
   line-height: 1.4em;
   background-color: #141414;
 }
-/* .snip1344 * {
+.snip1344 * {
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
   -webkit-transition: all 0.25s ease;
   transition: all 0.25s ease;
-} */
+}
 .snip1344 .backdrop {
   position:absolute;
   width: 100%;
@@ -175,42 +178,32 @@ element{
   padding: 15px 25px;
   position: relative;
   left: 0;
+
   background-color: #141414;
 }
-.snip1344 .profile {
-  border-radius: 50%;
-  position: absolute;
-  bottom: 50%;
-  left: 50%;
-  max-width: 100px;
-  opacity: 1;
-  box-shadow: 3px 3px 20px rgba(0, 0, 0, 0.5);
-  border: 2px solid rgba(255, 255, 255, 0.5);
-  -webkit-transform: translate(-50%, 0%);
-  transform: translate(-50%, 0%);
-}
+
 .snip1344 h3 {
   margin: 0 0 5px;
   font: 20px;
   font-weight: 400;
   color: rgb(201, 198, 198);
-  background-color: #191919;
+  background-color: #141414;
 }
-.snip1344 h3 span {
+ .snip1344 h3 span {
   display: block;
   margin-top:3px;
   font-size: 0.7em;
   color: #f39c12;
   opacity: 0.75;
-}
+} 
 .snip1344 i {
   padding: 10px 5px;
   display: inline-block;
   font-size: 32px;
   text-align: center;
   opacity: 0.65;
-}
-.snip1344 a {
+} 
+ .snip1344 a {
   text-decoration: none;
 }
 .snip1344 i:hover {
@@ -222,15 +215,154 @@ element{
 .snip1344.hover .backdrop {
   -webkit-transform: scale(1);
   transform: scale(1);
-}
-h4{
+} 
+.profile_body h4{
     font-family: 'Open Sans', Arial, sans-serif;
     color:  rgba(255, 255, 255, 0.5);
     font-size: 1.3em;
 }
-h5{
+.profile_body h5{
     font-family: 'Open Sans', Arial, sans-serif;
     color: #f39c12;
     font-size: 1.2em;
     opacity: 0.75;
+}
+#profile_webcam-icon{
+    position: absolute;
+    background-position: 24px 24px;
+    background-repeat: no-repeat;
+    display: inline-block;
+    height: 44px;
+    line-height: 54px;
+    vertical-align: text-bottom;
+    width: 44px;
+    right: 20px;
+    top: 0px;
+}
+
+.profile_profile-icons{
+    position: absolute;
+    width: 100%;
+    height: 100px;
+    margin-top:5px;
+    left: 0;
+    background-color: #141414;
+}
+#profile_chat-btn {
+    width: 40px;
+    height: 28px;
+    background-color: #62cfc1;
+    border-radius: 4px;
+    position: relative;
+    margin-left: 20px;margin-top:5px;
+  }
+#profile_chat-btn:after {
+      content: "";
+      display: block;
+      position: absolute;
+      width: 0;
+      height: 0;
+      right: 10px;
+      bottom: -10px;
+      border-left: 10px solid transparent;
+      border-right: 2px solid transparent;
+      border-top: 10px solid #62CFC1;
+}
+.brick-wall {
+    display: flex;
+    flex-flow: row wrap;
+    min-width: 400px;
+    counter-reset: brick;
+}
+
+.brick {
+    overflow: hidden;
+    /* border-radius: 5px; */
+    margin: 0 0 0px 0px;  /* Some Gutter */
+    color: white;
+    position: relative;
+}
+
+.brick:after {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 5000;
+    transform: translate(-50%, -50%);
+    transition: font-size .25s, opacity .25s ease-in-out;
+    font-weight: 700;
+    opacity: .5;
+    font-size: 1.25em;
+  }
+
+.brick:hover:after {
+    font-size: 2.25em;
+    opacity: 1;
+}
+
+.brick {
+    flex: auto;
+    height: 250px;
+    min-width: 200px;
+}
+
+@media only screen and (min-width: 1024px) {
+    /* Horizontal bricks on desktop-sized screen */
+    .brick:nth-child(4n+1) {
+      width: 250px;
+    }
+    .brick:nth-child(4n+2) {
+      width: 325px;
+    }
+    .brick:nth-child(4n+3) {
+      width: 180px;
+    }
+    .brick:nth-child(4n+4) {
+      width: 380px;
+    }
+
+  }
+
+  @media only screen and (max-width: 1023px) and (min-width: 768px) {
+    /* Horizontal bricks on tabled-sized screen */
+    .brick:nth-child(4n+1) {
+      width: 200px;
+    }
+    .brick:nth-child(4n+2) {
+      width: 250px;
+    }
+    .brick:nth-child(4n+3) {
+      width: 120px;
+    }
+    .brick:nth-child(4n+4) {
+      width: 280px;
+    }
+}
+
+.brick-img {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    filter: brightness(90%);
+
+filter: grayscale(50%) sepia(0.3) brightness(150%) hue-rotate(320deg);
+-webkit-filter: grayscale(50%) sepia(0.3) brightness(150%) hue-rotate(320deg);
+}
+.profile_gallery-wrapper {
+    position:absolute;
+    padding-left: 10%;
+    height: 100%;
+    padding-right:8%;
+    margin-left: 20%;
+}
+.profile_gallery-container{
+    position:relative;
+    width: 80%;
+    height: 100%;
+    min-width: 400px;
+    align-content: center;
+}
+.profile_page_container{
+    min-width:2000px;
+    position:relative;
 }

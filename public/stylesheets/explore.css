@@ -1,4 +1,6 @@
 
+
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
 :root {
     --inset-color: rgb(193, 195, 199);
 
@@ -10,67 +12,18 @@
     --colour6: #BEEAF8; /* Lighter Blue */
 }
 
-body {
-    /* height: 100vh; */
-    background: var(--colour4);
-    /* background:-webkit-linear-gradient(180deg, rgb(229, 198, 164) 21%, rgb(221, 179, 135) 53%, rgb(223, 187, 130) 78%);
-    background:-o-linear-gradient(180deg, rgb(229, 198, 164) 21%, rgb(221, 179, 135) 53%, rgb(223, 187, 130) 78%);
-    background:-moz-linear-gradient(180deg, rgb(229, 198, 164) 21%, rgb(221, 179, 135) 53%, rgb(223, 187, 130) 78%);
-    background:linear-gradient(180deg, rgb(229, 198, 164) 21%, rgb(221, 179, 135) 53%, rgb(223, 187, 130) 78%); */
+explore_body {
+
 }
 /* #4b3832 • #854442 • #fff4e6 • #3c2f2f • #be9b7b */
 /* H1 @ Title font */
 
-@import url('https://fonts.googleapis.com/css?family=Open+Sans');
-
-h1 {
-    /* color: #854442; */
-    font-family:'Open Sans';
-    text-transform: none; font-weight: 100; margin-bottom: 0;
-    font-size: 50px;
-    letter-spacing: 2px;
-    /* line-height: 5; */
-    text-align: center;
-    padding-bottom: 1em;
-}
-
-
-
-.menu{
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    background: var(--colour5);
-
-}
-.menu li{
-    float: left;
-}
-.menu-item{
-    display: block;
-    color: white;
-    text-align: center;
-}
-.menu-item:hover{
-    opacity: 0.5;
-}
-h2.menu-title{
-    position: absolute;
-    top: 0%;  /* position the top  edge of the element at the middle of the parent */
-    left: 50%; /* position the left edge of the element at the middle of the parent */
-    font-size: xx-large;
-    transform: translate(-50%, -20%);
+.explore_body h1 {
 
 }
 
-h2.category {
-  font-family:'Open Sans';
-  font-size: x-large;
-  text-align: center;
-}
-
-.container{
+.explore_container{
+    padding-top: 200px;
     margin-left: auto;
     margin-right: auto;
     width: 80%;
@@ -78,13 +31,13 @@ h2.category {
 }
 
 /* Wrapper @ Wrapper around bricks container */
-.wrapper {
+.explore_wrapper {
     padding-left: 10%;
     padding-right:8%;
     width: 100%;
 }
 
-img {
+.explore_body img {
     top:0;
     vertical-align: middle;
     max-width: 100%;
@@ -181,7 +134,7 @@ img {
 .brick-wall {
     display: flex;
     flex-flow: row wrap;
-    margin-left: 1em; /*Adjustment for the gutter*/
+    /* margin-left: 1em; Adjustment for the gutter */
     counter-reset: brick;
 }
 

@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Listen To This Image</title>
-    <script src="./javascripts/jquery-3.2.1.min.js"></script>
-    <script src="./javascripts/jquery-ui.min.js"></script>
-    <link rel="stylesheet" href="./stylesheets/jquery-ui.min.css">
+    <script src="../javascripts/jstools/jquery-3.2.1.min.js"></script>
+    <script src="../javascripts/jstools/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="../stylesheets/jquery-ui.min.css">
 
 <!-- D75848	C15B4D	B84131	F19286	F1B8B1 D7B148	C1A34D	B89531	F1D586	F1E1B1  6B3690	643881	59257C	B57FDA	C4A3DA-->
 
@@ -18,55 +18,96 @@
     <link rel="stylesheet" type="text/css" media="screen" href="../stylesheets/profile.css">
     <script src="https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.js"></script>
 </head>
-<body>
+<body class = "profile_body">
     <a class = "background"></a>
-    <section class="container">
-        <figure class="snip1344" id="card" >
-            <div class=" ACon Profile">
-                <div class="Img" id = "image">
-                    <span><img /></span>
+    <div class = "profile_page_container">
+        <section class="profile_container">
+            <figure class="snip1344" id="profile_card" >
+                <div class=" ACon profile_profile">
+                    <div class="profile_img" id = "profile_image1">
+                        <span><img /></span>
+                    </div>
+                    <div class="profile_img" id = "profile_image2">
+                        <span><img /></span>
+                    </div>
+                    
                 </div>
-                <div class="Img" id = "image2">
-                    <span><img /></span>
-                </div>
-            </div>
-            <figcaption id = "profile-description">
-                <h3>Joshua Crippinson<span>Web Developer</span></h3>
-                <h4>About Me</h4>
-                <h5>I really love cats</h5>
-            </figcaption>
-        </figure>
-    </section>
-
-
-<script src="../javascripts/triangulate.min.js"></script>
+                <figcaption id = "profile_profile-description">
+                    <h3>Joshua Crippinson<span>Web Developer</span></h3>
+                    <h3 style="font-size:20px">About Me<span style="font-size:17px">I really love cats</span></h3>
+                    
+                    <div class = "profile_profile-icons">
+                        <div id = "profile_chat-btn"></div>
+                        <img id = "profile_webcam-icon" src="../images/webcam.png" class="segment" >
+                    </div>
+                </figcaption>
+            </figure>
+        </section>
+        <div class= "profile_gallery-wrapper">
+            <div class= "profile_gallery-container">
+                <div class="brick-wall">
+                        <figure class="brick">
+                            <img src="https://robsmovievault.files.wordpress.com/2014/01/leon_the_professional_jean_reno_movie_stills-hd.jpg" class="brick-img">
+                        </figure>
+                        <figure class="brick">
+                            <img src="https://s-media-cache-ak0.pinimg.com/originals/cd/41/06/cd41066bdcb79456db17263408c485bd.jpg" class="brick-img">
+                        </figure>
+                        <figure class="brick">
+                            <img src="http://iris.theaureview.com/wp-content/uploads/2015/04/it-follows-film.png" class="brick-img" >
+                        </figure>
+                        <figure class="brick">
+                            <img src="https://consequenceofsound.files.wordpress.com/2016/06/it-follows-end.gif?w=600&h=251" class="brick-img" >
+                        </figure>
+                        <figure class="brick">
+                            <img src="https://s.ynet.me/assets/images/movies/lon_the_professional_1994/large-screenshot3.jpg" class="brick-img" >
+                        </figure>
+                        <figure class="brick">
+                            <img src="https://s-media-cache-ak0.pinimg.com/originals/00/32/cb/0032cb076ea32185d295f0a44b71978c.jpg" class="brick-img" >
+                        </figure>
+                        <figure class="brick">
+                            <img src="https://wheresthejump.com/wp-content/uploads/2015/06/It-Follows-1.jpg" class="brick-img" ></figure>
+                        <figure class="brick">
+                            <img src="https://i2.wp.com/bloody-disgusting.com/wp-content/uploads/2016/04/ItFollows5.png?resize=960%2C393" class="brick-img" >
+                        </figure>
+                        <figure class="brick">
+                            <img src="http://trilbee.com/wp-content/uploads/2016/01/it-follows-5.png" class="brick-img" >
+                        </figure>
+                        <figure class="brick">
+                            <img src="http://blasphemoustomes.com/wp-content/uploads/2015/06/It-Follows-4-1024x427.png" class="brick-img" >
+                        </figure>
+                </div>  
+            </div>  
+        </div>
+    </div>
+<script src="../javascripts/jstools/triangulate.min.js"></script>
 <script>
     $(document).ready(function(){
-    var $Menu = $('.Img');
-    $("#card").toggleClass("flipped");
+    var $Menu = $('.profile_img');
+    $(".brick-wall").hide();
+    $("#profile_card").toggleClass("flipped");
     $(".snip1344").css({"background-color":"white"});
     $(".snip1344").css({"background-color":"white"});
-    $('#profile-description').hide();
-    $('.Img').hide();
-    $('.Img').fadeIn("slow");
-    $('.Img').mouseenter(function() {
+    $('#profile_profile-description').hide();
+    $('.profile_img').hide();
+    $('.profile_img').fadeIn("slow");
+    $('.profile_img').mouseenter(function() {
         $('.PopUp').css('opacity', '1');
         $('.PopUp').css('margin-top', '20px');
     });
-    $('.Img').click(function() {
-        $("#card").toggleClass("flipped", function(){
-            $(".snip1344").css({"margin-right":"2000px"}).animate({"left":"10px"}, "slow");
-            $(".snip1344").css({"margin-right":"2000px"}).animate({"top":"-30vh"}, "slow", function(){
-                $('#profile-description').slideDown(600);
+    $('.profile_img').click(function() {
+        $("#profile_card").toggleClass("flipped", function(){
+            $(".snip1344").css({"margin-right":"2000px"}).animate({"left":"250px"}, "slow");
+            $(".snip1344").css({"margin-right":"2000px"}).animate({"top":"-20vh"}, "slow", function(){
+                $('#profile_profile-description').slideDown(600);
                 $(".snip1344").animate({"background-color":"#141414"}, 'slow');
-              
+                $(".brick-wall").fadeIn('slow');
             });
         });
         $("#sidebar-horizontal").fadeIn("slow");
         var margin = "-2000px";
         
     });
-    $('.Img').mouseleave(function() {
+    $('.profile_img').mouseleave(function() {
         $('.PopUp').css('opacity', '0');
         $('.PopUp').css('margin-top', '0px');
     })});

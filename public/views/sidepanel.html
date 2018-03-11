@@ -8,68 +8,58 @@
   <link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 
-  <script src="./javascripts/jquery-3.2.1.min.js"></script>
-  <script src="./javascripts/jquery-ui.min.js"></script>
+  <script src="../javascripts/jstools/jquery-3.2.1.min.js"></script>
+  <script src="../javascripts/jstools/jquery-ui.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.4/TweenMax.min.js"></script>
   <link rel="stylesheet" href="./stylesheets/jquery-ui.min.css">
   <link rel="stylesheet" href="./stylesheets/sidepanel.css">
 </head>
-<body>
 
-
-<div id="index" class="index-container">
-  <div class="index-wrapper">
-    <span class = "index-button-container" data-index-open="false">
-      <div class='index-title' id="index_button" style="font-size:30px; cursor:pointer" onclick="toggleNav()">
-          <span></span>
-          <span></span>
-          <span></span>
+<body class = "sidepanel_body">
+  <div class="sidepanel_menu">
+      <div class="sidepanel_menu-text">
+        <h2 class="sidepanel_menu-link-left">CREATE<h2>
+        <h2 class="sidepanel_menu-title">EXPLORE<h2>
+        <h2 class="sidepanel_menu-link-right">PROFILE<h2>
+        <h2 class="sidepanel_menu-link-login">LOGIN<h2>
       </div>
-      <div id='sidebar-horizontal'>
-          <ul id='nav-horizontal'>
-            <li class = "index_item_H"  href="#">
-                <img src="images/menu-bar-segment.svg" class="segment" >
-                <div class="segment-text">EXPLORE</div>
-              <!-- <a>explore</a> -->
-            </li>
-            <li class = "index_item_H" href="#">
-                <img src="images/menu-bar-segment.svg" class="segment" >
-              <a>experiment</a>
-            </li>
-            <li class = "index_item_H" href="#">
-                <img src="images/menu-bar-segment.svg" class="segment" >
-              <a>friends</a>
-            </li >
-            <li class = "index_item_H" href="#">
-                <img src="images/menu-bar-segment.svg" class="segment" >
-              <a>my page</a>
-            </li>
-            <li class = "index_item_H link" href="#">
-                <img src="images/menu-bar-segment.svg" class="segment" >
-              <a>profile</a>
-            </li>
-            <li class = "index_item_H" href="#">
-                <img src="images/menu-bar-segment.svg" class="segment" >
-              <a>logout</a>
-            </li>
-        </ul>
+  </div>
+  <div id="sidepanel_index" class="sidepanel_index-container">
+    <div class="sidepanel_index-wrapper">
+    <span class = "sidepanel_index-button-container" data-index-open="false">
+      <div class='sidepanel_index-title' id="sidepanel_index_button" style="font-size:30px; cursor:pointer" onclick="toggleNav()">
+          <span></span>
+          <span></span>
+          <span></span>
       </div>
     </span>
     <div>
-        <div class='wrapper'>
-            <div class='sidebar'>
-              <ul class='nav'>
-                <li class = "index_item" href="#">
-                  <a>popular</a>
+        <div class='sidepanel_wrapper'>
+            <div class='sidepanel_sidebar'>
+              <ul class='sidepanel_nav'>
+              <li class = "sidepanel_index_item_H"  href="#">
+                <img src="images/menu-bar-segment.svg" class="sidepanel_segment" >
+                <a>explore</a>
                 </li>
-                <li class = "index_item" href="#">
-                  <a>random</a>
+                <li class = "sidepanel_index_item_H" href="#">
+                    <img src="images/menu-bar-segment.svg" class="sidepanel_segment" >
+                  <a>experiment</a>
                 </li>
-                <li class = "index_item" href="#">
-                  <a>new</a>
+                <li class = "sidepanel_index_item_H" href="#">
+                    <img src="images/menu-bar-segment.svg" class="sidepanel_segment" >
+                  <a>friends</a>
+                </li >
+                <li class = "sidepanel_index_item_H" href="#">
+                    <img src="images/menu-bar-segment.svg" class="sidepanel_segment" >
+                  <a>my page</a>
                 </li>
-                <li class = "index_item" href="#">
-                  <a>search</a>
+                <li class = "sidepanel_index_item_H link" href="#">
+                    <img src="images/menu-bar-segment.svg" class="sidepanel_segment" >
+                  <a>profile</a>
+                </li>
+                <li class = "sidepanel_index_item_H" href="#">
+                    <img src="images/menu-bar-segment.svg" class="sidepanel_segment" >
+                  <a>logout</a>
                 </li>
             </ul>
           </div>
@@ -78,19 +68,19 @@
   </div>
 </div>
 
-<div class = "site">
-  <div class = "container ">
-    <div class = "main_content " id="main_content ">
-        <div class = "page-content"  id = "page_1">
+<div class = "embedded_div">
+  <div class = "embedded_container ">
+    <div class = "embedded_main_content " id="embedded_main_content">
+        <div class = "embedded_page-content"  id = "page_1">
         </div>
 
-        <div class = "page-content"   id = "page_2">
+        <div class = "embedded_content"   id = "page_2">
         </div>
     </div>
   </div>
 </div>
-<script src="./javascripts/sidepanel.js"></script>
-
+<script src="../javascripts/sidepanel.js"></script>
+<script>var name = "<%= name %>";</script>
 <script>
 
 ///////////Insert Main Page/////////////
