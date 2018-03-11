@@ -1,7 +1,9 @@
 element{
     --filterVal: 180;
 }
-
+@media all and (max-width: 30em) {
+    /* Alternative narrow styles */
+}
 .profile_click{
     background: url('https://cdn2.digitalartsonline.co.uk/cmsdata/slideshow/3513552/polybreno_1500.jpg');
     background-size:contain;
@@ -70,6 +72,7 @@ element{
     height:200px;
     position: relative;
     perspective: 800px;
+    margin-right:100px;
 }
 #profile_card{
     width: 100%;
@@ -268,7 +271,7 @@ element{
 .brick-wall {
     display: flex;
     flex-flow: row wrap;
-    margin-left: 1em; /*Adjustment for the gutter*/
+    min-width: 400px;
     counter-reset: brick;
 }
 
@@ -346,14 +349,20 @@ filter: grayscale(50%) sepia(0.3) brightness(150%) hue-rotate(320deg);
 -webkit-filter: grayscale(50%) sepia(0.3) brightness(150%) hue-rotate(320deg);
 }
 .profile_gallery-wrapper {
+    position:absolute;
     padding-left: 10%;
+    height: 100%;
     padding-right:8%;
-    width: 100%;
+    margin-left: 20%;
 }
 .profile_gallery-container{
-    margin-left: auto;
-    margin-right: auto;
+    position:relative;
     width: 80%;
-    height:100%;
+    height: 100%;
+    min-width: 400px;
     align-content: center;
+}
+.profile_page_container{
+    min-width:2000px;
+    position:relative;
 }

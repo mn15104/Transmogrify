@@ -1,18 +1,4 @@
 
-
-
-
-// $(".index_item, .index_item_H").click(function(event){
-//     event.preventDefault();
-//     linkLocation = this.href;
-//     $("body").fadeOut(2000, redirectPage(linkLocation));      
-// });
-     
-// function redirectPage(linkLocation) {
-//     window.location = linkLocation;
-// }
-
-
 function init(content){
     toggleNav();
     $('.sidepanel_menu-link-right').click(function(){
