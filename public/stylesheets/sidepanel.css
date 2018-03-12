@@ -19,16 +19,16 @@
 .sidepanel_body {
   font: 600 12px/1 'Open Sans', sans-serif;
   color: rgb(44, 36, 36);
+  padding-top: 100px;
   /* background: #333; */
 }
 
 .sidepanel_body h1{
   color: var(--colour1);
   font-family:Georgia,serif;
-  text-transform: none; font-weight: 100; margin-bottom: 0;
+  text-transform: none; font-weight: 100;
   font-size: 50px;
   letter-spacing: 2px;
-  line-height: 5;
   text-align: center;
 }
 
@@ -71,7 +71,7 @@
   width: 60px;
   height: 45px;
   position: relative;
-  margin-top: 80px;
+  margin-top: 110px;
   margin-left:50px;
   -webkit-transform: rotate(0deg);
   -moz-transform: rotate(0deg);
@@ -172,7 +172,7 @@
     width: 100%;
     position: absolute;
     float: left;
-    top: - 30px;
+    top: -30px;
 }
 .sidepanel_index-title span a {
     display:inline-block;
@@ -253,6 +253,7 @@ sidepanel_nav li a.active {
   z-index: 1000;
   position: fixed;
   left: 0;
+  top:0;
   z-index: 1000;
   background: #9cb8b3;
   width: 100vw;
@@ -260,9 +261,10 @@ sidepanel_nav li a.active {
   min-width:1300px;
 }
 .sidepanel_menu-items{
-  position:relative;
+  height: 100%;
+  top: 0;
+  position:absolute;
   color: white;
-  text-align: center;
 }
 .sidepanel_menu-item{
   color: white;
@@ -284,12 +286,11 @@ h2.sidepanel_menu-title{
   height: 100%;
   font: 600 2.5em/1 'Raleway', sans-serif;
   color: rgba(0,0,0);
+  top: -20%;
   text-align: center;
   text-transform: uppercase;
   letter-spacing: .3em;
-  padding-top:1.2em;
-  padding-bottom:1em;
-  top: -0.8em;
+  padding-top:1.8%;
 }
 .sidepanel_menu-title:hover{
   cursor: pointer;
@@ -308,8 +309,8 @@ h2.sidepanel_menu-link-left{
   text-align: center;
   text-transform: uppercase;
   letter-spacing: .3em;
-  padding-top:1.2em;
-  padding-bottom:1em;  top: -0.8em;
+  top: -20%;
+  padding-top:1.8%;
 }
 .sidepanel_menu-link-left:hover{
   cursor: pointer;
@@ -329,8 +330,8 @@ h2.sidepanel_menu-link-right{
   text-align: center;
   text-transform: uppercase;
   letter-spacing: .3em;
-  padding-top:1.2em;
-  padding-bottom:1em;  top: -0.8em;
+  top: -20%;
+  padding-top:1.8%;
 }
 .sidepanel_menu-link-right:hover{
   cursor: pointer;
@@ -342,16 +343,15 @@ h2.sidepanel_menu-link-right{
 h2.sidepanel_menu-link-login{
   position: absolute;
   float: left;
-   /* position the top  edge of the element at the middle of the parent */
-  left: 70%; /* position the left edge of the element at the middle of the parent */
+  left: 70%; 
   height: 100%;
   font: 600 2.0em/1 'Raleway', sans-serif;
   color: rgba(0,0,0,.5);
   text-align: center;
   text-transform: uppercase;
   letter-spacing: .3em;
-  padding-top:1.2em;
-  padding-bottom:1em;  top: -0.8em;
+  top: -20%;
+  padding-top:1.8%;
 }
 .sidepanel_menu-link-login:hover{
   cursor: pointer;
