@@ -43,6 +43,48 @@
                 </figcaption>
             </figure>
         </section>
+        <section class="chat_container">   
+            <header class="chat_top-bar">        
+                <div class="chat_left">      
+                    <span class="chat_icon chat_typicons-message">
+
+                    </span>      
+                    <h1>Hangouts</h1>    
+                </div>       
+                <div class="chat_right">      
+                    <span class="chat_icon chat_typicons-minus"></span>      
+                    <span class="chat_icon chat_typicons-times"></span>    
+                </div>      
+            </header>    
+            <ol class="chat_discussion">    
+                <li class="chat_other">      
+                    <div class="chat_avatar">        
+                        <img src='https://cdn2.digitalartsonline.co.uk/cmsdata/slideshow/3513552/polybreno_1500.jpg' />      
+                    </div>      
+                    <div class="chat_messages">        
+                        <p>yeah, they do early flights cause they connect with big airports.  they wanna get u to your connection</p>        
+                        <time datetime="2009-11-13T20:00">Timothy • 51 min</time>      
+                    </div>    
+                </li>    
+                <li class="chat_self">      
+                    <div class="chat_avatar">        
+                        <img src='https://cdn2.digitalartsonline.co.uk/cmsdata/slideshow/3513552/polybreno_1500.jpg' />      
+                    </div>      
+                    <div class="chat_messages">        
+                        <p>That makes sense.</p>        
+                        <p>It's a pretty small airport.</p>        
+                        <time datetime="2009-11-13T20:14">37 mins</time>      
+                    </div>    </li>    <li class="chat_other">      
+                        <div class="chat_avatar">        
+                            <img src='https://cdn2.digitalartsonline.co.uk/cmsdata/slideshow/3513552/polybreno_1500.jpg'/>      
+                        </div>      
+                        <div class="chat_messages">        
+                        <p> that mongodb thing looks good, huh?</p>        
+                        <p> tiny master db, and huge document store</p>      
+                        </div>    
+                    </li>  
+                </ol>  
+            </section>
         <div class= "profile_gallery-wrapper">
             <div class= "profile_gallery-container">
                 <div class="brick-wall">
@@ -155,7 +197,7 @@
     $('.profile_img').click(function() {
         $("#profile_card").toggleClass("flipped", function(){
             $(".snip1344").css({"margin-right":"2000px"}).animate({"left":"250px"}, "slow");
-            $(".snip1344").css({"margin-right":"2000px"}).animate({"top":"-20vh"}, "slow", function(){
+            $(".snip1344").css({"margin-right":"2000px"}).animate({"top":"-270px"}, "slow", function(){
                 $('#profile_profile-description').slideDown(600);
                 $(".snip1344").animate({"background-color":"#141414"}, 'slow');
                 $(".brick-wall").fadeIn('slow');
