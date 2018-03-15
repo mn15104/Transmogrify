@@ -279,7 +279,7 @@ sidepanel_nav li a.active {
   min-width:960px;
   overflow: hidden;
 }
-h2.sidepanel_menu-title{
+h2.sidepanel_menu-link-mid{
   position: absolute;
   float: left;
   left: 30%; /* position the left edge of the element at the middle of the parent */
@@ -292,11 +292,11 @@ h2.sidepanel_menu-title{
   letter-spacing: .3em;
   padding-top:1.8%;
 }
-.sidepanel_menu-title:hover{
+.sidepanel_menu-link-mid:hover{
   cursor: pointer;
   background-color: rgb(90, 114, 194);
 }
-.sidepanel_menu-title:active{
+.sidepanel_menu-link-mid:active{
   background-color: rgb(90, 114, 194);
 }
 h2.sidepanel_menu-link-left{
@@ -360,6 +360,7 @@ h2.sidepanel_menu-link-login{
 .sidepanel_menu-link-login:active{
   background-color: rgb(90, 114, 194);
 }
+
 #embedded_cube {
   z-index: 2;
   width: 100vw;

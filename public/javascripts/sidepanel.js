@@ -7,11 +7,22 @@ function init(content){
     $('.sidepanel_menu-link-left').click(function(){
       $('#page_1').load("../views/home.html")
     })
-    $('.sidepanel_menu-title').click(function(){
+    $('.sidepanel_menu-link-mid').click(function(){
       $('#page_1').load("../views/explore.html")
+
     })
     $('.sidepanel_menu-link-login').click(function(){
       $('#page_1').load("../views/login.html")
+    })
+    $('.sidepanel_menu_link').click(function(){
+      $('.sidepanel_menu_link').each(function(){
+        $(this).animate({
+          fontSize: "30px"
+        }, 1000);
+      });
+      $(this).animate({
+        fontSize: "40px"
+      }, 1000);
     })
 }
 
