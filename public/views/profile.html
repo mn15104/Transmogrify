@@ -22,7 +22,7 @@
     <a class = "background"></a>
     <div class = "profile_page_container">
         <section class="profile_container">
-            <figure class="snip1344" id="profile_card" >
+            <figure class="profile_card" id="profile_card" >
                 <div class=" ACon profile_profile">
                     <div class="profile_img" id = "profile_image1">
                         <span><img /></span>
@@ -30,17 +30,16 @@
                     <div class="profile_img" id = "profile_image2">
                         <span><img /></span>
                     </div>
-                    
+                    <figcaption id = "profile_profile-description">
+                        <h3>Joshua Crippinson<span>Web Developer</span></h3>
+                        <h3 style="font-size:20px">About Me<span style="font-size:17px">I really love cats</span></h3>
+                        
+                        <div class = "profile_profile-icons">
+                            <div id = "profile_chat-btn"></div>
+                            <img id = "profile_webcam-icon" src="../images/webcam.png" class="segment" >
+                        </div>
+                    </figcaption>
                 </div>
-                <figcaption id = "profile_profile-description">
-                    <h3>Joshua Crippinson<span>Web Developer</span></h3>
-                    <h3 style="font-size:20px">About Me<span style="font-size:17px">I really love cats</span></h3>
-                    
-                    <div class = "profile_profile-icons">
-                        <div id = "profile_chat-btn"></div>
-                        <img id = "profile_webcam-icon" src="../images/webcam.png" class="segment" >
-                    </div>
-                </figcaption>
             </figure>
         </section>
         <section class="chat_container">   
@@ -183,10 +182,11 @@
 <script>
     $(document).ready(function(){
     var $Menu = $('.profile_img');
+    $('.chat_container').hide();
     $(".brick-wall").hide();
     $("#profile_card").toggleClass("flipped");
-    $(".snip1344").css({"background-color":"white"});
-    $(".snip1344").css({"background-color":"white"});
+    $(".profile_card").css({"background-color":"white"});
+    $(".profile_card").css({"background-color":"white"});
     $('#profile_profile-description').hide();
     $('.profile_img').hide();
     $('.profile_img').fadeIn("slow");
@@ -196,10 +196,10 @@
     });
     $('.profile_img').click(function() {
         $("#profile_card").toggleClass("flipped", function(){
-            $(".snip1344").css({"margin-right":"2000px"}).animate({"left":"250px"}, "slow");
-            $(".snip1344").css({"margin-right":"2000px"}).animate({"top":"-270px"}, "slow", function(){
+            $(".profile_card").css({"margin-right":"2000px"}).animate({"left":"250px"}, "slow");
+            $(".profile_card").css({"margin-right":"2000px"}).animate({"top":"-270px"}, "slow", function(){
                 $('#profile_profile-description').slideDown(600);
-                $(".snip1344").animate({"background-color":"#141414"}, 'slow');
+                $(".profile_card").animate({"background-color":"#141414"}, 'slow');
                 $(".brick-wall").fadeIn('slow');
             });
         });
@@ -211,6 +211,23 @@
         $('.PopUp').css('opacity', '0');
         $('.PopUp').css('margin-top', '0px');
     })});
+    $('#profile_chat-btn').click(function(){
+        if(!($('#profile_chat-btn').hasClass('profile_chat_open'))){
+            $(".profile_card").animate({width:"500px", left:"110px"}, 'slow', function(){
+                $('.chat_container').slideDown('slow');
+            });
+            $(".profile_img").animate({left:"150px"}, 'fast');
+            $('#profile_chat-btn').addClass('profile_chat_open');
+        }
+        else {
+            $('.chat_container').slideUp('slow', function(){
+                $(".profile_card").animate({width:"315px", left:"250px"}, 'slow');
+                $(".profile_img").animate({left:"55px"}, 'slow');
+            });
+            $('#profile_chat-btn').removeClass('profile_chat_open');
+        }
+    });
+ 
 </script>
 
 </body>

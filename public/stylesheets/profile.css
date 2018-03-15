@@ -28,7 +28,7 @@ element{
     -moz-transition:cubic-bezier(.34,.43,0,1.02) 0.5s;
     transition:cubic-bezier(.34,.43,0,1.02) 0.5s;
     width:100%;
-    height:200px;
+    height:100%;
     border-radius:50%;
 }
 .profile_clickprofile{
@@ -62,10 +62,13 @@ element{
     cursor: pointer;
     width:200px;
     height:200px;
-    margin: auto;
-    display: block;
+    text-align: center;
     position: absolute;
     backface-visibility: hidden;
+}
+#profile_profile-description{
+  padding-top:200px;
+  position:relative;
 }
 .profile_container { 
     width:200px;
@@ -76,7 +79,6 @@ element{
 }
 #profile_card{
     width: 100%;
-    height: 100%;
     transform-origin: right center;
     transform-style: preserve-3d;
     transition: transform 1s;
@@ -141,28 +143,27 @@ element{
     background:linear-gradient(180deg, rgb(165, 104, 38) 21%, rgb(151, 97, 39) 53%, rgb(155, 103, 20) 78%);
 }
 
-.snip1344 {
-    position:absolute;
+.profile_card {
+  position:absolute;
   font-family: 'Open Sans', Arial, sans-serif;
   float: left;
   overflow: show;
   margin-top:470px;
   min-width: 230px;
-  max-width: 315px;
+  width: 315px;
+  height: 380px;
   width: 100%;
   left:45vw;
-  position: absolute;
-  text-align: center;
   line-height: 1.4em;
   background-color: #141414;
 }
-.snip1344 * {
+.profile_card * {
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
   -webkit-transition: all 0.25s ease;
   transition: all 0.25s ease;
 }
-.snip1344 .backdrop {
+.profile_card .backdrop {
   position:absolute;
   width: 100%;
   right:0%;
@@ -173,46 +174,44 @@ element{
   -webkit-transition: all 2s ease;
   transition: all 2s ease;
 }
-.snip1344 figcaption {
+.profile_card figcaption {
   width: 100%;
   padding: 15px 25px;
   position: relative;
   left: 0;
 
-  background-color: #141414;
 }
 
-.snip1344 h3 {
+.profile_card h3 {
   margin: 0 0 5px;
   font: 20px;
   font-weight: 400;
   color: rgb(201, 198, 198);
-  background-color: #141414;
 }
- .snip1344 h3 span {
+ .profile_card h3 span {
   display: block;
   margin-top:3px;
   font-size: 0.7em;
   color: #f39c12;
   opacity: 0.75;
 } 
-.snip1344 i {
+.profile_card i {
   padding: 10px 5px;
   display: inline-block;
   font-size: 32px;
   text-align: center;
   opacity: 0.65;
 } 
- .snip1344 a {
+ .profile_card a {
   text-decoration: none;
 }
-.snip1344 i:hover {
+.profile_card i:hover {
   opacity: 1;
   -webkit-transition: all 0.35s ease;
   transition: all 0.35s ease;
 }
-.snip1344:hover .backdrop,
-.snip1344.hover .backdrop {
+.profile_card:hover .backdrop,
+.profile_card.hover .backdrop {
   -webkit-transform: scale(1);
   transform: scale(1);
 } 
@@ -367,33 +366,43 @@ filter: grayscale(50%) sepia(0.3) brightness(150%) hue-rotate(320deg);
     padding-left: 10%;
     height: 100%;
     padding-right:8%;
-    margin-left: 20%;
+    margin-left: 25%;
 }
 .profile_gallery-container{
     position:relative;
     width: 80%;
     height: 100%;
-    min-width: 400px;
+    min-width: 500px;
     align-content: center;
 }
 .profile_page_container{
     min-width:2000px;
     position:relative;
 }
-
+.profile_card_extension{
+    height: 0;
+    width: 0;
+    position: absolute;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    top:0;
+    left:0;
+    bottom:0;
+    right:0;
+    margin:auto;
+}
 /* //////////////////////////////////////////////////////// */
 
 @import url(http://weloveiconfonts.com/api/?family=typicons);
 [class*="typicons-"]:before {
   font-family: 'Typicons', sans-serif;
 }
-
 .chat_container {
   position:absolute;
   width: 500px;
   left:150px;
   margin: 20px auto;
-  top: 640px;
+  top: 600px;
 }
 
 .chat_top-bar {
