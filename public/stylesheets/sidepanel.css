@@ -214,6 +214,7 @@
 .sidepanel_nav  li a  {
   position: relative;
   display: block;
+  margin-top: 50px;
   padding: 20px 0 20px 50px;
   font-size: 12px;
   color: #854442;
@@ -279,6 +280,27 @@ sidepanel_nav li a.active {
   min-width:960px;
   overflow: hidden;
 }
+
+.sidepanel_menu_link{
+  transition:all 1s ease;
+  -moz-transition:all 1s ease; /* Firefox 4 */
+  -webkit-transition:all 1s ease; /* Safari and Chrome */
+  -o-transition:all 1s ease;
+  font-size: 30px;
+}
+.sidepanel_menu_link.active{
+  transition:all 1s ease;
+  -moz-transition:all 1s ease; /* Firefox 4 */
+  -webkit-transition:all 1s ease; /* Safari and Chrome */
+  -o-transition:all 1s ease;
+  -webkit-transform:  translateX( -40px ) ;
+  -moz-transform:     translateX( -40px ) ;
+    -o-transform:     translateX( -40px ) ;
+       transform:     translateX( -40px ) ;
+  font-size: 40px;
+  color: rgb(96, 133, 201);
+}
+
 h2.sidepanel_menu-link-mid{
   position: absolute;
   float: left;

@@ -1,29 +1,39 @@
 
 function init(content){
     toggleNav();
+    $('.sidepanel_menu_link').click(function(){
+      $('.sidepanel_menu_link.active').removeClass("active");
+      $(this).addClass('active');
+    })
     $('.sidepanel_menu-link-right').click(function(){
-      $('#page_1').load("../views/profile.html")
-    })
-    $('.sidepanel_menu-link-left').click(function(){
-      $('#page_1').load("../views/home.html")
-    })
-    $('.sidepanel_menu-link-mid').click(function(){
-      $('#page_1').load("../views/explore.html")
+
+      $('#page_1').fadeOut('slow', function(){
+        $('#page_1').load("../views/profile.html")
+        $('#page_1').fadeIn('slow');
+      });
 
     })
-    $('.sidepanel_menu-link-login').click(function(){
-      $('#page_1').load("../views/login.html")
-    })
-    $('.sidepanel_menu_link').click(function(){
-      $('.sidepanel_menu_link').each(function(){
-        $(this).animate({
-          fontSize: "30px"
-        }, 1000);
+    $('.sidepanel_menu-link-left').click(function(){
+      $('#page_1').fadeOut('slow', function(){
+        $('#page_1').load("../views/home.html")
+        $('#page_1').fadeIn('slow');
       });
-      $(this).animate({
-        fontSize: "40px"
-      }, 1000);
+  
     })
+    $('.sidepanel_menu-link-mid').click(function(){
+      $('#page_1').fadeOut('slow', function(){
+        $('#page_1').load("../views/explore.html")
+        $('#page_1').fadeIn('slow');
+      });
+     
+    })
+    $('.sidepanel_menu-link-login').click(function(){
+      $('#page_1').fadeOut('slow', function(){
+      $('#page_1').load("../views/login.html")
+      $('#page_1').fadeIn('slow');
+      });
+    })
+  
 }
 
 

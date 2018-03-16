@@ -26,12 +26,6 @@
   /*//////////////////////////////////////////////////////////////////
   [ RESTYLE TAG ]*/
   
-  * {
-      margin: 0px; 
-      padding: 0px; 
-      box-sizing: border-box;
-  }
-  
   .login_body {
       position: relative; 
       top: 0;
@@ -94,16 +88,6 @@
       -webkit-appearance: none;
   }
   
-  textarea.login_body {
-    outline: none;
-    border: none;
-  }
-  
-  textarea.login_body:focus, input.login_body:focus {
-    border-color: transparent !important;
-  }
-  
-  
   input.login_body::-webkit-input-placeholder { color: #43383e;}
   input.login_body:-moz-placeholder { color: #43383e;}
   input.login_body::-moz-placeholder { color: #43383e;}
@@ -125,9 +109,6 @@
       cursor: pointer;
   }
   
-  iframe {
-      border: none !important;
-  }
   
   /*//////////////////////////////////////////////////////////////////
   [ Utility ]*/
@@ -495,8 +476,12 @@
     background-color: #222222;
     width: calc(100% + 20px);
   }
-  
-  
+  .page_0{
+    background-color: rgb(177, 218, 211);
+  }
+  .page_1{
+    background-color: rgb(131, 153, 155);
+  }
   /*------------------------------------------------------------------
   [ Alert validate ]*/
   .login_alert-validate .login_btn-show-pass {

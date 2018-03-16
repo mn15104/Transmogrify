@@ -14,7 +14,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <!--W3-CSS-->
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" type="text/css" media="screen" href="../stylesheets/profile.css">
     <script src="https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.js"></script>
 </head>
@@ -84,7 +83,9 @@
                     </li>  
                 </ol>  
             </section>
+        
         <div class= "profile_gallery-wrapper">
+            <h2 class = "profile_gallery-title">Gallery</h2>
             <div class= "profile_gallery-container">
                 <div class="brick-wall">
                         <figure class="brick">
@@ -183,7 +184,7 @@
     $(document).ready(function(){
     var $Menu = $('.profile_img');
     $('.chat_container').hide();
-    $(".brick-wall").hide();
+    $(".profile_gallery-wrapper").hide();
     $("#profile_card").toggleClass("flipped");
     $(".profile_card").css({"background-color":"white"});
     $(".profile_card").css({"background-color":"white"});
@@ -196,11 +197,11 @@
     });
     $('.profile_img').click(function() {
         $("#profile_card").toggleClass("flipped", function(){
-            $(".profile_card").css({"margin-right":"2000px"}).animate({"left":"250px"}, "slow");
+            $(".profile_card").css({"margin-right":"2000px"}).animate({"left":"400px"}, "slow");
             $(".profile_card").css({"margin-right":"2000px"}).animate({"top":"-270px"}, "slow", function(){
                 $('#profile_profile-description').slideDown(600);
                 $(".profile_card").animate({"background-color":"#141414"}, 'slow');
-                $(".brick-wall").fadeIn('slow');
+                $(".profile_gallery-wrapper").fadeIn('slow');
             });
         });
         $("#sidebar-horizontal").fadeIn("slow");
@@ -213,7 +214,7 @@
     })});
     $('#profile_chat-btn').click(function(){
         if(!($('#profile_chat-btn').hasClass('profile_chat_open'))){
-            $(".profile_card").animate({width:"500px", left:"110px"}, 'slow', function(){
+            $(".profile_card").animate({width:"500px", left:"310px"}, 'slow', function(){
                 $('.chat_container').slideDown('slow');
             });
             $(".profile_img").animate({left:"150px"}, 'fast');
@@ -221,7 +222,7 @@
         }
         else {
             $('.chat_container').slideUp('slow', function(){
-                $(".profile_card").animate({width:"315px", left:"250px"}, 'slow');
+                $(".profile_card").animate({width:"315px", left:"450px"}, 'slow');
                 $(".profile_img").animate({left:"55px"}, 'slow');
             });
             $('#profile_chat-btn').removeClass('profile_chat_open');
