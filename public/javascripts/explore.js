@@ -4,6 +4,9 @@ function init(){
             nextRow();
         }
     });
+    $('.brick').click(function(){
+        $(this).toggleClass('flipped');
+    })
 }
 
 function nextRow(){

@@ -1,5 +1,6 @@
 
 function init(content){
+  
     toggleNav();
     $('.sidepanel_menu_link').click(function(){
       $('.sidepanel_menu_link.active').removeClass("active");

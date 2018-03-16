@@ -9,7 +9,7 @@
 }
 
 body {
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+
   background-color: var(--colour4);
 }
 
@@ -24,9 +24,6 @@ body {
 .button-default {
   width: 100px;
   height: 40px;
-}
-h1 {
-  font-family: BebasBeue;
 }
 input {
 resize: horizontal;
@@ -91,7 +88,22 @@ placement2 {
 .huerotate { filter: hue-rotate(180deg); }
 .rss.opacity { filter: opacity(50%); }
 
+h1.home_title{ 
+  font: 5em/1.5 'Open Sans', sans-serif;
+  color: #5d5f66;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  margin: 0 0 1.5em;
+  line-height: 1;
+}
 
+.home_title span {
+  font: 1.2em/1.5 'Open Sans', sans-serif;
+  color: #7e7f88;
+  font-weight: 300;
+  margin-left: -7px;
+  padding-left:20%;
+}
 .buttonRow {
     display: flex;
     flex-flow: row;
