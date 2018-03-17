@@ -253,7 +253,7 @@ h1.explore_title{
     -webkit-filter: grayscale(50%) sepia(0.3) brightness(150%) hue-rotate(320deg);
 }
 
-.brick.flipped .flipper{
+.flipper.flipped{
     -webkit-transform: rotateY(180deg);
 }
 
