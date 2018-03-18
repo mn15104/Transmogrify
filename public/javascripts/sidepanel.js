@@ -26,7 +26,6 @@ function init(content){
         $('#page_1').load("../views/explore.html")
         $('#page_1').fadeIn('slow');
       });
-     
     })
     $('.sidepanel_menu-link-login').click(function(){
       $('#page_1').fadeOut('slow', function(){

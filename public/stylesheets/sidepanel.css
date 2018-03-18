@@ -8,12 +8,13 @@
 }
 /* Global Colour */
 :root {
-    --colour1: #0C090A; /* Black */
-    --colour2: #BCC6CC; /* Silver */
-    --colour3: #EBF4FA; /* Light Grey */
-    --colour4: #FAFFFF; /* Off White */
-    --colour5: #79BAEC; /* Blue */
-    --colour6: #BEEAF8; /* Lighter Blue */
+  --inset-color: rgb(193, 195, 199);
+  --colour1: #0C090A; 
+  --colour2: #18121E; 
+  --colour3: #233237; 
+  --colour4: #983b43; 
+  --colour5: #eac67a; 
+  --colour6: #BEEAF8; 
 }
 
 .sidepanel_body {
@@ -44,7 +45,6 @@
   width: 100%;
   margin:auto;
   position: relative;
-  background-color: var(--colour4);
   z-index: 2;
   -webkit-transform-style : preserve-3d;
   -moz-transform-style    : preserve-3d;
@@ -256,9 +256,9 @@ sidepanel_nav li a.active {
   left: 0;
   top:0;
   z-index: 1000;
-  background: #9cb8b3;
+  background: linear-gradient(to bottom right, rgb(24, 18, 30), rgb(68, 57, 78)); ;
   width: 100vw;
-  height: 100px;
+  height: 80px;
   min-width:1300px;
 }
 .sidepanel_menu-items{
@@ -287,18 +287,24 @@ sidepanel_nav li a.active {
   -webkit-transition:all 1s ease; /* Safari and Chrome */
   -o-transition:all 1s ease;
   font-size: 30px;
+  cursor: pointer;
 }
 .sidepanel_menu_link.active{
   transition:all 1s ease;
   -moz-transition:all 1s ease; /* Firefox 4 */
   -webkit-transition:all 1s ease; /* Safari and Chrome */
   -o-transition:all 1s ease;
-  -webkit-transform:  translateX( -40px ) ;
-  -moz-transform:     translateX( -40px ) ;
-    -o-transform:     translateX( -40px ) ;
-       transform:     translateX( -40px ) ;
+  -webkit-transform:  translateX( -40px ) translateY(-5px);
+  -moz-transform:     translateX( -40px ) translateY(-5px);
+    -o-transform:     translateX( -40px ) translateY(-5px);
+       transform:     translateX( -40px ) translateY(-5px);
+  height: 120%;
   font-size: 40px;
-  color: rgb(96, 133, 201);
+  color: #cbaaa6;
+  cursor: none;
+}
+.sidepanel_menu_link:hover{
+  background-color: rgb(90, 114, 194);
 }
 
 h2.sidepanel_menu-link-mid{
@@ -307,16 +313,15 @@ h2.sidepanel_menu-link-mid{
   left: 30%; /* position the left edge of the element at the middle of the parent */
   height: 100%;
   font: 600 2.5em/1 'Raleway', sans-serif;
-  color: rgba(0,0,0);
-  top: -20%;
+  color: #984b43;
+  top: -35%;
   text-align: center;
   text-transform: uppercase;
   letter-spacing: .3em;
   padding-top:1.8%;
 }
 .sidepanel_menu-link-mid:hover{
-  cursor: pointer;
-  background-color: rgb(90, 114, 194);
+  
 }
 .sidepanel_menu-link-mid:active{
   background-color: rgb(90, 114, 194);
@@ -327,15 +332,14 @@ h2.sidepanel_menu-link-left{
   left: 10%; /* position the left edge of the element at the middle of the parent */
   height: 100%;
   font: 600 2.5em/1'Raleway', sans-serif;
-  color: rgba(0,0,0,.5);
+  color: #984b43;
   text-align: center;
   text-transform: uppercase;
   letter-spacing: .3em;
-  top: -20%;
+  top: -35%;
   padding-top:1.8%;
 }
 .sidepanel_menu-link-left:hover{
-  cursor: pointer;
   background-color: rgb(90, 114, 194);
 }
 .sidepanel_menu-link-left:active{
@@ -348,15 +352,14 @@ h2.sidepanel_menu-link-right{
   left: 50%; /* position the left edge of the element at the middle of the parent */
   height: 100%;
   font: 600 2.5em/1 'Raleway', sans-serif;
-  color: rgba(0,0,0,.5);
+  color: #984b43;
   text-align: center;
   text-transform: uppercase;
   letter-spacing: .3em;
-  top: -20%;
+  top: -35%;
   padding-top:1.8%;
 }
 .sidepanel_menu-link-right:hover{
-  cursor: pointer;
   background-color: rgb(90, 114, 194);
 }
 .sidepanel_menu-link-right:active{
@@ -368,15 +371,14 @@ h2.sidepanel_menu-link-login{
   left: 70%; 
   height: 100%;
   font: 600 2.0em/1 'Raleway', sans-serif;
-  color: rgba(0,0,0,.5);
+  color: #984b43;
   text-align: center;
   text-transform: uppercase;
   letter-spacing: .3em;
-  top: -20%;
+  top: -35%;
   padding-top:1.8%;
 }
 .sidepanel_menu-link-login:hover{
-  cursor: pointer;
   background-color: rgb(90, 114, 194);
 }
 .sidepanel_menu-link-login:active{

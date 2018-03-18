@@ -3,13 +3,12 @@
 @import url('https://fonts.googleapis.com/css?family=Open+Sans');
 :root {
     --inset-color: rgb(193, 195, 199);
-
-    --colour1: #0C090A; /* Black */
-    --colour2: #BCC6CC; /* Silver */
-    --colour3: #EBF4FA; /* Light Grey */
-    --colour4: #FAFFFF; /* Off White */
-    --colour5: #79BAEC; /* Blue */
-    --colour6: #BEEAF8; /* Lighter Blue */
+    --colour1: #0C090A; 
+    --colour2: #18121E; 
+    --colour3: #233237; 
+    --colour4: #983b43; 
+    --colour5: #eac67a; 
+    --colour6: #BEEAF8; 
 }
 html {
     overflow-y: scroll;

@@ -39,7 +39,6 @@
       font-family: Oswald-Regular;
       font-size: 20px;
       line-height: 1.7;
-      color: #666666;
       margin: 0px;
       transition: all 0.4s;
       -webkit-transition: all 0.4s;
@@ -567,7 +566,6 @@
     height: 100vh;
     width: 100vw;
     position:relative;
-    border: 1px solid #CCC;
       -webkit-perspective: 2000px;
          -moz-perspective: 2000px;
            -o-perspective:2000px;
