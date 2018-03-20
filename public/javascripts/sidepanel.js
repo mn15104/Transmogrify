@@ -1,25 +1,60 @@
 
 function init(content){
+  
     toggleNav();
+    $('.sidepanel_menu_link').click(function(){
+      $('.sidepanel_menu_link.active').removeClass("active");
+      $(this).addClass('active');
+    })
     $('.sidepanel_menu-link-right').click(function(){
-      $('#page_1').load("../views/profile.html")
+
+      $('#page_1').fadeOut('slow', function(){
+        $('#page_1').load("../views/profile.html")
+        $('#page_1').fadeIn('slow');
+      });
+
     })
     $('.sidepanel_menu-link-left').click(function(){
-      $('#page_1').load("../views/home.html")
+      $('#page_1').fadeOut('slow', function(){
+        $('#page_1').load("../views/home.html")
+        $('#page_1').fadeIn('slow');
+      });
+  
     })
-    $('.sidepanel_menu-title').click(function(){
-      $('#page_1').load("../views/explore.html")
+    $('.sidepanel_menu-link-mid').click(function(){
+      $('#page_1').fadeOut('slow', function(){
+        $('#page_1').load("../views/explore.html")
+        $('#page_1').fadeIn('slow');
+      });
     })
     $('.sidepanel_menu-link-login').click(function(){
+      $('#page_1').fadeOut('slow', function(){
       $('#page_1').load("../views/login.html")
+      $('#page_1').fadeIn('slow');
+      });
     })
+    
+    burger.click(function(){
+      openMenu();
+    });
+    
 }
+var menu = $('.nav__list');
+var burger = $('.burger');
+var panel = $('.panel');
+  
+var openMenu = function() {
+  burger.toggleClass('burger--active');
+  menu.toggleClass('nav__list--active');
+};
+
+
 
 var siteW = $(window).width();
 var siteH = $(window).height();
 
-TweenMax.set(".site", { perspective: 5000 });
-TweenMax.set(".container", {
+TweenMax.set(".login_site", { perspective: 5000 });
+TweenMax.set(".login_container", {
   transformStyle: "preserve-3d",
   transformOrigin: "-0% 50%"
 });
@@ -33,15 +68,16 @@ function changeContent(){
       });
       
       tlFlip
-        .to(".sidepanel_site", 0.5, { scale: 0.8, ease: Power2.easeInOut }, "start")
+        .to(".login_site", 0.5, { scale: 0.8, ease: Power2.easeInOut }, "start")
         .to(
-          ".sidepanel_container",
+          ".login_container",
           0.4,
           { rotationY: -90, z: -siteW, ease: Power2.easeInOut },
           "start+=0.7"
         )
-        .to(".sidepanel_site", 0.5, { scale: 1, ease: Power2.easeInOut }, "start+=1.2");
+        .to(".login_site", 0.5, { scale: 1, ease: Power2.easeInOut }, "start+=1.2");
 }
+
 
 
 function toggleNav(){

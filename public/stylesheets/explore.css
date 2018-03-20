@@ -3,18 +3,30 @@
 @import url('https://fonts.googleapis.com/css?family=Open+Sans');
 :root {
     --inset-color: rgb(193, 195, 199);
-
-    --colour1: #0C090A; /* Black */
-    --colour2: #BCC6CC; /* Silver */
-    --colour3: #EBF4FA; /* Light Grey */
-    --colour4: #FAFFFF; /* Off White */
-    --colour5: #79BAEC; /* Blue */
-    --colour6: #BEEAF8; /* Lighter Blue */
+    --colour1: #0C090A; 
+    --colour2: #18121E; 
+    --colour3: #233237; 
+    --colour4: #983b43; 
+    --colour5: #eac67a; 
+    --colour6: #BEEAF8; 
+}
+html {
+    overflow-y: scroll;
+}
+h1.explore_title{ 
+    font: 5em/1.5 'Open Sans', sans-serif;
+	color: #373737;
+	font-weight: 800;
+	margin: 0 0 1.5em;
+	line-height: 1;
 }
 
-explore_body {
-
+.explore_title span {
+	color: #373737;
+	font-weight: 300;
+	margin-left: -7px;
 }
+
 /* #4b3832 • #854442 • #fff4e6 • #3c2f2f • #be9b7b */
 /* H1 @ Title font */
 
@@ -23,13 +35,16 @@ explore_body {
 }
 
 .explore_container{
-    padding-top: 200px;
+    padding-top: 150px;
     margin-left: auto;
     margin-right: auto;
     width: 80%;
     align-content: center;
 }
-
+.clear
+{
+    clear: both;
+}
 /* Wrapper @ Wrapper around bricks container */
 .explore_wrapper {
     padding-left: 10%;
@@ -139,10 +154,7 @@ explore_body {
 }
 
 .brick {
-    overflow: hidden;
-    /* border-radius: 5px; */
-    margin: 0 0 0px 0px;  /* Some Gutter */
-    color: white;
+    border-radius: 5px;
     position: relative;
 }
 
@@ -158,17 +170,42 @@ explore_body {
     font-size: 1.25em;
   }
 
-.brick:hover:after {
-    font-size: 2.25em;
-    opacity: 1;
-}
-
 .brick {
     flex: auto;
     height: 250px;
     min-width: 200px;
+    perspective: 1000;
+    margin: 18px;
+    border: 2px grey;
+    -webkit-perspective: 1000;
 }
-
+.brick:hover{
+    cursor:pointer;
+}
+.brick_profile_img{
+    background: url('https://cdn2.digitalartsonline.co.uk/cmsdata/slideshow/3513552/polybreno_1500.jpg');
+    background-size: contain;
+    z-index: 9999;
+    cursor: pointer;
+    top:90%;
+    left:45%;
+    width:60px;
+    height:60px;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+    border:3px rgb(138, 108, 108) solid;
+    text-align: center;
+    position: absolute;
+    opacity: .7;
+    transition: opacity .5s ease-out;
+    -moz-transition: opacity .5s ease-out;
+    -webkit-transition: opacity .5s ease-out;
+    -o-transition: opacity .5s ease-out;
+}
+.brick_profile_img:hover{
+    opacity: 1;
+}
 @media only screen and (min-width: 1024px) {
     /* Horizontal bricks on desktop-sized screen */
     .brick:nth-child(4n+1) {
@@ -206,11 +243,40 @@ explore_body {
 .brick-img {
     object-fit: cover;
     width: 100%;
-    height: 100%;
-    filter: brightness(90%);
+    height: 100%;   
+    -webkit-border-radius: 2%;
+    -moz-border-radius: 2%;
+    border-radius: 2%;
+    filter: grayscale(50%) sepia(0.3) brightness(150%) hue-rotate(320deg);
+    -webkit-filter: grayscale(50%) sepia(0.3) brightness(150%) hue-rotate(320deg);
+}
 
-filter: grayscale(50%) sepia(0.3) brightness(150%) hue-rotate(320deg);
--webkit-filter: grayscale(50%) sepia(0.3) brightness(150%) hue-rotate(320deg);
+.flipper.flipped{
+    -webkit-transform: rotateY(180deg);
+}
+
+/* flip speed goes here */
+ .flipper {
+    transition: 0.6s;
+    transform-style: preserve-3d;
+    -webkit-transform-style: preserve-3d;
+    position: relative;
+    width:100%;
+    height: 100%;
+}
+/* hide back of pane during swap */
+ .front, .back {
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+}
+/* back, initially hidden pane */
+.back {
+    -webkit-transform: rotateY(180deg);
 }
 
 .labs-pagination {

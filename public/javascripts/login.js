@@ -24,9 +24,9 @@ $('#login_arrow').hover(
 $('#login_arrow').click(function(){
     $('#cube').addClass('show-right');
     $('#cube').removeClass('show-front');    
-    $(".login_site").fadeTo(1000, 0.1, function(){
-        $(".login_site").fadeTo(1000, 1);
-    });
+    // $(".login_site").fadeTo(1000, 0.1, function(){
+    //     $(".login_site").fadeTo(1000, 1);
+    // });
 })
 $('#login_arrow-create-account').hover(
     function(){
@@ -37,9 +37,9 @@ $('#login_arrow-create-account').hover(
 $('#login_arrow-create-account').click(function(){
     $('#cube').addClass('show-front');
     $('#cube').removeClass('show-right');    
-    $(".login_site").fadeTo(1000, 0.1, function(){
-        $(".login_site").fadeTo(1000, 1);
-    });
+    // $(".login_site").fadeTo(1000, 0.1, function(){
+    //     $(".login_site").fadeTo(1000, 1);
+    // });
 })
 
 

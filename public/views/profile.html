@@ -14,7 +14,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <!--W3-CSS-->
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" type="text/css" media="screen" href="../stylesheets/profile.css">
     <script src="https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.js"></script>
 </head>
@@ -22,7 +21,7 @@
     <a class = "background"></a>
     <div class = "profile_page_container">
         <section class="profile_container">
-            <figure class="snip1344" id="profile_card" >
+            <figure class="profile_card" id="profile_card" >
                 <div class=" ACon profile_profile">
                     <div class="profile_img" id = "profile_image1">
                         <span><img /></span>
@@ -30,22 +29,122 @@
                     <div class="profile_img" id = "profile_image2">
                         <span><img /></span>
                     </div>
-                    
+                    <figcaption id = "profile_profile-description">
+                        <h3>Joshua Crippinson<span>Web Developer</span></h3>
+                        <h3 style="font-size:20px">About Me<span style="font-size:17px">I really love cats</span></h3>
+                        
+                        <div class = "profile_profile-icons">
+                            <div id = "profile_chat-btn"></div>
+                            <img id = "profile_webcam-icon" src="../images/webcam.png" class="segment" >
+                        </div>
+                    </figcaption>
                 </div>
-                <figcaption id = "profile_profile-description">
-                    <h3>Joshua Crippinson<span>Web Developer</span></h3>
-                    <h3 style="font-size:20px">About Me<span style="font-size:17px">I really love cats</span></h3>
-                    
-                    <div class = "profile_profile-icons">
-                        <div id = "profile_chat-btn"></div>
-                        <img id = "profile_webcam-icon" src="../images/webcam.png" class="segment" >
-                    </div>
-                </figcaption>
             </figure>
         </section>
+        <section class="chat_container">   
+            <header class="chat_top-bar">        
+                <div class="chat_left">      
+                    <span class="chat_icon chat_typicons-message">
+                    </span>      
+                </div>       
+                <div class="chat_right">      
+                    <span class="chat_icon chat_typicons-minus"></span>      
+                    <span class="chat_icon chat_typicons-times"></span>    
+                </div>      
+            </header>    
+            <ol class="chat_discussion">    
+                <li class="chat_other">      
+                    <div class="chat_avatar">        
+                        <img src='https://cdn2.digitalartsonline.co.uk/cmsdata/slideshow/3513552/polybreno_1500.jpg' />      
+                    </div>      
+                    <div class="chat_messages">        
+                        <p>yeah, they do early flights cause they connect with big airports.  they wanna get u to your connection</p>        
+                        <time datetime="2009-11-13T20:00">Timothy • 51 min</time>      
+                    </div>    
+                </li>    
+                <li class="chat_self">      
+                    <div class="chat_avatar">        
+                        <img src='https://cdn2.digitalartsonline.co.uk/cmsdata/slideshow/3513552/polybreno_1500.jpg' />      
+                    </div>
+                    <div class="chat_messages">        
+                        <p>That makes sense.</p>        
+                        <p>It's a pretty small airport.</p>        
+                        <time datetime="2009-11-13T20:14">37 mins</time>      
+                    </div>    </li>    <li class="chat_other">      
+                        <div class="chat_avatar">        
+                            <img src='https://cdn2.digitalartsonline.co.uk/cmsdata/slideshow/3513552/polybreno_1500.jpg'/>      
+                        </div>      
+                        <div class="chat_messages">        
+                        <p> that mongodb thing looks good, huh?</p>        
+                        <p> tiny master db, and huge document store</p>      
+                        </div>    
+                    </li>  
+                </ol>  
+                <input class="login_input" type="password" name="pass" placeholder="password">
+            </section>
+        
         <div class= "profile_gallery-wrapper">
+            <h2 class = "profile_gallery-title">Gallery</h2>
             <div class= "profile_gallery-container">
                 <div class="brick-wall">
+                        <figure class="brick">
+                            <img src="https://robsmovievault.files.wordpress.com/2014/01/leon_the_professional_jean_reno_movie_stills-hd.jpg" class="brick-img">
+                        </figure>
+                        <figure class="brick">
+                            <img src="https://s-media-cache-ak0.pinimg.com/originals/cd/41/06/cd41066bdcb79456db17263408c485bd.jpg" class="brick-img">
+                        </figure>
+                        <figure class="brick">
+                            <img src="http://iris.theaureview.com/wp-content/uploads/2015/04/it-follows-film.png" class="brick-img" >
+                        </figure>
+                        <figure class="brick">
+                            <img src="https://consequenceofsound.files.wordpress.com/2016/06/it-follows-end.gif?w=600&h=251" class="brick-img" >
+                        </figure>
+                        <figure class="brick">
+                            <img src="https://s.ynet.me/assets/images/movies/lon_the_professional_1994/large-screenshot3.jpg" class="brick-img" >
+                        </figure>
+                        <figure class="brick">
+                            <img src="https://s-media-cache-ak0.pinimg.com/originals/00/32/cb/0032cb076ea32185d295f0a44b71978c.jpg" class="brick-img" >
+                        </figure>
+                        <figure class="brick">
+                            <img src="https://wheresthejump.com/wp-content/uploads/2015/06/It-Follows-1.jpg" class="brick-img" ></figure>
+                        <figure class="brick">
+                            <img src="https://i2.wp.com/bloody-disgusting.com/wp-content/uploads/2016/04/ItFollows5.png?resize=960%2C393" class="brick-img" >
+                        </figure>
+                        <figure class="brick">
+                            <img src="http://trilbee.com/wp-content/uploads/2016/01/it-follows-5.png" class="brick-img" >
+                        </figure>
+                        <figure class="brick">
+                            <img src="http://blasphemoustomes.com/wp-content/uploads/2015/06/It-Follows-4-1024x427.png" class="brick-img" >
+                        </figure>
+                        <figure class="brick">
+                            <img src="https://robsmovievault.files.wordpress.com/2014/01/leon_the_professional_jean_reno_movie_stills-hd.jpg" class="brick-img">
+                        </figure>
+                        <figure class="brick">
+                            <img src="https://s-media-cache-ak0.pinimg.com/originals/cd/41/06/cd41066bdcb79456db17263408c485bd.jpg" class="brick-img">
+                        </figure>
+                        <figure class="brick">
+                            <img src="http://iris.theaureview.com/wp-content/uploads/2015/04/it-follows-film.png" class="brick-img" >
+                        </figure>
+                        <figure class="brick">
+                            <img src="https://consequenceofsound.files.wordpress.com/2016/06/it-follows-end.gif?w=600&h=251" class="brick-img" >
+                        </figure>
+                        <figure class="brick">
+                            <img src="https://s.ynet.me/assets/images/movies/lon_the_professional_1994/large-screenshot3.jpg" class="brick-img" >
+                        </figure>
+                        <figure class="brick">
+                            <img src="https://s-media-cache-ak0.pinimg.com/originals/00/32/cb/0032cb076ea32185d295f0a44b71978c.jpg" class="brick-img" >
+                        </figure>
+                        <figure class="brick">
+                            <img src="https://wheresthejump.com/wp-content/uploads/2015/06/It-Follows-1.jpg" class="brick-img" ></figure>
+                        <figure class="brick">
+                            <img src="https://i2.wp.com/bloody-disgusting.com/wp-content/uploads/2016/04/ItFollows5.png?resize=960%2C393" class="brick-img" >
+                        </figure>
+                        <figure class="brick">
+                            <img src="http://trilbee.com/wp-content/uploads/2016/01/it-follows-5.png" class="brick-img" >
+                        </figure>
+                        <figure class="brick">
+                            <img src="http://blasphemoustomes.com/wp-content/uploads/2015/06/It-Follows-4-1024x427.png" class="brick-img" >
+                        </figure>
                         <figure class="brick">
                             <img src="https://robsmovievault.files.wordpress.com/2014/01/leon_the_professional_jean_reno_movie_stills-hd.jpg" class="brick-img">
                         </figure>
@@ -83,10 +182,9 @@
 <script>
     $(document).ready(function(){
     var $Menu = $('.profile_img');
-    $(".brick-wall").hide();
+    $('.chat_container').hide();
+    $(".profile_gallery-wrapper").hide();
     $("#profile_card").toggleClass("flipped");
-    $(".snip1344").css({"background-color":"white"});
-    $(".snip1344").css({"background-color":"white"});
     $('#profile_profile-description').hide();
     $('.profile_img').hide();
     $('.profile_img').fadeIn("slow");
@@ -96,11 +194,11 @@
     });
     $('.profile_img').click(function() {
         $("#profile_card").toggleClass("flipped", function(){
-            $(".snip1344").css({"margin-right":"2000px"}).animate({"left":"250px"}, "slow");
-            $(".snip1344").css({"margin-right":"2000px"}).animate({"top":"-20vh"}, "slow", function(){
+            $(".profile_card").css({"margin-right":"2000px"}).animate({"left":"400px"}, "slow");
+            $(".profile_card").css({"margin-right":"2000px"}).animate({"top":"-270px"}, "slow", function(){
                 $('#profile_profile-description').slideDown(600);
-                $(".snip1344").animate({"background-color":"#141414"}, 'slow');
-                $(".brick-wall").fadeIn('slow');
+                $(".profile_card").animate({"background-color":"#141414"}, 'slow');
+                $(".profile_gallery-wrapper").fadeIn('slow');
             });
         });
         $("#sidebar-horizontal").fadeIn("slow");
@@ -111,6 +209,23 @@
         $('.PopUp').css('opacity', '0');
         $('.PopUp').css('margin-top', '0px');
     })});
+    $('#profile_chat-btn').click(function(){
+        if(!($('#profile_chat-btn').hasClass('profile_chat_open'))){
+            $(".profile_card").animate({width:"500px", left:"310px"}, 'slow', function(){
+                $('.chat_container').slideDown('slow');
+            });
+            $(".profile_img").animate({left:"150px"}, 'fast');
+            $('#profile_chat-btn').addClass('profile_chat_open');
+        }
+        else {
+            $('.chat_container').slideUp('slow', function(){
+                $(".profile_card").animate({width:"315px", left:"450px"}, 'slow');
+                $(".profile_img").animate({left:"55px"}, 'slow');
+            });
+            $('#profile_chat-btn').removeClass('profile_chat_open');
+        }
+    });
+ 
 </script>
 
 </body>
