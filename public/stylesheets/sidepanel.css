@@ -16,7 +16,9 @@
   --colour5: #eac67a; 
   --colour6: #BEEAF8; 
 }
-
+body{
+  background:rgb(213, 218, 219);
+}
 .sidepanel_body {
   font: 600 12px/1 'Open Sans', sans-serif;
   color: rgb(73, 78, 88);
@@ -25,7 +27,6 @@
 }
 
 .sidepanel_body h1{
-  color: var(--colour1);
   font-family:Georgia,serif;
   text-transform: none; font-weight: 100;
   font-size: 50px;

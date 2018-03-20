@@ -8,7 +8,9 @@ function init(){
         $(this).toggleClass('flipped');
     })
     $('.brick .brick_profile_img').click(function(){
-     
+        var brick = $(this).parent('.brick');
+        $('.flipper').css({'transform':'translateY(1000px)'},'slow');
+        $('.brick_profile_img').not(this).css({'transform':'translateY(1000px)'},'slow');
     })
 }
 

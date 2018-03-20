@@ -133,10 +133,10 @@
     text-transform: uppercase;
   }
   
-  .login_body .bg1 {background-color: #3b5998;}
-  .login_body .bg2 {background-color: #1da1f2;}
+  .login_body .bg1 {background-color: #8d97ad;}
+  .login_body .bg2 {background-color: #9ab1be;}
   
-  .login_body .bo1 {border-bottom: 1px solid #929292;}
+  .login_body .bo1 {border-bottom: 1px solid #979191;}
   
   .hov1:hover {
     border-bottom: 1px solid #111111;
@@ -476,10 +476,10 @@
     width: calc(100% + 20px);
   }
   .page_0{
-    background-color: rgb(177, 218, 211);
+    background-color: rgb(231, 222, 195);
   }
   .page_1{
-    background-color: rgb(131, 153, 155);
+    background-color: rgb(226, 206, 195);
   }
   /*------------------------------------------------------------------
   [ Alert validate ]*/

@@ -8,18 +8,12 @@
   --colour6: #BEEAF8; /* Lighter Blue */
 }
 
-body {
-
-  background-color: var(--colour4);
-}
-
 @font-face{
   font-family: BebasNeue;
   src: url("path/BebasNeue Bold.otf") format("opentype");
 }
-.jumbotron {
+.jumb {
   text-align: center;
-  background-color: var(--colour4);
 }
 .button-default {
   width: 100px;
@@ -129,7 +123,7 @@ h1.home_title{
 .button:hover {
     -webkit-transition: initial;
     transition: initial;
-    background-color: var(--colour3);
+    /* background-color: var(--colour3); */
     color: var(--colour5);
 }
 .gradient {
@@ -138,7 +132,7 @@ h1.home_title{
 
 
 .button-arrow {
-    background-color: var(--colour4); /* Light Blue */
+    /* background-color: var(--colour4); Light Blue */
     border: none;
     color: var(--colour1);
     text-align: center;
