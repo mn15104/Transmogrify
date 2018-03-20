@@ -34,6 +34,12 @@ db.run(`CREATE TABLE IF NOT EXISTS LOGIN_userinfo   (firstname VARCHAR(255),
     }
 });
 
+Login.loginRequest = function(req, res){
 
+};
+
+Login.accountRequest = function(req, res){
+
+};
 
 module.exports = Login;
