@@ -33,8 +33,21 @@ function init(content){
       $('#page_1').fadeIn('slow');
       });
     })
-  
+    
+    burger.click(function(){
+      openMenu();
+    });
+    
 }
+var menu = $('.nav__list');
+var burger = $('.burger');
+var panel = $('.panel');
+  
+var openMenu = function() {
+  burger.toggleClass('burger--active');
+  menu.toggleClass('nav__list--active');
+};
+
 
 
 var siteW = $(window).width();
