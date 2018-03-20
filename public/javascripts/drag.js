@@ -37,6 +37,7 @@ $('#upload-input').on('change', function(){
         // listen to the 'progress' event
         xhr.upload.addEventListener('progress', function(evt) {
 
+
           if (evt.lengthComputable) {
             // calculate the percentage of upload completed
             var percentComplete = evt.loaded / evt.total;
@@ -48,7 +49,13 @@ $('#upload-input').on('change', function(){
 
             // once the upload reaches 100%, set the progress bar text to done
             if (percentComplete === 100) {
-              $('.progress-bar').html('Done');
+              $('.progress-bar').html('done');
+              document.getElementById("button-left").style.opacity = "0.0";
+              document.getElementsByClassName("container2")[0].style.opacity = "1.0";
+              document.getElementById("p1").style.textAlign = "center";
+              document.getElementById("p1").style.top = "10.5%";
+              document.getElementById("p1").innerHTML = "image is <br> ready!";
+              showConvert();
             }
 
           }
@@ -61,3 +68,28 @@ $('#upload-input').on('change', function(){
 
   }
 });
+
+
+function showConvert(){
+    $("#p3").fadeIn();
+    document.getElementById("p3").style.opacity = 1.0;
+    $(".container3").fadeIn();
+    document.getElementsByClassName("container3")[0].style.opacity = 1.0;
+}
+function convert(){
+    // document.getElementsByClassName("convert-btn")[0].innerHTML = "Converting";
+    for (i = 0; i <= 100; i++) {
+        $('.progress-bar2').text(i + '%');
+        $('.progress-bar2').width(i + '%');
+        if (i === 100) {
+            $('.progress-bar2').css('background-color', '#79BAEC');
+          $('.progress-bar2').html('done');
+
+        }
+    }
+    // $('.progress-bar2').text('0%');
+    // $('.progress-bar2').width('0%');
+
+    // xhr.upload.addEventListener('progress2', function(evt) {
+    // }
+}

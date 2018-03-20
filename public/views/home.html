@@ -19,9 +19,11 @@
 
     <!--W3-CSS-->
     <link rel="stylesheet" type="text/css" media="screen" href="../stylesheets/home.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="../stylesheets/drag.css">
 </head>
 
 <body>
+
      <!--TITLE-->
     <div class="container">
         <div class="jumb">
@@ -32,82 +34,77 @@
                 </placement1>
             </figure>
         </div>
-
-        <div class="button-background">
-            <img src="images/two-boxes.svg"/>
-        <!-- </div> -->
-            <div class="button-item">
-                <img src="images/two-boxes-left-hover1.svg"/>
-            </div>
-            <div class="button-item">
-                <img src="images/two-boxes-middle-hover1.svg"/>
-            </div>
-            <div class="button-item">
-                <img src="images/two-boxes-right-hover1.svg"/>
-            </div>
-            <div class="buttonRow">
-                <div class="rectangle-invis"></div>
-                <div class="rectangle-arrow"></div>
-                <div class="rectangle-invis"></div>
-            </div>
-        <!-- </div> -->
-        <!-- <div class="button-item">
-            <img src="images/two-boxes-left-hover.svg"/>
-        </div> -->
-        <!-- <div class="button-item">
-            <img src="images/two-boxes-left-hover.svg">
-        </div> -->
     </div>
-     <!-- <div class="container">
-        <div class="jumbotron">
-            <figure class="button-background">
-                <img src="images/two-boxes.svg" width="80%" height="50%" />
-            </figure>
-            <!-- <div class="button-item">
-                <img src="images/two-boxes-left-hover.svg">
-            </div>
-            <div class="button-item">
-                <img src="images/two-boxes-middle-hover.svg">
-            </div>
-            <div class="button-item">
-                <img src="images/two-boxes-right-hover.svg">
-            </div>
-        </div>
-    </div> -->
-    <!-- <div class="container">
-        <div class="wrapper">
-            <div class="buttonRow">
-                 <button class="button gradient" > Upload Image </button> >
-                <button class="button gradient">
-                     <img src = "images/arrow-upload.png" alt="Upload Image" width="50%" height="45%" align="center" title="opacity" class="rss opacity"/>
-                     <img src = "two-boxes.svg" alt="Upload Image" width="50%" height="45%" />
-                </button>
-                <figure class="button-arrow">
-                    <placement2>
-                        <pulsing>
-                            <img src = "images/arrow-right.png" alt="Conversion Arrow" width="100" height="100">
-                        </pulsing>
-                    </placement2>
-                </figure>
-                <button class="button gradient"></button>
-            </div>
-        </div>
-    </div> -->
 
-    <!-- <div class="container">
-        <button class="button">Image here</button>
-    </div> -->
+
+
+        <div>
+            <div class="button-background">
+                <img src="images/two-boxes-text.svg" width="50%"/>
+            </div>
+            <img id="button-left-box" src="images/two-boxes-left2.svg" width="18.5%"/>
+            <div class="container2">
+                <div class="row2">
+                    <div class="col-xs-12">
+                        <div class="panel-body">
+                            <div class="progress">
+                                <div class="progress-bar" role="progressbar"></div>
+                            </div>
+                            <button class="btn btn-lg upload-btn" type="button">upload here</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <input id="upload-input" type="file" name="uploads[]" multiple="multiple"></br>
+            <script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+            <script src="../javascripts/drag.js"></script>
+            <div id="button-left">
+                <img src="images/two-boxes-left-hover1.svg" width="50%"/>
+            </div>
+            <img id="button-middle-box" src="images/two-boxes-middle2.svg" width="11.3%"/>
+            <div class="container3">
+                <div class="row2">
+                    <div class="col-xs-12">
+                        <div class="panel-body">
+                            <div class="progress">
+                                <div class="progress-bar2" role="progressbar"></div>
+                            </div>
+                            <button class="btn btn-lg convert-btn" type="button" onclick="convert()">convert here</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="button-middle">
+                <img src="images/two-boxes-middle-hover1.svg" width="50%"/>
+            </div>
+            <img class="button-right-box" src="images/two-boxes-right2.svg" width="19%"/>
+            <div class="button-right">
+                <img src="images/two-boxes-right-hover1.svg" width="50%"/>
+            </div>
+        </div>
+
+        <button onclick="myFunction2()">Try it</button>
+
+
+        <p id="p1">place an <br> image <br> here</p>
+        <p id="p2">music will <br> be made <br> here</p>
+        <p id="p3">Ready?</p>
+
+
 
     <div id="drop_zone" ondrop="drop_handler(event);" ondragover="dragover_handler(event);" ondragend="dragend_handler(event);">
 
     </div>
 
     <script src="../javascripts/home.js"> </script>
+    <!-- <script src="../javascripts/drag.js"> </script> -->
     <script>
         $(document).ready(function(){
 
         });
     </script>
+
 
 </h2>
 

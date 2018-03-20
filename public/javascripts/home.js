@@ -22,7 +22,7 @@ function drop_handler(ev) {
       // Use DataTransfer interface to access the file(s)
       for (var i=0; i < dt.files.length; i++) {
         console.log("... file[" + i + "].name = " + dt.files[i].name);
-      }  
+      }
     }
 }
 

@@ -1,25 +1,35 @@
+/* Global Colours */
+:root {
+  --colour1: #0C090A; /* Black */
+  --colour2: #BCC6CC; /* Silver */
+  --colour3: #EBF4FA; /* Light Grey */
+  --colour4: #FAFFFF; /* Off White */
+  --colour5: #79BAEC; /* Blue */
+  --colour6: #BEEAF8; /* Lighter Blue */
+}
+
 .btn:focus, .upload-btn:focus{
   outline: 0 !important;
 }
 
 html,
 body {
-  height: 100%;
-  background-color: #4791D2;
+  /* height: 100%;
+  background-color: #4791D2; */
 }
 
 body {
-  text-align: center;
-  font-family: 'Raleway', sans-serif;
+    /* text-align: center;
+  font-family: 'Raleway', sans-serif; */
 }
 
-.row {
-  margin-top: 80px;
+.row2    {
+  /* margin-top: 80px; */
 }
 
 .upload-btn {
   color: #ffffff;
-  background-color: #F89406;
+  background-color: var(--colour5);
   border: none;
 }
 
@@ -28,13 +38,28 @@ body {
 .upload-btn:active,
 .upload-btn.active {
   color: #ffffff;
-  background-color: #FA8900;
+  background-color: #79BADC;
+  border: none;
+}
+
+.convert-btn {
+  color: #ffffff;
+  background-color: var(--colour5);
+  border: none;
+}
+
+.convert-btn:hover,
+.convert-btn:focus,
+.convert-btn:active,
+.convert-btn.active {
+  color: #ffffff;
+  background-color: #79BADC;
   border: none;
 }
 
 h4 {
-  padding-bottom: 30px;
-  color: #B8BDC1;
+  /* padding-bottom: 30px;
+  color: #B8BDC1; */
 }
 
 .glyphicon {
@@ -43,13 +68,13 @@ h4 {
 }
 
 h2 {
-  margin-top: 15px;
-  color: #68757E;
+  /* margin-top: 15px;
+  color: #68757E; */
 }
 
 .panel {
-  padding-top: 20px;
-  padding-bottom: 20px;
+  /* padding-top: 20px;
+  padding-bottom: 20px; */
 }
 
 #upload-input {
@@ -63,7 +88,30 @@ h2 {
 }
 
 @media (min-width: 992px) {
-  .container {
-    width: 450px;
+  .container2 {
+      position: absolute;
+      padding-top: 11.5%;
+      padding-left: 3%;
+      padding-right: 3%;
+      left: 25%;
+      top: 8.5%;
+      text-align: center;
+      opacity:0.0;
+      z-index: 4;
+  }
+}
+
+@media (min-width: 992px) {
+  .container3 {
+      position: absolute;
+      padding-top: 8%;
+      /* padding-left: -1%;
+      padding-right: -1%; */
+      left: 43.5%;
+      top: 10.75%;
+      /* border-style: solid; */
+      text-align: center;
+      opacity:0.0;
+      z-index: 3;
   }
 }
