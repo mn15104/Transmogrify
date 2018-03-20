@@ -41,7 +41,6 @@ app.use(function(req, res, next){
   next();
 });
 //Set up routers
-var index_route = require('./routes/index.route');
 var home_route = require('./routes/home.route');
 var explore_route = require('./routes/explore.route');
 app.use('/profile', function(req, res, next){

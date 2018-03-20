@@ -20,6 +20,7 @@
 <body class = "profile_body">
     <a class = "background"></a>
     <div class = "profile_page_container">
+        <h1 class="profile_title"> My <span> Profile </span></h1>
         <section class="profile_container">
             <figure class="profile_card" id="profile_card" >
                 <div class=" ACon profile_profile">
@@ -80,11 +81,18 @@
                         </div>    
                     </li>  
                 </ol>  
-                <input class="login_input" type="password" name="pass" placeholder="password">
+                <form class="chat_input_wrapper" action="#" method="post">
+
+				<fieldset>
+					<input class="chat_input" id="chat_input" type="text" placeholder="Type your message…" autofocus>
+					<input class="chat_input chat_input_hidden" type="hidden">
+                    <button class = "myButton" name="send">send</button>
+				</fieldset>
+
+			    </form>
             </section>
         
         <div class= "profile_gallery-wrapper">
-            <h2 class = "profile_gallery-title">Gallery</h2>
             <div class= "profile_gallery-container">
                 <div class="brick-wall">
                         <figure class="brick">
@@ -178,53 +186,11 @@
             </div>  
         </div>
     </div>
-<script src="../javascripts/jstools/triangulate.min.js"></script>
+<script src="../javascripts/profile.js"></script>
 <script>
     $(document).ready(function(){
-    var $Menu = $('.profile_img');
-    $('.chat_container').hide();
-    $(".profile_gallery-wrapper").hide();
-    $("#profile_card").toggleClass("flipped");
-    $('#profile_profile-description').hide();
-    $('.profile_img').hide();
-    $('.profile_img').fadeIn("slow");
-    $('.profile_img').mouseenter(function() {
-        $('.PopUp').css('opacity', '1');
-        $('.PopUp').css('margin-top', '20px');
-    });
-    $('.profile_img').click(function() {
-        $("#profile_card").toggleClass("flipped", function(){
-            $(".profile_card").css({"margin-right":"2000px"}).animate({"left":"400px"}, "slow");
-            $(".profile_card").css({"margin-right":"2000px"}).animate({"top":"-270px"}, "slow", function(){
-                $('#profile_profile-description').slideDown(600);
-                $(".profile_card").animate({"background-color":"#141414"}, 'slow');
-                $(".profile_gallery-wrapper").fadeIn('slow');
-            });
-        });
-        $("#sidebar-horizontal").fadeIn("slow");
-        var margin = "-2000px";
-        
-    });
-    $('.profile_img').mouseleave(function() {
-        $('.PopUp').css('opacity', '0');
-        $('.PopUp').css('margin-top', '0px');
-    })});
-    $('#profile_chat-btn').click(function(){
-        if(!($('#profile_chat-btn').hasClass('profile_chat_open'))){
-            $(".profile_card").animate({width:"500px", left:"310px"}, 'slow', function(){
-                $('.chat_container').slideDown('slow');
-            });
-            $(".profile_img").animate({left:"150px"}, 'fast');
-            $('#profile_chat-btn').addClass('profile_chat_open');
-        }
-        else {
-            $('.chat_container').slideUp('slow', function(){
-                $(".profile_card").animate({width:"315px", left:"450px"}, 'slow');
-                $(".profile_img").animate({left:"55px"}, 'slow');
-            });
-            $('#profile_chat-btn').removeClass('profile_chat_open');
-        }
-    });
+        init();
+    });    
  
 </script>
 
