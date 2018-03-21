@@ -12,7 +12,7 @@ h1.profile_title{
   font-weight: 800;
   margin: 0 0 1.5em;
   line-height: 1;
-  transform: translateY(300px);
+  transform: translateY(90px);
   -webkit-transition: -webkit-transform 2s ease;
   -moz-transition: -moz-transform 2s;
   -o-transition: -o-transform 2s;
@@ -25,12 +25,19 @@ h1.profile_title{
   margin-left: -7px;
 }
 
-.profile_title.profile_title_active{
+.profile_title.profile_title_top{
   transform: translateY(0);
-  -webkit-transform: translateY( 100px );
-  -moz-transform: translateY( 100px );
-    -o-transform: translateY( 100px );
-       transform: translateY( 100px );
+  -webkit-transform: translateY( -350px );
+  -moz-transform: translateY( -350px );
+    -o-transform: translateY( -350px );
+       transform: translateY( -350px );
+}
+.profile_title.profile_title_middle{
+  transform: translateY(0);
+  -webkit-transform: translateY( 300px );
+  -moz-transform: translateY( 300px );
+    -o-transform: translateY(300px );
+       transform: translateY(300px );
 }
 
 .profile_click{

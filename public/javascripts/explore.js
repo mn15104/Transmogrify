@@ -12,6 +12,13 @@ function init(){
         $('.flipper').css({'transform':'translateY(1000px)'},'slow');
         $('.brick_profile_img').not(this).css({'transform':'translateY(1000px)'},'slow');
     })
+    $('.explore_title')
+    .css('opacity', 0)
+    .slideDown('slow')
+    .animate(
+    { opacity: 1 },
+    { queue: false, duration: 2000 }
+);
 }
 
 function nextRow(){

@@ -16,8 +16,13 @@ html {
 h1.explore_title{ 
     font: 5em/1.5 'Open Sans', sans-serif;
 	color: #373737;
-	font-weight: 800;
-	margin: 0 0 1.5em;
+    font-weight: 800;
+    padding-bottom: -300px;
+    transform: translateY(-100px);
+    -webkit-transition: -webkit-transform 3s ease;
+    -moz-transition: -moz-transform 3s;
+    -o-transition: -o-transform 3s;
+      transition: transform 3s;
 	line-height: 1;
 }
 
@@ -26,9 +31,6 @@ h1.explore_title{
 	font-weight: 300;
 	margin-left: -7px;
 }
-
-/* #4b3832 • #854442 • #fff4e6 • #3c2f2f • #be9b7b */
-/* H1 @ Title font */
 
 .explore_body h1 {
 

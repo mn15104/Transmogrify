@@ -1,12 +1,13 @@
 
 var init = function(){
     $('.chat_container').hide();
-   
-    $('.profile_title').css('opacity', 0, function(){ $('.profile_title').hide()})
+    $('.profile_title_container').slideDown('slow');
+    $('.profile_title').css('opacity', 0)
+        .addClass('profile_title_middle')
         .slideDown('slow')
         .animate(
         { opacity: 1 },
-        { queue: false, duration: 'slow' }
+        { queue: false, duration: 2000 }
     );
     $(".profile_gallery-wrapper").hide();
     $("#profile_card").toggleClass("flipped");
@@ -17,8 +18,9 @@ var init = function(){
         $('.PopUp').css('opacity', '1');
         $('.PopUp').css('margin-top', '20px');
     });
+
     $('.profile_img').click(function() {
-        $('.profile_title').addClass('profile_title_active');
+        $('.profile_title').removeClass('profile_title_middle').addClass('profile_title_active');
         $("#profile_card").toggleClass("flipped", function(){
             $(".profile_card").css({"margin-right":"2000px"}).animate({"left":"400px"}, "slow");
             $(".profile_card").css({"margin-right":"2000px"}).animate({"top":"-270px"}, "slow", function(){

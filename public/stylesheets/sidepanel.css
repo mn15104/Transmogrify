@@ -27,6 +27,7 @@ body{
 }
 
 .sidepanel_body h1{
+  color: var(--colour1);
   font-family:Georgia,serif;
   text-transform: none; font-weight: 100;
   font-size: 50px;
