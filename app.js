@@ -43,6 +43,7 @@ app.use(function(req, res, next){
 
 var home_route = require('./routes/home.route');
 var explore_route = require('./routes/explore.route');
+
 var login_route = require('./routes/login.route');
 app.use('/profile', function(req, res, next){
   res.sendFile(path.join(__dirname + '/public/views/profile.html'));
@@ -60,6 +61,10 @@ app.use('/sidepanel', function(req, res, next){
 });
 app.use('/login', login_route, function(req, res, next){
   req.session.current_url = '/login';
+});
+app.use('/', function(req, res, next){
+  res.sendFile(path.join(__dirname + '/public/views/intro.html'));
+  req.session.current_url = '/intro';
 });
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

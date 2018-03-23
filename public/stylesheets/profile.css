@@ -126,6 +126,8 @@ h1.profile_title{
 }
 #profile_card #profile_image2 {
     transform: rotateY( 180deg );
+    filter:sepia(0.5)  ;
+    -webkit-filter:  sepia(0.5) ;
 }
 #profile_card.flipped {
     transform: translateX( -100% ) rotateY( -180deg );
@@ -193,13 +195,17 @@ h1.profile_title{
   left:45vw;
   line-height: 1.4em;
   background-color: #141414;
+  -webkit-transition:background 3s;
+  -moz-transition:background 3s;
+  -o-transition:background 3s;
+  transition:background 3;
   -webkit-border-radius: 2%;
   -moz-border-radius: 2%;
   border-radius: 2%;
 }
 
 .profile_card.flipped {
-  background:rgb(213, 218, 219);
+  background:none;
 }
 .profile_card * {
   -webkit-box-sizing: border-box;

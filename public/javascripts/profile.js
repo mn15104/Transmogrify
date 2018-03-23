@@ -20,12 +20,12 @@ var init = function(){
     });
 
     $('.profile_img').click(function() {
-        $('.profile_title').removeClass('profile_title_middle').addClass('profile_title_active');
         $("#profile_card").toggleClass("flipped", function(){
             $(".profile_card").css({"margin-right":"2000px"}).animate({"left":"400px"}, "slow");
+            $('.profile_title').removeClass('profile_title_middle').addClass('profile_title_active');
             $(".profile_card").css({"margin-right":"2000px"}).animate({"top":"-270px"}, "slow", function(){
                 $('#profile_profile-description').slideDown(600);
-                $(".profile_card").animate({"background-color":"#141414"}, 'slow');
+                // $(".profile_card").animate({"background-color":"#141414"}, 'slow');
                 $(".profile_gallery-wrapper").fadeIn('slow');
             });
         });

@@ -39,7 +39,18 @@ Login.loginRequest = function(req, res){
 };
 
 Login.accountRequest = function(req, res){
+    db.get("SELECT (username) FROM LOGIN_userinfo WHERE username='"+  req.body.username  + "'", function(err, row){
+        if (err) throw err;
+        if (IS_NULL(row)){
+            db.get("SELECT (email) FROM LOGIN_userinfo WHERE email='"+req.body.email+"'" , function(err, row){
+                if (IS_NULL(row)){
+                //Successfully create new account
+                
+                }
+            });
 
+        }
+    });
 };
 
 module.exports = Login;

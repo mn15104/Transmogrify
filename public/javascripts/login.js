@@ -13,7 +13,18 @@ onButtonClick = function( event ){
   panelClassName = event.target.className;
   box.addClassName( panelClassName );
 };
-
+$('.login_site').hide();
+$('#email_container').hide();
+$('#password_container').hide();
+$("#login_button_container").hide();
+$('#login_title').hide();
+$('#login_facebook_container').hide();
+$('.login_site').fadeIn(1300);
+$('#login_title').show("slide", { direction: "up" },1000, {duration:"slow", easing:'ease-in'});
+$('#login_facebook_container').show("slide", { direction: "up" },1000, {duration:"slow",easing:'ease-in'});
+$('#email_container').show("slide", { direction: "left" }, 1000, {duration:"slow", easing:'ease-in'});
+$('#password_container').show("slide", { direction: "right" },1000,  {duration:"slow", easing:'ease-in'});
+$("#login_button_container").show("slide", { direction: "down" },1000,  {duration:"slow", easing:'ease-in'});
 
 $('#login_arrow').hover(
     function(){

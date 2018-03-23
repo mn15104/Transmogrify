@@ -4,6 +4,7 @@ function init(){
             nextRow();
         }
     });
+   
     $('.flipper').click(function(){
         $(this).toggleClass('flipped');
     })
@@ -18,7 +19,7 @@ function init(){
     .animate(
     { opacity: 1 },
     { queue: false, duration: 2000 }
-);
+    );
 }
 
 function nextRow(){

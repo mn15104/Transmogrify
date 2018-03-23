@@ -20,16 +20,16 @@
 <!--===============================================================================================-->
 </head>
 <body class="login_body">
-	<div class="login_site">
+	<div class="login_site login_init">
 		<div id="cube" class="panels-backface-invisible  show-front">
 			<figure class="front">
 				<div class="page_0 limiter login_container">
 						<div class="login_wrapper p-t-90 p-b-30">
 							<form class="login_form login_validate-form">
-								<span class="login_form-title-1 p-b-40">
+								<span id="login_title" class="login_form-title-1 p-b-40">
 									login
 								</span>
-								<div>
+								<div id = "login_facebook_container">
 									<a href="#" class="login_btn-login-facebook bg1 m-b-10">
 										<i class="fa fa-facebook-official"></i>
 										login with Facebook
@@ -39,17 +39,17 @@
 									Don't have an account? Create one!
 									<i class="fa fa-long-arrow-right login_arrow-login grow " id='login_arrow'></i>
 								</div>
-								<div class="login_wrap-input login_validate-input m-b-16" data-validate="Please enter email: ex@abc.xyz">
+								<div  id = "email_container" class="login_wrap-input login_validate-input m-b-16" data-validate="Please enter email: ex@abc.xyz">
 									<input class="login_input" type="text" name="email" placeholder="email">
 									<span class="login_focus-input"></span>
 								</div>
 							
-								<div class="login_wrap-input login_validate-input m-b-20" data-validate = "Please enter password">
+								<div id = "password_container" class="login_wrap-input login_validate-input m-b-20" data-validate = "Please enter password">
 									<input class="login_input" type="password" name="pass" placeholder="password">
 									<span class="login_focus-input"></span>
 								</div>
 
-								<div class="login_container-login-form-btn">
+								<div id = "login_button_container" class="login_container-login-form-btn">
 									<button class="login_login-form-btn">
 										login
 									</button>
