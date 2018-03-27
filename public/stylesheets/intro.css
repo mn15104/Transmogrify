@@ -1,0 +1,30 @@
+body{
+    background: #ECE9E6;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #FFFFFF, #ECE9E6);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #FFFFFF, #ECE9E6); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  }  
+
+.title_container{
+    text-align:center;
+}
+
+h1.title{ 
+    position:absolute;
+    padding-left: 43.8%;
+    font: 6em/1.5 'Open Sans', sans-serif;
+    color: #373737;
+    font-weight: 800;
+    margin: 0 0 1.5em;
+    line-height: 1;
+    transform: translateY(90px);
+    -webkit-transition: -webkit-transform 2s ease;
+    -moz-transition: -moz-transform 2s;
+    -o-transition: -o-transform 2s;
+        transition: transform 2s;
+}
+
+.title span {
+    color: #373737;
+    font-weight: 300;
+    margin-left: -7px;
+}

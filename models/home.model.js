@@ -25,6 +25,7 @@ db.run(`CREATE TABLE IF NOT EXISTS HOME_image_files (file_name VARCHAR(255),
                                                      file_upload_date VARCHAR(255), 
                                                      file_id INT (100),
                                                      partner_id INT(100),
+                                                     username VARCHAR(255),
                                                      FOREIGN KEY(partner_id) REFERENCES HOME_audio_files(file_id),
                                                      PRIMARY KEY(file_id))`, (err) => {
     if (err) {
@@ -40,6 +41,7 @@ db.run(`CREATE TABLE IF NOT EXISTS HOME_audio_files (file_name VARCHAR(255),
                                                      file_upload_date VARCHAR(255), 
                                                      file_id INT (100),
                                                      partner_id INT(100),
+                                                     username VARCHAR(255),
                                                      FOREIGN KEY(partner_id) REFERENCES HOME_image_files(file_id),
                                                      PRIMARY KEY(file_id))`, (err) => {
     if (err) {
@@ -75,16 +77,16 @@ Home.insert = function(text, time) {
     });
 }
 
-insertAudioToDB = function(file_name, file_size, file_upload_date, file_id, ){
+insertAudioToDB = function(file_name, file_size, file_upload_date, file_id, username){
     db.run("INSERT INTO HOME_audio_files (file_name, file_size, file_upload_date, file_id) VALUES ('" 
-                                        + file_name + "', '" + file_size + "', '" + file_upload_date + "', '" + file_id +"')", function (err, row){
+                                        + file_name + "', '" + file_size + "', '" + file_upload_date + "', '" + file_id + "', '" + username + "')", function (err, row){
         if (err) throw err;
         console.log("Inserted into db");
     });
 }
-insertImageToDB = function(file_name, file_size, file_upload_date, file_id){
+insertImageToDB = function(file_name, file_size, file_upload_date, file_id, username){
     db.run("INSERT INTO HOME_image_files (file_name, file_size, file_upload_date, file_id) VALUES ('" 
-                                        + file_name + "', '" + file_size + "', '" + file_upload_date + "', '" + file_id +"')", function (err, row){
+                                        + file_name + "', '" + file_size + "', '" + file_upload_date + "', '" + file_id + "', '" + username +  "')", function (err, row){
         if (err) throw err;
         console.log("Inserted into db");
     });
@@ -119,7 +121,7 @@ Home.uploadAudio = function(req, res, callback){
             fs.rename(file.path, path.join(form.uploadDir, file_id_str, file.name), function (err) {
                 if(err) console.log('rename callback ', err); 
 
-                insertAudioToDB(file.name, file.size, createDate(), file_id);
+                insertAudioToDB(file.name, file.size, createDate(), file_id, req.username);
             });
         });
     });
@@ -159,7 +161,7 @@ Home.uploadImage = function(req, res, callback){
             fs.rename(file.path, path.join(form.uploadDir, file_id_str, file.name), function (err) {
                 if(err) console.log('rename callback ', err); 
                 
-                insertImageToDB(file.name, file.size, createDate(), file_id);
+                insertImageToDB(file.name, file.size, createDate(), file_id, req.username);
             });
         });
     });
