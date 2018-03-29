@@ -35,7 +35,16 @@ db.run(`CREATE TABLE IF NOT EXISTS LOGIN_userinfo   (firstname VARCHAR(255),
 });
 
 Login.loginRequest = function(req, res){
-
+    db.get("SELECT (username) FROM LOGIN_userinfo WHERE username='"+  req.body.username  + "'", function(err, row){
+        if (err) throw err;
+        if (!IS_NULL(row)){
+            db.get("SELECT (password) FROM LOGIN_userinfo WHERE password='"+req.body.password+"'" , function(err, row){
+                if (!IS_NULL(row)){
+                    return
+                }
+            });
+        }
+    });
 };
 
 Login.accountRequest = function(req, res){
@@ -44,8 +53,7 @@ Login.accountRequest = function(req, res){
         if (IS_NULL(row)){
             db.get("SELECT (email) FROM LOGIN_userinfo WHERE email='"+req.body.email+"'" , function(err, row){
                 if (IS_NULL(row)){
-                //Successfully create new account
-                
+                    res.send("OK");
                 }
             });
 

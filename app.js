@@ -21,12 +21,14 @@ app.use(session({
   httpOnly: true,
   secure: true,
   ephemeral: true,
-  resave: true,
-  saveUninitialized: true
+  saveUninitialized: true,
+  resave: true
 }));
+
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -43,14 +45,12 @@ app.use(function(req, res, next){
 
 var home_route = require('./routes/home.route');
 var explore_route = require('./routes/explore.route');
-
+var profile_route = require('./routes/profile.route');
 var login_route = require('./routes/login.route');
-app.use('/profile', function(req, res, next){
-  res.sendFile(path.join(__dirname + '/public/views/profile.html'));
-  req.session.current_url = '/profile';
-});
+
+app.use('/profile', profile_route);
 app.use('/home', home_route, function(){
-  req.session.current_url = '/home';
+
 });
 app.use('/explore', explore_route, function(){
   req.session.current_url = '/explore';
