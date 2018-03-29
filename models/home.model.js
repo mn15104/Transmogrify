@@ -5,6 +5,7 @@ var path = require('path');
 var formidable = require('formidable');
 var fs = require('fs');
 var dateFormat = require('dateformat'); 
+
 var Home = function (){
 
 }
@@ -12,6 +13,8 @@ var Home = function (){
 function IS_NULL(x){
     return (x === undefined || x === null || x === NaN); //util.isNullOrUndefined(x) || isNaN(x))
 }
+
+// *************************************SQLITE INITIALISE****************************************************** //
 
 let db = new sqlite3.Database('./Dev.db', sqlite3.OPEN_CREATE | sqlite3.OPEN_READWRITE, (err) => {
     if (err) {
@@ -52,8 +55,9 @@ db.run(`CREATE TABLE IF NOT EXISTS HOME_audio_files (file_name VARCHAR(255),
     }
 });
 
+// **************************************************************************************************** //
 
-Home.insert = function(text, time) {
+Home.uploadFile = function(text, time) {
     var max_entry = 0;
     db.get("SELECT MAX(file_id) FROM HOME_posts", function(err, row){
         if (err) throw err;
@@ -91,6 +95,7 @@ insertImageToDB = function(file_name, file_size, file_upload_date, file_id, user
         console.log("Inserted into db");
     });
 }
+
 createDate = function(){
     now = new Date(); 
     var date = dateFormat(now, "yyyy-mm-dd'T'HH:MM:ss");

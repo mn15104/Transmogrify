@@ -12,6 +12,8 @@ var Profile = function (){
 function IS_NULL(x){
     return (x === undefined || x === null || x === NaN); //util.isNullOrUndefined(x) || isNaN(x))
 }
+
+// **************************************************************************************************** //
 let db = new sqlite3.Database('./Dev.db', sqlite3.OPEN_CREATE | sqlite3.OPEN_READWRITE, (err) => {
     if (err) {
       return console.error(err.message);
@@ -33,6 +35,7 @@ db.run(`CREATE TABLE IF NOT EXISTS PROFILE_userinfo   ( firstname VARCHAR(255),
         console.log("Table ready");
     }
 });
+// **************************************************************************************************** //
 
 Profile.loadProfile = function(req, res){
     var username = req.body.username;

@@ -13,6 +13,7 @@ function IS_NULL(x){
     return (x === undefined || x === null || x === NaN); //util.isNullOrUndefined(x) || isNaN(x))
 }
 
+// **************************************************************************************************** //
 let db = new sqlite3.Database('./Dev.db', sqlite3.OPEN_CREATE | sqlite3.OPEN_READWRITE, (err) => {
     if (err) {
       return console.error(err.message);
@@ -20,8 +21,9 @@ let db = new sqlite3.Database('./Dev.db', sqlite3.OPEN_CREATE | sqlite3.OPEN_REA
     console.log('Connected to the Explore db.');
 });
 
+// **************************************************************************************************** //
 
-Explore.loadFile = function(req, res){
+Explore.loadFileData = function(req, res){
     var file_id = req.body.lastFileId;
     db.get("SELECT * FROM HOME_audio_files WHERE file_id='"+  file_id  + "'", function(err, row){
         if (err) throw err;
@@ -31,11 +33,24 @@ Explore.loadFile = function(req, res){
                 if (err) throw err;
                 if (!IS_NULL(row)){
                     var image = JSON.stringify(row);
-                    return [audio, image];
+                    return {'audio':audio,'image': image};
+                }
+                else{
+                    res.status(400);
+                    res.send('None shall pass');
                 }
             });
         }
+        else{
+            res.status(400);
+            res.send('None shall pass');
+        }
     });
 };
+
+Explore.loadFile = function(){
+
+};
+
 
 module.exports = Explore;

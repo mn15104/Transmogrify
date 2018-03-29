@@ -21,7 +21,7 @@ router.post('/drag/uploadAudio', function(req, res, next) {
 
 router.post('/post', function(req, res, next) {
   var post = req.body.user_post;
-  Home.insert(post, new Date());
+  Home.uploadFile(post, new Date());
   res.redirect('/');
 });
 

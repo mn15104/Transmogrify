@@ -9,8 +9,8 @@ router.get('/', function(req, res, next) {
   res.sendFile(path.join(__dirname + '/../public/views/explore.html'));
 });
 
-router.get('/loadfile', function(req,res,next){
-  Explore.loadfile(req,res);
+router.get('/loadfiledata', function(req,res,next){
+  var filedata = Explore.loadFileData(req,res);
 })
 
 module.exports = router;

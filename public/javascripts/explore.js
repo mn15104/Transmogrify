@@ -20,9 +20,27 @@ function init(){
     { opacity: 1 },
     { queue: false, duration: 2000 }
     );
+
+    
 }
 
-function nextRow(){
+function retrieveFileData(req_file_id){
+    $.ajax({
+        url: '/explore.html/loadfiledata',
+        type: 'GET',
+        data: req_file_id,
+        processData: false,
+        contentType: false,
+        success: function(data){
+            console.log('upload successful!\n' + data);
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            console.log("Error during id request : " + thrownError);
+        },
+        xhr: function() {
+          
+        }
+    });
     var children = $(".brickwall").children("figure");
     $(children).clone().appendTo(".brickwall");
 

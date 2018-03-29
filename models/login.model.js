@@ -12,7 +12,7 @@ var Login = function (){
 function IS_NULL(x){
     return (x === undefined || x === null || x === NaN); //util.isNullOrUndefined(x) || isNaN(x))
 }
-
+// **************************************************************************************************** //
 let db = new sqlite3.Database('./Dev.db', sqlite3.OPEN_CREATE | sqlite3.OPEN_READWRITE, (err) => {
     if (err) {
       return console.error(err.message);
@@ -33,6 +33,8 @@ db.run(`CREATE TABLE IF NOT EXISTS LOGIN_userinfo   (firstname VARCHAR(255),
         console.log("Table ready");
     }
 });
+
+// **************************************************************************************************** //
 
 Login.loginRequest = function(req, res){
     db.get("SELECT (username) FROM LOGIN_userinfo WHERE username='"+  req.body.username  + "'", function(err, row){
