@@ -17,16 +17,17 @@ let db = new sqlite3.Database('./Dev.db', sqlite3.OPEN_CREATE | sqlite3.OPEN_REA
     if (err) {
       return console.error(err.message);
     }
-    console.log('Connected to the in-memory SQlite database.');
+    console.log('Connected to the Explore db.');
 });
 
 
-Explore.getImageAudioPair = function(req, res){
-    db.get("SELECT * FROM HOME_audio_files WHERE file_id='"+  req.body.file_id  + "'", function(err, row){
+Explore.loadFile = function(req, res){
+    var file_id = req.body.lastFileId;
+    db.get("SELECT * FROM HOME_audio_files WHERE file_id='"+  file_id  + "'", function(err, row){
         if (err) throw err;
         if (!IS_NULL(row)){
             var audio = JSON.stringify(row);
-            db.get("SELECT * FROM HOME_image_files WHERE file_id='"+  req.body.file_id  + "'", function(err, row){
+            db.get("SELECT * FROM HOME_image_files WHERE file_id='"+  file_id  + "'", function(err, row){
                 if (err) throw err;
                 if (!IS_NULL(row)){
                     var image = JSON.stringify(row);

@@ -17,7 +17,7 @@ let db = new sqlite3.Database('./Dev.db', sqlite3.OPEN_CREATE | sqlite3.OPEN_REA
     if (err) {
       return console.error(err.message);
     }
-    console.log('Connected to the in-memory SQlite database.');
+    console.log('Connected to the Home file db.');
 });
 
 db.run(`CREATE TABLE IF NOT EXISTS HOME_image_files (file_name VARCHAR(255), 
@@ -32,7 +32,7 @@ db.run(`CREATE TABLE IF NOT EXISTS HOME_image_files (file_name VARCHAR(255),
         console.error(err.message);
     }
     else {
-        console.log("Table created");
+        console.log("Table ready");
     }
 });
 
@@ -48,7 +48,7 @@ db.run(`CREATE TABLE IF NOT EXISTS HOME_audio_files (file_name VARCHAR(255),
         console.error(err.message);
     }
     else {
-        console.log("Table created");
+        console.log("Table ready");
     }
 });
 

@@ -283,6 +283,9 @@
     padding-left: 30%;
     font-size:100px;
   }
+  .login_arrow-login:hover {
+    cursor: pointer;
+  }
   .login_arrow-create-account {
     position: absolute;
     width: 35px;
@@ -291,6 +294,10 @@
     font-size:100px;
     padding-right: 30%;
     background-size: contain;
+    
+  }
+  .login_arrow-create-account:hover {
+    cursor: pointer;
   }
   @-moz-keyframes bounce {
     0%, 20%, 50%, 80%, 100% {

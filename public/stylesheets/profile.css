@@ -36,8 +36,8 @@ h1.profile_title{
   transform: translateY(0);
   -webkit-transform: translateY( 300px );
   -moz-transform: translateY( 300px );
-    -o-transform: translateY(300px );
-       transform: translateY(300px );
+    -o-transform: translateY( 300px );
+       transform: translateY( 300px );
 }
 
 .profile_click{

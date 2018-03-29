@@ -17,7 +17,7 @@ let db = new sqlite3.Database('./Dev.db', sqlite3.OPEN_CREATE | sqlite3.OPEN_REA
     if (err) {
       return console.error(err.message);
     }
-    console.log('Connected to the in-memory SQlite database.');
+    console.log('Connected to the Login db.');
 });
 
 db.run(`CREATE TABLE IF NOT EXISTS LOGIN_userinfo   (firstname VARCHAR(255), 
@@ -30,7 +30,7 @@ db.run(`CREATE TABLE IF NOT EXISTS LOGIN_userinfo   (firstname VARCHAR(255),
         console.error(err.message);
     }
     else {
-        console.log("Table created");
+        console.log("Table ready");
     }
 });
 
@@ -40,7 +40,7 @@ Login.loginRequest = function(req, res){
         if (!IS_NULL(row)){
             db.get("SELECT (password) FROM LOGIN_userinfo WHERE password='"+req.body.password+"'" , function(err, row){
                 if (!IS_NULL(row)){
-                    return
+                    req.session.user = username;
                 }
             });
         }
