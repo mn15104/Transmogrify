@@ -16,10 +16,13 @@
 
     <!-- google font -->
     <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet'>
-
+<!--===============================================================================================-->
     <!--W3-CSS-->
     <link rel="stylesheet" type="text/css" media="screen" href="../stylesheets/home.css">
     <link rel="stylesheet" type="text/css" media="screen" href="../stylesheets/drag.css">
+    <script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script src="../javascripts/drag.js"></script>
 </head>
 
 <body>
@@ -35,14 +38,27 @@
             </figure>
         </div>
     </div>
+    <div id = "wrap">
+        <div id = "left">
+                <p class="button_hover">give me an image</h1>
+        </div>
 
+        <div id = "right">
+                <p class="button_hover">give me a song</h1>
+        </div>
+    </div>
 
+        <!-- <div> -->
 
-        <div>
-            <div class="button-background">
+<!-- 
+         <div class="button-background">
                 <img src="images/two-boxes-text.svg" width="50%"/>
-            </div>
-            <img id="button-left-box" src="images/two-boxes-left2.svg" width="18.5%"/>
+
+
+
+            </div> 
+           <img id="button-left-box" src="images/two-boxes-left2.svg" width="18.5%"/>
+            
             <div class="container2">
                 <div class="row2">
                     <div class="col-xs-12">
@@ -55,14 +71,14 @@
                     </div>
                 </div>
             </div>
+
             <input id="upload-input" type="file" name="uploads[]" multiple="multiple"></br>
-            <script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
-            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-            <script src="../javascripts/drag.js"></script>
+            
             <div id="button-left">
                 <img src="images/two-boxes-left-hover1.svg" width="50%"/>
             </div>
             <img id="button-middle-box" src="images/two-boxes-middle2.svg" width="11.3%"/>
+
             <div class="container3">
                 <div class="row2">
                     <div class="col-xs-12">
@@ -75,6 +91,7 @@
                     </div>
                 </div>
             </div>
+
             <div id="button-middle">
                 <img src="images/two-boxes-middle-hover1.svg" width="50%"/>
             </div>
@@ -89,8 +106,8 @@
 
         <p id="p1">place an <br> image <br> here</p>
         <p id="p2">music will <br> be made <br> here</p>
-        <p id="p3">Ready?</p>
-
+        <p id="p3">Ready?</p> 
+ -->
 
 
     <div id="drop_zone" ondrop="drop_handler(event);" ondragover="dragover_handler(event);" ondragend="dragend_handler(event);">

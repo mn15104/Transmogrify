@@ -89,15 +89,9 @@ h2 {
 
 @media (min-width: 992px) {
   .container2 {
-      position: absolute;
-      padding-top: 11.5%;
-      padding-left: 3%;
-      padding-right: 3%;
-      left: 25%;
-      top: 8.5%;
+      position: relative;
       text-align: center;
-      opacity:0.0;
-      z-index: 4;
+      opacity:1.0;
   }
 }
 
@@ -114,4 +108,49 @@ h2 {
       opacity:0.0;
       z-index: 3;
   }
+}
+
+
+#wrap {
+  background: #e7e7e7;
+  padding: 40px;
+  text-align: center;
+  width: 100%;  
+  vertical-align: middle;
+
+}
+
+#left, #right, #center {
+   background: #ccc;
+   display: inline-block;
+   width:20%;
+   height: 300px;
+   margin-left: 5%;    
+   margin-right: 5%;   
+   padding: 20px;   
+}
+
+#right:hover > p.button_hover{
+  transition: 2s;
+  color: black;
+}
+#left:hover > p.button_hover{
+  transition: 2s;
+  color: black;
+}
+#left:hover > {
+  transition: 2s;
+  color: black;
+}
+.home_arrow{
+  font-size:100px;
+}
+
+p.button_hover{
+  font: 50px 'Open Sans', sans-serif;
+  color: #ccc;
+  font-weight: 300;
+  letter-spacing: 0.5px;
+
+  line-height: 1;
 }

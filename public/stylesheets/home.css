@@ -128,7 +128,6 @@ h1.home_title{
 
 }
 
-
 #button-left-box {
     position:relative;
     /* margin:auto; */
@@ -308,4 +307,44 @@ pulsing {
     0% { filter: invert(0%); }
     50% { filter: invert(50%);}
     100% { filter: invert(0%);}
+}
+
+#wrap {
+    background: #e7e7e7;
+    padding: 40px;
+    text-align: center;
+    width: 100%;  
+    vertical-align: middle;
+
+}
+
+#left, #right, #center {
+     background: #ccc;
+     display: inline-block;
+     width:20%;
+     height: 300px;
+     margin-left: 5%;    
+     margin-right: 5%;   
+     padding: 20px;   
+}
+
+#right:hover > p.button_hover{
+    transition: 2s;
+    color: black;
+}
+#left:hover > p.button_hover{
+    transition: 2s;
+    color: black;
+}
+.home_arrow{
+    font-size:100px;
+}
+
+p.button_hover{
+    font: 50px 'Open Sans', sans-serif;
+    color: #ccc;
+    font-weight: 300;
+    letter-spacing: 0.5px;
+  
+    line-height: 1;
 }
