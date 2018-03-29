@@ -16,6 +16,7 @@ function readURL(files) {
       reader.readAsDataURL(files[0]);
   }
 }
+
 $('#upload-input').on('change', function(){
   var files = $(this).get(0).files;
   $('#container_1').fadeOut( "slow" , 0, function(){

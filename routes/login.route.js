@@ -20,6 +20,4 @@ router.post('/submit_account', function(req, res, next) {
     Login.accountRequest(req, res, next);
 });
 
-
-
 module.exports = router;
