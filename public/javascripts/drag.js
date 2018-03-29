@@ -4,10 +4,32 @@ $('.upload-btn').on('click', function (){
     $('.progress-bar').width('0%');
 });
 
+function readURL(files) {
+  if (files[0]) {
+      var reader = new FileReader();
+
+      reader.onload = function (e) {
+          $('#image_test')
+              .attr('src', e.target.result);
+      };
+
+      reader.readAsDataURL(files[0]);
+  }
+}
+$('#upload-input').on('change', function(){
+  var files = $(this).get(0).files;
+  $('#container_1').fadeOut( "slow" , 0, function(){
+    readURL(files);
+  });
+});
+
 $('#upload-input').on('change', function(){
 
   var files = $(this).get(0).files;
 
+  
+
+  reader.readAsDataURL(input.files[0]);
   if (files.length > 0){
     // create a FormData object which will be sent as the data payload in the
     // AJAX request

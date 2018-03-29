@@ -124,10 +124,11 @@ h2 {
    background: #ccc;
    display: inline-block;
    width:20%;
-   height: 300px;
+   height: 600px;
    margin-left: 5%;    
    margin-right: 5%;   
    padding: 20px;   
+   overflow:hidden;
 }
 
 #right:hover > p.button_hover{
