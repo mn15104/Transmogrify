@@ -1,27 +1,27 @@
 .btn:focus, .upload-btn:focus{
     outline: 0 !important;
   }
-  
+
   html,
   body {
     height: 100%;
   }
-  
+
   body {
     text-align: center;
     font-family: 'Raleway', sans-serif;
   }
-  
+
   .row {
     margin-top: 80px;
   }
-  
+
   .upload-btn {
     color: #ffffff;
     background-color: #F89406;
     border: none;
   }
-  
+
   .upload-btn:hover,
   .upload-btn:focus,
   .upload-btn:active,
@@ -30,40 +30,40 @@
     background-color: #FA8900;
     border: none;
   }
-  
+
   h4 {
     padding-bottom: 30px;
     color: #B8BDC1;
   }
-  
+
   .glyphicon {
     font-size: 5em;
     color: #9CA3A9;
   }
-  
+
   h2 {
     color: #68757E;
   }
-  
+
   .panel {
     padding-top: 20px;
     padding-bottom: 20px;
   }
-  
+
   #upload-input {
     display: none;
   }
-  
+
   @media (min-width: 768px) {
     .main-container {
       width: 100%;
     }
   }
-  
+
   @media (min-width: 992px) {
     .container {
         background:blue;
-      width: 450px;
+      width: 90%;
     }
   }
 
@@ -75,17 +75,17 @@
     background: #e7e7e7;
     padding: 40px;
     text-align: center;
-    width: 100%;  
+    width: 100%;
 }
 
 #left, #right, #center {
      background: #ccc;
      display: inline-block;
-     width: 600px;
-     height:700px;
-     margin-left: 5%;    
-     margin-right: 5%;   
-     padding: 20px;   
+     width: 30%;
+     height:400px;
+     margin-left: 5%;
+     margin-right: 5%;
+     padding: 20px;
 }
 
 #image_test{
@@ -116,6 +116,6 @@ p.button_hover{
     color: #ccc;
     font-weight: 300;
     letter-spacing: 0.5px;
-  
+
     line-height: 1;
 }

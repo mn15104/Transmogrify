@@ -1,21 +1,23 @@
 
 #wrap {
     background: #e7e7e7;
+    display: inline-block;
     padding: 40px;
     text-align: center;
-    width: 100%;  
+    width: 100%;
     vertical-align: middle;
 
 }
 
 #left, #right, #center {
-     background: #ccc;
+    position: relative;
+     background: #111;
      display: inline-block;
      width:20%;
      height: 300px;
-     margin-left: 5%;    
-     margin-right: 5%;   
-     padding: 20px;   
+     margin-left: 5%;
+     margin-right: 5%;
+     padding: 20px;
 }
 
 #right:hover > p.button_hover{
@@ -39,6 +41,6 @@ p.button_hover{
     color: #ccc;
     font-weight: 300;
     letter-spacing: 0.5px;
-  
+
     line-height: 1;
 }
