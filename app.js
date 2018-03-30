@@ -57,8 +57,7 @@ app.use('/sidepanel', function(req, res, next){
 });
 app.use('/login', login_route);
 app.use('/', function(req, res, next){
-  res.sendFile(path.join(__dirname + '/public/views/intro.html'));
-  req.session.current_url = '/intro';
+  res.redirect('/sidepanel');
 });
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

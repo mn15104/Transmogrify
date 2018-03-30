@@ -5,12 +5,11 @@ element{
     /* Alternative narrow styles */
 }
 h1.profile_title{ 
-  position:absolute;
-  padding-left: 43.8%;
+  display: inline-block;
+  position:relative;
   font: 6em/1.5 'Open Sans', sans-serif;
   color: #373737;
   font-weight: 800;
-  margin: 0 0 1.5em;
   line-height: 1;
   transform: translateY(90px);
   -webkit-transition: -webkit-transform 2s ease;
@@ -252,7 +251,7 @@ h1.profile_title{
   text-align: center;
   opacity: 0.65;
 } 
- .profile_card a {
+.profile_card a {
   text-decoration: none;
 }
 .profile_card i:hover {
@@ -265,6 +264,9 @@ h1.profile_title{
   -webkit-transform: scale(1);
   transform: scale(1);
 } 
+
+
+
 .profile_body h4{
     font-family: 'Open Sans', Arial, sans-serif;
     color:  rgba(255, 255, 255, 0.5);
@@ -416,7 +418,7 @@ filter: grayscale(50%) sepia(0.3) brightness(150%) hue-rotate(320deg);
 -webkit-filter: grayscale(50%) sepia(0.3) brightness(150%) hue-rotate(320deg);
 }
 .profile_gallery-wrapper {
-    top: 200px;
+    top: 300px;
     position:absolute;
     padding-left: 300px;
     height: 100%;

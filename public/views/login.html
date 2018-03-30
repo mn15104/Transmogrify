@@ -12,6 +12,7 @@
 	<link rel="stylesheet" type="text/css" href="../fonts/Linearicons-Free-v1.0.0/icon-font.min.css">
 <!--===============================================================================================-->	
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.4/TweenMax.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
 	<script src="../javascripts/jstools/jquery-3.2.1.min.js"></script>
 	<script src="../javascripts/jstools/jquery-ui.min.js"></script>
 <!--===============================================================================================-->
@@ -66,23 +67,27 @@
 										this'll be quick, I promise
 									</span>
 									<div class="login_wrap-input validate-input m-b-20" data-validate = "Please enter a valid email address">
-											<input class="login_input" type="text" name="fullname" placeholder="full name">
+											<input class="login_input" type="text" name="fullname" placeholder="first name" id ="create_account_firstname">
 											<span class="login_focus-input"></span>
+									</div>
+									<div class="login_wrap-input validate-input m-b-20" data-validate = "Please enter a valid email address">
+										<input class="login_input" type="text" name="fullname" placeholder="surname" 		id ="create_account_surname">
+										<span class="login_focus-input"></span>
 									</div>
 									<div class = 'grow login_arrow-container-create-account'>
 											was that an accident? <br> go back to login page
 											<i class="fa fa-long-arrow-left login_arrow-create-account grow " id='login_arrow-create-account'></i>
 									</div>
 									<div class="login_wrap-input login_validate-input m-b-20" data-validate = "Please enter a valid email address">
-											<input class="login_input" type="email" name="email" placeholder="email">
+											<input class="login_input" type="email" name="email" placeholder="email" id ="create_account_email">
 											<span class="login_focus-input"></span>
 									</div>
 									<div class="login_wrap-input login_validate-input m-b-20" data-validate = "Please enter password">
-										<input class="login_input" type="password" name="pass" placeholder="password">
+										<input class="login_input" type="password" name="pass" placeholder="password" id ="create_account_password1">
 										<span class="login_focus-input"></span>
 									</div>
 									<div class="login_wrap-input login_validate-input m-b-20" data-validate = "Please enter password">
-											<input class="login_input" type="password" name="pass" placeholder="password again">
+											<input class="login_input" type="password" name="pass" placeholder="password again" id ="create_account_password2">
 											<span class="login_focus-input"></span>
 									</div>
 									<div class="login_container-login-form-btn">
