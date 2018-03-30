@@ -26,7 +26,7 @@ function init(){
 
 function retrieveFileData(req_file_id){
     $.ajax({
-        url: '/explore.html/loadfiledata',
+        url: '/explore.html/loadfiledatabyid',
         type: 'GET',
         data: req_file_id,
         processData: false,
@@ -44,7 +44,7 @@ function retrieveFileData(req_file_id){
 }
 function retrieveImageFile(req_file_id){
     $.ajax({
-        url: '/explore.html/loadimagefile',
+        url: '/explore.html/loadimagefilebyid',
         type: 'GET',
         data: req_file_id,
         processData: false,
@@ -62,7 +62,7 @@ function retrieveImageFile(req_file_id){
 }
 function retriveAudioFile(req_file_id){
     $.ajax({
-        url: '/explore.html/loadaudiofile',
+        url: '/explore.html/loadaudiofilebyid',
         type: 'GET',
         data: req_file_id,
         processData: false,

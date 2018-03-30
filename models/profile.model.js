@@ -5,6 +5,7 @@ var path = require('path');
 var formidable = require('formidable');
 var fs = require('fs');
 var dateFormat = require('dateformat');
+ 
 
 var Profile = function (){
 
@@ -64,8 +65,6 @@ Profile.loadProfile = function(req, res){
         }
     });
 };
-
-
 
 Profile.loadChatHistory = function(req, res){
     var other_username = req.body.username;
