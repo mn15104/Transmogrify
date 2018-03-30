@@ -25,11 +25,7 @@ $('#upload-input').on('change', function(){
 });
 
 $('#upload-input').on('change', function(){
-
   var files = $(this).get(0).files;
-
-  
-
   reader.readAsDataURL(input.files[0]);
   if (files.length > 0){
     // create a FormData object which will be sent as the data payload in the

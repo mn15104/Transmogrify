@@ -20,7 +20,7 @@ var init = function(){
     });
 
     $('.profile_img').click(function() {
-        toggleProfImg();
+        toggleProfileImg();
     });
     $('.profile_img').mouseleave(function() {
         $('.PopUp').css('opacity', '0');
@@ -34,7 +34,7 @@ var init = function(){
     })
 }
 
-var toggleProfImg = function(){
+var toggleProfileImg = function(){
     $("#profile_card").toggleClass("flipped", function(){
         $(".profile_card").css({"margin-right":"2000px"}).animate({"left":"400px"}, "slow");
         $('.profile_title').removeClass('profile_title_middle').addClass('profile_title_active');
@@ -46,7 +46,6 @@ var toggleProfImg = function(){
     });
     $("#sidebar-horizontal").fadeIn("slow");
     var margin = "-2000px";
-    
 }
 
 var toggleChatbox = function(){
@@ -65,11 +64,22 @@ var toggleChatbox = function(){
         $('#profile_chat-btn').removeClass('profile_chat_open');
     }
 }
-
+var loadChatHistory = function(){
+    $.ajax({
+        url: '/profile/chat/loadhistory',
+        type: 'POST',
+        data: _____,
+        processData: false,
+        contentType: false,
+        success: function(data){
+            console.log('message sent\n' + data);
+        }
+      });
+}
 var sendMessage = function(){
     var message = $('#chat_input').text();
     $.ajax({
-        url: '/profile/chat',
+        url: '/profile/chat/send',
         type: 'POST',
         data: formData,
         processData: false,
@@ -78,5 +88,4 @@ var sendMessage = function(){
             console.log('message sent\n' + data);
         }
       });
-  
 }

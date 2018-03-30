@@ -61,7 +61,6 @@ function docReady(){
         return check;
     });
 
-
     $('.login_validate-form .login_input').each(function(){
         $(this).focus(function(){
             hideValidate(this);
@@ -77,13 +76,20 @@ function docReady(){
 
 
     $('#sign_up_btn').click(function(){
-        console.log("SIGN UP NOT YET CONNECTED");
+        submitAccount();
     })
     $('#login_btn').click(function(){
-        console.log("LOGIN NOT YET CONNECTED");
+        submitLogin();
     })
 
 };
+
+var submitAccount = function(){
+    console.log("SIGN UP NOT YET CONNECTED");
+}
+var submitLogin = function(){  
+    console.log("LOGIN NOT YET CONNECTED");
+}
 
 var siteW = $(window).width();
 var siteH = $(window).height();

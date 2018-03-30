@@ -24,7 +24,7 @@ let db = new sqlite3.Database('./Dev.db', sqlite3.OPEN_CREATE | sqlite3.OPEN_REA
 // **************************************************************************************************** //
 
 Explore.loadFileData = function(req, res){
-    var file_id = req.body.lastFileId;
+    var file_id = req.body.file_id;
     db.get("SELECT * FROM HOME_audio_files WHERE file_id='"+  file_id  + "'", function(err, row){
         if (err) throw err;
         if (!IS_NULL(row)){
@@ -48,8 +48,41 @@ Explore.loadFileData = function(req, res){
     });
 };
 
-Explore.loadFile = function(){
+Explore.loadAudioFile = function(req, res){
+    var file_id = req.body.file_id;
+    db.get("SELECT * FROM HOME_audio_files WHERE file_id='"+  file_id  + "'", function(err, row){
+        if (err) throw err;
+        if (!IS_NULL(row)){
+            var filePath = path.join(__dirname, '../uploads/audio/' + file_id + '/' + row.file_name);
+            var stat = fileSystem.statSync(filePath);
+            res.writeHead(200, {
+                'Content-Type': 'audio/mpeg',
+                'Content-Length': stat.size
+            });
+            var readStream = fileSystem.createReadStream(filePath);
+            // We replaced all the event handlers with a simple call to readStream.pipe()
+            readStream.pipe(res);        
+        }
+        else{
+            res.status(400);
+            res.send('None shall pass');
+        }
+    });
+};
 
+Explore.loadImageFile = function(req, res){
+    var file_id = req.body.file_id;
+    db.get("SELECT * FROM HOME_image_files WHERE file_id='"+  file_id  + "'", function(err, row){
+        if (err) throw err;
+        if (!IS_NULL(row)){
+            var filePath = path.join(__dirname, '../uploads/image/' + file_id + '/' + row.file_name);
+            res.send(filepath);      
+        }
+        else{
+            res.status(400);
+            res.send('None shall pass');
+        }
+    });
 };
 
 

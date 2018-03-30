@@ -42,7 +42,7 @@ Login.loginRequest = function(req, res){
         if (!IS_NULL(row)){
             db.get("SELECT (password) FROM LOGIN_userinfo WHERE password='"+req.body.password+"'" , function(err, row){
                 if (!IS_NULL(row)){
-                    req.session.user = username;
+                    req.session.username = username;
                 }
             });
         }

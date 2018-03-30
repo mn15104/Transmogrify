@@ -43,25 +43,19 @@ app.use(function(req, res, next){
   next();
 });
 
-var home_route = require('./routes/home.route');
+var create_route = require('./routes/create.route');
 var explore_route = require('./routes/explore.route');
 var profile_route = require('./routes/profile.route');
 var login_route = require('./routes/login.route');
 
 app.use('/profile', profile_route);
-app.use('/home', home_route, function(){
-
-});
-app.use('/explore', explore_route, function(){
-  req.session.current_url = '/explore';
-});
+app.use('/create', create_route);
+app.use('/explore', explore_route);
 app.use('/sidepanel', function(req, res, next){
   res.sendFile(path.join(__dirname + '/public/views/sidepanel.html'));
   req.session.current_url = '/sidepanel';
 });
-app.use('/login', login_route, function(req, res, next){
-  req.session.current_url = '/login';
-});
+app.use('/login', login_route);
 app.use('/', function(req, res, next){
   res.sendFile(path.join(__dirname + '/public/views/intro.html'));
   req.session.current_url = '/intro';

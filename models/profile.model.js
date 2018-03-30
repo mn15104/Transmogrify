@@ -4,7 +4,8 @@ var sqlite3 = require('sqlite3');
 var path = require('path');
 var formidable = require('formidable');
 var fs = require('fs');
-var dateFormat = require('dateformat'); 
+var dateFormat = require('dateformat');
+
 var Profile = function (){
 
 }
@@ -35,6 +36,22 @@ db.run(`CREATE TABLE IF NOT EXISTS PROFILE_userinfo   ( firstname VARCHAR(255),
         console.log("Table ready");
     }
 });
+
+db.run(`CREATE TABLE IF NOT EXISTS PROFILE_chathistory   (  usernameA   VARCHAR(255), 
+                                                            usernameB   VARCHAR(10), 
+                                                            message     VARCHAR(555), 
+                                                            date        datetime
+                                                            id          INT (100),
+                                                            UNIQUE(usernameA, usernameB))`, (err) => {
+    if (err) {
+        console.error(err.message);
+    }
+    else {
+        console.log("Table ready");
+    }
+});
+
+
 // **************************************************************************************************** //
 
 Profile.loadProfile = function(req, res){
@@ -47,5 +64,31 @@ Profile.loadProfile = function(req, res){
         }
     });
 };
+
+
+
+Profile.loadChatHistory = function(req, res){
+    var other_username = req.body.username;
+    var username = req.session.username;
+    var messages = [];
+    var counter = 0;
+    db.all("SELECT * FROM PROFILE_chathistory WHERE usernameA='"+  username  + "' OR '" + other_username
+            + " AND usernameB = '" + username + "' OR '" + otherusername + "' ORDER BY id DESC LIMIT 20", (err, rows) => {
+                if (err) throw err;
+                counter = rows.length;
+                rows.forEach((row) => {
+                    if(!IS_NULL(row)){
+                        var str_row = JSON.stringify(row);
+                        messages.push(str_row);
+                        counter  = counter - 1;
+                    }
+                    if(counter === 0) {
+                        var str_messages = JSON.stringify(messages);
+                        res.send(str_messages);
+                    }
+                })
+            });
+    
+}
 
 module.exports = Profile;

@@ -19,8 +19,8 @@ function init(content){
     $('.sidepanel_menu-link-left').click(function(){
       $('#page_1').fadeOut('slow', function(){
         $('#page_1').empty();
-        $('#page_1').load("../views/home.html")
-        changeurl('home');
+        $('#page_1').load("../views/create.html")
+        changeurl('create');
         $('#page_1').fadeIn('slow');
       });
   
