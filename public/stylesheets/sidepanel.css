@@ -38,12 +38,15 @@ body{
 }
 
 .sidepanel_index-container {
-    text-align: center;
-    width: 150px;
-    position: fixed;
-    z-index: 1001;
-    top: 0em; /* This was 10em? */
 
+    position:absolute;
+    width: 150px;
+    z-index: 1001;
+
+}
+.sidepanel_index-wrapper{
+  position:relative;
+  padding-left:50px;
 }
 .embedded_container {
   width: 100%;
@@ -89,12 +92,12 @@ body{
 .sidepanel_menu{  
   z-index: 1000;
   position: fixed;
-  left: 120px;
-  top:20px;
+  top:0;
   z-index: 1000;
-  width: 100%;
-  height: 80px;
+  width: 100vw;
+  height: 100px;
   min-width:1300px;
+  background-color:#101111;
 }
 .sidepanel_menu-items{
   height: 100%;
@@ -108,102 +111,88 @@ body{
   right:80%;
 }
 .sidepanel_menu-text{
-  position: relative;
+  position: absolute;
   text-align:center;
   height:100%;
-  max-width:100%;
-  min-width:960px;
-  overflow: hidden;
+  right: 0;
+  padding-top:20px;
+  padding-right:20px;
+  display:inline-block;
 }
 
 .sidepanel_menu_link{
+  text-decoration: underline;
+  text-underline-position: under;
   position:relative;
-  padding-right:400px;
   transition:all 1s ease;
   -moz-transition:all 1s ease; /* Firefox 4 */
   -webkit-transition:all 1s ease; /* Safari and Chrome */
   -o-transition:all 1s ease;
   font-size: 30px;
-  cursor: pointer;
+  cursor: pointer;  
+  padding-right:20px;
+  padding-top:0.8em;
 }
 .sidepanel_menu_link.active{
   transition:all 1s ease;
   -moz-transition:all 1s ease; /* Firefox 4 */
   -webkit-transition:all 1s ease; /* Safari and Chrome */
   -o-transition:all 1s ease;
-  -webkit-transform:  translateX( -40px ) translateY(-5px);
-  -moz-transform:     translateX( -40px ) translateY(-5px);
-    -o-transform:     translateX( -40px ) translateY(-5px);
-       transform:     translateX( -40px ) translateY(-5px);
-  height: 120%;
-  font-size: 40px;
-  color: #cbaaa6 sepia(0.5);
-  cursor: none;
-}
-.sidepanel_menu_link:hover{
-  color:sepia(0);
-}
-
-h2.sidepanel_menu-link-mid{
-  position: absolute;
-  float: left;
-  left: 30%; /* position the left edge of the element at the middle of the parent */
-  height: 100%;
-  font: 600 2.5em/1 'Raleway', sans-serif;
-  color: #984b43;
-  top: -35%;
-  text-align: center;
-  text-transform: uppercase;
-  letter-spacing: .3em;
-  padding-top:1.3%;
-}
-.sidepanel_menu-link-mid:hover{
-  
+  color: #ffffff; 
 }
 
 h2.sidepanel_menu-link-left{
-  position: absolute;
-  float: left;
-  left: 10%; /* position the left edge of the element at the middle of the parent */
-  height: 100%;
-  font: 600 2.5em/1'Raleway', sans-serif;
-  color: #984b43;
+  position: relative;
+  float:left;
+  left: -7.5%;  /* position the left edge of the element at the middle of the parent */
+  font: 600 1.65em/1'Raleway', sans-serif;
+  color: #c5a6a6;
   text-align: center;
   text-transform: uppercase;
   letter-spacing: .3em;
-  top: -35%;
-  padding-top:1.3%;
 }
 
-
-h2.sidepanel_menu-link-right{
-  position: absolute;
-  float: left;
-   /* position the top  edge of the element at the middle of the parent */
-  left: 50%; /* position the left edge of the element at the middle of the parent */
-  height: 100%;
-  font: 600 2.5em/1 'Raleway', sans-serif;
-  color: #984b43;
+h2.sidepanel_menu-link-mid{
+  position: relative;
+  float:left;
+  left: -5%;  /* position the left edge of the element at the middle of the parent */
+  font: 600 1.65em/1 'Raleway', sans-serif;
+  color: #c5a6a6;
   text-align: center;
   text-transform: uppercase;
   letter-spacing: .3em;
-  top: -35%;
-  padding-top:1.3%;
+}
+
+h2.sidepanel_menu-link-right{
+  position: relative;
+  float:left;
+  left: -2.5%; /* position the left edge of the element at the middle of the parent */
+  font: 600 1.65em/1 'Raleway', sans-serif;
+  color: #c5a6a6;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: .3em;
 }
 
 h2.sidepanel_menu-link-login{
-  position: absolute;
-  float: left;
-  left: 70%; 
-  height: 100%;
-  font: 600 2.0em/1 'Raleway', sans-serif;
-  color: #984b43;
+  position: relative;
+  float:left;
+  font: 600 1.65em/1 'Raleway', sans-serif;
+  color: #c5a6a6;
   text-align: center;
   text-transform: uppercase;
   letter-spacing: .3em;
-  top: -35%;
-  padding-top:1.3%;
 }
+
+h3.sidepanel_title{
+  position: relative;
+  float:left;
+  left: 40px;
+  font: 600 2.65em/1 'Raleway', sans-serif;
+  color: #c5a6a6;
+  letter-spacing: .3em;
+}
+
 
 #embedded_cube {
   z-index: 2;
@@ -314,8 +303,8 @@ ul {
 .nav {
   position: fixed;
   z-index: 1;
-  top: 20px;
-  left: 20px;
+  top: 50px;
+  left: 50px;
   width: 100px;
   -webkit-backface-visibility: hidden;
           backface-visibility: hidden;
@@ -354,6 +343,7 @@ ul {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  
   position: absolute;
   height: 100%;
   width: 100%;
@@ -394,44 +384,38 @@ ul {
 }
 .burger__patty {
   position: relative;
-  height: 4px;
+  height: 2.5px;
   width: 40px;
-  background: black;
+  background: rgb(197, 125, 125);
 }
 .burger__patty:before {
   content: "";
   position: absolute;
-  top: -10px;
+  top: -8px;
   left: 0;
-  height: 4px;
+  height: 2.2px;
   width: 100%;
-  background: black;
+  background: rgb(216, 152, 152);
 }
-.burger__patty:after {
-  content: "";
-  position: absolute;
-  top: 10px;
-  left: 0;
-  height: 4px;
-  width: 100%;
-  background: black;
-}
-.burger__patty, .burger__patty:before, .burger__patty:after {
-  will-change: transform;
+
+.burger__patty, .burger__patty:before{
   -webkit-transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
-.burger--active .burger__patty {
-  -webkit-transform: rotate(90deg);
-          transform: rotate(90deg);
-}
 .burger--active .burger__patty:before {
-  -webkit-transform: rotate(-45deg) translate(-7px, -7px) scaleX(0.7);
-          transform: rotate(-45deg) translate(-7px, -7px) scaleX(0.7);
+  transition:all 1.2s ease;
+  -moz-transition:all 1.2s ease;
+  -webkit-transition:all 1.2s ease; 
+  -o-transition:all 1.2s ease;
+  background: #ffffff; 
 }
-.burger--active .burger__patty:after {
-  -webkit-transform: rotate(45deg) translate(-7px, 7px) scaleX(0.7);
-          transform: rotate(45deg) translate(-7px, 7px) scaleX(0.7);
+
+.burger--active  .burger__patty {
+  /* transition: width 2s;
+  width:100px;*/  
+   transition: all 1.0s;
+  width:100px;      
+  background: rgb(232, 223, 223);
 }
 @media (max-width: 640px) {
   .burger {
