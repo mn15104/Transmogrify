@@ -48,13 +48,13 @@ var explore_route = require('./routes/explore.route');
 var profile_route = require('./routes/profile.route');
 var login_route = require('./routes/login.route');
 
-app.use('/profile', profile_route);
-app.use('/create', create_route);
-app.use('/explore', explore_route);
 app.use('/sidepanel', function(req, res, next){
   res.sendFile(path.join(__dirname + '/public/views/sidepanel.html'));
   req.session.current_url = '/sidepanel';
 });
+app.use('/profile', profile_route);
+app.use('/create', create_route);
+app.use('/explore', explore_route);
 app.use('/login', login_route);
 app.use('/', function(req, res, next){
   res.redirect('/sidepanel');

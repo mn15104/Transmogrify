@@ -320,12 +320,14 @@ ul {
   height: 85vh;
   -webkit-transform: translate(0, -100%);
           transform: translate(0, -100%);
+  background:none;
   -webkit-transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 .nav__list--active {
   -webkit-transform: translate(0, 0);
           transform: translate(0, 0);
+          
 }
 .nav__item {
   -webkit-box-flex: 1;
@@ -365,7 +367,7 @@ ul {
 }
 
 .burger {
-  padding-top:40px;
+  padding-top:25px;
   height: 50px;
   position: relative;
   display: -webkit-box;
@@ -385,19 +387,20 @@ ul {
 .burger__patty {
   position: relative;
   height: 2.5px;
-  width: 40px;
-  background: rgb(197, 125, 125);
+  width: 60px;
+  background: #c5a6a6;
+  background: -webkit-gradient(radial, 50% 50%, 0, 50% 50%, 350);
+  box-shadow: 0px 2px 3px rgb(254, 228, 228);
 }
+
 .burger__patty:before {
   content: "";
   position: absolute;
-  top: -8px;
   left: 0;
-  height: 2.2px;
+  height: 2.5px;
   width: 100%;
-  background: rgb(216, 152, 152);
+  background: #c5a6a6;
 }
-
 .burger__patty, .burger__patty:before{
   -webkit-transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -426,8 +429,8 @@ ul {
             transform: scale(0.8);
   }
   .burger--active .burger__patty {
-    -webkit-transform: scale(0.8) rotate(90deg);
-            transform: scale(0.8) rotate(90deg);
+    -webkit-transform: scale(0.8) scaleY(1.2) rotate(90deg);
+            transform: scale(0.8) scaleY(1.2) rotate(90deg);
   }
 }
 

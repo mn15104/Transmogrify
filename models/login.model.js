@@ -23,9 +23,9 @@ let db = new sqlite3.Database('./Dev.db', sqlite3.OPEN_CREATE | sqlite3.OPEN_REA
 db.run(`CREATE TABLE IF NOT EXISTS LOGIN_userinfo   (firstname VARCHAR(255), 
                                                      surname VARCHAR(10), 
                                                      email VARCHAR(255), 
-                                                     username INT (100),
+                                                     user_id INT (100),
                                                      password VARCHAR(255),
-                                                     PRIMARY KEY(username))`, (err) => {
+                                                     PRIMARY KEY(user_id))`, (err) => {
     if (err) {
         console.error(err.message);
     }
@@ -37,12 +37,12 @@ db.run(`CREATE TABLE IF NOT EXISTS LOGIN_userinfo   (firstname VARCHAR(255),
 // **************************************************************************************************** //
 
 Login.loginRequest = function(req, res){
-    db.get("SELECT (username) FROM LOGIN_userinfo WHERE username='"+  req.body.username  + "'", function(err, row){
+    db.get("SELECT (user_id) FROM LOGIN_userinfo WHERE user_id='"+  req.body.user_id  + "'", function(err, row){
         if (err) throw err;
         if (!IS_NULL(row)){
             db.get("SELECT (password) FROM LOGIN_userinfo WHERE password='"+req.body.password+"'" , function(err, row){
                 if (!IS_NULL(row)){
-                    req.session.username = username;
+                    req.session.user_id = user_id;
                 }
             });
         }
@@ -50,7 +50,7 @@ Login.loginRequest = function(req, res){
 };
 
 Login.accountRequest = function(req, res){
-    db.get("SELECT (username) FROM LOGIN_userinfo WHERE username='"+  req.body.username  + "'", function(err, row){
+    db.get("SELECT (user_id) FROM LOGIN_userinfo WHERE user_id='"+  req.body.user_id  + "'", function(err, row){
         if (err) throw err;
         if (IS_NULL(row)){
             db.get("SELECT (email) FROM LOGIN_userinfo WHERE email='"+req.body.email+"'" , function(err, row){

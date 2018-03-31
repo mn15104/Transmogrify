@@ -26,10 +26,10 @@ let db = new sqlite3.Database('./Dev.db', sqlite3.OPEN_CREATE | sqlite3.OPEN_REA
 db.run(`CREATE TABLE IF NOT EXISTS PROFILE_userinfo   ( firstname VARCHAR(255), 
                                                         surname VARCHAR(10), 
                                                         email VARCHAR(255), 
-                                                        username INT (100),
+                                                        user_id INT (100),
                                                         occupation VARCHAR(255),
                                                         description VARCHAR(255),
-                                                        PRIMARY KEY(username))`, (err) => {
+                                                        PRIMARY KEY(user_id))`, (err) => {
     if (err) {
         console.error(err.message);
     }
@@ -38,12 +38,12 @@ db.run(`CREATE TABLE IF NOT EXISTS PROFILE_userinfo   ( firstname VARCHAR(255),
     }
 });
 
-db.run(`CREATE TABLE IF NOT EXISTS PROFILE_chathistory   (  usernameA   VARCHAR(255), 
-                                                            usernameB   VARCHAR(10), 
+db.run(`CREATE TABLE IF NOT EXISTS PROFILE_chathistory   (  user_idA INT (100), 
+                                                            user_idB INT (100), 
                                                             message     VARCHAR(555), 
                                                             date        datetime
                                                             id          INT (100),
-                                                            UNIQUE(usernameA, usernameB))`, (err) => {
+                                                            UNIQUE(user_idA, user_idB))`, (err) => {
     if (err) {
         console.error(err.message);
     }
@@ -56,8 +56,8 @@ db.run(`CREATE TABLE IF NOT EXISTS PROFILE_chathistory   (  usernameA   VARCHAR(
 // **************************************************************************************************** //
 
 Profile.loadProfile = function(req, res){
-    var username = req.body.username;
-    db.get("SELECT * FROM PROFILE_userinfo WHERE file_id='"+  username  + "'", function(err, row){
+    var user_id = req.body.user_id;
+    db.get("SELECT * FROM PROFILE_userinfo WHERE file_id='"+  user_id  + "'", function(err, row){
         if (err) throw err;
         if (!IS_NULL(row)){
             var stringrow = JSON.stringify(row);
@@ -67,12 +67,12 @@ Profile.loadProfile = function(req, res){
 };
 
 Profile.loadChatHistory = function(req, res){
-    var other_username = req.body.username;
-    var username = req.session.username;
+    var other_user_id = req.body.user_id;
+    var user_id = req.session.user_id;
     var messages = [];
     var counter = 0;
-    db.all("SELECT * FROM PROFILE_chathistory WHERE usernameA='"+  username  + "' OR '" + other_username
-            + " AND usernameB = '" + username + "' OR '" + otherusername + "' ORDER BY id DESC LIMIT 20", (err, rows) => {
+    db.all("SELECT * FROM PROFILE_chathistory WHERE user_idA='"+  user_id  + "' OR '" + other_user_id
+            + " AND user_idB = '" + user_id + "' OR '" + otheruser_id + "' ORDER BY id DESC LIMIT 20", (err, rows) => {
                 if (err) throw err;
                 counter = rows.length;
                 rows.forEach((row) => {
