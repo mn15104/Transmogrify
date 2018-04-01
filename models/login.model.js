@@ -37,30 +37,58 @@ db.run(`CREATE TABLE IF NOT EXISTS LOGIN_userinfo   (firstname VARCHAR(255),
 // **************************************************************************************************** //
 
 Login.loginRequest = function(req, res){
-    db.get("SELECT (user_id) FROM LOGIN_userinfo WHERE user_id='"+  req.body.user_id  + "'", function(err, row){
+    db.get("SELECT (email) FROM LOGIN_userinfo WHERE email='"+  req.body.email  + "'", function(err, row){
         if (err) throw err;
         if (!IS_NULL(row)){
             db.get("SELECT (password) FROM LOGIN_userinfo WHERE password='"+req.body.password+"'" , function(err, row){
+                if(err) throw err;
                 if (!IS_NULL(row)){
                     req.session.user_id = user_id;
                 }
+                else{
+                    res.status(400).send({
+                        message: 'Email Or Password Incorrect'
+                    });
+                }
+            });
+        }
+        else {
+            res.status(400).send({
+                message: 'Email Or Password Incorrect'
             });
         }
     });
 };
 
 Login.accountRequest = function(req, res){
-    db.get("SELECT (user_id) FROM LOGIN_userinfo WHERE user_id='"+  req.body.user_id  + "'", function(err, row){
-        if (err) throw err;
-        if (IS_NULL(row)){
-            db.get("SELECT (email) FROM LOGIN_userinfo WHERE email='"+req.body.email+"'" , function(err, row){
-                if (IS_NULL(row)){
-                    res.send("OK");
-                }
-            });
-
-        }
-    });
+    console.log(req.body);
+        db.get("SELECT (email) FROM LOGIN_userinfo WHERE email='"+req.body.email+"'" , function(err, row){
+            if(err) throw err;
+            if (IS_NULL(row)){
+                db.all("SELECT MAX (user_id) FROM LOGIN_userinfo", function(err, row){
+                    if(err) throw err;
+                    var user_id = 0;
+                    if(!IS_NULL(row)){
+                        user_id = parseInt(row) + 1;
+                    }
+                })
+            }
+            else {
+                res.status(400).send({
+                    message: 'Email Address Exists'
+                });
+            }
+        });
 };
+
+insertAccount = function(req, res){
+    db.get("INSERT INTO LOGIN_userinfo (firstname, surname, email, user_id,password) VALUES ('" + 
+    req.body.firstname + "','" + req.body.surname + "','" + req.body.email + "','" + user_id + "','" + req.body.password + "')", function(err, row){
+        if(err) throw err;
+
+        res.sendStatus(200);
+    }) 
+}
+
 
 module.exports = Login;

@@ -95,7 +95,7 @@ body{
   top:0;
   z-index: 1000;
   width: 100vw;
-  height: 100px;
+  height: 80px;
   min-width:1300px;
   background-color:#101111;
 }
@@ -128,10 +128,9 @@ body{
   -moz-transition:all 1s ease; /* Firefox 4 */
   -webkit-transition:all 1s ease; /* Safari and Chrome */
   -o-transition:all 1s ease;
-  font-size: 30px;
   cursor: pointer;  
   padding-right:20px;
-  padding-top:0.8em;
+  padding-top:0.6em;
 }
 .sidepanel_menu_link.active{
   transition:all 1s ease;
@@ -145,7 +144,7 @@ h2.sidepanel_menu-link-left{
   position: relative;
   float:left;
   left: -7.5%;  /* position the left edge of the element at the middle of the parent */
-  font: 600 1.65em/1'Raleway', sans-serif;
+  font: 600 1.5em/1'Raleway', sans-serif;
   color: #c5a6a6;
   text-align: center;
   text-transform: uppercase;
@@ -156,7 +155,7 @@ h2.sidepanel_menu-link-mid{
   position: relative;
   float:left;
   left: -5%;  /* position the left edge of the element at the middle of the parent */
-  font: 600 1.65em/1 'Raleway', sans-serif;
+  font: 600 1.5em/1 'Raleway', sans-serif;
   color: #c5a6a6;
   text-align: center;
   text-transform: uppercase;
@@ -167,7 +166,7 @@ h2.sidepanel_menu-link-right{
   position: relative;
   float:left;
   left: -2.5%; /* position the left edge of the element at the middle of the parent */
-  font: 600 1.65em/1 'Raleway', sans-serif;
+  font: 600 1.5em/1 'Raleway', sans-serif;
   color: #c5a6a6;
   text-align: center;
   text-transform: uppercase;
@@ -177,7 +176,7 @@ h2.sidepanel_menu-link-right{
 h2.sidepanel_menu-link-login{
   position: relative;
   float:left;
-  font: 600 1.65em/1 'Raleway', sans-serif;
+  font: 600 1.5em/1 'Raleway', sans-serif;
   color: #c5a6a6;
   text-align: center;
   text-transform: uppercase;
@@ -187,12 +186,15 @@ h2.sidepanel_menu-link-login{
 h3.sidepanel_title{
   position: relative;
   float:left;
+  top:-4px;
   left: 40px;
-  font: 600 2.65em/1 'Raleway', sans-serif;
+  font: 600 2.0em/1 'Raleway', sans-serif;
   color: #c5a6a6;
   letter-spacing: .3em;
 }
-
+.sidepanel_title span {
+  font: 600 1.2em/1 'Raleway', sans-serif;
+}
 
 #embedded_cube {
   z-index: 2;
@@ -367,7 +369,6 @@ ul {
 }
 
 .burger {
-  padding-top:25px;
   height: 50px;
   position: relative;
   display: -webkit-box;

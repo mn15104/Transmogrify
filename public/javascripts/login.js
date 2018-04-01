@@ -57,23 +57,6 @@ function docReady(){
         }
     })
 
-    $('.login_validate-form').on('submit',function(){
-        var check = true;
-
-        for(var i=0; i<input.length; i++) {
-            if(validate(input[i]) == false){
-                showValidate(input[i]);
-                check=false;
-            }
-        }
-        return check;
-    });
-
-    $('.login_validate-form .login_input').each(function(){
-        $(this).focus(function(){
-            hideValidate(this);
-        });
-    });
 
     /*==================================================================
     [ Show pass ]*/
@@ -97,31 +80,47 @@ var submitAccount = function(){
         password_gradient = setInterval(updateGradient, 20);
     }
     else{
-        var firstname  = $('');
-        var surname = $('');
-        var email = $('');
-        var pass = $('');
+        var firstname  = $('#create_account_firstname').val();
+        var surname = $('#create_account_surname').val();
+        var email = $('#create_account_email').val();
+        var pass = $('#create_account_password1').val();
         $.ajax({
-            url: '/login.html/createaccount',
-            type: 'GET',
-            data: req_file_id,
-            processData: false,
-            contentType: false,
+            url: '/login/submit_account',
+            type: 'POST',
+            dataType: "json",
+            data: {firstname:firstname, surname:surname, email:email, password:pass},
             success: function(data){
-                console.log('upload successful!\n' + data);
+                console.log(data);
+                console.log("OK!");
+                return true;
             },
-            error: function (xhr, ajaxOptions, thrownError) {
-                console.log("Error during id request : " + thrownError);
-            },
-            xhr: function() {
-            
+            error: function(xhr, ajaxOptions, thrownError){
+                console.log("ERROR");
+                return false;
             }
         });
     }
 }
 
-var submitLogin = function(){  
-    console.log("LOGIN NOT YET CONNECTED");
+var submitLogin = function(){
+    var email = $('#login_email').val();
+    var pass = $('#login_pass').val();
+    console.log(email + pass);
+    var form = {email:email, password:pass};
+    // var data_str = JSON.stringify(form);
+    $.ajax({
+        url: '/login/submit_login',
+        type: 'POST',
+        dataType: "json",
+        data: {email:email, password:pass},
+        success: function(data){
+            return true;
+        },
+        error: function(xhr, ajaxOptions, thrownError){
+            return false;
+        }
+    });
+    
 }
 
 var colors = new Array(

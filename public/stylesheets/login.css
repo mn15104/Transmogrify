@@ -180,11 +180,12 @@
   .login_form {
     width: 100%;
     position: relative;
+    align-content: center;
   }
   
   .login_form-title-1 {
     font-family: Oswald-Medium;
-    font-size: 70px;
+    font-size: 50px;
     color: #43383e;
     line-height: 2;
     text-align: center;
@@ -204,12 +205,15 @@
   /*------------------------------------------------------------------
   [ Button Login with ]*/
   .login_btn-login-facebook {
+    position:relative;
     font-family: Oswald-Medium;
-    font-size: 20px;
+    font-size: 15px;
+    font:normal;
+    letter-spacing: 1px;
     background: rgb(74, 74, 187);
     color: #fff;
     line-height: 1.2;
-    margin:5px;
+    margin:auto;
     display: -webkit-box;
     display: -webkit-flex;
     display: -moz-box;
@@ -217,8 +221,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 100%;
-    height: 50px;
+    width: 70%;
+    height: 40px;
     border-radius: 25px;
   }
   
@@ -236,12 +240,13 @@
   [ Input ]*/
   
   .login_wrap-input {
-    width: 100%;
+    width: 70%;
     background-color: #fff;
-    height: 55px;
+    height: 40px;
     border-radius: 31px;
     position: relative;
-    margin:20px;
+    margin:auto;
+    margin-top: 10px;
     z-index: 1;
   }
   
@@ -439,7 +444,8 @@
     align-items: center;
     padding: 0 20px;
     min-width: 160px;
-    height: 62px;
+    margin-top: 10px;
+    height: 40px;
     background-color: transparent;
     border-radius: 31px;
   
