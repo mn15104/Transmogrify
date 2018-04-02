@@ -1,4 +1,4 @@
-'use strict';
+
 
 function init(){
     $(window).scroll(function() {
@@ -41,14 +41,21 @@ function init(){
             this.playBtn.addEventListener('click', this.play);
             
             this.controlPanel = document.getElementById('control-panel');
+            // $('#control-panel');
             this.infoBar = document.getElementById('info');
-            $('.play').click(function(){
+            $('#play').click(function(){
                 $(this).toggleClass('pause');
+                $(this).closest('.brick').find('.brick_img').toggleClass('spin');
                 if($(this).hasClass('pause')) {
-                    $(this).closest()
+                    $('.brick-audio').load("../views/music.html");
+                    $.getScript("music.js",function(){
+                        init();
+                    });
                 }
                 else {
-
+                    $.getScript("music.js",function(){
+                        stop();
+                    });
                 }
             });
         }
@@ -57,7 +64,12 @@ function init(){
             let controlPanelObj = this.controlPanel,
             infoBarObj = this.infoBar
             Array.from(controlPanelObj.classList).find(function(element){
-                        return element !== "active" ? controlPanelObj.classList.add('active') : 		controlPanelObj.classList.remove('active');
+                    if (element !== "active") {
+                        $('#control-panel').slideDown('slow');
+                        return controlPanelObj.classList.add('active')
+                    } else{ 		
+                        return controlPanelObj.classList.remove('active')
+                    };
                 });
             
             Array.from(infoBarObj.classList).find(function(element){

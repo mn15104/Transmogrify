@@ -162,7 +162,7 @@ h1.explore_title{
 }
 
 .brick:after {
-    position: absolute;
+    position: relative;
     top: 50%;
     left: 50%;
     z-index: 5000;
@@ -206,6 +206,9 @@ h1.explore_title{
     -webkit-transition: opacity .5s ease-out;
     -o-transition: opacity .5s ease-out;
 }
+@-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
+@-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
+@keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
 .brick_profile_img:hover{
     opacity: 1;
 }
@@ -286,20 +289,15 @@ h1.explore_title{
 .player {
   position: absolute;
   bottom: -10%;
-  width:70%;
+  width:100%;
   right:0;
   /* top: 0px; */
 }
 .player .info {
   position: absolute;
-  height: 60px;
-  width:200px;
-  top: 0;
   opacity: 0;
-  margin: auto;
-  background-color: rgba(255,255,255,0.8);
-  padding: 5px 15px 5px 110px;
-  border-radius: 15px;
+  left: 100px;
+  top: 5px;
   transition: all 0.5s ease;
 }
 .player .info .artist,
@@ -312,7 +310,7 @@ h1.explore_title{
   margin-bottom: 5px;
 }
 .player .info .name {
-  color: #999;
+  color: rgb(44, 38, 38);
   font-size: 12px;
   margin-bottom: 8px;
 }
@@ -333,7 +331,6 @@ h1.explore_title{
   transition: all 0.2s ease;
 }
 .player .info.active {
-  top: -60px;
   opacity: 1;
   transition: all 0.5s ease;
   margin: auto;
@@ -342,20 +339,19 @@ h1.explore_title{
   position: relative;
   transition: 300ms all ease;
   background-color: rgba(255,255,255,0.0);
-  border-radius: 15px;
+  border-radius: 5px;
   width: 100%;
   min-width:200px;
   height: 60px;
-  margin: auto;
   z-index: 5;
 }
 .control-panel.active {
   background-color: rgba(255,255,255,0.8);
-  box-shadow: 0px 20px 20px 5px rgba(132, 132, 132, 0.3);
+  box-shadow: 0px 20px 20px 5px rgba(255, 254, 254, 0.3);
 }
 .player .control-panel .album-art {
   position: absolute;
-  left: 20px;
+  left: 0px;
   top: 0px;
   height: 60px;
   width: 60px;
@@ -369,7 +365,7 @@ h1.explore_title{
   content: "";
   position: absolute;
   top: 50%;
-  left: 50%;
+
   width: 10px;
   height: 10px;
   opacity: 0;
@@ -390,8 +386,8 @@ h1.explore_title{
   border-radius: 50%;
   background-position: center;
   background-repeat: no-repeat;
-  background-size: 80px;
-  background-image: url("https://i.scdn.co/image/9dcbd30dbe0c621cbaeae427cf80eff9877b4fcd");
+  background-size: 60px;
+  background-image: url('https://cdn2.digitalartsonline.co.uk/cmsdata/slideshow/3513552/polybreno_1500.jpg');   /*  SET PROFILE IMAGE        */
   opacity: 0;
 }
 .player .control-panel.active .album-art {
@@ -422,53 +418,62 @@ h1.explore_title{
   max-width: 250px;
   min-width: 200px;
   text-align:center;
-  padding: 0 10px;
 }
 
-.player .control-panel .controls .play,
-.player .control-panel .controls .pause{
-  width: 100%;
-  min-width: width inherit;
-  height: auto;
-  background-position: center center;
-  background-repeat: no-repeat;
-  background-size: 20px;
-  position:absolute;
-  right:0;
-  top:10px;
-  cursor: pointer;
-  transition: all 0.6s; 
-  -webkit-transition: all 0.6s;
-
-}
 .player .control-panel .controls .play:hover {
 
   transition: background-color 0.3s ease;
   -webkit-transition: background-color 0.3s ease; 
 }
 
-.player .control-panel .controls .play {
-    border: 0;
-    background: transparent;
-    box-sizing: border-box;
-    height: 40px;
-    border-color: transparent transparent transparent #aaa6fe;
-    transition: 300ms all ease;
-    cursor: pointer;
-    border-style: solid;
-    border-width: 18.5px 0 18.5px 30px;
-    transform: translateX(85%);
+.player .control-panel .controls .play-container {
+  position: absolute;
+  font-size: 2em;
+  width: 48.75px;
+  height: 48.75px;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  border-radius: 50%;
+  background: #141414;
+  padding: 3px 5px;
+  cursor: pointer;
+  -webkit-box-shadow: 0px 0px 3px 3px rgba(0, 0, 0, 0.5);
+  -moz-box-shadow: 0px 0px 3px 3px rgba(0, 0, 0, 0.5);
+  box-shadow: 0px 0px 3px 3px rgba(0, 0, 0, 0.5);
+  right: 0;
+  bottom: 7.5px;
 }
 
-.player .control-panel .controls .play.pause {
-    display: block;
-    box-sizing: border-box;
-    height: 40px;
-    border-color: transparent transparent transparent #202020;
-    transition: 300ms all ease;
-    cursor: pointer;
-    border-style: double;
-    border-width: 0px 0 0px 30px;
+.play-container #play {
+  position:absolute;
+  width: 41.75px;
+  height: 41.75px;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  border-radius: 50%;
+  transition: all 0.7s;
+  border: 5px solid #019875;
+  color: #019875;
+  padding: 4px 0 0 5px;
+  right: 3px;
+}
 
-    transform: translateX(50%);
+.play-container #play.pause {
+  transition: all 0.7s;
+  color: #7816a9;
+  border: 5px solid #4a0963;
+} 
+
+.brick-img-audio-container{
+  position: absolute;
+  background:none;
+  height: 100%;
+}
+.brick-audio{
+  position:absolute;
+  width:100%;
+  height:20%;
+  bottom:40%;
 }

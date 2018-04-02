@@ -1,0 +1,36 @@
+#music_visual_audioDebug{
+	position:absolute;
+    width: 100%;
+    height: 120%;
+}
+
+#music_visual_info{
+	position:absolute;
+	top: 0px;
+	right:10px;
+	width:250px;
+	height: 150px;
+	line-height: 20px;
+}
+
+a.music_visual{
+	color: #fff;
+	text-decoration: none;	
+    border-bottom:thin dotted #999;	
+    height:100%;		
+    padding-bottom:20%;
+}
+
+h2.music_visual{
+	font-weight: 100;
+	font-size: 24px;
+}
+
+#music_visual_preloader{
+	position: relative;
+	width: 100%;
+	height: 50%;
+	left: 50%;
+	margin-left: -20px;
+	background:url(loader.gif) center center no-repeat;
+}

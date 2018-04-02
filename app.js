@@ -47,11 +47,15 @@ var create_route = require('./routes/create.route');
 var explore_route = require('./routes/explore.route');
 var profile_route = require('./routes/profile.route');
 var login_route = require('./routes/login.route');
-
+app.use('/music', function(req, res, next){
+  res.sendFile(path.join(__dirname + '/public/views/music.html'));
+  req.session.current_url = '/music';
+});
 app.use('/sidepanel', function(req, res, next){
   res.sendFile(path.join(__dirname + '/public/views/sidepanel.html'));
   req.session.current_url = '/sidepanel';
 });
+
 app.use('/profile', profile_route);
 app.use('/create', create_route);
 app.use('/explore', explore_route);
