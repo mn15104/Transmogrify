@@ -120,7 +120,6 @@ var submitLogin = function(){
             return false;
         }
     });
-    
 }
 
 var colors = new Array(

@@ -169,8 +169,10 @@
   
   .login_wrapper {
     width: 320px;
-    background: transparent;
+    background: rgb(33, 32, 32);
     border-radius: 0px;
+    height: 440px;
+    box-shadow: 0px 3px 50px rgb(105, 103, 103);
   }
   
   
@@ -186,7 +188,7 @@
   .login_form-title-1 {
     font-family: Oswald-Medium;
     font-size: 50px;
-    color: #43383e;
+    color: #f2f2f2;
     line-height: 2;
     text-align: center;
     
@@ -195,7 +197,7 @@
   .login_form-title-2 {
     font-family: Oswald-Medium;
     font-size:40px;
-    color: #43383e;
+    color: #f2f2f2;
     line-height: 1.5;
     text-align: center;
     
@@ -206,7 +208,7 @@
   [ Button Login with ]*/
   .login_btn-login-facebook {
     position:relative;
-    font-family: Oswald-Medium;
+    font-family: Oswald-Regular;
     font-size: 15px;
     font:normal;
     letter-spacing: 1px;
@@ -272,11 +274,11 @@
     position: absolute;
     right: -100%;
     float: right;
-    font-size: 20px;
+    font-size: 16px;
     right: -500px;
   }
   .login_arrow-container-create-account{
-    font-size: 20px;
+    font-size: 16px;
     position: absolute;
     left: -310px;
     float: left;
@@ -568,7 +570,8 @@
   [ Responsive ]*/
   @media (max-width: 576px) {
     .login_wrapper {
-      padding-top: 20px
+      padding-top: 20px;
+      box-shadow: 0px 3px 10px grey;
     }
   }
 
