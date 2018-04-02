@@ -100,6 +100,7 @@ function retrieveFileData(req_file_id){
         }
     });
 }
+
 function retrieveImageFile(req_file_id){
     $.ajax({
         url: '/explore.html/loadimagefilebyid',
@@ -118,9 +119,29 @@ function retrieveImageFile(req_file_id){
         }
     });
 }
-function retriveAudioFile(req_file_id){
+
+function retrieveAudioFile(req_file_id){
     $.ajax({
         url: '/explore.html/loadaudiofilebyid',
+        type: 'GET',
+        data: req_file_id,
+        processData: false,
+        contentType: false,
+        success: function(data){
+            console.log('upload successful!\n' + data);
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            console.log("Error during id request : " + thrownError);
+        },
+        xhr: function() {
+          
+        }
+    });
+}
+
+function retrieveProfileImage(req_user_id){
+    $.ajax({
+        url: '/explore.html/loadprofileimage',
         type: 'GET',
         data: req_file_id,
         processData: false,
