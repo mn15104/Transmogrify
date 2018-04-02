@@ -22,6 +22,7 @@
     color: #ffffff;
     background-color: #F89406;
     border: none;
+    z-index: 1;
   }
 
   .upload-btn:hover,
@@ -31,6 +32,27 @@
     color: #ffffff;
     background-color: #FA8900;
     border: none;
+  }
+
+  .convert-btn {
+    display: none;
+    transform: translate(0, -300%);
+    text-align: center;
+    color: #FFFFFF;
+    background-color: transparent;
+    opacity: 0.0;
+    border: solid;
+    z-index: 0;
+    border-color: #FFFFFF;
+  }
+
+  .convert-btn:hover,
+  .convert-btn:focus,
+  .convert-btn:active,
+  .convert-btn.active {
+    transition: 0.5s;
+    color: #EEEEEE;
+    border-color: #EEEEEE;
   }
 
   h4 {
@@ -107,14 +129,22 @@
 }
 
 #image_test{
-    padding-top:5%;
+    /* padding-top:5%;
     padding-bottom:5%;
     padding-left:5%;
-    padding-right:5%;
+    padding-right:5%; */
     vertical-align: middle;
     max-width:100%;
     max-height:100%;
     margin: 0 auto;
+    /* z-index: 1; */
+}
+
+#audio_test{
+    display: none;
+}
+#audio_display{
+    padding-top: 50%;
 }
 
 #right:hover > p.button_hover{
@@ -131,6 +161,29 @@
 }
 .home_arrow{
     font-size:100px;
+}
+
+#overlay1{
+    height: 100%;
+    width: 100%;
+    opacity: 0.0;
+    background: #000000;
+}
+
+#overlay1:hover{
+}
+#overlay1:hover > #image_test{
+    transition: 1s;
+    opacity: 0.8;
+}
+#overlay1:hover > .convert-btn{
+    transition: 1s;
+    opacity: 1.0;
+    z-index: 1;
+}
+#overlay1:hover > .convert-btn{
+    transition: 3s;
+    background-color: #000000;
 }
 
 .progress{

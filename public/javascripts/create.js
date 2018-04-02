@@ -22,6 +22,10 @@ $('#upload-input').on('change', function(){
   $('#container_1').fadeOut( "slow" , 0, function(){
     readURL(files);
   });
+  $( "#overlay1" ).fadeTo( "slow" , 0.7, function() {
+  // Animation complete.
+  });
+  $( ".convert-btn" ).show();
 });
 
 $('#upload-input').on('change', function(){
@@ -69,11 +73,11 @@ $('#upload-input').on('change', function(){
             // once the upload reaches 100%, set the progress bar text to done
             if (percentComplete === 100) {
               $('.progress-bar').html('done');
-              document.getElementById("button-left").style.opacity = "0.0";
-              document.getElementsByClassName("container2")[0].style.opacity = "1.0";
-              document.getElementById("p1").style.textAlign = "center";
-              document.getElementById("p1").style.top = "10.5%";
-              document.getElementById("p1").innerHTML = "image is <br> ready!";
+              document.getElementById("overlay").style.opacity = "0.9";
+              // document.getElementsByClassName("container2")[0].style.opacity = "1.0";
+              // document.getElementById("p1").style.textAlign = "center";
+              // document.getElementById("p1").style.top = "10.5%";
+              // document.getElementById("p1").innerHTML = "image is <br> ready!";
               showConvert();
             }
 
@@ -86,6 +90,10 @@ $('#upload-input').on('change', function(){
     });
 
   }
+});
+
+$( ".convert-btn" ).one( "click", function() {
+    $('#audio_test').show();
 });
 
 
