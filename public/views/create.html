@@ -14,31 +14,28 @@
   <div class = "home_container">
     <div id = "wrap">
         <div id = "left">
-            <img id = "image_test" src = "">
             <div class="container" id = "container_1">
-              <p class="button_hover">give me an image</p>
-              <div class="row">
-                <div class="col-xs-12">
-                  <div class="panel panel-default">
                     <div class="panel-body">
-                      <div class="progress">
-                        <div class="progress-bar" role="progressbar"></div>
-                      </div>
-                      <button class="btn btn-lg upload-btn" type="button">Upload File</button>
+                        <p class="button_hover">give me an image</p>
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar"></div>
+                        </div>
+                        <button class="btn btn-lg upload-btn" type="button">Upload File</button>
                     </div>
-                  </div>
-                </div>
-              </div>
+            </div>
+            <div id = "overlay1">
+                <img id = "image_test" src = "">
+                <button class="btn btn-lg convert-btn" type="button">Convert</button>
             </div>
         </div>
 
         <div id = "right">
-            <img id = "image_tesst" src = "">
-            <audio controls>
-                <source src="http://www.wavlist.com/soundfx/006/horse-donkey1.wav" type="audio/wav">
-                <!-- <source src="horse.mp3" type="audio/mpeg"> -->
-                Your browser does not support the audio element.
-            </audio>
+            <div id = "audio_test">
+                <audio controls id="audio_display">
+                    <source src="http://www.wavlist.com/soundfx/006/horse-donkey1.wav" type="audio/wav">
+                    Your browser does not support the audio element.
+                </audio>
+            </div>
         </div>
     </div>
   </div>
