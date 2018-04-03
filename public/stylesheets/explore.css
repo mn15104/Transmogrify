@@ -293,35 +293,34 @@ h1.explore_title{
   right:0;
   /* top: 0px; */
 }
-.player .info {
+.player .info-bar {
   position: absolute;
   opacity: 0;
-  left: 100px;
+  left: 80px;
   top: 5px;
   transition: all 0.5s ease;
 }
-.player .info .artist,
-.player .info .name {
+.player .info-bar .artist,
+.player .info-bar .name {
   display: block;
 }
-.player .info .artist {
+.player .info-bar .artist {
   color: #222;
   font-size: 16px;
   margin-bottom: 5px;
 }
-.player .info .name {
+.player .info-bar .name {
   color: rgb(44, 38, 38);
   font-size: 12px;
   margin-bottom: 8px;
 }
-.player .info .progress-bar {
-
+.player .info-bar .progress-bar {
   background-color: rgba(220,220,220,0.8);
-  height: 2px;
-  width: 100%;
+  height: 4px;
+  width: 150px;
   position: relative;
 }
-.player .info .progress-bar .bar {
+.player .info-bar .progress-bar .bar {
   position: absolute;
   left: 0;
   top: 0;
@@ -330,7 +329,7 @@ h1.explore_title{
   width: 10%;
   transition: all 0.2s ease;
 }
-.player .info.active {
+.player .info-bar.active {
   opacity: 1;
   transition: all 0.5s ease;
   margin: auto;
@@ -429,8 +428,8 @@ h1.explore_title{
 .player .control-panel .controls .play-container {
   position: absolute;
   font-size: 2em;
-  width: 48.75px;
-  height: 48.75px;
+  width: 52.75px;
+  height: 52.75px;
   -webkit-border-radius: 50%;
   -moz-border-radius: 50%;
   -ms-border-radius: 50%;
@@ -442,30 +441,42 @@ h1.explore_title{
   -moz-box-shadow: 0px 0px 3px 3px rgba(0, 0, 0, 0.5);
   box-shadow: 0px 0px 3px 3px rgba(0, 0, 0, 0.5);
   right: 0;
-  bottom: 7.5px;
+  bottom: 4.5px;
+  transition: all 0.7s;
+}
+.player .control-panel .controls .play-container.pause {
+  opacity: 0.7;
+}
+.player .control-panel .controls .play-container:hover {
+  opacity: 1;
 }
 
-.play-container #play {
+.play-container .play {
   position:absolute;
-  width: 41.75px;
-  height: 41.75px;
+  width: 45.75px;
+  height: 45.75px;
   -webkit-border-radius: 50%;
   -moz-border-radius: 50%;
   -ms-border-radius: 50%;
   border-radius: 50%;
   transition: all 0.7s;
-  border: 5px solid #019875;
-  color: #019875;
-  padding: 4px 0 0 5px;
+  border: 5px solid #198f01;
+  color: #198f01;
+  padding: 7px 0 0 5px;
   right: 3px;
+  opacity: 1;
 }
 
-.play-container #play.pause {
+.play-container .play.pause {
   transition: all 0.7s;
-  color: #7816a9;
-  border: 5px solid #4a0963;
+  color: #a91616;
+  border: 5px solid #7a0e06;
+  opacity: 0.7;
 } 
-
+.play-container .play.pause:hover {
+  transition: all 0.7s;
+  opacity: 1;
+} 
 .brick-img-audio-container{
   position: absolute;
   background:none;
@@ -474,6 +485,6 @@ h1.explore_title{
 .brick-audio{
   position:absolute;
   width:100%;
-  height:20%;
+  height:40%;
   bottom:40%;
 }

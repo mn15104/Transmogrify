@@ -1,5 +1,5 @@
 
-
+// var newMusicplayer = new musicPlayer;
 function init(){
     $(window).scroll(function() {
         if($(window).scrollTop() + $(window).height() == $(document).height()) {
@@ -34,51 +34,75 @@ function init(){
       console.info( "This page is not reloaded");
     }
 
-    class musicPlayer {
-        constructor() {
-            this.play = this.play.bind(this);
-            this.playBtn = document.getElementById('play');
-            this.playBtn.addEventListener('click', this.play);
-            
-            this.controlPanel = document.getElementById('control-panel');
-            // $('#control-panel');
-            this.infoBar = document.getElementById('info');
-            $('#play').click(function(){
-                $(this).toggleClass('pause');
-                $(this).closest('.brick').find('.brick_img').toggleClass('spin');
-                if($(this).hasClass('pause')) {
-                    $('.brick-audio').load("../views/music.html");
+    //
+    $('.play').click(function(){
+        var player_pressed = $(this);
+        $(this).toggleClass('pause');
+        $(this).closest('.play-container').toggleClass('pause');
+        $(this).closest('.control-panel').toggleClass('active');
+        $(this).closest('.brick').find('.info-bar').toggleClass('active');
+        
+        if(!$(this).hasClass('pause')) {
+            //////
+            if($('#CURRENT_PLAYER').length != 0){
+                if(!player_pressed.is('#CURRENT_PLAYER')){
+                    console.log("SHIT");
+                    $.getScript("music.js",function(){
+                        stopSound();
+                    });
+                    CURRENT_PLAYER = $('#CURRENT_PLAYER');
+                    CURRENT_PLAYER.removeAttr("id");
+                    CURRENT_PLAYER.toggleClass('pause');
+                    CURRENT_PLAYER.closest('.play-container').toggleClass('pause');
+                    CURRENT_PLAYER.closest('.control-panel').toggleClass('active');
+                    CURRENT_PLAYER.closest('.brick').find('.info-bar').toggleClass('active');
+                    CURRENT_PLAYER.closest('.brick').find('.brick-audio').empty();
+                    player_pressed.attr("id", "CURRENT_PLAYER");
+                    player_pressed.closest('.brick').find('.brick-audio').load("../views/music.html");
                     $.getScript("music.js",function(){
                         init();
                     });
                 }
-                else {
+                else{
                     $.getScript("music.js",function(){
-                        stop();
+                        stopSound();
+                        init();
                     });
                 }
+            }
+            //////
+            else{
+                player_pressed.attr('id', 'CURRENT_PLAYER');
+                player_pressed.closest('.brick').find('.brick-audio').load("../views/music.html");
+                $.getScript("music.js",function(){
+                    init();
+                });
+            }
+        }
+        else {
+            $(this).removeAttr("id");
+            $.getScript("music.js",function(){
+                 stopSound();
             });
         }
+});
 
-        play() {
-            let controlPanelObj = this.controlPanel,
-            infoBarObj = this.infoBar
-            Array.from(controlPanelObj.classList).find(function(element){
-                    if (element !== "active") {
-                        $('#control-panel').slideDown('slow');
-                        return controlPanelObj.classList.add('active')
-                    } else{ 		
-                        return controlPanelObj.classList.remove('active')
-                    };
-                });
-            
-            Array.from(infoBarObj.classList).find(function(element){
-                        return element !== "active" ? infoBarObj.classList.add('active') : 		infoBarObj.classList.remove('active');
-                });
-        }
-    }
+    // class musicPlayer {
+    //     constructor() {
+    //         this.play = this.play.bind(this);
+    //         this.playBtn = $('#CURRENT_PLAYER');
+    //         $(this.playBtn).on('click', this.play);
+    //         this.controlPanel = $(this.playBtn).closest('.control-panel');
+    //         this.infoBar = $(this.playBtn).closest('.info');
+    //         if(this.infoBar == 0) console.log("not found\n");
+    //     }
+    //     play() {
 
-    const newMusicplayer = new musicPlayer();
+                
+    //     }
+    // }
+
+
 }
 
 
