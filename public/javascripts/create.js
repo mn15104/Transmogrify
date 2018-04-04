@@ -73,7 +73,7 @@ $('#upload-input').on('change', function(){
             // once the upload reaches 100%, set the progress bar text to done
             if (percentComplete === 100) {
               $('.progress-bar').html('done');
-              document.getElementById("overlay").style.opacity = "0.9";
+              // document.getElementById("overlay").style.opacity = "0.9";
               // document.getElementsByClassName("container2")[0].style.opacity = "1.0";
               // document.getElementById("p1").style.textAlign = "center";
               // document.getElementById("p1").style.top = "10.5%";
@@ -93,15 +93,66 @@ $('#upload-input').on('change', function(){
 });
 
 $( ".convert-btn" ).one( "click", function() {
-    $('#audio_test').show();
+
+    // Create new image to get correct source image height and width
+    $("<img>") // Create a new <img>
+        .attr("src", $("#image_test").attr("src")) // Copy the src attr from the target <img>
+            .load(function() {
+                var imWidth = this.width;
+                var imHeight = this.height;
+                // Print to console
+                console.log("Width:  " + imWidth);
+                console.log("Height: " + imHeight);
+
+                // Create canvas to start inspecting image with
+                var canvas = document.createElement('canvas');
+                canvas.width = imWidth;
+                canvas.height = imHeight;
+                canvas.getContext('2d').drawImage(this, 0, 0, imWidth, imHeight);
+                //Get pixel data at specific point (for testing)
+                var pixelData = canvas.getContext('2d').getImageData(0, 0, imWidth, imHeight).data;
+                window.alert('Pixel: (' + pixelData[0] + ', ' + pixelData[1] + ', ' + pixelData[2] + ') , alpha: [' + pixelData[3] + ']');
+                // Loop through each pixel
+                var redCount = 0;
+                var greenCount = 0;
+                var blueCount = 0;
+                for (var i = 0; i < imWidth; i++) {
+                    for (var j = 0; j < imHeight; j++) {
+                        // console.log("(i,j) = (" + i + ',' + j + ')');
+                        pixelData = canvas.getContext('2d').getImageData(i, j, imWidth, imHeight).data;
+                        if ( (pixelData[0] >= pixelData[1]) && (pixelData[0] >= pixelData[2]) ) redCount += 1;
+                        if ( (pixelData[1] >= pixelData[0]) && (pixelData[1] >= pixelData[2]) ) greenCount += 1;
+                        if ( (pixelData[2] >= pixelData[0]) && (pixelData[2] >= pixelData[1]) ) blueCount += 1;
+
+                    }
+                }
+                window.alert('Total Pixel Count: (' + redCount + ', ' + greenCount + ', ' + blueCount + ')');
+                // if ( (redCount >= greenCount) && (redCount >= blueCount ) {
+                //
+                // }
+                // else if( greenCount >= blueCount){
+                //
+                //
+                // }
+                // else {
+                //
+                // }
+
+                window.alert('Test!!!');
+                $('audio1').attr('src', "http://www.wavlist.com/soundfx/006/horse-donkey1.wav");
+                // document.getElementById("audio1").src = "http://www.wavlist.com/soundfx/006/horse-donkey1.wav";
+                //Show the placeholder audio
+                $('#audio_test').show();
+    });
+
 });
 
 
 function showConvert(){
-    $("#p3").fadeIn();
-    document.getElementById("p3").style.opacity = 1.0;
-    $(".container3").fadeIn();
-    document.getElementsByClassName("container3")[0].style.opacity = 1.0;
+    window.alert(Hello);
+
+    // getimagesize(uploads[0]
+
 }
 function convert(){
     // document.getElementsByClassName("convert-btn")[0].innerHTML = "Converting";
