@@ -55,7 +55,10 @@ app.use('/sidepanel', function(req, res, next){
   res.sendFile(path.join(__dirname + '/public/views/sidepanel.html'));
   req.session.current_url = '/sidepanel';
 });
+app.use('/pulse', function(req, res, next){
+  res.sendFile(path.join(__dirname + '/public/views/audio_pulse.html'));
 
+});
 app.use('/profile', profile_route);
 app.use('/create', create_route);
 app.use('/explore', explore_route);

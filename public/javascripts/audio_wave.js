@@ -93,6 +93,7 @@ var aveBarWidth = 30;
 var debugSpacing = 2;
 var gradient;
 
+// console.log(amp);
 var freqByteData; //bars - bar data is from 0 - 256 in 512 bins. no sound is 0;
 var timeByteData; //waveform - waveform data is from 0-256 for 512 bins. no sound is 128.
 var levelsCount = 32; //should be factor of 512
@@ -213,6 +214,7 @@ var startSound = function() {
 
 var stopSound = function(){
 	isPlayingAudio = false;
+	
 	if(source){
 	source.stop(0);
 	source.disconnect();
@@ -282,11 +284,24 @@ var onDroppedMP3Loaded = function (data) {
 }
 
 
+// $(function() {
+//     // Generic function to set blur radius of $ele
+
+
+//     // Start tweening towards blurred image
+//     window.setTimeout(function() {
+//         tweenBlur('.item', 0, 10);
+//     }, 1000);
+
+//     // Reverse tweening after 3 seconds
+//     window.setTimeout(function() {
+//         tweenBlur('.item', 10, 0);
+//     }, 3000);
+// });
 //called every frame
 //update published viz data
-var update_aud = function (){
+function update_aud(){
 	if (!isPlayingAudio) return;
-
 	//GET DATA
 	analyser.getByteTimeDomainData(timeByteData); // <-- waveform
 
@@ -304,7 +319,11 @@ var update_aud = function (){
 	}
 	
 	level = sum / levelsCount;
-
+	amp = sum / levelsCount;
+	// $.getScript("explore.js",function(){
+	// 	setBlur(level);
+	// 	// setBlur(LEV);
+	// });
 	levelHistory.push(level);
 	levelHistory.shift(1);
 
@@ -324,7 +343,7 @@ var update_aud = function (){
 
 
 	bpmTime = (new Date().getTime() - bpmStart)/msecsAvg;
-
+	
 
 	debugDraw();
 }
@@ -351,6 +370,7 @@ var debugDraw = function (){
 	debugCtx.beginPath();
 	for(var i = 0; i < binCount; i++) {
 		debugCtx.lineTo(i/binCount*chartW, waveData[i]*chartH/2 + chartH/2);
+	
 	}
 	debugCtx.stroke();
 

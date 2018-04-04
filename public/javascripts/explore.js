@@ -33,8 +33,6 @@ function init(){
     } else {
       console.info( "This page is not reloaded");
     }
-
-    //
     $('.play').click(function(){
         var player_pressed = $(this);
         $(this).toggleClass('pause');
@@ -45,12 +43,15 @@ function init(){
         if(!$(this).hasClass('pause')) {
             //////
             if($('#CURRENT_PLAYER').length != 0){
+                CURRENT_PLAYER = $('#CURRENT_PLAYER');
                 if(!player_pressed.is('#CURRENT_PLAYER')){
                     console.log("SHIT");
-                    $.getScript("music.js",function(){
+                    $.getScript("audio_wave.js",function(){
                         stopSound();
                     });
-                    CURRENT_PLAYER = $('#CURRENT_PLAYER');
+                    $('#CURRENT_PLAYER').closest('.brick').find('.brick-img').css({
+                        "-webkit-filter": "blur(0px)",
+                        "filter": "blur(0px)"});
                     CURRENT_PLAYER.removeAttr("id");
                     CURRENT_PLAYER.toggleClass('pause');
                     CURRENT_PLAYER.closest('.play-container').toggleClass('pause');
@@ -58,13 +59,13 @@ function init(){
                     CURRENT_PLAYER.closest('.brick').find('.info-bar').toggleClass('active');
                     CURRENT_PLAYER.closest('.brick').find('.brick-audio').empty();
                     player_pressed.attr("id", "CURRENT_PLAYER");
-                    player_pressed.closest('.brick').find('.brick-audio').load("../views/music.html");
-                    $.getScript("music.js",function(){
+                    player_pressed.closest('.brick').find('.brick-audio').load("../views/audio_wave.html");
+                    $.getScript("audio_wave.js",function(){
                         init();
                     });
                 }
                 else{
-                    $.getScript("music.js",function(){
+                    $.getScript("audio_wave.js",function(){
                         stopSound();
                         init();
                     });
@@ -73,38 +74,67 @@ function init(){
             //////
             else{
                 player_pressed.attr('id', 'CURRENT_PLAYER');
-                player_pressed.closest('.brick').find('.brick-audio').load("../views/music.html");
-                $.getScript("music.js",function(){
+                player_pressed.closest('.brick').find('.brick-audio').load("../views/audio_wave.html");
+                $.getScript("audio_wave.js",function(){
                     init();
                 });
             }
         }
         else {
+            $('#CURRENT_PLAYER').closest('.brick').find('.brick-img').css({
+                "-webkit-filter": "blur(0px)",
+                "filter": "blur(0px)"});
+            $('#CURRENT_PLAYER').closest('.brick').find('.brick-audio').empty();
             $(this).removeAttr("id");
-            $.getScript("music.js",function(){
+            $.getScript("audio_wave.js",function(){
                  stopSound();
             });
         }
-});
+    });
 
-    // class musicPlayer {
-    //     constructor() {
-    //         this.play = this.play.bind(this);
-    //         this.playBtn = $('#CURRENT_PLAYER');
-    //         $(this.playBtn).on('click', this.play);
-    //         this.controlPanel = $(this.playBtn).closest('.control-panel');
-    //         this.infoBar = $(this.playBtn).closest('.info');
-    //         if(this.infoBar == 0) console.log("not found\n");
-    //     }
-    //     play() {
-
-                
-    //     }
-    // }
-
-
+   
+    setInterval(updateBlur, 1000);
+}
+function updateBlur(){
+    if($('#CURRENT_PLAYER').length != 0){
+        if(!$('#CURRENT_PLAYER').hasClass('pause')){
+            tweenBlur(0, 1);
+        }
+    }
 }
 
+function setBlur(radius) {
+	ele = $('#CURRENT_PLAYER').closest('.brick').find('.brick-img');
+	$(ele).css({
+	   "-webkit-filter": "blur("+radius+"px)",
+		"filter": "blur("+radius+"px)"
+   });
+};
+var tweenBlur = function(startRadius, endRadius) {
+    $({blurRadius: startRadius}).animate({blurRadius: endRadius}, {
+        duration: 500,
+        easing: 'swing', // or "linear"
+                         // use jQuery UI or Easing plugin for more options
+        step: function() {
+            setBlur(this.blurRadius);
+        },
+        complete: function() {
+            // Final callback to set the target blur radius
+            // jQuery might not reach the end value
+            setBlur(endRadius);
+       }
+   });
+};
+
+// // Start tweening towards blurred image
+// window.setTimeout(function() {
+// tweenBlur('.item', 0, 10);
+// }, 1000);
+
+// // Reverse tweening after 3 seconds
+// window.setTimeout(function() {
+// tweenBlur('.item', 10, 0);
+// }, 3000);
 
 function retrieveFileData(req_file_id){
     $.ajax({

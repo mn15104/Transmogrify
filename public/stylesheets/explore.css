@@ -488,3 +488,10 @@ h1.explore_title{
   height:40%;
   bottom:40%;
 }
+.brick-pulse{
+  z-index: 1000;
+  position:absolute;
+  width:100%;
+  height:100%;
+  top:50%;
+}
