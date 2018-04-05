@@ -1,19 +1,40 @@
+  
+@import "compass/css3";
+
 body{
     background: #ECE9E6;  /* fallback for old browsers */
     background: -webkit-linear-gradient(to right, #FFFFFF, #ECE9E6);  /* Chrome 10-25, Safari 5.1-6 */
     background: linear-gradient(to right, #FFFFFF, #ECE9E6); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   }  
-
-.title_container{
-    text-align:center;
+.intro_container{
+    position:absolute;
+    left: 0;
+    top:0;
+    width: 100%;
+    height: 100%;
 }
 
+.left_half{
+    position: relative;
+    float: left;
+    height: 100%;
+    width: 50%;
+    background: rgb(29, 28, 28);
+}
+.right_half{
+    position: relative;
+    float: right;
+    height: 100%;
+    width: 50%;
+    background:rgb(229, 229, 245);
+}
 h1.title{ 
+    display: inline-block;
     position:absolute;
-    padding-left: 43.8%;
+    top: 20vh;
     font: 6em/1.5 'Open Sans', sans-serif;
     color: #373737;
-    font-weight: 800;
+    font-weight: 300;
     margin: 0 0 1.5em;
     line-height: 1;
     transform: translateY(90px);
@@ -22,9 +43,45 @@ h1.title{
     -o-transition: -o-transform 2s;
         transition: transform 2s;
 }
-
+.title.left{
+    color:rgb(229, 229, 245);
+    right:0;
+}
+.title.left span {
+    color: rgb(229, 229, 245);
+}
+.title.right{
+    left:0;
+}
 .title span {
+    display: inline-block;
     color: #373737;
-    font-weight: 300;
+    font-weight: 800;
     margin-left: -7px;
+}
+.triangle-right {
+    position:absolute;
+    right:10%;
+    top:40%;
+	width: 0;
+	height: 0;
+	border-top: 25px solid transparent;
+	border-left: 50px solid rgb(41, 38, 38);
+	border-bottom: 25px solid transparent;
+}
+.triangle-left { 
+    position:absolute;
+    left:10%;
+    top:40%;
+	width: 0;
+	height: 0;
+	border-top: 25px solid transparent;
+	border-right: 50px solid rgb(226, 224, 224);
+	border-bottom: 25px solid transparent;
+}
+.triangle-left:hover{
+    cursor: pointer;
+}
+.triangle-right:hover{
+    cursor: pointer;
 }

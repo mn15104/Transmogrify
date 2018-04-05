@@ -172,7 +172,7 @@
     background: rgb(33, 32, 32);
     border-radius: 0px;
     height: 440px;
-    box-shadow: 0px 3px 50px rgb(105, 103, 103);
+    box-shadow: 0 2px 50px #000;
   }
   
   
@@ -235,7 +235,7 @@
   
   .login_btn-login-facebook:hover {
     color: #fff;
-    background-color: #333333;
+    background-color: #766db1;
   }
   
   /*------------------------------------------------------------------
@@ -490,8 +490,8 @@
   }
   
   .login_login-form-btn:hover:before {
-    background-color: #222222;
-    width: calc(100% + 20px);
+    background-color: #302e4d;
+    width: calc(100% + 3px);
   }
 
   /*------------------------------------------------------------------

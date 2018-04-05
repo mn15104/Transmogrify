@@ -126,16 +126,6 @@ var tweenBlur = function(startRadius, endRadius) {
    });
 };
 
-// // Start tweening towards blurred image
-// window.setTimeout(function() {
-// tweenBlur('.item', 0, 10);
-// }, 1000);
-
-// // Reverse tweening after 3 seconds
-// window.setTimeout(function() {
-// tweenBlur('.item', 10, 0);
-// }, 3000);
-
 function retrieveFileData(req_file_id){
     $.ajax({
         url: '/explore.html/loadfiledatabyid',
@@ -210,4 +200,32 @@ function retrieveProfileImage(req_user_id){
           
         }
     });
+}
+
+function generateBrick(){
+    '<figure class="brick"'   +  
+    'data-username   = ""'    +
+    'data-date       = ""'    +
+    'data-file-id    = "">'   +
+    '<div class = "brick-img-audio-container">' +
+        '<img  class = "brick-img" src="">'     +
+        '<div class = "brick-audio"> </div>'    +
+    '</div>'                                    +    
+    '<div class="player">'                                  +
+        '<div class="control-panel">'                       +
+            '<div class="album-art brick_profile_img">'     +
+                '<span><img class = "profile_img"/></span>' +
+            '</div>'                                        +
+            '<div class="info-bar">'                        +        
+                '<span class="artist">  </span>'         +
+                '<span class="name">   </span>'          +
+                '<div class="progress-bar">'        +
+                    '<div class="bar"></div>'       +
+                '</div>'                            +                
+            '</div>'                                +
+            '<div class="controls">'                +
+                '<div class="play-container pause">'+
+                    '<i class="fa fa-play play pause" aria-hidden="true"></i>' +
+                '</div>'            +
+    '</div></div> </div></figure>'  
 }

@@ -59,6 +59,10 @@ app.use('/pulse', function(req, res, next){
   res.sendFile(path.join(__dirname + '/public/views/audio_pulse.html'));
 
 });
+app.use('/intro', function(req, res, next){
+  res.sendFile(path.join(__dirname + '/public/views/intro.html'));
+
+});
 app.use('/profile', profile_route);
 app.use('/create', create_route);
 app.use('/explore', explore_route);

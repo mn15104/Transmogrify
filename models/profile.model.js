@@ -52,7 +52,6 @@ db.run(`CREATE TABLE IF NOT EXISTS PROFILE_chathistory   (  user_idA INT (100),
     }
 });
 
-
 // **************************************************************************************************** //
 
 Profile.loadProfile = function(req, res){

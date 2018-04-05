@@ -40,6 +40,7 @@ h1.explore_title{
     padding-top: 150px;
     margin-left: auto;
     margin-right: auto;
+    background: #f3e5e7;
     width: 80%;
     align-content: center;
 }
@@ -156,7 +157,7 @@ h1.explore_title{
 }
 
 .brick {
-    box-shadow: 2px 3px 7px #233237;
+    box-shadow: 2px 3px 50px #233237;
     border-radius: 5px;
     position: relative;
 }
