@@ -127,8 +127,23 @@ h2 {
     vertical-align: top;
     width: 30%;
     height: 400px;
-    margin-left: 5%;
-    margin-right: 5%;
+    /* margin-left: 2%;
+    margin-right: 2%; */
+    padding: 20px;
+}
+
+#centre-convert {
+    /* background: linear-gradient(to top, rgb(23, 25, 26) , rgb(43, 48, 50)); */
+    position: relative;
+    background: #997A7A;
+    opacity: 0.5;
+    border-radius: 15px;
+    display: inline-block;
+    vertical-align: middle;
+    width: 10%;
+    height: 400px;
+    /* margin-left: 5%;
+    margin-right: 5%; */
     padding: 20px;
 }
 
@@ -199,6 +214,27 @@ h2 {
 .progress{
     margin-top: 30%;
 }
+#progress-convert{
+    position: absolute;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    top: 50%;
+    padding: auto;
+    vertical-align: middle;
+    width: 80%;
+    background-color: #ddd;
+}
+#progress-bar-convert{
+    width: 0%;
+    height: 30px;
+    background-color: #4CAF50;
+    text-align: center;
+    line-height: 30px;
+    color: white;
+}
+
 
 p.button_hover{
     /* position:absolute; */

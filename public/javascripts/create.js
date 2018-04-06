@@ -25,6 +25,7 @@ $('#upload-input').on('change', function(){
   $( "#overlay1" ).fadeTo( "slow" , 0.7, function() {
   // Animation complete.
   });
+  helloTest();
   $( ".convert-btn" ).show();
 });
 
@@ -92,60 +93,113 @@ $('#upload-input').on('change', function(){
   }
 });
 
+function helloTest(){
+    $("#testing1").html("come on");
+    // document.getElementById("testing1").innerHTML = "ok";
+    for(var x = 0; x < 100000; x++) {
+        document.getElementById("progress-bar-convert").innerHTML = 'Hello';
+        document.getElementById("progress-bar-convert").style.width = ((x/1000) + '%');
+    }
+}
+
 $( ".convert-btn" ).one( "click", function() {
 
     // Create new image to get correct source image height and width
-    $("<img>") // Create a new <img>
-        .attr("src", $("#image_test").attr("src")) // Copy the src attr from the target <img>
-            .load(function() {
-                var imWidth = this.width;
-                var imHeight = this.height;
-                // Print to console
-                console.log("Width:  " + imWidth);
-                console.log("Height: " + imHeight);
-
-                // Create canvas to start inspecting image with
-                var canvas = document.createElement('canvas');
-                canvas.width = imWidth;
-                canvas.height = imHeight;
-                canvas.getContext('2d').drawImage(this, 0, 0, imWidth, imHeight);
-                //Get pixel data at specific point (for testing)
-                var pixelData = canvas.getContext('2d').getImageData(0, 0, imWidth, imHeight).data;
-                window.alert('Pixel: (' + pixelData[0] + ', ' + pixelData[1] + ', ' + pixelData[2] + ') , alpha: [' + pixelData[3] + ']');
-                // Loop through each pixel
-                var redCount = 0;
-                var greenCount = 0;
-                var blueCount = 0;
-                for (var i = 0; i < imWidth; i++) {
-                    for (var j = 0; j < imHeight; j++) {
-                        // console.log("(i,j) = (" + i + ',' + j + ')');
-                        pixelData = canvas.getContext('2d').getImageData(i, j, imWidth, imHeight).data;
-                        if ( (pixelData[0] >= pixelData[1]) && (pixelData[0] >= pixelData[2]) ) redCount += 1;
-                        if ( (pixelData[1] >= pixelData[0]) && (pixelData[1] >= pixelData[2]) ) greenCount += 1;
-                        if ( (pixelData[2] >= pixelData[0]) && (pixelData[2] >= pixelData[1]) ) blueCount += 1;
-
-                    }
-                }
-                window.alert('Total Pixel Count: (' + redCount + ', ' + greenCount + ', ' + blueCount + ')');
-                // if ( (redCount >= greenCount) && (redCount >= blueCount ) {
-                //
-                // }
-                // else if( greenCount >= blueCount){
-                //
-                //
-                // }
-                // else {
-                //
-                // }
-
-                window.alert('Test!!!');
-                $('audio1').attr('src', "http://www.wavlist.com/soundfx/006/horse-donkey1.wav");
-                // document.getElementById("audio1").src = "http://www.wavlist.com/soundfx/006/horse-donkey1.wav";
-                //Show the placeholder audio
-                $('#audio_test').show();
-    });
+    // $("<img>") // Create a new <img>
+    //     .attr("src", $("#image_test").attr("src")) // Copy the src attr from the target <img>
+    //         .load(function() {
+    //             var imWidth = this.width;
+    //             var imHeight = this.height;
+    //             // Print to console
+    //             console.log("Width:  " + imWidth);
+    //             console.log("Height: " + imHeight);
+    //
+    //             // Create canvas to start inspecting image with
+    //             var canvas = document.createElement('canvas');
+    //             canvas.width = imWidth;
+    //             canvas.height = imHeight;
+    //             canvas.getContext('2d').drawImage(this, 0, 0, imWidth, imHeight);
+    //             //Get pixel data at specific point (for testing)
+    //             var pixelData = canvas.getContext('2d').getImageData(0, 0, imWidth, imHeight).data;
+    //             console.log('Pixel: (' + pixelData[0] + ', ' + pixelData[1] + ', ' + pixelData[2] + ') , alpha: [' + pixelData[3] + ']');
+    //             // Loop through each pixel
+    //             var redCount = 0;
+    //             var greenCount = 0;
+    //             var blueCount = 0;
+    //
+    //             // document.getElementById("testing1").innerHTML = "hi";
+    //
+    //             // for (var i = 0; i < imWidth; i++) {
+    //             //     for (var j = 0; j < imHeight; j++) {
+    //             //         if (j == 0) {
+    //             //             document.getElementById("centre-convert").style.opacity = "0.7";
+    //             //             console.log('Loop: (' + i + ')');
+    //             //             if ((i + 20)% 20 == 0) {
+    //             //                 // console.log("NOW!");
+    //             //                 console.log("NOW");
+    //             //                 document.getElementById("centre-convert").style.opacity = "1.0";
+    //             //                 updateProgress();
+    //             //                 // var elem = document.getElementById("progress-bar-convert");
+    //             //                 // var width = 10;
+    //             //                 // var id = setInterval(frame, 10);
+    //             //                 // function frame() {
+    //             //                 //     if (width >= 100) {
+    //             //                 //         clearInterval(id);
+    //             //                 //     } else {
+    //             //                 //         width++;
+    //             //                 //         elem.style.width = width + '%';
+    //             //                 //         elem.innerHTML = width * 1  + '%';
+    //             //                 //     }
+    //             //                 // }
+    //             //                 var elem = document.getElementById("progress-bar-convert");
+    //             //                 elem.style.width = 30 + '%';
+    //             //                 elem.innerHTML = 30  + '%';
+    //             //             }
+    //             //         }
+    //             //         // console.log("(i,j) = (" + i + ',' + j + ')');
+    //             //         pixelData = canvas.getContext('2d').getImageData(i, j, imWidth, imHeight).data;
+    //             //         if ( (pixelData[0] >= pixelData[1]) && (pixelData[0] >= pixelData[2]) ) redCount += 1;
+    //             //         if ( (pixelData[1] >= pixelData[0]) && (pixelData[1] >= pixelData[2]) ) greenCount += 1;
+    //             //         if ( (pixelData[2] >= pixelData[0]) && (pixelData[2] >= pixelData[1]) ) blueCount += 1;
+    //             //
+    //             //     }
+    //             // }
+    //             console.log('Total Pixel Count: (' + redCount + ', ' + greenCount + ', ' + blueCount + ')');
+    //             var newSrc = "http://www.wavlist.com/soundfx/006/horse-donkey1.wav";
+    //             $("#audio1").attr("src", newSrc);
+    //
+    //
+    //             if ( (redCount >= greenCount) && (redCount >= blueCount ) ){
+    //                 var redSrc = "http://packs.shtooka.net/eng-wcp-us/ogg/En-us-red.ogg";
+    //                 $("#audio1").attr("src", redSrc);
+    //             }
+    //             else if( greenCount >= blueCount){
+    //                 var greenSrc = "http://packs.shtooka.net/eng-wcp-us/ogg/En-us-green.ogg";
+    //                 $("#audio1").attr("src", greenSrc);
+    //             }
+    //             else {
+    //                 var blueSrc = "http://packs.shtooka.net/eng-wcp-us/ogg/En-us-blue.ogg";
+    //                 $("#audio1").attr("src", blueSrc);
+    //             }
+    //
+    //             // window.alert('Test!!!');
+    //
+    //
+    //             //Show the placeholder audio
+    //             $("#audio_reloader").load();
+    //             $('#audio_test').show();
+    //
+    // });
 
 });
+
+function updateProgress() {
+    // var elem = document.getElementById("progress-bar-convert");
+    // var barWidth = Math.trunc( (count/max)*100);
+    // console.log("percent" + barWidth);
+    // elem.style.width = barWidth + '%';
+    // elem.innerHTML = barWidth * 1  + '%';
+}
 
 
 function showConvert(){
@@ -153,21 +207,4 @@ function showConvert(){
 
     // getimagesize(uploads[0]
 
-}
-function convert(){
-    // document.getElementsByClassName("convert-btn")[0].innerHTML = "Converting";
-    for (i = 0; i <= 100; i++) {
-        $('.progress-bar2').text(i + '%');
-        $('.progress-bar2').width(i + '%');
-        if (i === 100) {
-            $('.progress-bar2').css('background-color', '#79BAEC');
-          $('.progress-bar2').html('done');
-
-        }
-    }
-    // $('.progress-bar2').text('0%');
-    // $('.progress-bar2').width('0%');
-
-    // xhr.upload.addEventListener('progress2', function(evt) {
-    // }
 }
