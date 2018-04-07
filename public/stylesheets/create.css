@@ -234,6 +234,14 @@ h2 {
     line-height: 30px;
     color: white;
 }
+#progressbar{
+    width: 0%;
+    height: 30px;
+    background-color: #4CAF50;
+    text-align: center;
+    line-height: 30px;
+    color: white;
+}
 
 
 p.button_hover{

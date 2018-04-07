@@ -126,43 +126,78 @@ $( ".convert-btn" ).one( "click", function() {
                 var blueCount = 0;
                 var percentage = 0;
 
-                // document.getElementById("testing1").innerHTML = "hi";
-
-                for (var i = 0; i < imWidth; i++) {
+                var i = 0;
+                (function loop() {
+                    //Keeping track of stuff
+                    console.log('Loop: (' + i + ')');
+                    console.log("Compare: " + ((i/imWidth)*100) + " > " + (percentage+1));
+                    if ( ((i/imWidth)*100)>(percentage+1) ) {
+                        percentage += 1;
+                        console.log("NOW");
+                    }
+                    // Do stuff
                     for (var j = 0; j < imHeight; j++) {
                         if (j == 0) {
-                            console.log('Loop: (' + i + ')');
-                            console.log("Compare: " + ((i/imWidth)*100) + " > " + (percentage+1));
-                            if ( ((i/imWidth)*100)>(percentage+1) ) {
-                                percentage += 1;
-                                console.log("NOW");
-                                updateProgress(percentage);
-                                // document.getElementById("centre-convert").style.opacity = "1.0";
-                                // var elem = document.getElementById("progress-bar-convert");
-                                // var width = 10;
-                                // var id = setInterval(frame, 10);
-                                // function frame() {
-                                //     if (width >= 100) {
-                                //         clearInterval(id);
-                                //     } else {
-                                //         width++;
-                                //         elem.style.width = width + '%';
-                                //         elem.innerHTML = width * 1  + '%';
-                                //     }
-                                // }
-                                // var elem = document.getElementById("progress-bar-convert");
-                                // elem.style.width = 30 + '%';
-                                // elem.innerHTML = 30  + '%';
-                            }
                         }
-                        // console.log("(i,j) = (" + i + ',' + j + ')');
                         pixelData = canvas.getContext('2d').getImageData(i, j, imWidth, imHeight).data;
                         if ( (pixelData[0] >= pixelData[1]) && (pixelData[0] >= pixelData[2]) ) redCount += 1;
                         if ( (pixelData[1] >= pixelData[0]) && (pixelData[1] >= pixelData[2]) ) greenCount += 1;
                         if ( (pixelData[2] >= pixelData[0]) && (pixelData[2] >= pixelData[1]) ) blueCount += 1;
 
                     }
-                }
+                    document.getElementById("progress-bar-convert").style.width = (percentage + '%');
+                    document.getElementById("progress-bar-convert").innerHTML = (percentage + '%');
+                    i++;
+                    if (imWidth % i === 100) {
+                        // Not using that below
+                        // progressbar.set(i); //updates the progressbar, even in loop
+                    }
+                    if (i < imWidth) {
+                        setTimeout(loop, 0);
+                    }
+
+                })();
+
+                window.alert("Finised loop");
+
+                // for (var i = 0; i < imWidth; i++) {
+                // }
+                // for (var i = 0; i < imWidth; i++) {
+                //     for (var j = 0; j < imHeight; j++) {
+                //         if (j == 0) {
+                //             console.log('Loop: (' + i + ')');
+                //             console.log("Compare: " + ((i/imWidth)*100) + " > " + (percentage+1));
+                //             if ( ((i/imWidth)*100)>(percentage+1) ) {
+                //                 percentage += 1;
+                //                 console.log("NOW");
+                //                 window.requestAnimationFrame(updateProgress(percentage));
+                //                 // updateProgress(percentage);
+                //                 // document.getElementById("centre-convert").style.opacity = "1.0";
+                //                 // var elem = document.getElementById("progress-bar-convert");
+                //                 // var width = 10;
+                //                 // var id = setInterval(frame, 10);
+                //                 // function frame() {
+                //                 //     if (width >= 100) {
+                //                 //         clearInterval(id);
+                //                 //     } else {
+                //                 //         width++;
+                //                 //         elem.style.width = width + '%';
+                //                 //         elem.innerHTML = width * 1  + '%';
+                //                 //     }
+                //                 // }
+                //                 // var elem = document.getElementById("progress-bar-convert");
+                //                 // elem.style.width = 30 + '%';
+                //                 // elem.innerHTML = 30  + '%';
+                //             }
+                //         }
+                //         // console.log("(i,j) = (" + i + ',' + j + ')');
+                //         pixelData = canvas.getContext('2d').getImageData(i, j, imWidth, imHeight).data;
+                //         if ( (pixelData[0] >= pixelData[1]) && (pixelData[0] >= pixelData[2]) ) redCount += 1;
+                //         if ( (pixelData[1] >= pixelData[0]) && (pixelData[1] >= pixelData[2]) ) greenCount += 1;
+                //         if ( (pixelData[2] >= pixelData[0]) && (pixelData[2] >= pixelData[1]) ) blueCount += 1;
+                //
+                //     }
+                // }
                 console.log('Total Pixel Count: (' + redCount + ', ' + greenCount + ', ' + blueCount + ')');
                 var newSrc = "http://www.wavlist.com/soundfx/006/horse-donkey1.wav";
                 $("#audio1").attr("src", newSrc);
@@ -192,8 +227,11 @@ $( ".convert-btn" ).one( "click", function() {
 
 });
 
+
+
 function updateProgress(percentage) {
     console.log("Updating");
+    window.alert("PERCENT: " + percentage + "%");
     $("#progress-bar-convert").animate({ width: percentage }, 'slow');
     // $("#slidebottom").animate({ width: __ }, 'slow');
     // var elem = document.getElementById("progress-bar-convert");
