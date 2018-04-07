@@ -552,7 +552,8 @@ ul {
 img.sidepanel_menu-link-login {
   padding:0;
   width:70px;
-  top:-15px; -webkit-border-radius: 50%;
+  top:-15px; 
+  -webkit-border-radius: 50%;
   -moz-border-radius: 50%;
   border-radius: 50%;
   box-shadow: 0 0px 10px rgba(255, 255, 255, 0.4);

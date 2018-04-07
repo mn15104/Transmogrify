@@ -148,6 +148,7 @@ $( ".convert-btn" ).one( "click", function() {
                     document.getElementById("progress-bar-convert").style.width = (percentage + '%');
                     document.getElementById("progress-bar-convert").innerHTML = (percentage + '%');
                     i++;
+                    console.log(i);
                     if (imWidth % i === 100) {
                         // Not using that below
                         // progressbar.set(i); //updates the progressbar, even in loop
@@ -155,10 +156,12 @@ $( ".convert-btn" ).one( "click", function() {
                     if (i < imWidth) {
                         setTimeout(loop, 0);
                     }
+                    else{
+                      window.alert("Finised loop");
+                    }
 
                 })();
 
-                window.alert("Finised loop");
 
                 // for (var i = 0; i < imWidth; i++) {
                 // }
@@ -217,12 +220,9 @@ $( ".convert-btn" ).one( "click", function() {
                 }
 
                 // window.alert('Test!!!');
-
-
                 //Show the placeholder audio
                 $("#audio_reloader").load();
                 $('#audio_test').show();
-
     });
 
 });
