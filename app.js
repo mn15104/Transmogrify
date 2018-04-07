@@ -14,9 +14,9 @@ var W3CWebSocket = require('websocket').w3cwebsocket;
 var app = express();
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
+app.set('views', path.join(__dirname, 'public/views/'));
 app.set('view engine', 'jade');
-
+app.engine('html', require('ejs').renderFile);
 app.use(session({
   cookieName: 'session',
   secret: 'eg[isfd-8yF9-7w2315df{}+Ijsli;;to8',
@@ -62,6 +62,10 @@ app.use('/pulse', function(req, res, next){
 app.use('/intro', function(req, res, next){
   res.sendFile(path.join(__dirname + '/public/views/intro.html'));
 
+});
+app.get('/main', function(req, res) {
+  var name = 'hello';
+  res.render(__dirname + "/public/views/intro.html", {name:name});
 });
 app.use('/profile', profile_route);
 app.use('/create', create_route);
