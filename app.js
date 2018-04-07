@@ -47,14 +47,12 @@ var create_route = require('./routes/create.route');
 var explore_route = require('./routes/explore.route');
 var profile_route = require('./routes/profile.route');
 var login_route = require('./routes/login.route');
+var sidepanel_route = require('./routes/sidepanel.route');
 app.use('/music', function(req, res, next){
   res.sendFile(path.join(__dirname + '/public/views/music.html'));
   req.session.current_url = '/music';
 });
-app.use('/sidepanel', function(req, res, next){
-  res.sendFile(path.join(__dirname + '/public/views/sidepanel.html'));
-  req.session.current_url = '/sidepanel';
-});
+
 app.use('/pulse', function(req, res, next){
   res.sendFile(path.join(__dirname + '/public/views/audio_pulse.html'));
 
@@ -63,10 +61,8 @@ app.use('/intro', function(req, res, next){
   res.sendFile(path.join(__dirname + '/public/views/intro.html'));
 
 });
-app.get('/main', function(req, res) {
-  var name = 'hello';
-  res.render(__dirname + "/public/views/intro.html", {name:name});
-});
+
+app.use('/sidepanel', sidepanel_route);
 app.use('/profile', profile_route);
 app.use('/create', create_route);
 app.use('/explore', explore_route);
