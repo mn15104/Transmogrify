@@ -15,8 +15,8 @@ function init(name){
 
       $('#page_1').fadeOut('slow', function(){
         $('#page_1').empty();
-        $('#page_1').load("../views/profile.html")
-        changeurl('profile');
+        $('#page_1').load("../views/myprofile.html")
+        changeurl('myprofile');
         $('#page_1').fadeIn('slow');
       });
 
@@ -28,7 +28,6 @@ function init(name){
         changeurl('create');
         $('#page_1').fadeIn('slow');
       });
-  
     })
     $('.sidepanel_menu-link-mid').click(function(){
       $('#page_1').fadeOut('slow', function(){
@@ -38,18 +37,10 @@ function init(name){
         $('#page_1').fadeIn('slow');
       });
     })
-    $('.sidepanel_menu-link-login').click(function(){
-      $('#page_1').fadeOut('slow', function(){
-      $('#page_1').empty();
-      $('#page_1').load("../views/login.html");
-      changeurl('login');
-      $('#page_1').fadeIn('slow');
-      });
-    })
     $('.sidepanel_title').click(function(){
       $('#page_1').fadeOut('slow', function(){
         $('#page_1').empty();
-        $('#page_1').load("../views/myprofile.html");
+        $('#page_1').load("../views/profile.html");
         changeurl('explore');
         $('#page_1').fadeIn('slow');
       });

@@ -42,7 +42,7 @@ app.use(function(req, res, next){
   }));
   next();
 });
-
+var Sidepanel = require('./models/sidepanel.model');
 var create_route = require('./routes/create.route');
 var explore_route = require('./routes/explore.route');
 var profile_route = require('./routes/profile.route');
@@ -65,8 +65,12 @@ app.use('/myprofile', function(req, res, next){
   res.sendFile(path.join(__dirname + '/public/views/myprofile.html'));
 
 });
+// app.get('/sidepanel', function(req, res, next) {
+//   Sidepanel.getProfilePicture()
+//   res.render(__dirname + "/public/views/sidepanel.html", {name:"name"}); 
+// });
 app.use('/sidepanel', sidepanel_route);
-app.use('/profile', profile_route);
+app.use('/myprofile', profile_route);
 app.use('/create', create_route);
 app.use('/explore', explore_route);
 app.use('/login', login_route);

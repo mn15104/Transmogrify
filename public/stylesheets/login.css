@@ -248,7 +248,7 @@
     border-radius: 31px;
     position: relative;
     margin:auto;
-    margin-top: 10px;
+    margin-top: 20px;
     z-index: 1;
   }
   
@@ -260,7 +260,7 @@
   
     position: relative;
     display: block;
-    width: 100%;
+    width: 70%;
     height: inherit;
     background: #fff;
     border-radius: 31px;
@@ -274,21 +274,22 @@
     position: absolute;
     right: -100%;
     float: right;
-    font-size: 16px;
+    font-size: 25px;
     right: -500px;
   }
   .login_arrow-container-create-account{
-    font-size: 16px;
+    font-size: 25px;
     position: absolute;
     left: -310px;
     float: left;
   }
   .login_arrow-login {
     position: absolute;
-    width: 40px;
+    width: 100px;
     background-size: contain;
-    padding-left: 30%;
-    font-size:100px;
+    padding-top: 20px;
+    padding-left: 40%;
+    font-size:200px;
   }
   .login_arrow-login:hover {
     cursor: pointer;
@@ -297,9 +298,8 @@
     position: absolute;
     width: 35px;
     right: 90px;
-    margin-top: 15px;
+    margin-top: 45px;
     font-size:100px;
-    padding-right: 30%;
     background-size: contain;
     
   }
@@ -426,6 +426,7 @@
   /*------------------------------------------------------------------
   [ Button ]*/
   .login_container-login-form-btn {
+    margin-top:20px;
     width: 100%;
     display: -webkit-box;
     display: -webkit-flex;

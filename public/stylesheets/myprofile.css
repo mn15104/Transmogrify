@@ -273,17 +273,17 @@ h1.profile_title{
 
 
 
-.profile_body h4{
+/* .profile_body h4{
     font-family: 'Open Sans', Arial, sans-serif;
     color:  rgba(255, 255, 255, 0.5);
     font-size: 1.3em;
-}
-.profile_body h5{
+} */
+/* .profile_body h5{
     font-family: 'Open Sans', Arial, sans-serif;
     color: #f39c12;
     font-size: 1.2em;
     opacity: 0.75;
-}
+} */
 #profile_webcam-icon{
     position: absolute;
     background-position: 24px 24px;
@@ -798,4 +798,13 @@ h2.profile_gallery-title{
     color:white;
     margin-left:5px;
     font-size:18px;
+}
+h5.profile_gallery-title{
+    color: #1d1c1c;
+    font-family: 'Merriweather Sans';
+    font-size: 66px;
+    font-weight: 800;
+    line-height: 78px;
+    letter-spacing: 1px;
+    margin-bottom: 30px;
 }

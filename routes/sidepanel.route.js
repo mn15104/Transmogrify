@@ -10,7 +10,6 @@ router.get('/getProfilePicture', function(req, res, next) {
 });
 
 router.get('/', function(req, res, next) {
-    //res.render(__dirname + "../public/views/sidepanel.html", {name:"name"});              <-- Only works on app.js for some reason
     res.sendFile(path.join(__dirname + '/../public/views/sidepanel.html'));
 });
 module.exports = router;

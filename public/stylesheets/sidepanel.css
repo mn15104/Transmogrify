@@ -564,14 +564,18 @@ img.sidepanel_menu-link-login {
 
 .friends-list{
   position:fixed;
-  width: 250px;
+  width: 300px;
   right:10px;
-  left: auto;
+
+  /* left: auto; */
   bottom: 10px;
   max-height:300px;
   overflow-y:auto;
   overflow-x:hidden;
   /* overflow-:auto; */
+}
+.shadow{
+  width:300px;
 }
 .col-sm-2{
   margin:0;
@@ -580,16 +584,19 @@ img.sidepanel_menu-link-login {
 }
 .col-sm-8{
   width:120px;
+  padding-left:0;
+  padding-right:0;
 }
 .friends-list_cell {
   margin-top: 2px;
   position:relative;
-  width: 250px;
+  width: 300px;
   border: 2px solid black;
   background: #292523;
 }
 h4.friends-list_name{
   font-size: 16px;
+  left:0;
 }
 h4.friends_list-title{
   padding:0;
@@ -598,4 +605,7 @@ h4.friends_list-title{
 }
 h4.friends_list-title:hover{
   cursor:pointer;
+}
+.friends-list_image{
+  margin-right:30px;
 }
