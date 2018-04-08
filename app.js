@@ -61,7 +61,10 @@ app.use('/intro', function(req, res, next){
   res.sendFile(path.join(__dirname + '/public/views/intro.html'));
 
 });
+app.use('/myprofile', function(req, res, next){
+  res.sendFile(path.join(__dirname + '/public/views/myprofile.html'));
 
+});
 app.use('/sidepanel', sidepanel_route);
 app.use('/profile', profile_route);
 app.use('/create', create_route);

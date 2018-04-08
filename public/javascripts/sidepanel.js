@@ -46,7 +46,14 @@ function init(name){
       $('#page_1').fadeIn('slow');
       });
     })
-    
+    $('.sidepanel_title').click(function(){
+      $('#page_1').fadeOut('slow', function(){
+        $('#page_1').empty();
+        $('#page_1').load("../views/myprofile.html");
+        changeurl('explore');
+        $('#page_1').fadeIn('slow');
+      });
+    })
     burger.click(function(){
       openMenu();
     });
