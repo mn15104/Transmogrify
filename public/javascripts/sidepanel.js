@@ -1,5 +1,10 @@
 
-function init(content){
+function init(name){
+  console.log(name)
+    if(name!='<%= name %>'){
+      var imagesrc = getProfilePicture(name);
+      
+    }
   
     toggleNav();
     $('.sidepanel_menu_link').click(function(){
@@ -140,5 +145,24 @@ function slideIndexItemsLeft(){
   });
   $(".sidepanel_index_item_H").each( function(indexa){
     $(this).show("slide", "swing", indexa * 200);
+  });
+}
+
+function getProfilePicture(name){
+
+  $.ajax({
+    url: '/sidepanel/getProfilePicture',
+    type: 'POST',
+    data: {name: name},
+    processData: false,
+    contentType: false,
+    success: function(data){
+      console.log(data)
+      var f = $(self).attr("src", data); 
+      console.log($(f).find('img').attr('src'));
+      // $('.sidepanel_menu-link-login').replaceWith(
+      //   '<img class="sidepanel_menu_link sidepanel_menu-link-login" src="'+ data + '">'
+      // )
+    }
   });
 }
