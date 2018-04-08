@@ -211,18 +211,18 @@ function colourCount(redCount, greenCount, blueCount) {
     $("#audio1").attr("src", newSrc);
 
     if ( (redCount >= greenCount) && (redCount >= blueCount ) ){
-        var redSrc = "http://packs.shtooka.net/eng-wcp-us/ogg/En-us-red.ogg";
-        $("#audio1").attr("src", redSrc);
+        // var redSrc = "http://packs.shtooka.net/eng-wcp-us/ogg/En-us-red.ogg";
+        // $("#audio1").attr("src", redSrc);
         $("#image-info1").html("Primary Count: Mostly Red Pixels");
     }
     else if( greenCount >= blueCount){
-        var greenSrc = "http://packs.shtooka.net/eng-wcp-us/ogg/En-us-green.ogg";
-        $("#audio1").attr("src", greenSrc);
+        // var greenSrc = "http://packs.shtooka.net/eng-wcp-us/ogg/En-us-green.ogg";
+        // $("#audio1").attr("src", greenSrc);
         $("#image-info1").html("Primary Count: Mostly Green Pixels");
     }
     else {
-        var blueSrc = "http://packs.shtooka.net/eng-wcp-us/ogg/En-us-blue.ogg";
-        $("#audio1").attr("src", blueSrc);
+        // var blueSrc = "http://packs.shtooka.net/eng-wcp-us/ogg/En-us-blue.ogg";
+        // $("#audio1").attr("src", blueSrc);
         $("#image-info1").html("Primary Count: Mostly Blue Pixels");
     }
 
@@ -239,7 +239,7 @@ function colourAverage(redSum,blueSum,greenSum,pixelSum) {
     $("#progress-bar-convert").css("background-color", "rgb(" + redAv + "," + greenAv + "," + blueAv + ")");
 
     //Colour classification into 9 main colours
-    colourDetected = 0;
+    var colourDetected = 0;
     //1 =    red, 2 =  green, 3 =   blue,
     //4 = yellow, 5 = orange, 6 = purple,
     //7 = white, 8 = black, 0 = unknown,
@@ -309,7 +309,69 @@ function colourAverage(redSum,blueSum,greenSum,pixelSum) {
         var colourSrc = "http://packs.shtooka.net/eng-wcp-us/ogg/En-us-unknown.ogg"
         $("#image-info2").html("Average Colour: Unknown");
     }
-
+    audioTester();
     //Set new audio
     $("#audio1").attr("src", colourSrc);
+}
+
+function audioTester(){
+    //Demo yH5BAEAAAIALAAAAAAFAAUAAAIIlGIWqMCbWAEAOw
+    // var AudioContextFunc = window.AudioContext || window.webkitAudioContext;
+    // var audioContext = new AudioContextFunc();
+    // var player=new WebAudioFontPlayer();
+    // player.loader.decodeAfterLoading(audioContext, '_tone_0250_SoundBlasterOld_sf2');
+    // player.queueWaveTable(audioContext, audioContext.destination, _tone_0250_SoundBlasterOld_sf2, 0, 12*4+7, 2);
+
+    var AudioContextFunc = window.AudioContext || window.webkitAudioContext;
+    var audioContext = new AudioContextFunc();
+    var player=new WebAudioFontPlayer();
+
+    player.loader.decodeAfterLoading(audioContext, '_tone_0000_SBLive_sf2');
+
+    var motifMax = 3;
+    var currentMotif = 0;
+    var repTime = 0;
+    (function repeatMotif() {
+
+        player.queueWaveTable(audioContext, audioContext.destination, _tone_0000_SBLive_sf2, repTime + rhythm(0, 1),    9+12*3, note(1) );
+        player.queueWaveTable(audioContext, audioContext.destination, _tone_0000_SBLive_sf2, repTime + rhythm(0, 2),    0+12*4, note(1) );
+        player.queueWaveTable(audioContext, audioContext.destination, _tone_0000_SBLive_sf2, repTime + rhythm(0, 3),    2+12*4, note(1) );
+        player.queueWaveTable(audioContext, audioContext.destination, _tone_0000_SBLive_sf2, repTime + rhythm(0, 4),    4+12*4, note(1) );
+        player.queueWaveTable(audioContext, audioContext.destination, _tone_0000_SBLive_sf2, repTime + rhythm(0, 4.75), 3+12*4, note(1/4) );
+        player.queueWaveTable(audioContext, audioContext.destination, _tone_0000_SBLive_sf2, repTime + rhythm(1, 1),    2+12*4, note(1) );
+        player.queueWaveTable(audioContext, audioContext.destination, _tone_0000_SBLive_sf2, repTime + rhythm(1, 1.25), 3+12*4, note(1/4) );
+        player.queueWaveTable(audioContext, audioContext.destination, _tone_0000_SBLive_sf2, repTime + rhythm(1, 1.5),  2+12*4, note(1) );
+        player.queueWaveTable(audioContext, audioContext.destination, _tone_0000_SBLive_sf2, repTime + rhythm(1, 2.5),  0+12*4, note(1) );
+        player.queueWaveTable(audioContext, audioContext.destination, _tone_0000_SBLive_sf2, repTime + rhythm(1, 3.5),  9+12*3, note(1/2) );
+        player.queueWaveTable(audioContext, audioContext.destination, _tone_0000_SBLive_sf2, repTime + rhythm(1, 4),    9+12*3, note(1) );
+
+        if (currentMotif < motifMax) {
+            currentMotif += 1;
+            console.log("repTime = " + repTime);
+            repTime = (repTime + rhythm(1,4) + note(1));
+            repeatMotif();
+        }
+    //
+    })();
+
+}
+
+function rhythm(bar, beats) {
+
+    var bpm = 100;
+    var timeSig = 4;
+
+    var noBeats = (bar*timeSig + (beats-1));
+    return ( noBeats*(60/bpm) );
+}
+
+function note(noteLength) {
+    var bpm = 100;
+    //4 = semibreve
+    //2 = minum
+    //1 = crotchet
+    //1/2 = quaver
+    //1/4 = semiquaver
+
+    return ( noteLength*(60/bpm) ) ;
 }
