@@ -327,12 +327,14 @@ function audioTester(){
     var player=new WebAudioFontPlayer();
 
     player.loader.decodeAfterLoading(audioContext, '_tone_0000_SBLive_sf2');
+    player.loader.decodeAfterLoading(audioContext, '_drum_69_0_SBLive_sf2');
 
-    var motifMax = 3;
+    var motifMax = 10;
     var currentMotif = 0;
     var repTime = 0;
     (function repeatMotif() {
 
+        if ( (currentMotif >= 2) && (currentMotif != 7) ) {
         player.queueWaveTable(audioContext, audioContext.destination, _tone_0000_SBLive_sf2, repTime + rhythm(0, 1),    9+12*3, note(1) );
         player.queueWaveTable(audioContext, audioContext.destination, _tone_0000_SBLive_sf2, repTime + rhythm(0, 2),    0+12*4, note(1) );
         player.queueWaveTable(audioContext, audioContext.destination, _tone_0000_SBLive_sf2, repTime + rhythm(0, 3),    2+12*4, note(1) );
@@ -344,6 +346,52 @@ function audioTester(){
         player.queueWaveTable(audioContext, audioContext.destination, _tone_0000_SBLive_sf2, repTime + rhythm(1, 2.5),  0+12*4, note(1) );
         player.queueWaveTable(audioContext, audioContext.destination, _tone_0000_SBLive_sf2, repTime + rhythm(1, 3.5),  9+12*3, note(1/2) );
         player.queueWaveTable(audioContext, audioContext.destination, _tone_0000_SBLive_sf2, repTime + rhythm(1, 4),    9+12*3, note(1) );
+        }
+        if ( (currentMotif >= 4) && (currentMotif != 7) ) {
+            player.queueWaveTable(audioContext, audioContext.destination, _drum_69_0_SBLive_sf2, repTime + rhythm(0, 1),    0+12*5, note(1) );
+            player.queueWaveTable(audioContext, audioContext.destination, _drum_69_0_SBLive_sf2, repTime + rhythm(0, 2),    0+12*5, note(1) );
+            player.queueWaveTable(audioContext, audioContext.destination, _drum_69_0_SBLive_sf2, repTime + rhythm(0, 3),    0+12*5, note(1) );
+            player.queueWaveTable(audioContext, audioContext.destination, _drum_69_0_SBLive_sf2, repTime + rhythm(0, 4),    0+12*5, note(1) );
+            player.queueWaveTable(audioContext, audioContext.destination, _drum_69_0_SBLive_sf2, repTime + rhythm(1, 1),    0+12*5, note(1) );
+            player.queueWaveTable(audioContext, audioContext.destination, _drum_69_0_SBLive_sf2, repTime + rhythm(1, 2),    0+12*5, note(1) );
+            player.queueWaveTable(audioContext, audioContext.destination, _drum_69_0_SBLive_sf2, repTime + rhythm(1, 3),    0+12*5, note(1) );
+            player.queueWaveTable(audioContext, audioContext.destination, _drum_69_0_SBLive_sf2, repTime + rhythm(1, 4),    0+12*5, note(1) );
+        }
+
+        if ( (currentMotif >= 6) && (currentMotif != 7) ) {
+            player.queueWaveTable(audioContext, audioContext.destination, _tone_0000_SBLive_sf2, repTime + rhythm(0, 1),    9+12*6, note(1) );
+            player.queueWaveTable(audioContext, audioContext.destination, _tone_0000_SBLive_sf2, repTime + rhythm(0, 1.5),  9+12*6, note(1) );
+            player.queueWaveTable(audioContext, audioContext.destination, _tone_0000_SBLive_sf2, repTime + rhythm(0, 2),    7+12*6, note(1) );
+            player.queueWaveTable(audioContext, audioContext.destination, _tone_0000_SBLive_sf2, repTime + rhythm(0, 2.5),  9+12*6, note(1) );
+            player.queueWaveTable(audioContext, audioContext.destination, _tone_0000_SBLive_sf2, repTime + rhythm(0, 3.5),  7+12*6, note(1.5) );
+            player.queueWaveTable(audioContext, audioContext.destination, _tone_0000_SBLive_sf2, repTime + rhythm(1, 2.95), 3+12*6, note(1/16) );
+            player.queueWaveTable(audioContext, audioContext.destination, _tone_0000_SBLive_sf2, repTime + rhythm(1, 3),    4+12*6, note(1) );
+            player.queueWaveTable(audioContext, audioContext.destination, _tone_0000_SBLive_sf2, repTime + rhythm(1, 3.95), 3+12*6, note(1/16) );
+            player.queueWaveTable(audioContext, audioContext.destination, _tone_0000_SBLive_sf2, repTime + rhythm(1, 4),    4+12*6, note(1) );
+        }
+        if ( currentMotif >= 0) {
+            player.queueWaveTable(audioContext, audioContext.destination, _tone_0000_SBLive_sf2, repTime + rhythm(0, 1),    9+12*3, note(1), 0.5 );
+            player.queueWaveTable(audioContext, audioContext.destination, _tone_0000_SBLive_sf2, repTime + rhythm(0, 1),    9+12*2, note(1), 0.5 );
+            player.queueWaveTable(audioContext, audioContext.destination, _tone_0000_SBLive_sf2, repTime + rhythm(0, 2),    7+12*3, note(1), 0.5 );
+            player.queueWaveTable(audioContext, audioContext.destination, _tone_0000_SBLive_sf2, repTime + rhythm(0, 2),    7+12*2, note(1), 0.5 );
+            player.queueWaveTable(audioContext, audioContext.destination, _tone_0000_SBLive_sf2, repTime + rhythm(0, 3),    5+12*3, note(1), 0.5 );
+            player.queueWaveTable(audioContext, audioContext.destination, _tone_0000_SBLive_sf2, repTime + rhythm(0, 3),    5+12*2, note(1), 0.5 );
+            player.queueWaveTable(audioContext, audioContext.destination, _tone_0000_SBLive_sf2, repTime + rhythm(0, 4),    4+12*3, note(1), 0.5 );
+            player.queueWaveTable(audioContext, audioContext.destination, _tone_0000_SBLive_sf2, repTime + rhythm(0, 4),    4+12*2, note(1), 0.5 );
+
+            player.queueWaveTable(audioContext, audioContext.destination, _tone_0000_SBLive_sf2, repTime + rhythm(1, 1),    9+12*3, note(1), 0.5 );
+            player.queueWaveTable(audioContext, audioContext.destination, _tone_0000_SBLive_sf2, repTime + rhythm(1, 1),    9+12*2, note(1), 0.5 );
+            player.queueWaveTable(audioContext, audioContext.destination, _tone_0000_SBLive_sf2, repTime + rhythm(1, 2),    7+12*3, note(1), 0.5 );
+            player.queueWaveTable(audioContext, audioContext.destination, _tone_0000_SBLive_sf2, repTime + rhythm(1, 2),    7+12*2, note(1), 0.5 );
+            player.queueWaveTable(audioContext, audioContext.destination, _tone_0000_SBLive_sf2, repTime + rhythm(1, 3),    5+12*3, note(1), 0.5 );
+            player.queueWaveTable(audioContext, audioContext.destination, _tone_0000_SBLive_sf2, repTime + rhythm(1, 3),    5+12*2, note(1), 0.5 );
+            player.queueWaveTable(audioContext, audioContext.destination, _tone_0000_SBLive_sf2, repTime + rhythm(1, 4),    4+12*3, note(1), 0.5 );
+            player.queueWaveTable(audioContext, audioContext.destination, _tone_0000_SBLive_sf2, repTime + rhythm(1, 4),    4+12*2, note(1), 0.5 );
+
+            player.queueWaveTable(audioContext, audioContext.destination, _tone_0000_SBLive_sf2, repTime + rhythm(1, 4.75), 8+12*3, note(1/4) );
+            player.queueWaveTable(audioContext, audioContext.destination, _tone_0000_SBLive_sf2, repTime + rhythm(1, 4.75), 8+12*2, note(1/4) );
+        }
+
 
         if (currentMotif < motifMax) {
             currentMotif += 1;
@@ -358,7 +406,7 @@ function audioTester(){
 
 function rhythm(bar, beats) {
 
-    var bpm = 100;
+    var bpm = 80;
     var timeSig = 4;
 
     var noBeats = (bar*timeSig + (beats-1));
@@ -366,7 +414,7 @@ function rhythm(bar, beats) {
 }
 
 function note(noteLength) {
-    var bpm = 100;
+    var bpm = 80;
     //4 = semibreve
     //2 = minum
     //1 = crotchet
