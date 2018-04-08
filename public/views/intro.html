@@ -29,13 +29,13 @@
 		<div class = "title_container_l">
 			<h1 class = "title left">the <br><span>image&nbsp;</span></h1>
 		</div>
-		<div class="triangle-left"></div>
+		<div id ="left-arrow" class="triangle-left"></div>
 	</div> 
 	<div class = "right_half">
 		<div class = "title_container_r">
 			<h1 class = "title right"><br><span>&nbsp;listener</span></h1>
 		</div>
-		<div class="triangle-right"></div>
+		<div id ="right-arrow" class="triangle-right"></div>
 	</div>
 </div>
 <div class="page" data-jquery-page-name="2">
@@ -47,10 +47,11 @@
 
 
 
-<script>var name = "<%= name %>";</script>
+<script src = "../javascripts/intro.js"></script>
 <script>
 $(document).ready(function(){
-
+	console.log("hi");
+	init();
 });
 
 </script>

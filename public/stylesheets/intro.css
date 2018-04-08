@@ -5,7 +5,8 @@ body{
     background: #ECE9E6;  /* fallback for old browsers */
     background: -webkit-linear-gradient(to right, #FFFFFF, #ECE9E6);  /* Chrome 10-25, Safari 5.1-6 */
     background: linear-gradient(to right, #FFFFFF, #ECE9E6); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-  }  
+    overflow:hidden;
+}  
 .intro_container{
     position:absolute;
     left: 0;
@@ -44,11 +45,23 @@ h1.title{
         transition: transform 2s;
 }
 .title.left{
+    position: absolute;
+    transition: transform 2s;
     color:rgb(229, 229, 245);
     right:0;
 }
+.title.right{
+    position: absolute;
+    transition: transform 2s;
+}
 .title.left span {
     color: rgb(229, 229, 245);
+}
+.title.left.slide_down{
+    transform: translateY(2000px);
+}
+.title.right.slide_down{
+    transform: translateY(2000px);
 }
 .title.right{
     left:0;

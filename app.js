@@ -48,22 +48,14 @@ var explore_route = require('./routes/explore.route');
 var profile_route = require('./routes/profile.route');
 var login_route = require('./routes/login.route');
 var sidepanel_route = require('./routes/sidepanel.route');
-app.use('/music', function(req, res, next){
-  res.sendFile(path.join(__dirname + '/public/views/music.html'));
-  req.session.current_url = '/music';
-});
-
-app.use('/pulse', function(req, res, next){
-  res.sendFile(path.join(__dirname + '/public/views/audio_pulse.html'));
-
+app.use('/flick', function(req, res, next){
+  res.sendFile(path.join(__dirname + '/public/views/flick.html'));
 });
 app.use('/intro', function(req, res, next){
   res.sendFile(path.join(__dirname + '/public/views/intro.html'));
-
 });
-app.use('/myprofile', function(req, res, next){
-  res.sendFile(path.join(__dirname + '/public/views/myprofile.html'));
-
+app.use('/profile', function(req, res, next){
+  res.sendFile(path.join(__dirname + '/public/views/profile.html'));
 });
 // app.get('/sidepanel', function(req, res, next) {
 //   Sidepanel.getProfilePicture()
