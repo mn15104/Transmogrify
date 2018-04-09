@@ -20,7 +20,7 @@ let db = new sqlite3.Database('./Dev.db', sqlite3.OPEN_CREATE | sqlite3.OPEN_REA
     console.log('Connected to the Login db.');
 });
 
-db.run(`CREATE TABLE IF NOT EXISTS LOGIN_userinfo   (firstname VARCHAR(255), 
+db.run(`CREATE TABLE IF NOT EXISTS USER_LOGIN       (firstname VARCHAR(255), 
                                                      surname VARCHAR(10), 
                                                      email VARCHAR(255), 
                                                      user_id INT (100),
@@ -37,10 +37,10 @@ db.run(`CREATE TABLE IF NOT EXISTS LOGIN_userinfo   (firstname VARCHAR(255),
 // **************************************************************************************************** //
 
 Login.loginRequest = function(req, res){
-    db.get("SELECT (email) FROM LOGIN_userinfo WHERE email='"+  req.body.email  + "'", function(err, row){
+    db.get("SELECT (email) FROM USER_LOGIN WHERE email='"+  req.body.email  + "'", function(err, row){
         if (err) throw err;
         if (!IS_NULL(row)){
-            db.get("SELECT (password) FROM LOGIN_userinfo WHERE password='"+req.body.password+"'" , function(err, row){
+            db.get("SELECT (password) FROM USER_LOGIN WHERE password='"+req.body.password+"'" , function(err, row){
                 if(err) throw err;
                 if (!IS_NULL(row)){
                     req.session.user_id = user_id;
@@ -62,10 +62,10 @@ Login.loginRequest = function(req, res){
 
 Login.accountRequest = function(req, res){
     console.log(req.body);
-        db.get("SELECT (email) FROM LOGIN_userinfo WHERE email='"+req.body.email+"'" , function(err, row){
+        db.get("SELECT (email) FROM USER_LOGIN WHERE email='"+req.body.email+"'" , function(err, row){
             if(err) throw err;
             if (IS_NULL(row)){
-                db.all("SELECT MAX (user_id) FROM LOGIN_userinfo", function(err, row){
+                db.all("SELECT MAX (user_id) FROM USER_LOGIN", function(err, row){
                     if(err) throw err;
                     var user_id = 0;
                     if(!IS_NULL(row)){
@@ -82,7 +82,7 @@ Login.accountRequest = function(req, res){
 };
 
 insertAccount = function(req, res){
-    db.get("INSERT INTO LOGIN_userinfo (firstname, surname, email, user_id,password) VALUES ('" + 
+    db.get("INSERT INTO USER_LOGIN (firstname, surname, email, user_id,password) VALUES ('" + 
     req.body.firstname + "','" + req.body.surname + "','" + req.body.email + "','" + user_id + "','" + req.body.password + "')", function(err, row){
         if(err) throw err;
 

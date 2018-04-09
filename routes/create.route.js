@@ -19,10 +19,8 @@ router.post('/drag/uploadAudio', function(req, res, next) {
   Create.uploadAudio(req, res, next);
 });
 
-router.post('/post', function(req, res, next) {
-  var post = req.body.user_post;
-  Create.uploadFile(post, new Date());
-  res.redirect('/');
+router.post('/drag/uploadImage', function(req, res, next) {
+  Create.uploadImage(req, res, next);
 });
 
 

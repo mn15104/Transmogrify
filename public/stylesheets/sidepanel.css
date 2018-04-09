@@ -26,7 +26,6 @@ body{
   font: 600 12px/1 'Open Sans', sans-serif;
   color: rgb(73, 78, 88);
   padding-top: 100px;
-  /* background: #333; */
 }
 
 .sidepanel_body h1{
@@ -97,9 +96,10 @@ body{
   top:0;
   z-index: 1000;
   width: 100vw;
-  height: 80px;
+  height: 100px;
   min-width:1300px;
   background-color:#202020;
+  border-bottom: 5px solid rgb(199, 71, 52);
 }
 .sidepanel_menu-items{
   height: 100%;
