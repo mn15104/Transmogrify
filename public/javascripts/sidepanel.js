@@ -12,7 +12,6 @@ function init(name){
       $(this).addClass('active');
     })
     $('.sidepanel_menu-link-right').click(function(){
-
       $('#page_1').fadeOut('slow', function(){
         $('#page_1').empty();
         $('#page_1').load("../views/myprofile.html")

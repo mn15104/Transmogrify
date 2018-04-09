@@ -135,20 +135,20 @@ h1.profile_title{
     display: inline-block;
     transform-origin: right center;
     transform-style: preserve-3d;
-    transition: transform 1s;  
+    transition: transform 1.4s;  
 }
 #profile_card #profile_image1 {
     
 }
 #profile_card #profile_image2 {
-    transform: rotateY( 180deg );
+    transform: rotateY( 360deg );
     filter:sepia(0.5)  ;
     -webkit-filter:  sepia(0.5) ;
 }
 #profile_card.flipped {
-    transform: translateX( -100% ) rotateY( -180deg );
+    transition: all 1.4s;
+    transform: translateX( 0% ) rotateY( -360deg );
 }
-
 
 #sidebar-horizontal{
     margin-top:9em;
@@ -203,6 +203,7 @@ h1.profile_title{
   font-family: 'Open Sans', Arial, sans-serif;
   float: left;
   overflow: show;
+  padding-top:30px;
   margin-top:300px;
   min-width: 230px;
   width: 315px;
@@ -282,19 +283,6 @@ h1.profile_title{
   transform: scale(1);
 } 
 
-
-
-/* .profile_body h4{
-    font-family: 'Open Sans', Arial, sans-serif;
-    color:  rgba(255, 255, 255, 0.5);
-    font-size: 1.3em;
-} */
-/* .profile_body h5{
-    font-family: 'Open Sans', Arial, sans-serif;
-    color: #f39c12;
-    font-size: 1.2em;
-    opacity: 0.75;
-} */
 #profile_webcam-icon{
     position: absolute;
     background-position: 24px 24px;
@@ -810,12 +798,46 @@ h2.profile_gallery-title{
     margin-left:5px;
     font-size:18px;
 }
-/* h5.profile_gallery-title{
-    color: #1d1c1c;
-    font-family: 'Merriweather Sans';
-    font-size: 66px;
-    font-weight: 800;
-    line-height: 78px;
-    letter-spacing: 1px;
-    margin-bottom: 30px;
-} */
+
+/* Gear */
+.icon-btn{ 
+  margin: 0;
+  padding: 0;
+  right : 0;
+  top: 2px;
+
+  min-width:14px;
+  height:25px;
+  line-height: 25px;
+  font-size: 25px;
+  position:absolute;
+}
+.icon{ 
+  color:#666; /* Icon Color */
+  width:14px; 
+  height:14px; 
+  position:absolute; 
+  top: 2px;
+  right: 0px;
+  display:block; 
+}
+.icon:before, 
+.icon:after{ 
+  position:absolute; 
+  content:""; 
+  display:block; 
+}
+.icon-gear:before{
+  position:relative;
+  width:28px;
+  height:28px;
+  box-shadow:0 0 0 8px inset; 
+  border-radius:32px; 
+  border:2px dashed; 
+  top:-2px;
+  left:-2px;
+}
+.icon.icon-gear{
+  width:32px;
+  height:32px;
+}
