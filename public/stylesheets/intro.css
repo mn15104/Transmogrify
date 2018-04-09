@@ -1,6 +1,15 @@
   
 @import "compass/css3";
-
+:root {
+    --clrRed:   #CD412B; /* Red Highlights*/
+    --clrBack:  #202020; /* Black Background */
+    --clrBox:   #303232; /* Dark Box */
+    --clrTitle: #F6EAE1; /* Whitish Title */
+    --clrText:  #948C87; /* Duller Text*/
+    --clrOut:   #505050; /* Faint Outline*/
+    /* --colour6: #BEEAF8; /* Lighter Blue */ 
+}
+  
 body{
     background: #ECE9E6;  /* fallback for old browsers */
     background: -webkit-linear-gradient(to right, #FFFFFF, #ECE9E6);  /* Chrome 10-25, Safari 5.1-6 */
@@ -20,21 +29,21 @@ body{
     float: left;
     height: 100%;
     width: 50%;
-    background: rgb(29, 28, 28);
+    background: #202020;
 }
 .right_half{
     position: relative;
     float: right;
     height: 100%;
     width: 50%;
-    background:rgb(229, 229, 245);
+    background:#F6EAE1;
 }
 h1.title{ 
     display: inline-block;
     position:absolute;
-    top: 20vh;
+    top: 25vh;
     font: 6em/1.5 'Open Sans', sans-serif;
-    color: #373737;
+    color: #202020;
     font-weight: 300;
     margin: 0 0 1.5em;
     line-height: 1;
@@ -65,6 +74,14 @@ h1.title{
 }
 .title.right{
     left:0;
+}
+.title.right.selected > span{
+    transition: all 2s;
+    color: var(--clrRed);
+}
+.title.left.selected > span{
+    transition: all 2s;
+    color: var(--clrRed);
 }
 .title span {
     display: inline-block;

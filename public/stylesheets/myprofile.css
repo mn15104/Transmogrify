@@ -7,7 +7,9 @@
   --clrOut:   #505050; /* Faint Outline*/
   /* --colour6: #BEEAF8; /* Lighter Blue */ 
 }
-
+.profile_body{
+  background:var(--clrBack);
+}
 element{
     --filterVal: 180;
 }
@@ -729,7 +731,6 @@ h2.profile_gallery-title{
 }
 
 .player .control-panel .controls .play:hover {
-
   transition: background-color 0.3s ease;
   -webkit-transition: background-color 0.3s ease; 
 }

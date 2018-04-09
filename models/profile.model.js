@@ -23,7 +23,7 @@ let db = new sqlite3.Database('./Dev.db', sqlite3.OPEN_CREATE | sqlite3.OPEN_REA
     console.log('Connected to Profile DB.');
 });
 
-db.run(`CREATE TABLE IF NOT EXISTS PROFILE_userinfo   ( firstname VARCHAR(255), 
+db.run(`CREATE TABLE IF NOT EXISTS USER_PROFILE       ( firstname VARCHAR(255), 
                                                         surname VARCHAR(10), 
                                                         email VARCHAR(255), 
                                                         user_id INT (100),
@@ -38,10 +38,22 @@ db.run(`CREATE TABLE IF NOT EXISTS PROFILE_userinfo   ( firstname VARCHAR(255),
     }
 });
 
-db.run(`CREATE TABLE IF NOT EXISTS PROFILE_chathistory   (  user_idA INT (100), 
+db.run(`CREATE TABLE IF NOT EXISTS USER_CHATHISTORY      (  user_idA INT (100), 
                                                             user_idB INT (100), 
                                                             message     VARCHAR(555), 
                                                             date        datetime
+                                                            id          INT (100),
+                                                            UNIQUE(user_idA, user_idB))`, (err) => {
+    if (err) {
+        console.error(err.message);
+    }
+    else {
+        console.log("Table ready");
+    }
+});
+
+db.run(`CREATE TABLE IF NOT EXISTS USER_FRIENDS          (  user_idA INT (100), 
+                                                            user_idB INT (100),
                                                             id          INT (100),
                                                             UNIQUE(user_idA, user_idB))`, (err) => {
     if (err) {
@@ -56,7 +68,7 @@ db.run(`CREATE TABLE IF NOT EXISTS PROFILE_chathistory   (  user_idA INT (100),
 
 Profile.loadProfile = function(req, res){
     var user_id = req.body.user_id;
-    db.get("SELECT * FROM PROFILE_userinfo WHERE file_id='"+  user_id  + "'", function(err, row){
+    db.get("SELECT * FROM USER_PROFILE WHERE file_id='"+  user_id  + "'", function(err, row){
         if (err) throw err;
         if (!IS_NULL(row)){
             var stringrow = JSON.stringify(row);
@@ -70,7 +82,7 @@ Profile.loadChatHistory = function(req, res){
     var user_id = req.session.user_id;
     var messages = [];
     var counter = 0;
-    db.all("SELECT * FROM PROFILE_chathistory WHERE user_idA='"+  user_id  + "' OR '" + other_user_id
+    db.all("SELECT * FROM USER_CHATHISTORY WHERE user_idA='"+  user_id  + "' OR '" + other_user_id
             + " AND user_idB = '" + user_id + "' OR '" + otheruser_id + "' ORDER BY id DESC LIMIT 20", (err, rows) => {
                 if (err) throw err;
                 counter = rows.length;
