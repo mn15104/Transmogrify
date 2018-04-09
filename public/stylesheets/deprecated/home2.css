@@ -328,11 +328,11 @@ pulsing {
      padding: 20px;   
 }
 
-#right:hover > p.button_hover{
+#right:hover > p.image_title{
     transition: 2s;
     color: black;
 }
-#left:hover > p.button_hover{
+#left:hover > p.image_title{
     transition: 2s;
     color: black;
 }
@@ -344,7 +344,7 @@ pulsing {
     font-size:100px;
 }
 
-p.button_hover{
+p.image_title{
     font: 50px 'Open Sans', sans-serif;
     color: #ccc;
     font-weight: 300;

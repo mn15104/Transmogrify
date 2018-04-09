@@ -34,49 +34,57 @@
 </head>
 <body>
     <!-- <button onclick="audioTester(2,4)">Test playing</button> -->
-  <div class = "home_container">
-    <div id = "wrap">
-        <div id = "left">
-            <div class="container" id = "container_1">
-                    <div class="panel-body">
-                        <p class="button_hover">give me an image</p>
-                        <div class="progress">
-                            <div class="progress-bar" role="progressbar"></div>
-                        </div>
-                        <button class="btn btn-lg upload-btn" type="button">Upload File</button>
-                    </div>
-            </div>
-            <div id = "overlay1">
-                <img id = "image_test" src = "">
-                <button class="btn btn-lg convert-btn" type="button">Convert</button>
-            </div>
-        </div>
-        <div id = "centre-convert">
-            <p id = "progress-information"></p>
-            <div id="progress-convert">
-                <!-- <div id="progressbar"></div> -->
-                <div id="progress-bar-convert">0%</div>
-            </div>
-        </div>
-        <div id = "right">
-            <img id = "image_test2" src = "">
-            <div id = "audio_test">
-                <audio id="audio_reloader" controls>
-                    <source id="audio1" src="" type="audio/wav">
-                    Your browser does not support the audio element.
-                </audio>
-            </div>
-            <p id = "image-info1"></p>
-            <p id = "image-info2"></p>
-            <p id = "image-info3"></p>
-        </div>
-    </div>
-  </div>
+	<div id = "bar-split"></div>
 
-  <input id="upload-input" type="file" name="uploads[]" multiple="multiple"></br>
+	<div class = "home_container">
+		<p class="create_title">Create</p>
+	    <div id = "wrap">
+	        <div id = "left">
+	            <div class="container1" id = "container_1">
+	                    <div class="panel-body">
+	                        <p class="image_title">Place Image</p>
+	                        <!-- <div class="progress">
+	                            <div class="progress-bar" role="progressbar"></div>
+	                        </div> -->
+	                        <button class="btn btn-lg upload-btn" type="button">Upload File</button>
+	                    </div>
+	            </div>
+	            <div id = "overlay1">
+	                <img id = "image_test" src = "">
+	                <button class="btn btn-lg convert-btn" type="button">Convert</button>
+	            </div>
+	        </div>
+	        <div id = "centre-convert">
+				<div id="information-holder">
+		            <p id = "progress-information"></p>
+				</div>
+	            <div id="progress-convert">
+	                <div id="progress-bar-convert">0%</div>
+	            </div>
+	        </div>
+	        <div id = "right">
+	            <img id = "image_test2" src = "">
+	            <div id = "audio_test">
+	                <audio id="audio_reloader" controls>
+	                    <source id="audio1" src="" type="audio/wav">
+	                    Your browser does not support the audio element.
+	                </audio>
+	            </div>
+				<div id=conversion-infomation>
+					<p class="audioTitle" id = "image-info0"></p>
+					<p class="audioText" id = "image-info1"></p>
+					<p class="audioText" id = "image-info2"></p>
+					<p class="audioText" id = "image-info3"></p>
+				</div>
 
-  <script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-  <script src="../javascripts/create.js"></script>
+	        </div>
+	    </div>
+	</div>
+
+	<input id="upload-input" type="file" name="uploads[]" multiple="multiple"></br>
+
+	<script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+	<script src="../javascripts/create.js"></script>
 </body>
 </html>

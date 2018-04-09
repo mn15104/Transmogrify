@@ -185,6 +185,12 @@ $( ".convert-btn" ).one( "click", function() {
                         var colourDetected = colourAverage(redSum,blueSum,greenSum,pixelSum);
                         audioTester(primaryDetected, colourDetected);
                         updateProgress(100);
+
+                        //Show the placeholder audio
+                        // $("#audio_reloader").load();
+                        // $('#audio_test').show();
+                        $("#image-info0").html("Playing Audio...");
+                        $('#conversion-infomation').show();
                     }
 
                 })();
@@ -196,12 +202,15 @@ $( ".convert-btn" ).one( "click", function() {
 function updateProgress(percentage){
     document.getElementById("progress-bar-convert").style.width = (percentage + '%');
     document.getElementById("progress-bar-convert").innerHTML = (percentage + '%');
-    if (percentage === 100) {
-        document.getElementById("progress-bar-convert").style.color = "#EEFFEE";
-        $("#progress-information").html("Do you like it?");
-    }
     if (percentage === 50) {
+        $("#progress-information").html("Applying structure");
+    }
+    if (percentage === 75) {
         $("#progress-information").html("Applying final touches");
+    }
+    if (percentage === 100) {
+        document.getElementById("progress-bar-convert").style.color = "#202020";
+        $("#progress-information").html("Conversion Completed");
     }
 }
 
@@ -231,9 +240,7 @@ function colourCount(redCount, greenCount, blueCount) {
         $("#image-info1").html("Primary Count: Mostly Blue Pixels, Instrument Set: 1");
     }
 
-    //Show the placeholder audio
-    $("#audio_reloader").load();
-    $('#audio_test').show();
+
     return primaryDetected;
 
 }
