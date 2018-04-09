@@ -1,3 +1,13 @@
+:root {
+  --clrRed:   #CD412B; /* Red Highlights*/
+  --clrBack:  #202020; /* Black Background */
+  --clrBox:   #303232; /* Dark Box */
+  --clrTitle: #F6EAE1; /* Whitish Title */
+  --clrText:  #948C87; /* Duller Text*/
+  --clrOut:   #505050; /* Faint Outline*/
+  /* --colour6: #BEEAF8; /* Lighter Blue */ 
+}
+
 element{
     --filterVal: 180;
 }
@@ -8,8 +18,7 @@ h1.profile_title{
   display: inline-block;
   position:relative;
   font: 6em/1.5 'Open Sans', sans-serif;
-
-  color: #373737;
+  color: #F6EAE1;
   font-weight: 800;
   line-height: 1;
   transform: translateY(90px);
@@ -20,7 +29,7 @@ h1.profile_title{
 }
 
 .profile_title span {
-  color: #373737;
+  color: #948C87;
   font-weight: 300;
   margin-left: -7px;
 }
@@ -52,7 +61,7 @@ h1.profile_title{
     -moz-transition:cubic-bezier(.34,.43,0,1.02) 0.5s;
     transition:cubic-bezier(.34,.43,0,1.02) 0.5s;
     box-shadow: 0px 0px 0px 2pt transparent;
-    border: 0px solid #FFF;
+    /* border: 0px solid #FFF; */
     margin: auto;
     cursor: pointer;
     width:120px;
@@ -74,7 +83,7 @@ h1.profile_title{
     border-top-left-radius:20px;
     border-top-right-radius:20px;
     margin-right:auto;
-    background:#191919;
+    background:#303232;
     text-align:center;
     padding:20px 0px 20px 0px;
     -webkit-transition:cubic-bezier(.34,.43,0,1.02) 0.5s;
@@ -105,7 +114,7 @@ h1.profile_title{
     backface-visibility: hidden;
 }
 #profile_profile-description{
-  background:#191919;
+  background:#303232;
   -webkit-border-radius: 2%;
   -moz-border-radius: 2%;
   border-radius: 2%;
@@ -199,7 +208,7 @@ h1.profile_title{
   width: 100%;
   left:45vw;
   line-height: 1.4em;
-  background-color: #141414;
+  background-color: #303232;
   -webkit-transition:background 3s;
   -moz-transition:background 3s;
   -o-transition:background 3s;
@@ -379,6 +388,7 @@ h2.profile_gallery-title{
 }
 .profile_page_container{
     min-width:2000px;
+    height: 100vh;
     position:relative;
     text-align:center;
 }

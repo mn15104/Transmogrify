@@ -8,18 +8,16 @@
 }
 /* Global Colour */
 :root {
-  --inset-color: rgb(193, 195, 199);
-  --colour1: #0C090A; 
-  --colour2: #18121E; 
-  --colour3: #233237; 
-  --colour4: #983b43; 
-  --colour5: #eac67a; 
-  --colour6: #BEEAF8; 
+  --clrRed:   #CD412B; /* Red Highlights*/
+  --clrBack:  #202020; /* Black Background */
+  --clrBox:   #303232; /* Dark Box */
+  --clrTitle: #F6EAE1; /* Whitish Title */
+  --clrText:  #948C87; /* Duller Text*/
+  --clrOut:   #505050; /* Faint Outline*/
+  /* --colour6: #BEEAF8; /* Lighter Blue */ 
 }
 body{
-  background: #ECE9E6;  /* fallback for old browsers */
-  background: -webkit-linear-gradient(to right, #FFFFFF, #ECE9E6);  /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to right, #FFFFFF, #ECE9E6); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background: #202020;  /* fallback for old browsers */
 }  
 .sidepanel_body {
   position:absolute;;
@@ -72,6 +70,7 @@ body{
   transform-style         : preserve-3d;
 }
 .embedded_page-content {
+  background: #202020;
   position: relative;
   z-index: 2;
 }
@@ -100,7 +99,7 @@ body{
   width: 100vw;
   height: 80px;
   min-width:1300px;
-  background-color:#101111;
+  background-color:#202020;
 }
 .sidepanel_menu-items{
   height: 100%;
@@ -148,7 +147,7 @@ h2.sidepanel_menu-link-left{
   float:left;
   left: -7.5%;  /* position the left edge of the element at the middle of the parent */
   font: 600 1.5em/1'Raleway', sans-serif;
-  color: #c5a6a6;
+  color: #CD412B;
   text-align: center;
   text-transform: uppercase;
   letter-spacing: .3em;
@@ -159,7 +158,7 @@ h2.sidepanel_menu-link-mid{
   float:left;
   left: -5%;  /* position the left edge of the element at the middle of the parent */
   font: 600 1.5em/1 'Raleway', sans-serif;
-  color: #c5a6a6;
+  color: #CD412B;
   text-align: center;
   text-transform: uppercase;
   letter-spacing: .3em;
@@ -170,7 +169,7 @@ h2.sidepanel_menu-link-right{
   float:left;
   left: -2.5%; /* position the left edge of the element at the middle of the parent */
   font: 600 1.5em/1 'Raleway', sans-serif;
-  color: #c5a6a6;
+  color: #CD412B;
   text-align: center;
   text-transform: uppercase;
   letter-spacing: .3em;
@@ -180,7 +179,7 @@ h2.sidepanel_menu-link-login{
   position: relative;
   float:left;
   font: 600 1.5em/1 'Raleway', sans-serif;
-  color: #c5a6a6;
+  color: #CD412B;
   text-align: center;
   text-transform: uppercase;
   letter-spacing: .3em;
@@ -192,10 +191,11 @@ h3.sidepanel_title{
   top:-4px;
   left: 40px;
   font: 600 2.0em/1 'Raleway', sans-serif;
-  color: #c5a6a6;
+  color: rgb(133, 31, 16);
   letter-spacing: .3em;
 }
 .sidepanel_title span {
+  color: #CD412B;
   font: 600 1.2em/1 'Raleway', sans-serif;
 }
 
@@ -391,10 +391,11 @@ ul {
 .burger__patty {
   position: relative;
   height: 2.5px;
+  top: 2px;
   width: 60px;
-  background: #c5a6a6;
+  background: #CD412B;
   background: -webkit-gradient(radial, 50% 50%, 0, 50% 50%, 350);
-  box-shadow: 0px 2px 3px rgb(254, 228, 228);
+  box-shadow: 0px 2px 5px rgb(208, 103, 87);
 }
 
 .burger__patty:before {
@@ -403,7 +404,7 @@ ul {
   left: 0;
   height: 2.5px;
   width: 100%;
-  background: #c5a6a6;
+  background: #CD412B;
 }
 .burger__patty, .burger__patty:before{
   -webkit-transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -414,7 +415,7 @@ ul {
   -moz-transition:all 1.2s ease;
   -webkit-transition:all 1.2s ease; 
   -o-transition:all 1.2s ease;
-  background: #ffffff; 
+  background: #CD412B; 
 }
 
 .burger--active  .burger__patty {
@@ -422,7 +423,7 @@ ul {
   width:100px;*/  
    transition: all 1.0s;
   width:100px;      
-  background: rgb(232, 223, 223);
+  background: #CD412B;
 }
 @media (max-width: 640px) {
   .burger {
