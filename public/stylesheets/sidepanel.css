@@ -8,28 +8,31 @@
 }
 /* Global Colour */
 :root {
+  --inset-color: rgb(193, 195, 199);
   --clrRed:   #CD412B; /* Red Highlights*/
   --clrBack:  #202020; /* Black Background */
   --clrBox:   #303232; /* Dark Box */
   --clrTitle: #F6EAE1; /* Whitish Title */
   --clrText:  #948C87; /* Duller Text*/
   --clrOut:   #505050; /* Faint Outline*/
-  /* --colour6: #BEEAF8; /* Lighter Blue */ 
 }
 body{
-  background: #202020;  /* fallback for old browsers */
-}  
+  background: #ECE9E6;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #FFFFFF, #ECE9E6);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #FFFFFF, #ECE9E6); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
 .sidepanel_body {
   position:absolute;;
   width:100%;
   height:100%;
   font: 600 12px/1 'Open Sans', sans-serif;
-  color: rgb(73, 78, 88);
+  color: var(--clrTitle);
   padding-top: 100px;
+  /* background: #333; */
 }
 
 .sidepanel_body h1{
-  color: var(--colour1);
+  color: var(--clrTitle);
   font-family:Georgia,serif;
   text-transform: none; font-weight: 100;
   font-size: 50px;
@@ -69,7 +72,6 @@ body{
   transform-style         : preserve-3d;
 }
 .embedded_page-content {
-  background: #202020;
   position: relative;
   z-index: 2;
 }
@@ -90,25 +92,24 @@ body{
 
 @import url(https://fonts.googleapis.com/css?family=BenchNine:700);
 @import url(https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300);
-.sidepanel_menu{  
+.sidepanel_menu{
   z-index: 1000;
   position: fixed;
   top:0;
   z-index: 1000;
   width: 100vw;
-  height: 100px;
+  height: 80px;
   min-width:1300px;
-  background-color:#202020;
-  border-bottom: 5px solid rgb(199, 71, 52);
+  background-color: var(--clrBack);
 }
 .sidepanel_menu-items{
   height: 100%;
   top: 0;
   position:absolute;
-  color: white;
+  color: var(--clrTitle);
 }
 .sidepanel_menu-item{
-  color: white;
+  color: var(--clrTitle);
   text-align: center;
   right:80%;
 }
@@ -123,14 +124,14 @@ body{
 }
 
 .sidepanel_menu_link{
-  text-decoration: underline;
+  /* text-decoration: underline; */
   text-underline-position: under;
   position:relative;
   transition:all 1s ease;
   -moz-transition:all 1s ease; /* Firefox 4 */
   -webkit-transition:all 1s ease; /* Safari and Chrome */
   -o-transition:all 1s ease;
-  cursor: pointer;  
+  cursor: pointer;
   padding-right:20px;
   padding-top:0.6em;
 }
@@ -139,7 +140,8 @@ body{
   -moz-transition:all 1s ease; /* Firefox 4 */
   -webkit-transition:all 1s ease; /* Safari and Chrome */
   -o-transition:all 1s ease;
-  color: #ffffff; 
+  height: 100px;    /*SORT THIS*/
+  background-color: var(--clrRed);
 }
 
 h2.sidepanel_menu-link-left{
@@ -147,7 +149,7 @@ h2.sidepanel_menu-link-left{
   float:left;
   left: -7.5%;  /* position the left edge of the element at the middle of the parent */
   font: 600 1.5em/1'Raleway', sans-serif;
-  color: #CD412B;
+  color: var(--clrTitle);
   text-align: center;
   text-transform: uppercase;
   letter-spacing: .3em;
@@ -158,7 +160,7 @@ h2.sidepanel_menu-link-mid{
   float:left;
   left: -5%;  /* position the left edge of the element at the middle of the parent */
   font: 600 1.5em/1 'Raleway', sans-serif;
-  color: #CD412B;
+  color: var(--clrTitle);
   text-align: center;
   text-transform: uppercase;
   letter-spacing: .3em;
@@ -169,7 +171,7 @@ h2.sidepanel_menu-link-right{
   float:left;
   left: -2.5%; /* position the left edge of the element at the middle of the parent */
   font: 600 1.5em/1 'Raleway', sans-serif;
-  color: #CD412B;
+  color: var(--clrTitle);
   text-align: center;
   text-transform: uppercase;
   letter-spacing: .3em;
@@ -179,7 +181,7 @@ h2.sidepanel_menu-link-login{
   position: relative;
   float:left;
   font: 600 1.5em/1 'Raleway', sans-serif;
-  color: #CD412B;
+  color: var(--clrTitle);
   text-align: center;
   text-transform: uppercase;
   letter-spacing: .3em;
@@ -191,11 +193,10 @@ h3.sidepanel_title{
   top:-4px;
   left: 40px;
   font: 600 2.0em/1 'Raleway', sans-serif;
-  color: rgb(133, 31, 16);
+  color: var(--clrTitle);
   letter-spacing: .3em;
 }
 .sidepanel_title span {
-  color: #CD412B;
   font: 600 1.2em/1 'Raleway', sans-serif;
 }
 
@@ -204,7 +205,7 @@ h3.sidepanel_title{
   width: 100vw;
   height: 100vh;
   position: absolute;
-  transform: translateZ( -100px ); 
+  transform: translateZ( -100px );
   -webkit-transform-style: preserve-3d;
      -moz-transform-style: preserve-3d;
        -o-transform-style: preserve-3d;
@@ -332,7 +333,7 @@ ul {
 .nav__list--active {
   -webkit-transform: translate(0, 0);
           transform: translate(0, 0);
-          
+
 }
 .nav__item {
   -webkit-box-flex: 1;
@@ -350,7 +351,7 @@ ul {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  
+
   position: absolute;
   height: 100%;
   width: 100%;
@@ -391,11 +392,10 @@ ul {
 .burger__patty {
   position: relative;
   height: 2.5px;
-  top: 2px;
   width: 60px;
-  background: #CD412B;
+  background: #c5a6a6;
   background: -webkit-gradient(radial, 50% 50%, 0, 50% 50%, 350);
-  box-shadow: 0px 2px 5px rgb(208, 103, 87);
+  box-shadow: 0px 2px 3px rgb(254, 228, 228);
 }
 
 .burger__patty:before {
@@ -404,7 +404,7 @@ ul {
   left: 0;
   height: 2.5px;
   width: 100%;
-  background: #CD412B;
+  background: #c5a6a6;
 }
 .burger__patty, .burger__patty:before{
   -webkit-transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -413,17 +413,17 @@ ul {
 .burger--active .burger__patty:before {
   transition:all 1.2s ease;
   -moz-transition:all 1.2s ease;
-  -webkit-transition:all 1.2s ease; 
+  -webkit-transition:all 1.2s ease;
   -o-transition:all 1.2s ease;
-  background: #CD412B; 
+  background: #ffffff;
 }
 
 .burger--active  .burger__patty {
   /* transition: width 2s;
-  width:100px;*/  
+  width:100px;*/
    transition: all 1.0s;
-  width:100px;      
-  background: #CD412B;
+  width:100px;
+  background: rgb(232, 223, 223);
 }
 @media (max-width: 640px) {
   .burger {
@@ -480,7 +480,7 @@ ul {
 }
 .panel p {
   margin: 0 0 25px 0;
-  color: #1a1a1a;
+  color: var(--clrTitle);
   font-size: 24px;
   max-width: 800px;
 }
@@ -556,7 +556,7 @@ ul {
 img.sidepanel_menu-link-login {
   padding:0;
   width:70px;
-  top:-15px; 
+  top:-15px;
   -webkit-border-radius: 50%;
   -moz-border-radius: 50%;
   border-radius: 50%;

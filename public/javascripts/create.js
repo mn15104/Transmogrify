@@ -144,17 +144,17 @@ $( ".convert-btn" ).one( "click", function() {
 
                 //Percentage of completion for progress bar
                 var percentage = 0;
-
-                //Binning the image
-                var noBins = 64;
-                var pixBin[noBins]; //= new Array[noBins];
-                var pixInfo = [0.0,0.0,2.0,0.0];
-                window.alert(pixInfo[0]);
-                for (var b = 0; b < noBins; b++) {
-                    pixBin[b] = pixInfo;
-                }
-
-                window.alert(pixBin[3][2]);
+                // 
+                // //Binning the image
+                // var noBins = 64;
+                // var pixBin[noBins]; //= new Array[noBins];
+                // var pixInfo = [0.0,0.0,2.0,0.0];
+                // window.alert(pixInfo[0]);
+                // for (var b = 0; b < noBins; b++) {
+                //     pixBin[b] = pixInfo;
+                // }
+                //
+                // window.alert(pixBin[3][2]);
 
                 //For now we will scale ALL large images down to 200x200
                 var i = 0;
