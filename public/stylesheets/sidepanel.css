@@ -29,7 +29,7 @@ body{
   font: 600 12px/1 'Open Sans', sans-serif;
   color: var(--clrTitle);
   padding-top: 100px;
-  /* background: #333; */
+  background: var(--clrBack);
 }
 
 .sidepanel_body h1{
@@ -53,7 +53,9 @@ body{
   padding-left:50px;
 }
 .embedded_container {
+  background: var(--clrBack);
   width: 100%;
+  height: 100%;
   margin:auto;
   position: relative;
   z-index: 2;
@@ -93,6 +95,7 @@ body{
   height: 80px;
   min-width:1300px;
   background-color: var(--clrBack);
+  overflow: hidden;
 }
 .sidepanel_menu-items{
   height: 100%;
@@ -107,12 +110,12 @@ body{
 }
 .sidepanel_menu-text{
   position: absolute;
-  text-align:center;
+  /* text-align:center; */
+  width: 600px;
   height:100%;
   right: 0;
-  padding-top:20px;
-  padding-right:20px;
-  display:inline-block;
+  padding-right:0px;
+  /* display:inline-block; */
 }
 
 .sidepanel_menu_link{
@@ -124,22 +127,23 @@ body{
   -webkit-transition:all 1s ease; /* Safari and Chrome */
   -o-transition:all 1s ease;
   cursor: pointer;
-  padding-right:20px;
-  padding-top:0.6em;
+  margin: 0;
+  height: 100%;
+  margin-left:20px;
+  padding-top:50px;
 }
 .sidepanel_menu_link.active{
   transition:all 1s ease;
   -moz-transition:all 1s ease; /* Firefox 4 */
   -webkit-transition:all 1s ease; /* Safari and Chrome */
   -o-transition:all 1s ease;
-  height: 100px;    /*SORT THIS*/
   background-color: var(--clrRed);
 }
 
 h2.sidepanel_menu-link-left{
   position: relative;
   float:left;
-  left: -7.5%;  /* position the left edge of the element at the middle of the parent */
+  left: -5%;  /* position the left edge of the element at the middle of the parent */
   font: 600 1.5em/1'Raleway', sans-serif;
   color: var(--clrTitle);
   text-align: center;
@@ -150,7 +154,7 @@ h2.sidepanel_menu-link-left{
 h2.sidepanel_menu-link-mid{
   position: relative;
   float:left;
-  left: -5%;  /* position the left edge of the element at the middle of the parent */
+  left: -3%;  /* position the left edge of the element at the middle of the parent */
   font: 600 1.5em/1 'Raleway', sans-serif;
   color: var(--clrTitle);
   text-align: center;
@@ -161,7 +165,7 @@ h2.sidepanel_menu-link-mid{
 h2.sidepanel_menu-link-right{
   position: relative;
   float:left;
-  left: -2.5%; /* position the left edge of the element at the middle of the parent */
+  left: -1%; /* position the left edge of the element at the middle of the parent */
   font: 600 1.5em/1 'Raleway', sans-serif;
   color: var(--clrTitle);
   text-align: center;
@@ -172,6 +176,7 @@ h2.sidepanel_menu-link-right{
 h2.sidepanel_menu-link-login{
   position: relative;
   float:left;
+  left:1%;
   font: 600 1.5em/1 'Raleway', sans-serif;
   color: var(--clrTitle);
   text-align: center;
