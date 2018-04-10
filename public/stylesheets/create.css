@@ -8,7 +8,7 @@
   --clrOut:   #505050; /* Faint Outline*/
 <<<<<<< HEAD
 =======
-  /* --colour6: #BEEAF8; /* Lighter Blue */ 
+  /* --colour6: #BEEAF8; /* Lighter Blue */
 >>>>>>> 814923e5138314742d7f87b7875d519047d943e0
 }
 
@@ -122,7 +122,8 @@ body {
 
 .home_container{
     min-width: 100px;
-    padding-top: 1.8vh;
+    padding-top: 10.8vh;
+    padding-bottom: 10.8vh;
     height: 100%;
     width: 100%;
 }
@@ -173,8 +174,8 @@ body {
 }
 
 #image_test{
-    padding-top:2%;
-    padding-bottom:2%;
+    padding-top:15%;
+    padding-bottom:15%;
     padding-left:2%;
     padding-right:2%;
     /* vertical-align: middle; */
