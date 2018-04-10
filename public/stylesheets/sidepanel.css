@@ -209,8 +209,8 @@ h2.sidepanel_menu-link-login{
 h3.sidepanel_title{
   position: relative;
   font: 600 1.8em/1 'Raleway', sans-serif;
-  /* margin-top: 5px;
-  margin-bottom: 5px; */
+  margin-top: 15px;
+  /* margin-bottom: 15%; */
   float:left;
   left: 40px;
   color: var(--clrText);

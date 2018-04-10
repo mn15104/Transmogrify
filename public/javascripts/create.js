@@ -144,17 +144,28 @@ $( ".convert-btn" ).one( "click", function() {
 
                 //Percentage of completion for progress bar
                 var percentage = 0;
-                // 
-                // //Binning the image
-                // var noBins = 64;
-                // var pixBin[noBins]; //= new Array[noBins];
-                // var pixInfo = [0.0,0.0,2.0,0.0];
-                // window.alert(pixInfo[0]);
-                // for (var b = 0; b < noBins; b++) {
-                //     pixBin[b] = pixInfo;
-                // }
-                //
-                // window.alert(pixBin[3][2]);
+
+                //Binning the image
+                var xBins = 8;
+                var yBins = 8;
+                var noBins = xBins * yBins;
+                var xInterval = imWidth/xBins;
+                var yInterval = imHeight/yBins;
+
+                var pixBin = new Array(noBins);
+                var pixInfo = [0.0, 0.0, 0.0, 0.0]; //(Red, Green, Blue, noPixels)
+                var pixInfo2 = [1.0, 1.0, 1.0, 1.0]; //(Red, Green, Blue, noPixels)
+                for (var b = 0; b < noBins; b++) {
+                    pixBin[b] = pixInfo;
+                    if(b === 1) pixBin[b] = pixInfo2;
+                }
+                console.log(" -- - - - -- - -  -pixBin[0][1] = " + pixBin[0][1]);
+                console.log(" -- - - - -- - -  -pixBin[1][1] = " + pixBin[1][1]);
+                console.log(" -- - - - -- - -  -pixBin[2][1] = " + pixBin[2][1]);
+
+                var curBin = 0;
+
+
 
                 //For now we will scale ALL large images down to 200x200
                 var i = 0;
@@ -165,6 +176,9 @@ $( ".convert-btn" ).one( "click", function() {
 
                     // Go through each pixel
                     for (var j = 0; j < imHeight; j++) {
+
+                        curBin = findCurrentBin(i, j, xBins, yBins, xInterval, yInterval);
+
                         if (imageScaled) {
                             pixelData = smallCanvas.getContext('2d').getImageData(i, j, imWidth, imHeight).data;
                         }
@@ -172,14 +186,25 @@ $( ".convert-btn" ).one( "click", function() {
                             pixelData = canvas.getContext('2d').getImageData(i, j, imWidth, imHeight).data;
                         }
 
-                        //Information about pixels
+                        //Primary Pixel Information
                         if ( (pixelData[0] >= pixelData[1]) && (pixelData[0] >= pixelData[2]) ) redCount += 1;
                         if ( (pixelData[1] >= pixelData[0]) && (pixelData[1] >= pixelData[2]) ) greenCount += 1;
                         if ( (pixelData[2] >= pixelData[0]) && (pixelData[2] >= pixelData[1]) ) blueCount += 1;
-                        redSum += pixelData[0];
+
+                        //Seconary Pixel Information
+                        redSum   += pixelData[0];
                         greenSum += pixelData[1];
-                        blueSum += pixelData[2];
+                        blueSum  += pixelData[2];
                         pixelSum += 1;
+
+                        //Binned Pixel Information
+                        console.log("OOOOOOOOO curBin = " + curBin);
+                        pixBin[curBin][0] += pixelData[0];
+                        pixBin[curBin][1] += pixelData[1];
+                        pixBin[curBin][2] += pixelData[2];
+                        pixBin[curBin][3] += 1;
+                        console.log("pixBin[" + curBin + "] = (" + pixBin[curBin][0] + "," + pixBin[curBin][1] + "," + pixBin[curBin][2] + "," + pixBin[curBin][3] + ")");
+
                     }
 
                     //Update progress bar and reenter loop if conditions fulfilled
@@ -194,6 +219,8 @@ $( ".convert-btn" ).one( "click", function() {
                     else {
                         var primaryDetected = colourCount(redCount, greenCount, blueCount);
                         var colourDetected = colourAverage(redSum,blueSum,greenSum,pixelSum);
+                        colourBinned(pixBin, xBins, yBins);
+
                         audioTester(primaryDetected, colourDetected);
                         updateProgress(100);
 
@@ -248,7 +275,7 @@ function colourCount(redCount, greenCount, blueCount) {
         // var blueSrc = "http://packs.shtooka.net/eng-wcp-us/ogg/En-us-blue.ogg";
         // $("#audio1").attr("src", blueSrc);
         primaryDetected = 3;
-        $("#image-info1").html("Primary Count: Mostly Blue Pixels, Instrument Set: 1");
+        $("#image-info1").html("Primary Count: Mostly Blue Pixels, Instrument Set: 3");
     }
 
 
@@ -336,6 +363,37 @@ function colourAverage(redSum,blueSum,greenSum,pixelSum) {
     //Set new audio
     $("#audio1").attr("src", colourSrc);
     return colourDetected;
+}
+
+function findCurrentBin(i, j, xBins, yBins, xInterval, yInterval) {
+
+    var xPoint = Math.floor((i) / xInterval);
+    // console.log("i = " + i + ". interval = " + xInterval + ". xPoint = " + xPoint);
+    var yPoint = Math.floor((j) / yInterval);
+    // console.log("yPoint = " + yPoint);
+
+    var current = (xPoint*yBins)+yPoint;
+    // console.log("Pixels(" + i + "," + j + ") = " + current);
+    return current;
+}
+
+function colourBinned(sumPixel, xBins, yBins) {
+/* - Ordering of Bins - */
+/*  - 1- -5- - 9- -13-  */
+/*  - 2- -6- -10- -14-  */
+/*  - 3- -7- -11- -15-  */
+/*  - 4- -8- -12- -16-  */
+    var avPixel = sumPixel;
+    for (var i = 0; i < (xBins*yBins); i++) {
+        avPixel[i][0] = Math.floor(sumPixel[i][0]/sumPixel[i][3]);
+        avPixel[i][1] = Math.floor(sumPixel[i][1]/sumPixel[i][3]);
+        avPixel[i][2] = Math.floor(sumPixel[i][2]/sumPixel[i][3]);
+        console.log("-----------");
+        console.log("avPixel[" + i + "] = (" + avPixel[i][0] + "," + avPixel[i][1] + "," + avPixel[i][2] + ")");
+        console.log("sumPixel[" + i + "] = (" + sumPixel[i][0] + "," + sumPixel[i][1] + "," + sumPixel[i][2] + "," + sumPixel[i][3] + ")");
+        console.log("-----------");
+    }
+
 }
 
 //Cheeky global
