@@ -615,6 +615,13 @@ img.sidepanel_menu-link-login {
   border: 2px solid black;
   background: #292523;
 }
+.friends-list_title_cell {
+  margin-top: 2px;
+  position:relative;
+  width: 300px;
+  border: 2px solid black;
+  background: #292523;
+}
 h4.friends-list_name{
   font-size: 16px;
   left:0;

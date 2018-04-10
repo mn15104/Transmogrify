@@ -90,7 +90,6 @@ var submitAccount = function(){
             dataType: "json",
             data: {firstname:firstname, surname:surname, email:email, password:pass},
             success: function(data){
-                console.log(data);
                 console.log("OK!");
                 return true;
             },
@@ -105,18 +104,19 @@ var submitAccount = function(){
 var submitLogin = function(){
     var email = $('#login_email').val();
     var pass = $('#login_pass').val();
-    console.log(email + pass);
     var form = {email:email, password:pass};
     // var data_str = JSON.stringify(form);
     $.ajax({
         url: '/login/submit_login',
         type: 'POST',
-        dataType: "json",
         data: {email:email, password:pass},
         success: function(data){
+            console.log("OK!");
+            location.href="http://localhost:3000/";
             return true;
         },
         error: function(xhr, ajaxOptions, thrownError){
+            console.log("ERROR!");
             return false;
         }
     });

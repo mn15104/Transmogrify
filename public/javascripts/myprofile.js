@@ -23,9 +23,11 @@ var init = function(){
         $('.PopUp').css('margin-top', '20px');
     });
 
-    $('.profile_img').click(function() {
-        toggleProfileImg();
-        
+    $('.profile_img').one('click', function() {
+        flipProfileImg();
+    });
+    $('.flip-profile-icon').click(function() {
+        flipProfileCard();
     });
     $('.profile_img').mouseleave(function() {
         $('.PopUp').css('opacity', '0');
@@ -38,32 +40,30 @@ var init = function(){
         sendMessage();
     })
 }
-var toggleProfileImg = function(){
+
+var flipProfileImg = function(){
+    $("#profile_card").toggleClass("flipped");
+    $(".profile_card").css({"margin-right":"2000px"}).animate({"left":"400px"}, {duration:1100});
+    $('.profile_title').removeClass('profile_title_middle').addClass('profile_title_active');
+    $(".profile_card").css({"margin-right":"2000px"}).animate({"top":"-110px"}, {duration:1100, complete:function(){
+        $('#profile_profile-description').slideDown(600,false, function(){
+            $(".profile_gallery-wrapper").fadeIn('slow');
+        });
+    }});
+    $("#sidebar-horizontal").fadeIn("slow");
+}
+
+var flipProfileCard = function(){
     if(!$('#profile_card').hasClass('flipped')){
         $("#profile_card").toggleClass("flipped");
         $('#profile_profile-public').animate({opacity: 0}, {duration: 650, queue: false});
         $('.profile_profile-settings').animate({opacity: 1}, {duration: 700, queue: false});
     }
     else{     
-        if(page_init){
-            $("#profile_card").toggleClass("flipped");
-            $('.profile_profile-settings').animate({opacity: 0}, {duration: 500, queue: false});
-            $('#profile_profile-public').animate({opacity: 1}, {duration: 700, queue: false});
-        }
-        else{
-            $("#profile_card").toggleClass("flipped");
-            $(".profile_card").css({"margin-right":"2000px"}).animate({"left":"400px"}, {duration:1100});
-            $('.profile_title').removeClass('profile_title_middle').addClass('profile_title_active');
-            $(".profile_card").css({"margin-right":"2000px"}).animate({"top":"-110px"}, {duration:1100, complete:function(){
-                $('#profile_profile-description').slideDown(600,false, function(){
-                    $(".profile_gallery-wrapper").fadeIn('slow');
-                });
-            }});
-            $("#sidebar-horizontal").fadeIn("slow");
-        }
+        $("#profile_card").toggleClass("flipped");
+        $('.profile_profile-settings').animate({opacity: 0}, {duration: 500, queue: false});
+        $('#profile_profile-public').animate({opacity: 1}, {duration: 700, queue: false});
     }
-    
-    if(!page_init)page_init=true;
 }
 
 var toggleChatbox = function(){
