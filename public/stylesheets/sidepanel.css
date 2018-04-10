@@ -94,7 +94,7 @@ body{
   top:0;
   z-index: 1000;
   width: 100vw;
-  height: 52px;
+  height: 60px;
   min-width:1300px;
   background-color: var(--clrBack);
   overflow: hidden;
@@ -160,18 +160,19 @@ h2.sidepanel_menu-link-left{
   position: relative;
   font: 600 1.5em/1'Raleway', sans-serif;
   /* float:left; */
-  /* right: -5%;  /* position the left edge of the element at the middle of the parent */ */
+  /* right: -5%;  /* position the left edge of the element at the middle of the parent */ 
   /* color: var(--clrTitle); */
   text-align: center;
   /* text-transform: uppercase; */
-  letter-spacing: .3em;
+  
+  letter-spacing: 0.3em;
 }
 
 h2.sidepanel_menu-link-mid{
   position: relative;
   font: 600 1.5em/1 'Raleway', sans-serif;
   /* float:right; */
-  /* left: -3%;  /* position the left edge of the element at the middle of the parent */ */
+  /* left: -3%;  /* position the left edge of the element at the middle of the parent */ 
   /* color: var(--clrTitle); */
   text-align: center;
   /* text-transform: uppercase; */
@@ -182,7 +183,7 @@ h2.sidepanel_menu-link-right{
   position: relative;
   font: 600 1.5em/1 'Raleway', sans-serif;
   /* float:right; */
-  /* left: -1%; /* position the left edge of the element at the middle of the parent */ */
+  /* left: -1%; /* position the left edge of the element at the middle of the parent */ 
   /* color: var(--clrTitle); */
   text-align: center;
   /* text-transform: uppercase; */
@@ -201,9 +202,10 @@ h2.sidepanel_menu-link-login{
 }
 .bar-split {
     width: 100%;
-    /* transform: translateY(-50%); */
-    height: 30px;
+    /* margin: */
+    height: 18px;
     background-color: var(--clrRed);
+    overflow: hidden;
 }
 
 h3.sidepanel_title{
@@ -338,8 +340,8 @@ ul {
 .nav {
   position: fixed;
   z-index: 1;
-  top: 52px;
-  left: 47px;
+  top: 45px;
+  left: 0;
   width: 100px;
   -webkit-backface-visibility: hidden;
           backface-visibility: hidden;
@@ -402,7 +404,8 @@ ul {
 }
 
 .burger {
-  height: 30px;
+  height: 40px;
+  width: 300px;
   position: relative;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -415,57 +418,54 @@ ul {
           align-items: center;
   z-index: 2;
   cursor: pointer;
-  -webkit-transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  -webkit-transition: all 1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transition: all 1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 .burger__patty {
-  position: relative;
-  height: 12.5px;
-  width: 60px;
+  transition: all 1.0s;
+  position: absolute;
+  left: 0;
+  height: 12px;
+  width: 270px;
   background-color: var(--clrBox);
-  /* background: -webkit-gradient(radial, 50% 50%, 0, 50% 50%, 350); */
-  /* box-shadow: 0px 2px 3px rgb(192, 141, 118); */
 }
 
 .burger__patty:before {
+  transition: all 1.0s;
   content: "";
   position: absolute;
   left: 0;
-  height: 2.5px;
-  width: 100%;
+  height: 100%;
+  width: 270px;
   background: var(--clrBox);
 }
 .burger__patty, .burger__patty:before{
-  -webkit-transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  -webkit-transition: all 1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transition: all 1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 .burger--active .burger__patty:before {
-  transition:all 1.2s ease;
-  -moz-transition:all 1.2s ease;
-  -webkit-transition:all 1.2s ease;
-  -o-transition:all 1.2s ease;
+  transition:all 1s;
   background: var(--clrTitle);
 }
 
 .burger--active  .burger__patty {
-  /* transition: width 2s;
-  width:100px;*/
-   transition: all 1.0s;
-  width:100px;
+  transition: all 1.0s;
+  left: 0;
+  width:100vw;
   background: var(--clrTitle);
 }
 @media (max-width: 640px) {
-  .burger {
+  /* .burger {
     height: 10vh;
-  }
+  } */
   .burger__patty {
-    -webkit-transform: scale(0.8);
-            transform: scale(0.8);
+    -webkit-transform: scale(1.0);
+            transform: scale(1.0);
   }
-  .burger--active .burger__patty {
-    -webkit-transform: scale(0.8) scaleY(1.2) rotate(90deg);
-            transform: scale(0.8) scaleY(1.2) rotate(90deg);
-  }
+  /* .burger--active .burger__patty {
+    -webkit-transform: scale(2.0) scaleY(1.0) rotate(90deg);
+            transform: scale(2.0) scaleY(1.0) rotate(90deg);
+  } */
 }
 
 .panel {
