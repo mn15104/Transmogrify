@@ -19,31 +19,20 @@ let db = new sqlite3.Database('./Dev.db', sqlite3.OPEN_CREATE | sqlite3.OPEN_REA
     }
     console.log('Connected to the Login db.');
 });
-
-db.run(`CREATE TABLE IF NOT EXISTS USER_LOGIN       (firstname VARCHAR(255), 
-                                                     surname VARCHAR(10), 
-                                                     email VARCHAR(255), 
-                                                     user_id INT (100),
-                                                     password VARCHAR(255),
-                                                     PRIMARY KEY(user_id))`, (err) => {
-    if (err) {
-        console.error(err.message);
-    }
-    else {
-        console.log("Table ready");
-    }
-});
-
 // **************************************************************************************************** //
 
 Login.loginRequest = function(req, res){
-    db.get("SELECT (email) FROM USER_LOGIN WHERE email='"+  req.body.email  + "'", function(err, row){
+    db.get("SELECT * FROM USER_LOGIN WHERE email='"+  req.body.email  + "'", function(err, row){
         if (err) throw err;
         if (!IS_NULL(row)){
-            db.get("SELECT (password) FROM USER_LOGIN WHERE password='"+req.body.password+"'" , function(err, row){
+            var user_id = row.user_id;
+            db.get("SELECT (password) AS password FROM USER_LOGIN WHERE password='"+req.body.password+"'" , function(err, row){
                 if(err) throw err;
-                if (!IS_NULL(row)){
+                if (!IS_NULL(row.password)){
                     req.session.user_id = user_id;
+                    res.status(200).send({ 
+                        message: "Successful login" 
+                    });
                 }
                 else{
                     res.status(400).send({
@@ -61,27 +50,29 @@ Login.loginRequest = function(req, res){
 };
 
 Login.accountRequest = function(req, res){
-    console.log(req.body);
-        db.get("SELECT (email) FROM USER_LOGIN WHERE email='"+req.body.email+"'" , function(err, row){
-            if(err) throw err;
-            if (IS_NULL(row)){
-                db.all("SELECT MAX (user_id) FROM USER_LOGIN", function(err, row){
-                    if(err) throw err;
-                    var user_id = 0;
-                    if(!IS_NULL(row)){
-                        user_id = parseInt(row) + 1;
-                    }
-                })
-            }
-            else {
-                res.status(400).send({
-                    message: 'Email Address Exists'
-                });
-            }
-        });
+    db.get("SELECT (email) FROM USER_LOGIN WHERE email='"+req.body.email+"'" , function(err, row){
+        if(err) throw err;
+        if (IS_NULL(row)){
+            db.all("SELECT COALESCE(MAX(user_id),0) AS max_user_id FROM USER_LOGIN", function(err, row){
+                if(err) throw err;
+                if(!IS_NULL(row.max_user_id)){
+                    user_id = parseInt(row.max_user_id) + 1;
+                    insertAccount(req, res, user_id);
+                }
+                else{
+                    insertAccount(req, res, 0);
+                }
+            })
+        }
+        else {
+            res.status(400).send({
+                message: 'Email Address Exists'
+            });
+        }
+    });
 };
 
-insertAccount = function(req, res){
+insertAccount = function(req, res, user_id){
     db.get("INSERT INTO USER_LOGIN (firstname, surname, email, user_id,password) VALUES ('" + 
     req.body.firstname + "','" + req.body.surname + "','" + req.body.email + "','" + user_id + "','" + req.body.password + "')", function(err, row){
         if(err) throw err;

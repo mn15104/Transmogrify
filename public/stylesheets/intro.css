@@ -25,15 +25,17 @@ body{
 }
 
 .left_half{
-    position: relative;
+    position: absolute;
     float: left;
+    left: -50%;
     height: 100%;
-    width: 50%;
+    width: 100%;
     background: #202020;
 }
 .right_half{
-    position: relative;
+    position: absolute;
     float: right;
+    left: 50%;
     height: 100%;
     width: 50%;
 }
@@ -100,7 +102,7 @@ h1.title{
 }
 .triangle-left { 
     position:absolute;
-    left:10%;
+    right:40%;
     top:40%;
 	width: 0;
 	height: 0;

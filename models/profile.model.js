@@ -23,47 +23,6 @@ let db = new sqlite3.Database('./Dev.db', sqlite3.OPEN_CREATE | sqlite3.OPEN_REA
     console.log('Connected to Profile DB.');
 });
 
-db.run(`CREATE TABLE IF NOT EXISTS USER_PROFILE       ( firstname VARCHAR(255), 
-                                                        surname VARCHAR(10), 
-                                                        email VARCHAR(255), 
-                                                        user_id INT (100),
-                                                        occupation VARCHAR(255),
-                                                        description VARCHAR(255),
-                                                        PRIMARY KEY(user_id))`, (err) => {
-    if (err) {
-        console.error(err.message);
-    }
-    else {
-        console.log("Table ready");
-    }
-});
-
-db.run(`CREATE TABLE IF NOT EXISTS USER_CHATHISTORY      (  user_idA INT (100), 
-                                                            user_idB INT (100), 
-                                                            message     VARCHAR(555), 
-                                                            date        datetime
-                                                            id          INT (100),
-                                                            UNIQUE(user_idA, user_idB))`, (err) => {
-    if (err) {
-        console.error(err.message);
-    }
-    else {
-        console.log("Table ready");
-    }
-});
-
-db.run(`CREATE TABLE IF NOT EXISTS USER_FRIENDS          (  user_idA INT (100), 
-                                                            user_idB INT (100),
-                                                            id          INT (100),
-                                                            UNIQUE(user_idA, user_idB))`, (err) => {
-    if (err) {
-        console.error(err.message);
-    }
-    else {
-        console.log("Table ready");
-    }
-});
-
 // **************************************************************************************************** //
 
 Profile.loadProfile = function(req, res){

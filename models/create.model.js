@@ -22,39 +22,6 @@ let db = new sqlite3.Database('./Dev.db', sqlite3.OPEN_CREATE | sqlite3.OPEN_REA
     }
     console.log('Connected to the Home file db.');
 });
-
-db.run(`CREATE TABLE IF NOT EXISTS IMAGE_UPLOADS    (file_name VARCHAR(255), 
-                                                     file_size VARCHAR(10), 
-                                                     file_upload_date VARCHAR(255), 
-                                                     file_id INT (100),
-                                                     partner_id INT(100),
-                                                     user_id VARCHAR(255),
-                                                     FOREIGN KEY(partner_id) REFERENCES CREATE_audio_files(file_id),
-                                                     PRIMARY KEY(file_id))`, (err) => {
-    if (err) {
-        console.error(err.message);
-    }
-    else {
-        console.log("Table ready");
-    }
-});
-
-db.run(`CREATE TABLE IF NOT EXISTS AUDIO_UPLOADS    (file_name VARCHAR(255), 
-                                                     file_size VARCHAR(10), 
-                                                     file_upload_date VARCHAR(255), 
-                                                     file_id INT (100),
-                                                     partner_id INT(100),
-                                                     user_id VARCHAR(255),
-                                                     FOREIGN KEY(partner_id) REFERENCES CREATE_image_files(file_id),
-                                                     PRIMARY KEY(file_id))`, (err) => {
-    if (err) {
-        console.error(err.message);
-    }
-    else {
-        console.log("Table ready");
-    }
-});
-
 // **************************************************************************************************** //
 
 insertAudioToDB = function(file_name, file_size, file_upload_date, file_id, user_id){

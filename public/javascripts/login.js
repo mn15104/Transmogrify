@@ -2,6 +2,7 @@
 function docReady(){
 "use strict";
 
+
     /*==================================================================
     [ Validate ]*/
     var input = $('.login_validate-input .login_input');
@@ -14,18 +15,18 @@ function docReady(){
                     box.addClassName( panelClassName );
                 };
 
-    $('.login_site').hide();
-    $('#email_container').hide();
-    $('#password_container').hide();
-    $("#login_button_container").hide();
-    $('#login_title').hide();
-    $('#login_facebook_container').hide();
-    $('.login_site').fadeIn(1300);
-    $('#login_title').show("slide", { direction: "up" },1000, {duration:"slow", easing:'ease-in'});
-    $('#login_facebook_container').show("slide", { direction: "up" },1000, {duration:"slow",easing:'ease-in'});
-    $('#email_container').show("slide", { direction: "left" }, 1000, {duration:"slow", easing:'ease-in'});
-    $('#password_container').show("slide", { direction: "right" },1000,  {duration:"slow", easing:'ease-in'});
-    $("#login_button_container").show("slide", { direction: "down" },1000,  {duration:"slow", easing:'ease-in'});
+    // $('.login_site').hide();
+    // $('#email_container').hide();
+    // $('#password_container').hide();
+    // $("#login_button_container").hide();
+    // $('#login_title').hide();
+    // $('#login_facebook_container').hide();
+    // $('.login_site').fadeIn(1300);
+    // $('#login_title').show("slide", { direction: "up" },1000, {duration:"slow", easing:'ease-in'});
+    // $('#login_facebook_container').show("slide", { direction: "up" },1000, {duration:"slow",easing:'ease-in'});
+    // $('#email_container').show("slide", { direction: "left" }, 1000, {duration:"slow", easing:'ease-in'});
+    // $('#password_container').show("slide", { direction: "right" },1000,  {duration:"slow", easing:'ease-in'});
+    // $("#login_button_container").show("slide", { direction: "down" },1000,  {duration:"slow", easing:'ease-in'});
 
     $('#login_arrow').hover(
         function(){
@@ -90,7 +91,6 @@ var submitAccount = function(){
             dataType: "json",
             data: {firstname:firstname, surname:surname, email:email, password:pass},
             success: function(data){
-                console.log(data);
                 console.log("OK!");
                 return true;
             },
@@ -105,18 +105,19 @@ var submitAccount = function(){
 var submitLogin = function(){
     var email = $('#login_email').val();
     var pass = $('#login_pass').val();
-    console.log(email + pass);
     var form = {email:email, password:pass};
     // var data_str = JSON.stringify(form);
     $.ajax({
         url: '/login/submit_login',
         type: 'POST',
-        dataType: "json",
         data: {email:email, password:pass},
         success: function(data){
+            console.log("OK!");
+            location.href="http://localhost:3000/";
             return true;
         },
         error: function(xhr, ajaxOptions, thrownError){
+            console.log("ERROR!");
             return false;
         }
     });

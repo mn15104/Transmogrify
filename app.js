@@ -42,7 +42,9 @@ app.use(function(req, res, next){
   }));
   next();
 });
-var Sidepanel = require('./models/sidepanel.model');
+
+var SQL_MODEL = require('./models/sql.model');
+SQL_MODEL.init();
 var create_route = require('./routes/create.route');
 var explore_route = require('./routes/explore.route');
 var profile_route = require('./routes/profile.route');
