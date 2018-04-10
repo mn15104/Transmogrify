@@ -8,8 +8,11 @@
   /* --colour6: #BEEAF8; /* Lighter Blue */ 
 }
 .profile_body{
+  all:initial;
+
   background:var(--clrBack);
 }
+
 element{
     --filterVal: 180;
 }
@@ -79,6 +82,8 @@ h1.profile_title{
     -moz-border-radius: 50%;
     border-radius: 50%;
     display: inline-block;
+    position: relative;
+    width:100%;
 }
 .profile_clickprofile{
     margin-left:auto;
@@ -123,6 +128,7 @@ h1.profile_title{
   display: inline-block;
   padding-top:200px;
   position:relative;
+  width: 100%;
 }
 .profile_container { 
     width:200px;
@@ -393,6 +399,48 @@ h2.profile_gallery-title{
     bottom:0;
     right:0;
     margin:auto;
+}
+
+h5.profile_profile-settings-type{
+  color: rgb(218, 161, 4);
+  text-align:left;
+  left: 0;
+  font-size:16px;
+}
+
+h5.profile_profile-settings-value{
+  color: rgb(235, 229, 209);
+  text-align:left;
+  left: 0;
+  font-size:15px;
+}
+
+h5.profile_profile-settings-edit{
+  width:100%;
+  color: rgb(218, 161, 4);
+  text-align:left;
+  left: 0;
+  font-size:15px;
+}
+.profile_profile-settings-edit:hover{
+  transition:1s;
+  cursor: pointer;
+  color:rgb(216, 214, 207);
+  background-color:rgb(84, 84, 84);
+}
+
+.profile_profile-settings{
+  width: 100%;
+  position:absolute;
+  left: 0;
+  background:var(--clrBox);
+}
+.profile_profile-public{
+  width: 100%;
+  position:absolute;
+  left: 0;
+  background:var(--clrBox);
+  padding-bottom:30px;
 }
 /* //////////////////////////////////////////////////////// */
 
@@ -804,7 +852,7 @@ h2.profile_gallery-title{
   margin: 0;
   padding: 0;
   right : 0;
-  top: 2px;
+  bottom: 2px;
 
   min-width:14px;
   height:25px;

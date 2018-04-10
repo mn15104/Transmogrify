@@ -1,5 +1,7 @@
 
+var page_init = false;
 var init = function(){
+    $('.profile_profile-settings').css('opacity',0);
     $('.chat_container').hide();
     $('.profile_title_container').slideDown('slow');
     $('#profile_card').css({'background':'none'});
@@ -36,27 +38,32 @@ var init = function(){
         sendMessage();
     })
 }
-
 var toggleProfileImg = function(){
-    $("#profile_card").toggleClass("flipped", function(){
-        if($('#profile_card').hasClass('flipped')){
-            $('#profile_profile-description').animate({opacity: 0}, {duration: 800});
+    if(!$('#profile_card').hasClass('flipped')){
+        $("#profile_card").toggleClass("flipped");
+        $('#profile_profile-public').animate({opacity: 0}, {duration: 650, queue: false});
+        $('.profile_profile-settings').animate({opacity: 1}, {duration: 700, queue: false});
+    }
+    else{     
+        if(page_init){
+            $("#profile_card").toggleClass("flipped");
+            $('.profile_profile-settings').animate({opacity: 0}, {duration: 500, queue: false});
+            $('#profile_profile-public').animate({opacity: 1}, {duration: 700, queue: false});
         }
-        else{     
-            $('#profile_profile-description').animate({opacity: 1}, {duration: 800});
+        else{
+            $("#profile_card").toggleClass("flipped");
             $(".profile_card").css({"margin-right":"2000px"}).animate({"left":"400px"}, {duration:1100});
             $('.profile_title').removeClass('profile_title_middle').addClass('profile_title_active');
-            $(".profile_card").css({"margin-right":"2000px"}).animate({"top":"-100px"}, {duration:1100});
-            $('#profile_profile-description').slideDown(600, function(){
-                $(".profile_gallery-wrapper").fadeIn('slow');
-            });
-
+            $(".profile_card").css({"margin-right":"2000px"}).animate({"top":"-110px"}, {duration:1100, complete:function(){
+                $('#profile_profile-description').slideDown(600,false, function(){
+                    $(".profile_gallery-wrapper").fadeIn('slow');
+                });
+            }});
+            $("#sidebar-horizontal").fadeIn("slow");
         }
-
-
-    });
-    $("#sidebar-horizontal").fadeIn("slow");
-    var margin = "-2000px";
+    }
+    
+    if(!page_init)page_init=true;
 }
 
 var toggleChatbox = function(){

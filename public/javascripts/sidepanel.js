@@ -55,6 +55,7 @@ var burger = $('.burger');
 var panel = $('.panel');
   
 var openMenu = function() {
+  $('.sidepanel_title').toggleClass('title--nav_active');
   burger.toggleClass('burger--active');
   menu.toggleClass('nav__list--active');
 };
