@@ -10,9 +10,11 @@ function init(name){
     if(name!='<%= name %>'){
       var imagesrc = getProfilePicture(name);
     }
-    toggleNav();
+    $('.sidepanel_body').fadeOut({duration:0, complete:function(){
+      $('.sidepanel_body').fadeIn({duration: 2000});
+    }});
+    
     initNavLinks();
-   
     burger.click(function(){
       openSideNav();
     });
@@ -92,6 +94,7 @@ var changeurl = function(url)
 }
 
 var initNavLinks = function(){
+  toggleNav();
   $('.sidepanel_menu_link').click(function(){
     $('.sidepanel_menu_link.active').removeClass("active");
     $(this).addClass('active');
@@ -103,7 +106,6 @@ var initNavLinks = function(){
       changeurl('myprofile');
       $('#page_1').fadeIn('slow');
     });
-
   })
   $('.sidepanel_menu-link-left').click(function(){
     $('#page_1').fadeOut('slow', function(){
@@ -160,7 +162,6 @@ function changeContent(){
 }
 
 function getProfilePicture(name){
-
   $.ajax({
     url: '/sidepanel/getProfilePicture',
     type: 'POST',

@@ -20,6 +20,5 @@ function init(){
         $('.right_half').delay(2000).animate({left:'-50%'}, {duration:2000, complete:function(){
             location.href="http://localhost:3000/login";
         }});
-
     });
 }
