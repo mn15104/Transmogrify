@@ -152,16 +152,25 @@ $( ".convert-btn" ).one( "click", function() {
                 var xInterval = imWidth/xBins;
                 var yInterval = imHeight/yBins;
 
+
                 var pixBin = new Array(noBins);
-                var pixInfo = [0.0, 0.0, 0.0, 0.0]; //(Red, Green, Blue, noPixels)
-                var pixInfo2 = [1.0, 1.0, 1.0, 1.0]; //(Red, Green, Blue, noPixels)
+
+                var pixInfo = [0.0, 0.0, 0.0, 1.0]; //(Red, Green, Blue, noPixels)
+                var pixel4 =  [0, 0, 0, 1];
+
                 for (var b = 0; b < noBins; b++) {
-                    pixBin[b] = pixInfo;
-                    if(b === 1) pixBin[b] = pixInfo2;
+                    pixBin[b] = new Array(4);
+                    for (var c = 0; c <= 3; c++) {
+                    pixBin[b][c] = 0;
+
+                    }
                 }
-                console.log(" -- - - - -- - -  -pixBin[0][1] = " + pixBin[0][1]);
-                console.log(" -- - - - -- - -  -pixBin[1][1] = " + pixBin[1][1]);
-                console.log(" -- - - - -- - -  -pixBin[2][1] = " + pixBin[2][1]);
+                //
+                // console.log(" -- - - - -- - -  -pixBin[0][1] = (" + pixBin[0][0] + "," + pixBin[0][1] + ","+ pixBin[0][2] + "," + pixBin[0][3] + ")");
+                // console.log(" -- - - - -- - -  -pixBin[1][1] = (" + pixBin[1][0] + "," + pixBin[1][1] + ","+ pixBin[1][2] + "," + pixBin[1][3] + ")");
+                // console.log(" -- - - - -- - -  -pixBin[2][1] = (" + pixBin[2][0] + "," + pixBin[2][1] + ","+ pixBin[2][2] + "," + pixBin[2][3] + ")");
+                // console.log(" -- - - - -- - -  -pixBin[3][1] = (" + pixBin[3][0] + "," + pixBin[3][1] + ","+ pixBin[3][2] + "," + pixBin[3][3] + ")");
+                // console.log(" -- - - - -- - -  -pixBin[4][1] = (" + pixBin[4][0] + "," + pixBin[4][1] + ","+ pixBin[4][2] + "," + pixBin[4][3] + ")");
 
                 var curBin = 0;
 
@@ -197,13 +206,17 @@ $( ".convert-btn" ).one( "click", function() {
                         blueSum  += pixelData[2];
                         pixelSum += 1;
 
-                        //Binned Pixel Information
-                        console.log("OOOOOOOOO curBin = " + curBin);
-                        pixBin[curBin][0] += pixelData[0];
-                        pixBin[curBin][1] += pixelData[1];
-                        pixBin[curBin][2] += pixelData[2];
-                        pixBin[curBin][3] += 1;
-                        console.log("pixBin[" + curBin + "] = (" + pixBin[curBin][0] + "," + pixBin[curBin][1] + "," + pixBin[curBin][2] + "," + pixBin[curBin][3] + ")");
+                        //Binned Pixel Information - Beware JS has no 2d array support so this is super convoluted (took 4hrs..)
+                        // console.log(" Bin = " + curBin);
+                        pixel4[0] = (pixBin[curBin][0] + pixelData[0]);
+                        pixel4[1] = (pixBin[curBin][1] + pixelData[1]);
+                        pixel4[2] = (pixBin[curBin][2] + pixelData[2]);
+                        pixel4[3] = (pixBin[curBin][3] +      1      );
+                        pixBin[curBin][0] = pixel4[0];
+                        pixBin[curBin][1] = pixel4[1];
+                        pixBin[curBin][2] = pixel4[2];
+                        pixBin[curBin][3] = pixel4[3];
+                        // console.log("pixBin[" + curBin + "] = (" + pixBin[curBin][0] + "," + pixBin[curBin][1] + "," + pixBin[curBin][2] + "," + pixBin[curBin][3] + ")");
 
                     }
 
@@ -219,9 +232,9 @@ $( ".convert-btn" ).one( "click", function() {
                     else {
                         var primaryDetected = colourCount(redCount, greenCount, blueCount);
                         var colourDetected = colourAverage(redSum,blueSum,greenSum,pixelSum);
-                        colourBinned(pixBin, xBins, yBins);
+                        var symmetry = colourBinned(pixBin, xBins, yBins);
 
-                        audioTester(primaryDetected, colourDetected);
+                        audioTester(primaryDetected, colourDetected, symmetry[0], symmetry[1], symmetry[2], symmetry[3]);
                         updateProgress(100);
 
                         //Show the placeholder audio
@@ -263,19 +276,19 @@ function colourCount(redCount, greenCount, blueCount) {
         // var redSrc = "http://packs.shtooka.net/eng-wcp-us/ogg/En-us-red.ogg";
         // $("#audio1").attr("src", redSrc);
         primaryDetected = 1;
-        $("#image-info1").html("Primary Count: Mostly Red Pixels, Instrument Set: 1");
+        $("#image-info1").html("RGB Count: Mostly Red Pixels, Instrument Set: 1");
     }
     else if( greenCount >= blueCount){
         // var greenSrc = "http://packs.shtooka.net/eng-wcp-us/ogg/En-us-green.ogg";
         // $("#audio1").attr("src", greenSrc);
         primaryDetected = 2;
-        $("#image-info1").html("Primary Count: Mostly Green Pixels, Instrument Set: 2");
+        $("#image-info1").html("RGB Count: Mostly Green Pixels, Instrument Set: 2");
     }
     else {
         // var blueSrc = "http://packs.shtooka.net/eng-wcp-us/ogg/En-us-blue.ogg";
         // $("#audio1").attr("src", blueSrc);
         primaryDetected = 3;
-        $("#image-info1").html("Primary Count: Mostly Blue Pixels, Instrument Set: 3");
+        $("#image-info1").html("RGB Count: Mostly Blue Pixels, Instrument Set: 3");
     }
 
 
@@ -289,39 +302,7 @@ function colourAverage(redSum,blueSum,greenSum,pixelSum) {
     var blueAv = Math.floor(blueSum/pixelSum);
     $("#progress-bar-convert").css("background-color", "rgb(" + redAv + "," + greenAv + "," + blueAv + ")");
 
-    //Colour classification into 9 main colours
-    var colourDetected = 0;
-    //1 =    red, 2 =  green, 3 =   blue,
-    //4 = yellow, 5 = orange, 6 = purple,
-    //7 = white, 8 = black, 0 = unknown,
-    if(redAv > 200) {
-        if (greenAv > 200) {
-            if (blueAv > 200) {
-                colourDetected = 7; //white
-            }
-            else {
-                colourDetected = 4; //Yellow
-            }
-        }
-        else if (greenAv > 100 && blueAv < 100) {
-            colourDetected = 5; //Orange
-        }
-        else if (greenAv < 100 && blueAv < 100) {
-            colourDetected = 1; //Red
-        }
-    }
-    else if (redAv > 100 && blueAv < 100 && greenAv > 200) {
-        colourDetected = 6; //Purple
-    }
-    else if (redAv < 100 && greenAv < 100 && blueAv > 200) {
-        colourDetected = 3; //Blue
-    }
-    else if (redAv < 100 && greenAv > 200 && blueAv < 100) {
-        colourDetected = 2; //Green
-    }
-    else if (redAv < 100 && greenAv < 100 && blueAv < 100) {
-        colourDetected = 8; //Black
-    }
+    var colourDetected = colourQuery(redAv, greenAv, blueAv);
 
     //Assign audio to that colour
     if (colourDetected === 1) {
@@ -364,13 +345,51 @@ function colourAverage(redSum,blueSum,greenSum,pixelSum) {
     $("#audio1").attr("src", colourSrc);
     return colourDetected;
 }
+function colourQuery(red, green, blue) {
+
+    //Colour classification into 9 main colours
+    var colourDetected = 0;
+    //1 =    red, 2 =  green, 3 =   blue,
+    //4 = yellow, 5 = orange, 6 = purple,
+    //7 = white, 8 = black, 0 = unknown,
+    if(red > 180) {
+        if (green > 180) {
+            if (blue > 180) {
+                colourDetected = 7; //white
+            }
+            else {
+                colourDetected = 4; //Yellow
+            }
+        }
+        else if (green > 100 && blue < 100) {
+            colourDetected = 5; //Orange
+        }
+        else if (green < 100 && blue < 100) {
+            colourDetected = 1; //Red
+        }
+    }
+    else if (red > 100 && blue < 100 && green > 180) {
+        colourDetected = 6; //Purple
+    }
+    else if (red < 100 && green < 100 && blue > 180) {
+        colourDetected = 3; //Blue
+    }
+    else if (red < 100 && green > 180 && blue < 100) {
+        colourDetected = 2; //Green
+    }
+    else if (red < 100 && green < 100 && blue < 100) {
+        colourDetected = 8; //Black
+    }
+
+    return colourDetected;
+}
 
 function findCurrentBin(i, j, xBins, yBins, xInterval, yInterval) {
 
     var xPoint = Math.floor((i) / xInterval);
     // console.log("i = " + i + ". interval = " + xInterval + ". xPoint = " + xPoint);
     var yPoint = Math.floor((j) / yInterval);
-    // console.log("yPoint = " + yPoint);
+    // console.log("j = " + j + ". interval = " + yInterval + ". yPoint = " + yPoint);
 
     var current = (xPoint*yBins)+yPoint;
     // console.log("Pixels(" + i + "," + j + ") = " + current);
@@ -394,12 +413,95 @@ function colourBinned(sumPixel, xBins, yBins) {
         console.log("-----------");
     }
 
+
+    var indC1;
+    var indC2;
+
+    var clrComp1;
+    var clrComp2;
+
+    var fineR = 0.0;
+    var fineG = 0.0;
+    var fineB = 0.0;
+
+    //Symmetry in Y
+    var yClrSymmetry = 0;
+    var yFineSymmetry = 0;
+
+    for (var i = 0; i < (xBins/2); i++) {
+        for (var j = 0; j < yBins; j++) {
+            indC1 = (i*yBins)+j;
+            indC2 = ((xBins-1-i)*yBins)+j;
+            // console.log("C1 + C2 = (" + indC1 + "," + indC2 + ")");
+            clrComp1 = colourQuery(avPixel[indC1][0], avPixel[indC1][1], avPixel[indC1][2]);
+            clrComp2 = colourQuery(avPixel[indC2][0], avPixel[indC2][1], avPixel[indC2][2]);
+            if (clrComp1 === clrComp2) yClrSymmetry += 1;
+
+            fineR += fineSimilarity(avPixel[indC1][0], avPixel[indC2][0]);
+            fineG += fineSimilarity(avPixel[indC1][1], avPixel[indC2][1]);
+            fineB += fineSimilarity(avPixel[indC1][2], avPixel[indC2][2]);
+            yFineSymmetry = (fineR + fineG + fineB);
+            console.log("yFineSymmetry of (" + indC1 + "," + indC2 + ") is " + yFineSymmetry);
+        }
+    }
+    yClrSymmetry = (((2*yClrSymmetry)/(xBins*yBins))*100);
+    yClrSymmetry = Math.round(yClrSymmetry * 100) / 100;
+    $("#image-info3").html("Colour Symmetry in Y: " + yClrSymmetry + "%");
+
+    yFineSymmetry = (((2*yFineSymmetry)/(xBins*yBins*3))*100);
+    yFineSymmetry = Math.round(yFineSymmetry * 100) / 100;
+    $("#image-info4").html("Fine Symmetry in Y: " + yFineSymmetry + "%");
+
+    //Symmetry in X
+    var xClrSymmetry = 0;
+    var xFineSymmetry = 0;
+
+    fineR = 0.0;
+    fineG = 0.0;
+    fineB = 0.0;
+
+    for (var i = 0; i < xBins; i++) {
+        for (var j = 0; j < (yBins/2); j++) {
+            indC1 = (i*xBins)+j;
+            indC2 = (i*xBins)+(yBins-1-j);
+            // console.log("C1 + C2 = (" + indC1 + "," + indC2 + ")");
+
+            clrComp1 = colourQuery(avPixel[indC1][0], avPixel[indC1][1], avPixel[indC1][2]);
+            clrComp2 = colourQuery(avPixel[indC2][0], avPixel[indC2][1], avPixel[indC2][2]);
+            if (clrComp1 === clrComp2) xClrSymmetry += 1;
+
+            fineR += fineSimilarity(avPixel[indC1][0], avPixel[indC2][0]);
+            fineG += fineSimilarity(avPixel[indC1][1], avPixel[indC2][1]);
+            fineB += fineSimilarity(avPixel[indC1][2], avPixel[indC2][2]);
+            xFineSymmetry = (fineR + fineG + fineB);
+        }
+    }
+    xClrSymmetry = (((2*xClrSymmetry)/(xBins*yBins))*100);
+    xClrSymmetry = Math.round(xClrSymmetry * 100) / 100;
+    $("#image-info5").html("Colour Symmetry in X: " + xClrSymmetry + "%");
+
+    xFineSymmetry = (((2*xFineSymmetry)/(xBins*yBins*3))*100);
+    xFineSymmetry = Math.round(xFineSymmetry * 100) / 100;
+    $("#image-info6").html("Fine Symmetry in X: " + xFineSymmetry + "%");
+
+    return [yClrSymmetry, yFineSymmetry, xClrSymmetry, xFineSymmetry];
 }
+
+function fineSimilarity (intA, intB){
+
+    var diff = Math.abs(intA-intB);
+    diff = 255 - diff;
+    var score = diff/255;
+    similarity = (score * score);
+
+    return similarity
+}
+
 
 //Cheeky global
 var bpm = 10;
 
-function audioTester(primaryDetected, colourDetected){
+function audioTester(primaryDetected, colourDetected, yClrSym, yFineSym, xClrSym, xFineSym){
     //Demo
     // var AudioContextFunc = window.AudioContext || window.webkitAudioContext;
     // var audioContext = new AudioContextFunc();
@@ -420,87 +522,162 @@ function audioTester(primaryDetected, colourDetected){
     player.loader.decodeAfterLoading(audioContext, '_drum_61_0_SBLive_sf2');
     player.loader.decodeAfterLoading(audioContext, '_drum_62_0_SBLive_sf2');
 
-    var melodyInstrument = [_tone_0000_SBLive_sf2, _tone_0040_SBLive_sf2, _tone_0030_SBLive_sf2];
-    var drumInstrument = [_drum_60_0_SBLive_sf2, _drum_61_0_SBLive_sf2, _drum_62_0_SBLive_sf2];
+    var melInst = [_tone_0000_SBLive_sf2, _tone_0040_SBLive_sf2, _tone_0030_SBLive_sf2]; //Melody Instrument
+    var drmInst = [_drum_60_0_SBLive_sf2, _drum_61_0_SBLive_sf2, _drum_62_0_SBLive_sf2]; //Drum Instrument
 
     var insNo = primaryDetected - 1;
     if (insNo < 0 || insNo > 2) insNo = 0;
 
     var musicKey = colourDetected;
+    var mood = 8 - colourDetected;
 
     var motifMax = 10;
     var currentMotif = 0;
     var repTime = 0;
-    (function repeatMotif() {
-
-        if ( (currentMotif >= 2) && (currentMotif != 7) ) {
-        player.queueWaveTable(audioContext, audioContext.destination, melodyInstrument[insNo], repTime + rhythm(0, 1),    9+12*3+musicKey, note(1) );
-        player.queueWaveTable(audioContext, audioContext.destination, melodyInstrument[insNo], repTime + rhythm(0, 2),    0+12*4+musicKey, note(1) );
-        player.queueWaveTable(audioContext, audioContext.destination, melodyInstrument[insNo], repTime + rhythm(0, 3),    2+12*4+musicKey, note(1) );
-        player.queueWaveTable(audioContext, audioContext.destination, melodyInstrument[insNo], repTime + rhythm(0, 4),    4+12*4+musicKey, note(1) );
-        player.queueWaveTable(audioContext, audioContext.destination, melodyInstrument[insNo], repTime + rhythm(0, 4.75), 3+12*4+musicKey, note(1/4) );
-        player.queueWaveTable(audioContext, audioContext.destination, melodyInstrument[insNo], repTime + rhythm(1, 1),    2+12*4+musicKey, note(1) );
-        player.queueWaveTable(audioContext, audioContext.destination, melodyInstrument[insNo], repTime + rhythm(1, 1.25), 3+12*4+musicKey, note(1/4) );
-        player.queueWaveTable(audioContext, audioContext.destination, melodyInstrument[insNo], repTime + rhythm(1, 1.5),  2+12*4+musicKey, note(1) );
-        player.queueWaveTable(audioContext, audioContext.destination, melodyInstrument[insNo], repTime + rhythm(1, 2.5),  0+12*4+musicKey, note(1) );
-        player.queueWaveTable(audioContext, audioContext.destination, melodyInstrument[insNo], repTime + rhythm(1, 3.5),  9+12*3+musicKey, note(1/2) );
-        player.queueWaveTable(audioContext, audioContext.destination, melodyInstrument[insNo], repTime + rhythm(1, 4),    9+12*3+musicKey, note(1) );
-        }
-        if ( (currentMotif >= 4) && (currentMotif != 7) ) {
-            player.queueWaveTable(audioContext, audioContext.destination, drumInstrument[insNo], repTime + rhythm(0, 1),    0+12*5+musicKey, note(1) );
-            player.queueWaveTable(audioContext, audioContext.destination, drumInstrument[insNo], repTime + rhythm(0, 2),    0+12*5+musicKey, note(1) );
-            player.queueWaveTable(audioContext, audioContext.destination, drumInstrument[insNo], repTime + rhythm(0, 3),    0+12*5+musicKey, note(1) );
-            player.queueWaveTable(audioContext, audioContext.destination, drumInstrument[insNo], repTime + rhythm(0, 4),    0+12*5+musicKey, note(1) );
-            player.queueWaveTable(audioContext, audioContext.destination, drumInstrument[insNo], repTime + rhythm(1, 1),    0+12*5+musicKey, note(1) );
-            player.queueWaveTable(audioContext, audioContext.destination, drumInstrument[insNo], repTime + rhythm(1, 2),    0+12*5+musicKey, note(1) );
-            player.queueWaveTable(audioContext, audioContext.destination, drumInstrument[insNo], repTime + rhythm(1, 3),    0+12*5+musicKey, note(1) );
-            player.queueWaveTable(audioContext, audioContext.destination, drumInstrument[insNo], repTime + rhythm(1, 4),    0+12*5+musicKey, note(1) );
-        }
-
-        if ( (currentMotif >= 6) && (currentMotif != 7) ) {
-            player.queueWaveTable(audioContext, audioContext.destination, melodyInstrument[insNo], repTime + rhythm(0, 1),    9+12*6+musicKey, note(1) , 0.2);
-            player.queueWaveTable(audioContext, audioContext.destination, melodyInstrument[insNo], repTime + rhythm(0, 1.5),  9+12*6+musicKey, note(1) , 0.2);
-            player.queueWaveTable(audioContext, audioContext.destination, melodyInstrument[insNo], repTime + rhythm(0, 2),    7+12*6+musicKey, note(1) , 0.2);
-            player.queueWaveTable(audioContext, audioContext.destination, melodyInstrument[insNo], repTime + rhythm(0, 2.5),  9+12*6+musicKey, note(1) , 0.2);
-            player.queueWaveTable(audioContext, audioContext.destination, melodyInstrument[insNo], repTime + rhythm(0, 3.5),  7+12*6+musicKey, note(1.5) , 0.2);
-            player.queueWaveTable(audioContext, audioContext.destination, melodyInstrument[insNo], repTime + rhythm(1, 2.95), 3+12*6+musicKey, note(1/16) , 0.2);
-            player.queueWaveTable(audioContext, audioContext.destination, melodyInstrument[insNo], repTime + rhythm(1, 3),    4+12*6+musicKey, note(1) , 0.2);
-            player.queueWaveTable(audioContext, audioContext.destination, melodyInstrument[insNo], repTime + rhythm(1, 3.95), 3+12*6+musicKey, note(1/16) , 0.2);
-            player.queueWaveTable(audioContext, audioContext.destination, melodyInstrument[insNo], repTime + rhythm(1, 4),    4+12*6+musicKey, note(1) , 0.2);
-        }
-        if ( currentMotif >= 0) {
-            player.queueWaveTable(audioContext, audioContext.destination, melodyInstrument[insNo], repTime + rhythm(0, 1),    9+12*3+musicKey, note(1), 0.5 );
-            player.queueWaveTable(audioContext, audioContext.destination, melodyInstrument[insNo], repTime + rhythm(0, 1),    9+12*2+musicKey, note(1), 0.5 );
-            player.queueWaveTable(audioContext, audioContext.destination, melodyInstrument[insNo], repTime + rhythm(0, 2),    7+12*3+musicKey, note(1), 0.5 );
-            player.queueWaveTable(audioContext, audioContext.destination, melodyInstrument[insNo], repTime + rhythm(0, 2),    7+12*2+musicKey, note(1), 0.5 );
-            player.queueWaveTable(audioContext, audioContext.destination, melodyInstrument[insNo], repTime + rhythm(0, 3),    5+12*3+musicKey, note(1), 0.5 );
-            player.queueWaveTable(audioContext, audioContext.destination, melodyInstrument[insNo], repTime + rhythm(0, 3),    5+12*2+musicKey, note(1), 0.5 );
-            player.queueWaveTable(audioContext, audioContext.destination, melodyInstrument[insNo], repTime + rhythm(0, 4),    4+12*3+musicKey, note(1), 0.5 );
-            player.queueWaveTable(audioContext, audioContext.destination, melodyInstrument[insNo], repTime + rhythm(0, 4),    4+12*2+musicKey, note(1), 0.5 );
-
-            player.queueWaveTable(audioContext, audioContext.destination, melodyInstrument[insNo], repTime + rhythm(1, 1),    9+12*3+musicKey, note(1), 0.5 );
-            player.queueWaveTable(audioContext, audioContext.destination, melodyInstrument[insNo], repTime + rhythm(1, 1),    9+12*2+musicKey, note(1), 0.5 );
-            player.queueWaveTable(audioContext, audioContext.destination, melodyInstrument[insNo], repTime + rhythm(1, 2),    7+12*3+musicKey, note(1), 0.5 );
-            player.queueWaveTable(audioContext, audioContext.destination, melodyInstrument[insNo], repTime + rhythm(1, 2),    7+12*2+musicKey, note(1), 0.5 );
-            player.queueWaveTable(audioContext, audioContext.destination, melodyInstrument[insNo], repTime + rhythm(1, 3),    5+12*3+musicKey, note(1), 0.5 );
-            player.queueWaveTable(audioContext, audioContext.destination, melodyInstrument[insNo], repTime + rhythm(1, 3),    5+12*2+musicKey, note(1), 0.5 );
-            player.queueWaveTable(audioContext, audioContext.destination, melodyInstrument[insNo], repTime + rhythm(1, 4),    4+12*3+musicKey, note(1), 0.5 );
-            player.queueWaveTable(audioContext, audioContext.destination, melodyInstrument[insNo], repTime + rhythm(1, 4),    4+12*2+musicKey, note(1), 0.5 );
-
-            player.queueWaveTable(audioContext, audioContext.destination, melodyInstrument[insNo], repTime + rhythm(1, 4.75), 8+12*3+musicKey, note(1/4) );
-            player.queueWaveTable(audioContext, audioContext.destination, melodyInstrument[insNo], repTime + rhythm(1, 4.75), 8+12*2+musicKey, note(1/4) );
-        }
 
 
-        if (currentMotif < motifMax) {
-            currentMotif += 1;
-            console.log("repTime = " + repTime);
-            repTime = (repTime + rhythm(1,4) + note(1));
-            repeatMotif();
-        }
+        player.queueWaveTable(audioContext, audioContext.destination, melInst[0], repTime + rhythm(0, 1), heptScale(1)                        +12*4+musicKey, 1);
+        player.queueWaveTable(audioContext, audioContext.destination, melInst[0], repTime + rhythm(0, 2), heptScale(Math.floor(yClrSym/12.6)) +12*4+musicKey, 1);
+        player.queueWaveTable(audioContext, audioContext.destination, melInst[0], repTime + rhythm(0, 3), heptScale(Math.floor(yFineSym/12.6))+12*4+musicKey, 1);
+        player.queueWaveTable(audioContext, audioContext.destination, melInst[0], repTime + rhythm(0, 4), heptScale(Math.floor(xClrSym/12.6)) +12*4+musicKey, 1);
+        player.queueWaveTable(audioContext, audioContext.destination, melInst[0], repTime + rhythm(1, 1), heptScale(Math.floor(xFineSym/12.6))+12*4+musicKey, 1);
+        player.queueWaveTable(audioContext, audioContext.destination, melInst[0], repTime + rhythm(1, 2), heptScale(mood)                     +12*4+musicKey, 1);
+        player.queueWaveTable(audioContext, audioContext.destination, melInst[0], repTime + rhythm(1, 3), heptScale(5)                        +12*4+musicKey, 1);
+        player.queueWaveTable(audioContext, audioContext.destination, melInst[0], repTime + rhythm(1, 4), heptScale(1)                        +12*4+musicKey, 1);
+
+    // (function repeatMotif() {
     //
-    })();
+    //     if ( (currentMotif >= 2) && (currentMotif != 7) ) {
+    //     player.queueWaveTable(audioContext, audioContext.destination, melodyInstrument[insNo], repTime + rhythm(0, 1),    9+12*3+musicKey, note(1) );
+    //     player.queueWaveTable(audioContext, audioContext.destination, melodyInstrument[insNo], repTime + rhythm(0, 2),    0+12*4+musicKey, note(1) );
+    //     player.queueWaveTable(audioContext, audioContext.destination, melodyInstrument[insNo], repTime + rhythm(0, 3),    2+12*4+musicKey, note(1) );
+    //     player.queueWaveTable(audioContext, audioContext.destination, melodyInstrument[insNo], repTime + rhythm(0, 4),    4+12*4+musicKey, note(1) );
+    //     player.queueWaveTable(audioContext, audioContext.destination, melodyInstrument[insNo], repTime + rhythm(0, 4.75), 3+12*4+musicKey, note(1/4) );
+    //     player.queueWaveTable(audioContext, audioContext.destination, melodyInstrument[insNo], repTime + rhythm(1, 1),    2+12*4+musicKey, note(1) );
+    //     player.queueWaveTable(audioContext, audioContext.destination, melodyInstrument[insNo], repTime + rhythm(1, 1.25), 3+12*4+musicKey, note(1/4) );
+    //     player.queueWaveTable(audioContext, audioContext.destination, melodyInstrument[insNo], repTime + rhythm(1, 1.5),  2+12*4+musicKey, note(1) );
+    //     player.queueWaveTable(audioContext, audioContext.destination, melodyInstrument[insNo], repTime + rhythm(1, 2.5),  0+12*4+musicKey, note(1) );
+    //     player.queueWaveTable(audioContext, audioContext.destination, melodyInstrument[insNo], repTime + rhythm(1, 3.5),  9+12*3+musicKey, note(1/2) );
+    //     player.queueWaveTable(audioContext, audioContext.destination, melodyInstrument[insNo], repTime + rhythm(1, 4),    9+12*3+musicKey, note(1) );
+    //     }
+    //     if ( (currentMotif >= 4) && (currentMotif != 7) ) {
+    //         player.queueWaveTable(audioContext, audioContext.destination, drumInstrument[insNo], repTime + rhythm(0, 1),    0+12*5+musicKey, note(1) );
+    //         player.queueWaveTable(audioContext, audioContext.destination, drumInstrument[insNo], repTime + rhythm(0, 2),    0+12*5+musicKey, note(1) );
+    //         player.queueWaveTable(audioContext, audioContext.destination, drumInstrument[insNo], repTime + rhythm(0, 3),    0+12*5+musicKey, note(1) );
+    //         player.queueWaveTable(audioContext, audioContext.destination, drumInstrument[insNo], repTime + rhythm(0, 4),    0+12*5+musicKey, note(1) );
+    //         player.queueWaveTable(audioContext, audioContext.destination, drumInstrument[insNo], repTime + rhythm(1, 1),    0+12*5+musicKey, note(1) );
+    //         player.queueWaveTable(audioContext, audioContext.destination, drumInstrument[insNo], repTime + rhythm(1, 2),    0+12*5+musicKey, note(1) );
+    //         player.queueWaveTable(audioContext, audioContext.destination, drumInstrument[insNo], repTime + rhythm(1, 3),    0+12*5+musicKey, note(1) );
+    //         player.queueWaveTable(audioContext, audioContext.destination, drumInstrument[insNo], repTime + rhythm(1, 4),    0+12*5+musicKey, note(1) );
+    //     }
+    //
+    //     if ( (currentMotif >= 6) && (currentMotif != 7) ) {
+    //         player.queueWaveTable(audioContext, audioContext.destination, melodyInstrument[insNo], repTime + rhythm(0, 1),    9+12*6+musicKey, note(1) , 0.2);
+    //         player.queueWaveTable(audioContext, audioContext.destination, melodyInstrument[insNo], repTime + rhythm(0, 1.5),  9+12*6+musicKey, note(1) , 0.2);
+    //         player.queueWaveTable(audioContext, audioContext.destination, melodyInstrument[insNo], repTime + rhythm(0, 2),    7+12*6+musicKey, note(1) , 0.2);
+    //         player.queueWaveTable(audioContext, audioContext.destination, melodyInstrument[insNo], repTime + rhythm(0, 2.5),  9+12*6+musicKey, note(1) , 0.2);
+    //         player.queueWaveTable(audioContext, audioContext.destination, melodyInstrument[insNo], repTime + rhythm(0, 3.5),  7+12*6+musicKey, note(1.5) , 0.2);
+    //         player.queueWaveTable(audioContext, audioContext.destination, melodyInstrument[insNo], repTime + rhythm(1, 2.95), 3+12*6+musicKey, note(1/16) , 0.2);
+    //         player.queueWaveTable(audioContext, audioContext.destination, melodyInstrument[insNo], repTime + rhythm(1, 3),    4+12*6+musicKey, note(1) , 0.2);
+    //         player.queueWaveTable(audioContext, audioContext.destination, melodyInstrument[insNo], repTime + rhythm(1, 3.95), 3+12*6+musicKey, note(1/16) , 0.2);
+    //         player.queueWaveTable(audioContext, audioContext.destination, melodyInstrument[insNo], repTime + rhythm(1, 4),    4+12*6+musicKey, note(1) , 0.2);
+    //     }
+    //     if ( currentMotif >= 0) {
+    //         player.queueWaveTable(audioContext, audioContext.destination, melodyInstrument[insNo], repTime + rhythm(0, 1),    9+12*3+musicKey, note(1), 0.5 );
+    //         player.queueWaveTable(audioContext, audioContext.destination, melodyInstrument[insNo], repTime + rhythm(0, 1),    9+12*2+musicKey, note(1), 0.5 );
+    //         player.queueWaveTable(audioContext, audioContext.destination, melodyInstrument[insNo], repTime + rhythm(0, 2),    7+12*3+musicKey, note(1), 0.5 );
+    //         player.queueWaveTable(audioContext, audioContext.destination, melodyInstrument[insNo], repTime + rhythm(0, 2),    7+12*2+musicKey, note(1), 0.5 );
+    //         player.queueWaveTable(audioContext, audioContext.destination, melodyInstrument[insNo], repTime + rhythm(0, 3),    5+12*3+musicKey, note(1), 0.5 );
+    //         player.queueWaveTable(audioContext, audioContext.destination, melodyInstrument[insNo], repTime + rhythm(0, 3),    5+12*2+musicKey, note(1), 0.5 );
+    //         player.queueWaveTable(audioContext, audioContext.destination, melodyInstrument[insNo], repTime + rhythm(0, 4),    4+12*3+musicKey, note(1), 0.5 );
+    //         player.queueWaveTable(audioContext, audioContext.destination, melodyInstrument[insNo], repTime + rhythm(0, 4),    4+12*2+musicKey, note(1), 0.5 );
+    //
+    //         player.queueWaveTable(audioContext, audioContext.destination, melodyInstrument[insNo], repTime + rhythm(1, 1),    9+12*3+musicKey, note(1), 0.5 );
+    //         player.queueWaveTable(audioContext, audioContext.destination, melodyInstrument[insNo], repTime + rhythm(1, 1),    9+12*2+musicKey, note(1), 0.5 );
+    //         player.queueWaveTable(audioContext, audioContext.destination, melodyInstrument[insNo], repTime + rhythm(1, 2),    7+12*3+musicKey, note(1), 0.5 );
+    //         player.queueWaveTable(audioContext, audioContext.destination, melodyInstrument[insNo], repTime + rhythm(1, 2),    7+12*2+musicKey, note(1), 0.5 );
+    //         player.queueWaveTable(audioContext, audioContext.destination, melodyInstrument[insNo], repTime + rhythm(1, 3),    5+12*3+musicKey, note(1), 0.5 );
+    //         player.queueWaveTable(audioContext, audioContext.destination, melodyInstrument[insNo], repTime + rhythm(1, 3),    5+12*2+musicKey, note(1), 0.5 );
+    //         player.queueWaveTable(audioContext, audioContext.destination, melodyInstrument[insNo], repTime + rhythm(1, 4),    4+12*3+musicKey, note(1), 0.5 );
+    //         player.queueWaveTable(audioContext, audioContext.destination, melodyInstrument[insNo], repTime + rhythm(1, 4),    4+12*2+musicKey, note(1), 0.5 );
+    //
+    //         player.queueWaveTable(audioContext, audioContext.destination, melodyInstrument[insNo], repTime + rhythm(1, 4.75), 8+12*3+musicKey, note(1/4) );
+    //         player.queueWaveTable(audioContext, audioContext.destination, melodyInstrument[insNo], repTime + rhythm(1, 4.75), 8+12*2+musicKey, note(1/4) );
+    //     }
+    //
+    //
+    //     if (currentMotif < motifMax) {
+    //         currentMotif += 1;
+    //         console.log("repTime = " + repTime);
+    //         repTime = (repTime + rhythm(1,4) + note(1));
+    //         repeatMotif();
+    //     }
+    // //
+    // })();
 
+}
+
+function motifGenerator(mood, yClrSym, yFineSym, xClrSym, xFineSym){
+
+    var motif = new Array(8);
+
+
+    // var pixInfo = [0, 1]; //(Red, Green, Blue, noPixels)
+
+    for (var n = 0; n < 8; n++) {
+        motif[n] = new Array(3);
+        // for (var c = 0; c < 2; c++) {
+        motif[n][0] = 0;//Note
+        motif[n][1] = rhythm(0, n);//Beat
+        motif[n][2] = note(1);//Length
+        // }
+    }
+
+
+    //Ignore anything other than pentonic for now
+    motif[0][0] = heptScale(1); //Always start with root for now
+
+
+    motif[1][0] = heptScale(Math.floor(yClrSym/12.6));
+    motif[2][0] = heptScale(Math.floor(yFineSym/12.6));
+    motif[3][0] = heptScale(Math.floor(xClrSym/12.6));
+    motif[4][0] = heptScale(Math.floor(xFineSym/12.6));
+    motif[5][0] = heptScale(Math.floor(mood));
+    motif[6][0] = heptScale(5);
+    motif[7][0] = heptScale(1);
+    console.log("Notes: " + motif[0][1] + ", " + motif[1][1] + ", " + motif[2][1] + ", " + motif[3][1] + ", " + motif[4][1] + ", " + motif[5][1] + ", " + motif[6][1] + ", " + motif[7][1]);
+
+
+    var testing0 = heptScale(1); //Always start with root for now
+    var testing1 = heptScale(Math.floor(yClrSym/12.6));
+    var testing2 = heptScale(Math.floor(yFineSym/12.6));
+    var testing3 = heptScale(Math.floor(xClrSym/12.6));
+    var testing4 = heptScale(Math.floor(xFineSym/12.6));
+    var testing5 = heptScale(Math.floor(mood));
+    var testing6 = heptScale(Math.floor(yFineSym/12.6));
+    var testing6 = heptScale(5);
+    var testing7 = heptScale(1);
+    console.log("Notes: " + testing0 + ", " + testing1 + ", " + testing2 + ", " + testing3 + ", " + testing4 + ", " + testing5 + ", " + testing6 + ", " + testing7);
+
+
+
+
+return motif;
+}
+
+function heptScale(heptNote) {
+    //Major Heptatonic to Chromatic scale
+    var chromeNote = 1;
+
+    if (heptNote === 1) chromeNote = 0;
+    if (heptNote === 2) chromeNote = 2;
+    if (heptNote === 3) chromeNote = 4;
+    if (heptNote === 4) chromeNote = 5;
+    if (heptNote === 5) chromeNote = 7;
+    if (heptNote === 6) chromeNote = 9;
+    if (heptNote === 7) chromeNote = 11;
+
+    return chromeNote;
 }
 
 function rhythm(bar, beats) {
