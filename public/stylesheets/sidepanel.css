@@ -35,7 +35,6 @@ body{
   animation: fadein 2s;
 }
 
-
 .sidepanel_body h1{
   color: var(--clrTitle);
   font-family:Georgia,serif;
@@ -138,12 +137,12 @@ body{
   margin-left: -2px;
   margin-right:-2px;
 
-  padding-top:20px;
-  padding-bottom:20px;
+  padding-top:27.5px;
+  padding-bottom:12.5px;
   background-color: var(--clrBack);
   color: var(--clrText);
   text-align: center;
-  width:24%;
+  width:20%;
 }
 .sidepanel_menu_link:hover{
     color: var(--clrTitle);
@@ -160,46 +159,29 @@ body{
 
 h2.sidepanel_menu-link-left{
   position: relative;
-  font: 600 1.5em/1'Raleway', sans-serif;
-  /* float:left; */
-  /* right: -5%;  /* position the left edge of the element at the middle of the parent */ 
-  /* color: var(--clrTitle); */
+  font: 600 1.4em/1'Raleway', sans-serif;
   text-align: center;
-  /* text-transform: uppercase; */
-  
   letter-spacing: 0.3em;
 }
 
 h2.sidepanel_menu-link-mid{
   position: relative;
-  font: 600 1.5em/1 'Raleway', sans-serif;
-  /* float:right; */
-  /* left: -3%;  /* position the left edge of the element at the middle of the parent */ 
-  /* color: var(--clrTitle); */
+  font: 600 1.4em/1 'Raleway', sans-serif;
   text-align: center;
-  /* text-transform: uppercase; */
   letter-spacing: .3em;
 }
 
 h2.sidepanel_menu-link-right{
   position: relative;
-  font: 600 1.5em/1 'Raleway', sans-serif;
-  /* float:right; */
-  /* left: -1%; /* position the left edge of the element at the middle of the parent */ 
-  /* color: var(--clrTitle); */
+  font: 600 1.4em/1 'Raleway', sans-serif;
   text-align: center;
-  /* text-transform: uppercase; */
   letter-spacing: .4em;
 }
 
 h2.sidepanel_menu-link-login{
   position: relative;
-  font: 600 1.5em/1 'Raleway', sans-serif;
-  /* float:right; */
-  /* left:1%; */
-  /* color: var(--clrTitle); */
+  font: 600 1.4em/1 'Raleway', sans-serif;
   text-align: center;
-  /* text-transform: uppercase; */
   letter-spacing: .3em;
 }
 .bar-split {
@@ -212,8 +194,8 @@ h2.sidepanel_menu-link-login{
 
 h3.sidepanel_title{
   position: relative;
-  font: 600 1.8em/1 'Raleway', sans-serif;
-  margin-top: 15px;
+  font: 600 2em/1 'Raleway', sans-serif;
+  margin-top: 20px;
   /* margin-bottom: 15%; */
   float:left;
   left: 40px;
@@ -429,7 +411,7 @@ ul {
   transition: all 1.0s;
   position: absolute;
   left: 0;
-  height: 12px;
+  height: 10px;
   width: 270px;
   background-color: var(--clrRed);
   /* background-color: linear-gradient(to right, var(--clrTitle), var(--clrTitle));  */
@@ -587,8 +569,8 @@ img.sidepanel_menu-link-login {
 
 .friends-list{
   position:fixed;
-  width: 300px;
-  right:10px;
+  width: 200px;
+  right:20px;
 
   /* left: auto; */
   bottom: 10px;
@@ -598,46 +580,55 @@ img.sidepanel_menu-link-login {
   /* overflow-:auto; */
 }
 .shadow{
-  width:300px;
+  width:200px;
 }
 .col-sm-2{
   margin:0;
   padding:0;
-  width:50px;
+  width:fit-content;
 }
 .col-sm-8{
-  width:120px;
-  padding-left:0;
+  width:fit-content;
+  padding-left:5px;
   padding-right:0;
+}
+.col-sm-12{
+  width:100%;
+  text-align: center;
+}
+.img-circle{
+  width: 100%;
 }
 .friends-list_cell {
   margin-top: 2px;
   position:relative;
-  width: 300px;
+  width: 200px;
   border: 2px solid black;
   background: #292523;
 }
 .friends-list_title_cell {
   margin-top: 2px;
   position:relative;
-  width: 300px;
+  width: 200px;
   border: 2px solid black;
   background: #292523;
+  text-align:center;
 }
 h4.friends-list_name{
-  font-size: 16px;
+  font-size: 13px;
   left:0;
+  margin-bottom:5px;
 }
 h4.friends_list-title{
   padding:0;
   color: #a39a9a;
-  font-size: 23px;
+  font-size: 18px;
 }
 h4.friends_list-title:hover{
   cursor:pointer;
 }
 .friends-list_image{
-  margin-right:30px;
+  width: 50px;
 }
 @keyframes fadein {
   from { opacity: 0; }

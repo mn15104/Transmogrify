@@ -43,9 +43,9 @@ var init = function(){
 
 var flipProfileImg = function(){
     $("#profile_card").toggleClass("flipped");
-    $(".profile_card").css({"margin-right":"2000px"}).animate({"left":"400px"}, {duration:1100});
+    $(".profile_card").animate({"left":"45vw"}, {duration:1100});
     $('.profile_title').removeClass('profile_title_middle').addClass('profile_title_active');
-    $(".profile_card").css({"margin-right":"2000px"}).animate({"top":"-110px"}, {duration:1100, complete:function(){
+    $(".profile_card").animate({"left":"15vw"}, {duration:1100, complete:function(){
         $('#profile_profile-description').slideDown(600,false, function(){
             $(".profile_gallery-wrapper").fadeIn('slow');
         });

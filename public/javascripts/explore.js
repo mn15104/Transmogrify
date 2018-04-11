@@ -45,7 +45,6 @@ function init(){
             if($('#CURRENT_PLAYER').length != 0){
                 CURRENT_PLAYER = $('#CURRENT_PLAYER');
                 if(!player_pressed.is('#CURRENT_PLAYER')){
-                    console.log("SHIT");
                     $.getScript("audio_wave.js",function(){
                         stopSound();
                     });
@@ -71,7 +70,6 @@ function init(){
                     });
                 }
             }
-            //////
             else{
                 player_pressed.attr('id', 'CURRENT_PLAYER');
                 player_pressed.closest('.brick').find('.brick-audio').load("../views/audio_wave.html");
