@@ -199,7 +199,7 @@ h3.sidepanel_title{
   /* margin-bottom: 15%; */
   float:left;
   left: 40px;
-  color: var(--clrText);
+  color: var(--clrTitle);
   letter-spacing: .3em;
 }
 .sidepanel_title span {
@@ -209,11 +209,11 @@ h3.sidepanel_title{
 }
 .sidepanel_title.title--nav_active > span{
   transition: 2s;
-  color: var(--clrTitle);
+  color: rgb(240, 169, 151);
 }
 .sidepanel_title.title--nav_active{
   transition: 2s;
-  color: var(--clrTitle);
+  color: rgb(240, 169, 151);
 }
 #embedded_cube {
   z-index: 2;
