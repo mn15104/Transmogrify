@@ -113,7 +113,7 @@ var submitLogin = function(){
         data: {email:email, password:pass},
         success: function(data){
             console.log("OK!");
-            location.href="http://localhost:3000/";
+            transitionHomepage();
             return true;
         },
         error: function(xhr, ajaxOptions, thrownError){
@@ -122,7 +122,11 @@ var submitLogin = function(){
         }
     });
 }
-
+var transitionHomepage = function(){
+    $('.login_form').fadeOut({duration:500});
+    $('.login_wrapper').addClass('expand');
+    setTimeout(function(){location.href="http://localhost:3000/";}, 1500);
+}
 var colors = new Array(
     [128,62,62],
     [110,62,50],
