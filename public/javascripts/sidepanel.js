@@ -1,6 +1,6 @@
 
 var sideNav = $('.nav__list');
-var burger = $('.burger');
+var burger = $('.bar-split');
 var friends = $('.friends-list_title_cell');
 var friends_active = true;
 var panel = $('.panel');
@@ -16,14 +16,14 @@ function init(name){
     
     initNavLinks();
     burger.click(function(){
-      openSideNav();
+      toggleSideNav();
     });
     friends.click(function(){
-      openFriendsList();
+      toggleFriendsList();
     })
 }
 
-var openFriendsList = function(){
+var toggleFriendsList = function(){
   if(friends_active)
     $('.friends-list_cell').slideUp();
   else 
@@ -31,7 +31,7 @@ var openFriendsList = function(){
   friends_active = !friends_active;
 }
 
-var openSideNav = function() {
+var toggleSideNav = function() {
   $('.sidepanel_title').toggleClass('title--nav_active');
   burger.toggleClass('burger--active');
   sideNav.toggleClass('nav__list--active');
@@ -95,6 +95,7 @@ var changeurl = function(url)
 
 var initNavLinks = function(){
   toggleNav();
+  toggleFriendsList();
   $('.sidepanel_menu_link').click(function(){
     $('.sidepanel_menu_link.active').removeClass("active");
     $(this).addClass('active');

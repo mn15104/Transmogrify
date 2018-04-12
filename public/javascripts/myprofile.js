@@ -1,6 +1,7 @@
 
 var page_init = false;
 var init = function(){
+    loadMyProfile();
     $('.profile_profile-settings').css('opacity',0);
     $('.chat_container').hide();
     $('.profile_title_container').slideDown('slow');
@@ -82,9 +83,29 @@ var toggleChatbox = function(){
         $('#profile_chat-btn').removeClass('profile_chat_open');
     }
 }
+var loadMyProfile = function(){
+    $.ajax({
+        url: '/myprofile/loadmyprofile',
+        type: 'POST',
+        data: {},
+        success: function(data){
+            console.log('message sent\n');
+            var profile_obj = JSON.parse(data);
+            $('#profile_name').text(profile_obj.firstname + profile_obj.surname);
+            $('#profile_email').text(profile_obj.email);
+            $('#profile_whatido').text(profile_obj.occupation);
+            $('#profile_aboutme').text(profile_obj.description);
+            $('.profile_img').css({background: 'url(' + profile_obj.profile_picture + ')','background-size': 'contain'});
+           
+        },
+        error(){
+            console.log("ERROR in loading profile");
+        }
+    });
+}
 var loadChatHistory = function(){
     $.ajax({
-        url: '/profile/chat/loadhistory',
+        url: '/myprofile/chat/loadhistory',
         type: 'POST',
         data: _____,
         processData: false,
@@ -97,7 +118,7 @@ var loadChatHistory = function(){
 var sendMessage = function(){
     var message = $('#chat_input').text();
     $.ajax({
-        url: '/profile/chat/send',
+        url: '/myprofile/chat/send',
         type: 'POST',
         data: formData,
         processData: false,

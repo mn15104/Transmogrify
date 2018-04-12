@@ -15,13 +15,12 @@ SQL_MODEL.init = function(){
         console.log('SQL init');
     });
     
-    db.run(`CREATE TABLE IF NOT EXISTS USER_PROFILE       ( firstname VARCHAR(255), 
-                                                            surname VARCHAR(10), 
-                                                            email VARCHAR(255), 
-                                                            user_id INT (100),
+    db.run(`CREATE TABLE IF NOT EXISTS USER_PROFILE       ( user_id INT (100),
                                                             occupation VARCHAR(255),
                                                             description VARCHAR(255),
-                                                            PRIMARY KEY(user_id))`, (err) => {
+                                                            profile_picture VARCHAR(255),
+                                                            PRIMARY KEY(user_id), 
+                                                            FOREIGN KEY(user_id) REFERENCES USER_LOGIN(user_id))`, (err) => {
         if (err) {
                 console.error(err.message);
             }
@@ -29,6 +28,22 @@ SQL_MODEL.init = function(){
             console.log("Table USER_PROFILE ready");
         }
     });
+
+
+    db.run(`CREATE TABLE IF NOT EXISTS USER_LOGIN       (   firstname VARCHAR(255), 
+                                                            surname VARCHAR(10), 
+                                                            email VARCHAR(255), 
+                                                            user_id INT (100),
+                                                            password VARCHAR(255),
+                                                            PRIMARY KEY(user_id))`, (err) => {
+        if (err) {
+            console.error(err.message);
+        }
+        else {
+            console.log("Table USER_LOGIN ready");
+        }
+    });
+
 
     db.run(`CREATE TABLE IF NOT EXISTS USER_CHATHISTORY      (  user_idA INT (100), 
                                                                 user_idB INT (100), 
@@ -56,29 +71,13 @@ SQL_MODEL.init = function(){
         }
     });
 
-
-    db.run(`CREATE TABLE IF NOT EXISTS USER_LOGIN       (firstname VARCHAR(255), 
-                                                        surname VARCHAR(10), 
-                                                        email VARCHAR(255), 
-                                                        user_id INT (100),
-                                                        password VARCHAR(255),
-                                                        PRIMARY KEY(user_id))`, (err) => {
-        if (err) {
-            console.error(err.message);
-        }
-        else {
-            console.log("Table USER_LOGIN ready");
-        }
-    });
-
-
     db.run(`CREATE TABLE IF NOT EXISTS IMAGE_UPLOADS    (file_name VARCHAR(255), 
                                                         file_size VARCHAR(10), 
                                                         file_upload_date VARCHAR(255), 
                                                         file_id INT (100),
                                                         partner_id INT(100),
                                                         user_id VARCHAR(255),
-                                                        FOREIGN KEY(partner_id) REFERENCES CREATE_audio_files(file_id),
+                                                        FOREIGN KEY(partner_id) REFERENCES AUDIO_UPLOADS(file_id),
                                                         PRIMARY KEY(file_id))`, (err) => {
         if (err) {
             console.error(err.message);
@@ -94,7 +93,7 @@ SQL_MODEL.init = function(){
                                                         file_id INT (100),
                                                         partner_id INT(100),
                                                         user_id VARCHAR(255),
-                                                        FOREIGN KEY(partner_id) REFERENCES CREATE_image_files(file_id),
+                                                        FOREIGN KEY(partner_id) REFERENCES IMAGE_UPLOADS(file_id),
                                                         PRIMARY KEY(file_id))`, (err) => {
         if (err) {
             console.error(err.message);

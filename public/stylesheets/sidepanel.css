@@ -114,10 +114,10 @@ body{
 .sidepanel_menu-text{
   position: absolute;
   text-align: right;
-  /* text-align:center; */
+
   width: 600px;
   height:100%;
-  right: 0;
+  right: 10px;
   /* display:inline-block; */
 }
 
@@ -190,6 +190,9 @@ h2.sidepanel_menu-link-login{
     height: 18px;
     background-color: var(--clrRed);
     overflow: hidden;
+}
+.bar-split:hover{
+  cursor: pointer;
 }
 
 h3.sidepanel_title{

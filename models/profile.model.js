@@ -25,14 +25,36 @@ let db = new sqlite3.Database('./Dev.db', sqlite3.OPEN_CREATE | sqlite3.OPEN_REA
 
 // **************************************************************************************************** //
 
-Profile.loadProfile = function(req, res){
-    var user_id = req.body.user_id;
-    db.get("SELECT * FROM USER_PROFILE WHERE file_id='"+  user_id  + "'", function(err, row){
+Profile.loadMyProfile = function(req, res){
+    var user_id = req.session.user_id;
+    db.get("SELECT * FROM 'USER_PROFILE' WHERE user_id='"+  user_id  + "'", function(err, row){
         if (err) throw err;
         if (!IS_NULL(row)){
-            var stringrow = JSON.stringify(row);
-            res.send(stringrow);
-        }
+            var occupation = row.occupation;
+            var description = row.description;
+            var profile_picture = row.profile_picture;
+            db.get("SELECT firstname, surname, email FROM USER_LOGIN WHERE user_id='"+  user_id  + "'", function(err, row){
+                if (err) throw err;
+                if (!IS_NULL(row)){
+                    console.log(row);
+                    var firstname = row.firstname;
+                    var surname = row.surname;
+                    var email = row.email;
+
+                    var profdata = {                        
+                        firstname: firstname,
+                        surname: surname,
+                        email: email,
+                        occupation:occupation,
+                        description:description,
+                        profile_picture:profile_picture
+                    }
+                    var stringprofdata = JSON.stringify(profdata);
+                    console.log(stringprofdata);
+                    res.send(stringprofdata);
+                }else res.sendStatus(400);
+            });
+        }else res.sendStatus(400);
     });
 };
 
