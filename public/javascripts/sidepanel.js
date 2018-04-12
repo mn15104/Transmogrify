@@ -96,10 +96,20 @@ var changeurl = function(url)
 var initNavLinks = function(){
   toggleNav();
   toggleFriendsList();
+  
   $('.sidepanel_menu_link').click(function(){
-    $('.sidepanel_menu_link.active').removeClass("active");
+    // Stop all audio if previous page contains an audio player
+    var prevpage = $('.sidepanel_menu_link.active');
+    if(prevpage.find('#CURRENT_PLAYER')){
+      $.getScript("explore.js",function(){
+        refreshAudio();
+      });
+    }
+
+    prevpage.removeClass("active");
     $(this).addClass('active');
   })
+
   $('.sidepanel_menu-link-right').click(function(){
     $('#page_1').fadeOut('slow', function(){
       $('#page_1').empty();
@@ -117,6 +127,7 @@ var initNavLinks = function(){
     });
   })
   $('.sidepanel_menu-link-mid').click(function(){
+    
     $('#page_1').fadeOut('slow', function(){
       $('#page_1').empty();
       $('#page_1').load("../views/explore.html");

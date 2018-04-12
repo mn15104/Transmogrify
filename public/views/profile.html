@@ -6,16 +6,22 @@
     <script src="../javascripts/jstools/jquery-3.2.1.min.js"></script>
     <script src="../javascripts/jstools/jquery-ui.min.js"></script>
     <link rel="stylesheet" href="../stylesheets/tools/jquery-ui.min.css">
-
-<!-- D75848	C15B4D	B84131	F19286	F1B8B1 D7B148	C1A34D	B89531	F1D586	F1E1B1  6B3690	643881	59257C	B57FDA	C4A3DA-->
-
     <meta charset="utf-8" />
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-
-    <!--W3-CSS-->
     <link rel="stylesheet" type="text/css" media="screen" href="../stylesheets/profile.css">
     <script src="https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.js"></script>
+    <script language="text/javascript">
+        function load_js()
+        {
+           var head= document.getElementsByTagName('head')[0];
+           var script= document.createElement('script');
+           script.type= 'text/javascript';
+           script.src= '../javascripts/profile.js';
+           head.appendChild(script);
+        }
+        load_js();
+    </script>
 </head>
 <body class = "profile_body">
     <a class = "background"></a>

@@ -17,82 +17,93 @@ function init(){
         $('.flipper').css({'transform':'translateY(1000px)'},'slow');
         $('.brick_profile_img').not(this).css({'transform':'translateY(1000px)'},'slow');
     })
-    $('.explore_title')
-    .css('opacity', 0)
-    .slideDown('slow')
-    .animate(
-    { opacity: 1 },
-    { queue: false, duration: 2000 }
-    );
-    //check for navigation time API support
-    if (window.performance) {
-        console.info("window.performance work's fine on this browser");
-    }
+    $('.explore_title').css('opacity', 0)
+                        .slideDown('slow')
+                        .animate(
+                        { opacity: 1 },
+                        { queue: false, duration: 2000 });
+
+
     if (performance.navigation.type == 1) {
-      console.info( "This page is reloaded" );
-    } else {
-      console.info( "This page is not reloaded");
+      refreshAudio();
     }
+
     $('.play').click(function(){
-        var player_pressed = $(this);
-        $(this).toggleClass('pause');
-        $(this).closest('.play-container').toggleClass('pause');
-        $(this).closest('.control-panel').toggleClass('active');
-        $(this).closest('.brick').find('.info-bar').toggleClass('active');
-        
-        if(!$(this).hasClass('pause')) {
-            //////
-            if($('#CURRENT_PLAYER').length != 0){
-                CURRENT_PLAYER = $('#CURRENT_PLAYER');
-                if(!player_pressed.is('#CURRENT_PLAYER')){
-                    $.getScript("audio_wave.js",function(){
-                        stopSound();
-                    });
-                    $('#CURRENT_PLAYER').closest('.brick').find('.brick-img').css({
-                        "-webkit-filter": "blur(0px)",
-                        "filter": "blur(0px)"});
-                    CURRENT_PLAYER.removeAttr("id");
-                    CURRENT_PLAYER.toggleClass('pause');
-                    CURRENT_PLAYER.closest('.play-container').toggleClass('pause');
-                    CURRENT_PLAYER.closest('.control-panel').toggleClass('active');
-                    CURRENT_PLAYER.closest('.brick').find('.info-bar').toggleClass('active');
-                    CURRENT_PLAYER.closest('.brick').find('.brick-audio').empty();
-                    player_pressed.attr("id", "CURRENT_PLAYER");
-                    player_pressed.closest('.brick').find('.brick-audio').load("../views/audio_wave.html");
-                    $.getScript("audio_wave.js",function(){
-                        init();
-                    });
-                }
-                else{
-                    $.getScript("audio_wave.js",function(){
-                        stopSound();
-                        init();
-                    });
-                }
-            }
-            else{
-                player_pressed.attr('id', 'CURRENT_PLAYER');
-                player_pressed.closest('.brick').find('.brick-audio').load("../views/audio_wave.html");
+        var player = $(this);
+        initAudio(player);
+    });
+
+    setInterval(updateBlur, 1000);
+}
+
+function refreshAudio(){
+    var curr_player = $('#CURRENT_PLAYER');
+    curr_player.closest('.brick').find('.brick-img').css({
+        "-webkit-filter": "blur(0px)",
+        "filter": "blur(0px)"});
+    curr_player.closest('.brick').find('.brick-audio').empty();
+    curr_player.removeAttr("id");
+    $.getScript("audio_wave.js",function(){
+            stopSound();
+    });
+}
+
+function initAudio(player){
+    player.toggleClass('pause');
+    player.closest('.play-container').toggleClass('pause');
+    player.closest('.control-panel').toggleClass('active');
+    player.closest('.brick').find('.info-bar').toggleClass('active');
+    
+    if(!player.hasClass('pause')) {
+        //////
+        if($('#CURRENT_PLAYER').length != 0){
+            CURRENT_PLAYER = $('#CURRENT_PLAYER');
+            if(!player.is('#CURRENT_PLAYER')){
+                $.getScript("audio_wave.js",function(){
+                    stopSound();
+                });
+                $('#CURRENT_PLAYER').closest('.brick').find('.brick-img').css({
+                    "-webkit-filter": "blur(0px)",
+                    "filter": "blur(0px)"});
+                CURRENT_PLAYER.removeAttr("id");
+                CURRENT_PLAYER.toggleClass('pause');
+                CURRENT_PLAYER.closest('.play-container').toggleClass('pause');
+                CURRENT_PLAYER.closest('.control-panel').toggleClass('active');
+                CURRENT_PLAYER.closest('.brick').find('.info-bar').toggleClass('active');
+                CURRENT_PLAYER.closest('.brick').find('.brick-audio').empty();
+                player.attr("id", "CURRENT_PLAYER");
+                player.closest('.brick').find('.brick-audio').load("../views/audio_wave.html");
                 $.getScript("audio_wave.js",function(){
                     init();
                 });
             }
+            else{
+                $.getScript("audio_wave.js",function(){
+                    stopSound();
+                    init();
+                });
+            }
         }
-        else {
-            $('#CURRENT_PLAYER').closest('.brick').find('.brick-img').css({
-                "-webkit-filter": "blur(0px)",
-                "filter": "blur(0px)"});
-            $('#CURRENT_PLAYER').closest('.brick').find('.brick-audio').empty();
-            $(this).removeAttr("id");
+        else{
+            player.attr('id', 'CURRENT_PLAYER');
+            player.closest('.brick').find('.brick-audio').load("../views/audio_wave.html");
             $.getScript("audio_wave.js",function(){
-                 stopSound();
+                init();
             });
         }
-    });
-
-   
-    setInterval(updateBlur, 1000);
+    }
+    else {
+        $('#CURRENT_PLAYER').closest('.brick').find('.brick-img').css({
+            "-webkit-filter": "blur(0px)",
+            "filter": "blur(0px)"});
+        $('#CURRENT_PLAYER').closest('.brick').find('.brick-audio').empty();
+        $(this).removeAttr("id");
+        $.getScript("audio_wave.js",function(){
+                stopSound();
+        });
+    }
 }
+
 function updateBlur(){
     if($('#CURRENT_PLAYER').length != 0){
         if(!$('#CURRENT_PLAYER').hasClass('pause')){
