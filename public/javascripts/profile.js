@@ -64,6 +64,8 @@ var toggleChatbox = function(){
         $('#profile_chat-btn').removeClass('profile_chat_open');
     }
 }
+
+
 var loadChatHistory = function(){
     $.ajax({
         url: '/profile/chat/loadhistory',

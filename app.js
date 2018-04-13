@@ -59,10 +59,10 @@ app.use('/intro', function(req, res, next){
 app.use('/profile', function(req, res, next){
   res.sendFile(path.join(__dirname + '/public/views/profile.html'));
 });
-// app.get('/sidepanel', function(req, res, next) {
-//   Sidepanel.getProfilePicture()
-//   res.render(__dirname + "/public/views/sidepanel.html", {name:"name"}); 
-// });
+app.use('/im', function(req, res, next){
+  res.sendFile(path.join(__dirname + '/public/views/im.html'));
+});
+
 app.use('/sidepanel', sidepanel_route);
 app.use('/myprofile', profile_route);
 app.use('/create', create_route);
@@ -88,6 +88,9 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
-
+//app.get('/sidepanel', function(req, res, next) {
+//   Sidepanel.getProfilePicture()
+//   res.render(__dirname + "/public/views/sidepanel.html", {name:"name"}); 
+// });
 
 module.exports = app;
