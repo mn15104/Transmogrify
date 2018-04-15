@@ -1,0 +1,17 @@
+.webcam_container{
+    position:relative;
+    display: inline-block;
+    border: 2px solid black;
+    padding: 5px;
+}
+.webcam_video{
+    border: 2px solid black;
+}
+.webcam_buttons{
+    position:relative;
+    width: 600px;
+}
+.webcam_buttons button {
+    position:relative;
+    margin-left: 26.5%;
+}
