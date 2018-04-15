@@ -518,11 +518,12 @@ function audioTester(primaryDetected, colourDetected, yClrSym, yFineSym, xClrSym
     player.loader.decodeAfterLoading(audioContext, '_tone_0000_SBLive_sf2');
     player.loader.decodeAfterLoading(audioContext, '_tone_0040_SBLive_sf2');
     player.loader.decodeAfterLoading(audioContext, '_tone_040_SBLive_sf2');
+    player.loader.decodeAfterLoading(audioContext, '_tone_0001_FluidR3_GM_sf2_file');
     player.loader.decodeAfterLoading(audioContext, '_drum_60_0_SBLive_sf2');
     player.loader.decodeAfterLoading(audioContext, '_drum_61_0_SBLive_sf2');
     player.loader.decodeAfterLoading(audioContext, '_drum_62_0_SBLive_sf2');
 
-    var melInst = [_tone_0000_SBLive_sf2, _tone_0040_SBLive_sf2, _tone_0030_SBLive_sf2]; //Melody Instrument
+    var melInst = [_tone_0001_FluidR3_GM_sf2_file, _tone_0000_SBLive_sf2, _tone_0040_SBLive_sf2, _tone_0030_SBLive_sf2]; //Melody Instrument
     var drmInst = [_drum_60_0_SBLive_sf2, _drum_61_0_SBLive_sf2, _drum_62_0_SBLive_sf2]; //Drum Instrument
 
     var insNo = primaryDetected - 1;
@@ -535,15 +536,19 @@ function audioTester(primaryDetected, colourDetected, yClrSym, yFineSym, xClrSym
     var currentMotif = 0;
     var repTime = 0;
 
+        motif = motifGenerator(mood, 1, 0, yClrSym, yFineSym, xClrSym, xFineSym);
+        console.log("Notes[i][0]: " + motif[0][0] + ", " + motif[1][0] + ", " + motif[2][0] + ", " + motif[3][0] + ", " + motif[4][0] + ", " + motif[5][0] + ", " + motif[6][0] + ", " + motif[7][0]);
+        console.log("Rhyth[i][1]: " + motif[0][1] + ", " + motif[1][1] + ", " + motif[2][1] + ", " + motif[3][1] + ", " + motif[4][1] + ", " + motif[5][1] + ", " + motif[6][1] + ", " + motif[7][1]);
+        console.log("Length[i][2]: " + motif[0][2] + ", " + motif[1][2] + ", " + motif[2][2] + ", " + motif[3][2] + ", " + motif[4][2] + ", " + motif[5][2] + ", " + motif[6][2] + ", " + motif[7][2]);
 
-        player.queueWaveTable(audioContext, audioContext.destination, melInst[0], repTime + rhythm(0, 1), heptScale(1)                        +12*4+musicKey, 1);
-        player.queueWaveTable(audioContext, audioContext.destination, melInst[0], repTime + rhythm(0, 2), heptScale(Math.floor(yClrSym/12.6)) +12*4+musicKey, 1);
-        player.queueWaveTable(audioContext, audioContext.destination, melInst[0], repTime + rhythm(0, 3), heptScale(Math.floor(yFineSym/12.6))+12*4+musicKey, 1);
-        player.queueWaveTable(audioContext, audioContext.destination, melInst[0], repTime + rhythm(0, 4), heptScale(Math.floor(xClrSym/12.6)) +12*4+musicKey, 1);
-        player.queueWaveTable(audioContext, audioContext.destination, melInst[0], repTime + rhythm(1, 1), heptScale(Math.floor(xFineSym/12.6))+12*4+musicKey, 1);
-        player.queueWaveTable(audioContext, audioContext.destination, melInst[0], repTime + rhythm(1, 2), heptScale(mood)                     +12*4+musicKey, 1);
-        player.queueWaveTable(audioContext, audioContext.destination, melInst[0], repTime + rhythm(1, 3), heptScale(5)                        +12*4+musicKey, 1);
-        player.queueWaveTable(audioContext, audioContext.destination, melInst[0], repTime + rhythm(1, 4), heptScale(1)                        +12*4+musicKey, 1);
+        player.queueWaveTable(audioContext, audioContext.destination, melInst[0], repTime + motif[0][0], motif[0][1]+12*4+musicKey, motif[0][2]);
+        player.queueWaveTable(audioContext, audioContext.destination, melInst[0], repTime + motif[1][0], motif[1][1]+12*4+musicKey, motif[1][2]);
+        player.queueWaveTable(audioContext, audioContext.destination, melInst[0], repTime + motif[2][0], motif[2][1]+12*4+musicKey, motif[2][2]);
+        player.queueWaveTable(audioContext, audioContext.destination, melInst[0], repTime + motif[3][0], motif[3][1]+12*4+musicKey, motif[3][2]);
+        player.queueWaveTable(audioContext, audioContext.destination, melInst[0], repTime + motif[4][0], motif[4][1]+12*4+musicKey, motif[4][2]);
+        player.queueWaveTable(audioContext, audioContext.destination, melInst[0], repTime + motif[5][0], motif[5][1]+12*4+musicKey, motif[5][2]);
+        player.queueWaveTable(audioContext, audioContext.destination, melInst[0], repTime + motif[6][0], motif[6][1]+12*4+musicKey, motif[6][2]);
+        player.queueWaveTable(audioContext, audioContext.destination, melInst[0], repTime + motif[7][0], motif[7][1]+12*4+musicKey, motif[7][2]);
 
     // (function repeatMotif() {
     //
@@ -617,9 +622,14 @@ function audioTester(primaryDetected, colourDetected, yClrSym, yFineSym, xClrSym
 
 }
 
-function motifGenerator(mood, yClrSym, yFineSym, xClrSym, xFineSym){
+function motifGenerator(mood, layer, key, yClrSym, yFineSym, xClrSym, xFineSym) {
 
     var motif = new Array(8);
+
+    var decision1 = Math.floor(yClrSym);
+    var decision2 = Math.floor(yFineSym);
+    var decision3 = Math.floor(xClrSym);
+    var decision4 = Math.floor(xFineSym);
 
 
     // var pixInfo = [0, 1]; //(Red, Green, Blue, noPixels)
@@ -627,42 +637,103 @@ function motifGenerator(mood, yClrSym, yFineSym, xClrSym, xFineSym){
     for (var n = 0; n < 8; n++) {
         motif[n] = new Array(3);
         // for (var c = 0; c < 2; c++) {
-        motif[n][0] = 0;//Note
-        motif[n][1] = rhythm(0, n);//Beat
-        motif[n][2] = note(1);//Length
+        motif[n][0] = 0;//Beat
+        motif[n][1] = 0;//Note
+        motif[n][2] = 0;//Length
         // }
+    }
+    console.log("The mood is " + mood);
+
+    if (mood == 1) {
+        console.log("IM HERE!!!");
+
+        // Start simple, always play root noot on beat 1 of bar 1
+        motif[0][0] = rhythm(1, 1);
+        motif[0][1] = heptScale(1);
+        motif[0][2] = dur(1);
+
+        // Second Not Branch
+        var secondNote = ((decision1%6)+1); //Avoid 7ths for now
+        motif[1][0] = rhythm(1, 2);
+        motif[1][1] = heptScale(secondNote);
+        motif[1][2] = dur(1);
+
+        if (secondNote == 1){
+            motif[2][0] = rhythm(1, 2);
+            motif[2][1] = heptScale(5);
+            motif[2][2] = dur(1);
+
+
+        }
+        if (secondNote == 4){
+            if (decision2 < 4) {
+                motif[3][0] = rhythm(1, 3);
+                motif[3][1] = heptScale(5);
+                motif[3][2] = dur(1);
+            }
+            if (decision2 >= 4) {
+                motif[3][0] = rhythm(1, 3);
+                motif[3][1] = heptScale(5);
+                motif[3][2] = dur(1);
+            }
+        }
+
+
+        // motif[3][0] = rhythm(1, 4);
+        // motif[3][1] = heptScale(6);
+        // motif[3][2] = dur(1);
+        //
+        // motif[4][0] = rhythm(2, 1);
+        // motif[4][1] = heptScale(5);
+        // motif[4][2] = dur(1);
+        //
+        // motif[5][0] = rhythm(2, 2);
+        // motif[5][1] = heptScale(3);
+        // motif[5][2] = dur(1);
+        //
+        // motif[6][0] = rhythm(2, 3);
+        // motif[6][1] = heptScale(5);
+        // motif[6][2] = dur(1);
+        //
+        // motif[7][0] = rhythm(2, 4);
+        // motif[7][1] = heptScale(1);
+        // motif[7][2] = dur(1);
+
     }
 
 
     //Ignore anything other than pentonic for now
-    motif[0][0] = heptScale(1); //Always start with root for now
+    // motif[0][0] = heptScale(1); //Always start with root for now
+    //
+    //
+    // motif[1][0] = heptScale(Math.floor(yClrSym/12.6));
+    // motif[2][0] = heptScale(Math.floor(yFineSym/12.6));
+    // motif[3][0] = heptScale(Math.floor(xClrSym/12.6));
+    // motif[4][0] = heptScale(Math.floor(xFineSym/12.6));
+    // motif[5][0] = heptScale(Math.floor(mood));
+    // motif[6][0] = heptScale(5);
+    // motif[7][0] = heptScale(1);
+    //
+    // motif[5][1] = 5;
+    // motif[5][2] = 5;
 
+    // console.log("Notes[i][0]: " + motif[0][0] + ", " + motif[1][0] + ", " + motif[2][0] + ", " + motif[3][0] + ", " + motif[4][0] + ", " + motif[5][0] + ", " + motif[6][0] + ", " + motif[7][0]);
+    // console.log("Rhyth[i][1]: " + motif[0][1] + ", " + motif[1][1] + ", " + motif[2][1] + ", " + motif[3][1] + ", " + motif[4][1] + ", " + motif[5][1] + ", " + motif[6][1] + ", " + motif[7][1]);
+    // console.log("Length[i][2]: " + motif[0][2] + ", " + motif[1][2] + ", " + motif[2][2] + ", " + motif[3][2] + ", " + motif[4][2] + ", " + motif[5][2] + ", " + motif[6][2] + ", " + motif[7][2]);
 
-    motif[1][0] = heptScale(Math.floor(yClrSym/12.6));
-    motif[2][0] = heptScale(Math.floor(yFineSym/12.6));
-    motif[3][0] = heptScale(Math.floor(xClrSym/12.6));
-    motif[4][0] = heptScale(Math.floor(xFineSym/12.6));
-    motif[5][0] = heptScale(Math.floor(mood));
-    motif[6][0] = heptScale(5);
-    motif[7][0] = heptScale(1);
-    console.log("Notes: " + motif[0][1] + ", " + motif[1][1] + ", " + motif[2][1] + ", " + motif[3][1] + ", " + motif[4][1] + ", " + motif[5][1] + ", " + motif[6][1] + ", " + motif[7][1]);
+    //
+    // var testing0 = heptScale(1); //Always start with root for now
+    // var testing1 = heptScale(Math.floor(yClrSym/12.6));
+    // var testing2 = heptScale(Math.floor(yFineSym/12.6));
+    // var testing3 = heptScale(Math.floor(xClrSym/12.6));
+    // var testing4 = heptScale(Math.floor(xFineSym/12.6));
+    // var testing5 = heptScale(Math.floor(mood));
+    // var testing6 = heptScale(5);
+    // var testing7 = heptScale(1);
+    // console.log("Notes: " + testing0 + ", " + testing1 + ", " + testing2 + ", " + testing3 + ", " + testing4 + ", " + testing5 + ", " + testing6 + ", " + testing7);
 
+    return motif;
 
-    var testing0 = heptScale(1); //Always start with root for now
-    var testing1 = heptScale(Math.floor(yClrSym/12.6));
-    var testing2 = heptScale(Math.floor(yFineSym/12.6));
-    var testing3 = heptScale(Math.floor(xClrSym/12.6));
-    var testing4 = heptScale(Math.floor(xFineSym/12.6));
-    var testing5 = heptScale(Math.floor(mood));
-    var testing6 = heptScale(Math.floor(yFineSym/12.6));
-    var testing6 = heptScale(5);
-    var testing7 = heptScale(1);
-    console.log("Notes: " + testing0 + ", " + testing1 + ", " + testing2 + ", " + testing3 + ", " + testing4 + ", " + testing5 + ", " + testing6 + ", " + testing7);
-
-
-
-
-return motif;
 }
 
 function heptScale(heptNote) {
@@ -685,11 +756,11 @@ function rhythm(bar, beats) {
     // var bpm = 80;
     var timeSig = 4;
 
-    var noBeats = (bar*timeSig + (beats-1));
+    var noBeats = ((bar-1)*timeSig + (beats-1));
     return ( noBeats*(60/bpm) );
 }
 
-function note(noteLength) {
+function dur(noteLength) {
     // var bpm = 80;
     //4 = semibreve
     //2 = minum
