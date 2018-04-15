@@ -171,7 +171,6 @@ var loadSampleAudio = function() {
 	stopSound();
 
 	initSound();
-
 	
 	// Load asynchronously
 	var request = new XMLHttpRequest();

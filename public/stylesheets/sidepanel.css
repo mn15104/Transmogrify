@@ -36,6 +36,7 @@ body{
 }
 
 .sidepanel_body h1{
+  
   color: var(--clrTitle);
   font-family:Georgia,serif;
   text-transform: none; font-weight: 100;
@@ -196,6 +197,11 @@ h2.sidepanel_menu-link-login{
 }
 
 h3.sidepanel_title{
+  -webkit-user-select: none; /* Safari */        
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+/Edge */
+  user-select: none; /* Standard */
+
   position: relative;
   font: 600 2em/1 'Raleway', sans-serif;
   margin-top: 20px;

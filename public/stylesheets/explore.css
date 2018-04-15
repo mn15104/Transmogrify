@@ -14,6 +14,11 @@ html {
     overflow-y: scroll;
 }
 h1.explore_title{ 
+  -webkit-user-select: none; /* Safari */        
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+/Edge */
+  user-select: none; /* Standard */
+
     font: 4em/1.5 'Open Sans', sans-serif;
 	  color: var(--clrText);
     font-weight: 800;
@@ -27,6 +32,7 @@ h1.explore_title{
 }
 
 .explore_title span {
+
 	color: var(--clrTitle);
 	font-weight: 300;
 	margin-left: -7px;

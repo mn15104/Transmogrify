@@ -59,8 +59,8 @@ app.use('/intro', function(req, res, next){
 app.use('/profile', function(req, res, next){
   res.sendFile(path.join(__dirname + '/public/views/profile.html'));
 });
-app.use('/im', function(req, res, next){
-  res.sendFile(path.join(__dirname + '/public/views/im.html'));
+app.use('/wc', function(req, res, next){
+  res.sendFile(path.join(__dirname + '/public/views/webcam.html'));
 });
 
 app.use('/sidepanel', sidepanel_route);

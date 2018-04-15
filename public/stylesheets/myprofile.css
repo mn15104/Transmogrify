@@ -24,6 +24,11 @@ element{
   width: 100%;
 }
 h1.profile_title{ 
+  -webkit-user-select: none; /* Safari */        
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+/Edge */
+  user-select: none; /* Standard */
+
   display: inline-block;
   position:relative;
   font: 6em/1.5 'Open Sans', sans-serif;
@@ -115,7 +120,7 @@ h1.profile_title{
 }
 .profile_card_wrapper{
   position:relative;
-  width:200px;
+  width:14.5%;
 }
 #profile_card{
     display: inline-block;
@@ -137,7 +142,7 @@ h1.profile_title{
 }
 
 .profile_card {
-  position:absolute;
+  position:relative;
   font-family: 'Open Sans', Arial, sans-serif;
   float: left;
   overflow: show;
@@ -145,8 +150,9 @@ h1.profile_title{
   margin-top:290px;
   min-width: 230px;
   height: 280px;
+  margin-left:20%;
   width: 60%;
-  left:45vw;
+  left:300%;
   line-height: 1.4em;
   background-color: #303232;
   -webkit-transition:background 3s;
@@ -450,6 +456,10 @@ h1.profile_title{
     text-align:center;
 }
 h2.profile_gallery-title{ 
+  -webkit-user-select: none; /* Safari */        
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+/Edge */
+  user-select: none; /* Standard */
   font: 7em/1.5 'Open Sans', sans-serif;
   color: #67708f;
   font-weight: 400;

@@ -1,55 +1,66 @@
-<video id="localView" width="640" height="480" autoplay controls></video>
-<canvas id="canvas" width="640" height="480"></canvas>
-<video id="remoteView" width="640" height="480" autoplay></video>
-<button id="snap">Snap Photo</button>
-<input  id="remoteName" type = 'text'> </input>
-<button id="sendOffer">Send Offer</button>
-<input  id="localName" type = 'text'> </input>
-<button id="connect">Connect</button>
-<button id='check'> PRESS ME </button>
-<button id='stream'> STREAM </button>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Audio Analysis Demo</title>
+	<meta charset="utf-8">
+    <script src="../javascripts/jstools/jquery-3.2.1.min.js"></script>
+    <link rel="stylesheet" href="./stylesheets/webcam.css">
+</head>
+<body>
 
-<script src="@routes.Assets.versioned("javascripts/jquery.js")"></script>
+<div class="webcam_container">
+    <video class = "webcam_video" id="localView" width="300" height="250" autoplay controls></video>
+    <!-- <canvas id="canvas" width="400" height="400"></canvas> -->
+    <video class = "webcam_video" id="remoteView" width="300" height="250" autoplay></video>
+
+    <div class = "webcam_buttons">
+        <button id="connect">Connect</button>
+        <button id='stream'> Disconnect </button>
+    </div>
+</div>
 <script>
     var localView = $('#localView');
     var remoteView = $('#remoteView');
     var config = {'iceServers': [{'urls': 'stun:stun.services.mozilla.com'}, {'urls': 'stun:stun.l.google.com:19302'}]};
     var RTCpc;
+
     $('#check').on('click', function(){
         console.log(RTCpc.iceConnectionState)
     })
+    
     $('#stream').on('click', function(){
         console.log((localView.find('source')).attr('src'))
     })
    
-        console.log("START")
-        RTCpc = new RTCPeerConnection(config);
-        RTCpc.onicecandidate = function (event) {
-            console.log(event)
-            if(event.candidate) {
-                wsconnection.send(JSON.stringify({
-                    type: event.candidate,
-                    name: remoteName
-            }));}
-            console.log("sent")
-        }
-        RTCpc.onaddstream = function(event){
-            console.log("Stream added")
-            console.log(event.stream)
-            remoteView.attr('src', window.URL.createObjectURL(event.stream));
-        
-        }
-        if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-            // Not adding `{ audio: true }` since we only want video now
-            console.log("HI");
-            navigator.webkitGetUserMedia({video: true}, function(stream){
-                localView.attr('src', window.URL.createObjectURL(stream))
-                console.log(localView)
-                RTCpc.addStream(stream);
-            }, function(error){
-                console.log(error)
-            })
-        }
+    console.log("START");
+    RTCpc = new RTCPeerConnection(config);
+    RTCpc.onicecandidate = function (event) {
+        console.log(event)
+        if(event.candidate) {
+            wsconnection.send(JSON.stringify({
+                type: event.candidate,
+                name: remoteName
+        }));}
+        console.log("sent");
+    }
+
+    RTCpc.onaddstream = function(event){
+        console.log("Stream added")
+        console.log(event.stream)
+        remoteView.attr('src', window.URL.createObjectURL(event.stream));
+    
+    }
+
+    if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+        console.log("HI");
+        navigator.webkitGetUserMedia({video: true}, function(stream){
+            localView.attr('src', window.URL.createObjectURL(stream))
+            console.log(localView)
+            RTCpc.addStream(stream);
+        }, function(error){
+            console.log(error)
+        })
+    }
     
     var localName = "";
     var remoteName = "";
@@ -60,7 +71,7 @@
     });
     
     //SOCKET
-    url = '@socketURL'
+    url = 'http://localhost:3000/wc/connect'
     $('#connect').on('click', function(){
         localName = $('#localName').val();
         
@@ -150,3 +161,4 @@
                 }));
     }
 </script>
+</body>
