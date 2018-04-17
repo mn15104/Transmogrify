@@ -677,6 +677,7 @@ function motifGenerator(mood, layer, key, decVars, symVars) {
         motif[0][1] = heptScale(firstNote);
         motif[0][2] = dur(1);
         console.log("Note1 = ", chromScale(motif[0][1]) );
+        firstNote = chromScale(motif[0][1]);
 
         // Second Not Branch anything goes
         var secondNote = decVars[1];
@@ -684,38 +685,55 @@ function motifGenerator(mood, layer, key, decVars, symVars) {
         motif[1][1] = heptScale(secondNote);
         motif[1][2] = dur(1);
         console.log("Note2 = ", chromScale(motif[1][1]) );
+        secondNote = chromScale(motif[1][1]);
 
         // console.log("heptNote3 = ", chromScale(motif[1][1]) );
 
-        // Third not branching anything goes again I think
+        // Third not branching anything goes again (unless dim 7th is chosen)
         var thirdNote = decVars[2];
         motif[2][0] = rhythm(1, 3);
-        motif[2][1] = heptScale(thirdNote);
         motif[2][2] = dur(1);
+        if (secondNote == 7) {
+             //Stick to major 7th to play safe
+            if (thirdNote == 7) thirdNote = 7;
+            else if (thirdNote >= 5) thirdNote = 5;
+            else if (thirdNote < 5) thirdNote = 3;
+        }
+        else if (thirdNote == 7) {
+            //If the 2nd note isnt a 3rd or 5th, change the 7th
+            if ( !(secondNote == 3 || secondNote == 5) ){
+                console.log("Changing 7th on 3rd note");
+                thirdNote = Math.abs(thirdNote - secondNote);
+                //If this is still somehow 7 just hit root again pls
+                if (thirdNote == 7) thirdNote = 1;
+            }
+        }
+        motif[2][1] = heptScale(thirdNote);
         console.log("Note3 = ", chromScale(motif[2][1]) );
         // console.log("heptNote3 = ", chromScale(motif[2][1]) );
 
-        //Calculate actual outputted notes so far (in heptonic scale)
-        firstNote = motif[0][1];
-        secondNote = motif[1][1];
-        thirdNote = motif[2][1];
+        //Calculate actual outputted notes so far (in heptatonic scale)
+        firstNote = chromScale(motif[0][1]);
+        secondNote = chromScale(motif[1][1]);
+        thirdNote = chromScale(motif[2][1]);
 
         // Fourth note must branch and consider previous Notes
         //Check for repeats
-        if ( (firstNote == secondNote) || (firstNote == thirdNote) || (secondNote == thirdNote) ) {
+        if ( ( (firstNote == secondNote) || (firstNote == thirdNote) || (secondNote == thirdNote) ) && (symScore > 5) ) {
             //If symmetry score is high then repeat the non-repeated note to give symmetrical pattern
             console.log("There is repeat, with sym: ", symScore);
             if ( symScore > 7 ) {
+                console.log("High Sym Score so straight repeat");
                 if (firstNote == secondNote) {
-                    console.log("1 + 2 are the same");
+                    // console.log("1 + 2 are the same");
                     motif[3][1] = heptScale(thirdNote);
                 }
                 else if (firstNote == thirdNote) {
-                    console.log("1 + 3 are the same");
+                    // console.log("1 + 3 are the same");
                     motif[3][1] = heptScale(secondNote);
                 }
                 else {
-                    console.log("2 + 3 are the same");
+                    // console.log("2 + 3 are the same");
                     motif[3][1] = heptScale(firstNote)
                 }
             }
@@ -726,6 +744,7 @@ function motifGenerator(mood, layer, key, decVars, symVars) {
                 var oddNote;
                 if (firstNote == secondNote) {
                     if (firstNote == thirdNote) {
+                        console.log("SPecial CASE!");
                         oddNote = 0; //Special case with 3 repeated notes
                     }
                     oddNote = 3;
@@ -736,12 +755,14 @@ function motifGenerator(mood, layer, key, decVars, symVars) {
                     tonalInterval = Math.abs(secondNote - firstNote) + 1;
                 }
                 else {
-                    OddNote = 1;
-                    tonalInterval = Math.abs(thirdNote - secondNote) + 1;
+                    oddNote = 1;
+                    tonalInterval = Math.abs(firstNote - secondNote) + 1;
                 }
+                console.log("The tonal interval detected is " + tonalInterval);
                 //Handing small intervals
                 if (tonalInterval < 4) {
                     console.log("Tonal interval of 1, 2, or 3, so doubling the interval on top.");
+                    console.log("odd note = " + oddNote);
                     if (oddNote == 1) {
                         if (firstNote < secondNote) {
                             motif[3][1] = heptScale(secondNote + tonalInterval-1);
@@ -771,28 +792,34 @@ function motifGenerator(mood, layer, key, decVars, symVars) {
                 if (tonalInterval > 3) {
 
                     console.log("Tonal interval of " + tonalInterval + "so acting accordingly");
-                    if (tonalInterval == 4) tonalInterval = -2;
+                    if (tonalInterval == 4) tonalInterval = 0;
                     if (tonalInterval == 5) tonalInterval = 3;
-                    if (tonalInterval == 6) tonalInterval = -3;
-                    if (tonalInterval == 7) tonalInterval = -3;
+                    if (tonalInterval == 6) {
+                        if (decVars[3] < 5) tonalInterval = -3;
+                        if (decVars[3] >= 5) tonalInterval = -4;
+                    }
+                    if (tonalInterval == 7) {
+                        if (decVars[3] < 5) tonalInterval = -2;
+                        if (decVars[3] >= 5) tonalInterval = -4;
+                    }
 
                     if (oddNote == 1) {
                         if (firstNote < secondNote) {
-                            motif[3][1] = heptScale(secondNote - tonalInterval-1);
+                            motif[3][1] = heptScale(secondNote - (tonalInterval-1) );
                         }
-                        else motif[3][1] = heptScale(firstNote - tonalInterval-1);
+                        else motif[3][1] = heptScale(firstNote - (tonalInterval-1) );
                     }
                     else if (oddNote == 2) {
                         if (secondNote < thirdNote) {
-                            motif[3][1] = heptScale(thirdNote - tonalInterval-1);
+                            motif[3][1] = heptScale(thirdNote - (tonalInterval-1) );
                         }
-                        else motif[3][1] = heptScale(secondNote - tonalInterval-1);
+                        else motif[3][1] = heptScale(secondNote - (tonalInterval-1) );
                     }
                     else if (oddNote == 3) {
                         if (thirdNote < firstNote) {
-                            motif[3][1] = heptScale(firstNote - tonalInterval-1);
+                            motif[3][1] = heptScale(firstNote - (tonalInterval-1) );
                         }
-                        else motif[3][1] = heptScale(thirdNote - tonalInterval-1);
+                        else motif[3][1] = heptScale(thirdNote - (tonalInterval-1) );
                     }
                     else if (oddNote == 0) {
                         motif[3][1] = firstNote; //Repeat the 4th like in sym > 7
@@ -803,17 +830,19 @@ function motifGenerator(mood, layer, key, decVars, symVars) {
                 }
 
             }
-            //Else stick to pure decision for last time
-            else {
-                fourthNote = decVars[3];
-                motif[3][1] = heptScale(fourthNote);
-                console.log("Below av symmetry so pure decision on 4th note");
-            }
+        }
+        //Else stick to pure decision for last time
+        else {
+            console.log("No repeats and/or low symmetry score")
+            fourthNote = decVars[3];
+            motif[3][1] = heptScale(fourthNote);
+
+            console.log("Catch tonal discrencies tho");
+            motif[3][0] = rhythm(1, 4);
+            console.log("Note4 = ", chromScale(motif[3][1]) );
+            motif[3][2] = dur(1);
 
         }
-        motif[3][0] = rhythm(1, 4);
-        console.log("Note4 = ", chromScale(motif[3][1]) );
-        motif[3][2] = dur(1);
 
 
         // motif[3][0] = rhythm(1, 4);
