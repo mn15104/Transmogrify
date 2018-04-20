@@ -234,7 +234,7 @@ $( ".convert-btn" ).one( "click", function() {
                         var colourDetected = colourAverage(redSum,blueSum,greenSum,pixelSum);
                         var symmetry = colourBinned(pixBin, xBins, yBins);
 
-                        audioTester(primaryDetected, colourDetected, symmetry[0], symmetry[1], symmetry[2], symmetry[3]);
+                        audioTester(primaryDetected, colourDetected, 1,2,3,4, symmetry[0], symmetry[1], symmetry[2], symmetry[3]);
                         updateProgress(100);
 
                         //Show the placeholder audio
@@ -501,7 +501,7 @@ function fineSimilarity (intA, intB){
 //Cheeky global
 var bpm = 10;
 
-function audioTester(primaryDetected, colourDetected, yClrSym, yFineSym, xClrSym, xFineSym){
+function audioTester(primaryDetected, colourDetected, decision1, decision2, decision3, decision4, yClrSym, yFineSym, xClrSym, xFineSym){
     //Demo
     // var AudioContextFunc = window.AudioContext || window.webkitAudioContext;
     // var audioContext = new AudioContextFunc();
@@ -513,7 +513,7 @@ function audioTester(primaryDetected, colourDetected, yClrSym, yFineSym, xClrSym
     var audioContext = new AudioContextFunc();
     var player=new WebAudioFontPlayer();
 
-    bpm = (60 + (primaryDetected*5) + (colourDetected * 4) );
+    bpm = 60;//(60 + (primaryDetected*5) + (colourDetected * 4) );
 
     player.loader.decodeAfterLoading(audioContext, '_tone_0000_SBLive_sf2');
     player.loader.decodeAfterLoading(audioContext, '_tone_0040_SBLive_sf2');
@@ -523,7 +523,7 @@ function audioTester(primaryDetected, colourDetected, yClrSym, yFineSym, xClrSym
     player.loader.decodeAfterLoading(audioContext, '_drum_61_0_SBLive_sf2');
     player.loader.decodeAfterLoading(audioContext, '_drum_62_0_SBLive_sf2');
 
-    var melInst = [_tone_0001_FluidR3_GM_sf2_file, _tone_0000_SBLive_sf2, _tone_0040_SBLive_sf2, _tone_0030_SBLive_sf2]; //Melody Instrument
+    var melInst = [_tone_0000_SBLive_sf2, _tone_0001_FluidR3_GM_sf2_file, _tone_0000_SBLive_sf2, _tone_0040_SBLive_sf2, _tone_0030_SBLive_sf2]; //Melody Instrument
     var drmInst = [_drum_60_0_SBLive_sf2, _drum_61_0_SBLive_sf2, _drum_62_0_SBLive_sf2]; //Drum Instrument
 
     var insNo = primaryDetected - 1;
@@ -536,10 +536,31 @@ function audioTester(primaryDetected, colourDetected, yClrSym, yFineSym, xClrSym
     var currentMotif = 0;
     var repTime = 0;
 
-        motif = motifGenerator(mood, 1, 0, yClrSym, yFineSym, xClrSym, xFineSym);
-        console.log("Notes[i][0]: " + motif[0][0] + ", " + motif[1][0] + ", " + motif[2][0] + ", " + motif[3][0] + ", " + motif[4][0] + ", " + motif[5][0] + ", " + motif[6][0] + ", " + motif[7][0]);
-        console.log("Rhyth[i][1]: " + motif[0][1] + ", " + motif[1][1] + ", " + motif[2][1] + ", " + motif[3][1] + ", " + motif[4][1] + ", " + motif[5][1] + ", " + motif[6][1] + ", " + motif[7][1]);
-        console.log("Length[i][2]: " + motif[0][2] + ", " + motif[1][2] + ", " + motif[2][2] + ", " + motif[3][2] + ", " + motif[4][2] + ", " + motif[5][2] + ", " + motif[6][2] + ", " + motif[7][2]);
+    var symVars = new Array(4);
+    symVars[0] = yClrSym/10;
+    symVars[1] = yFineSym/10;
+    symVars[2] = xClrSym/10;
+    symVars[3] = xFineSym/10;
+
+    var decVars = new Array(4);
+    decVars[0] = decision1;
+    decVars[1] = decision2;
+    decVars[2] = decision3;
+    decVars[3] = decision4;
+
+    console.log("decision1 = ", decision1);
+    console.log("decision2 = ", decision2);
+    console.log("decision3 = ", decision3);
+    console.log("decision4 = ", decision4);
+    console.log("symmetry1 = ", yClrSym);
+    console.log("symmetry2 = ", yFineSym);
+    console.log("symmetry3 = ", xClrSym);
+    console.log("symmetry4 = ", xFineSym);
+
+        motif = motifGenerator(mood, 1, 0, decVars, symVars);
+        // console.log("Notes[i][0]: " + motif[0][0] + ", " + motif[1][0] + ", " + motif[2][0] + ", " + motif[3][0] + ", " + motif[4][0] + ", " + motif[5][0] + ", " + motif[6][0] + ", " + motif[7][0]);
+        // console.log("Rhyth[i][1]: " + motif[0][1] + ", " + motif[1][1] + ", " + motif[2][1] + ", " + motif[3][1] + ", " + motif[4][1] + ", " + motif[5][1] + ", " + motif[6][1] + ", " + motif[7][1]);
+        // console.log("Length[i][2]: " + motif[0][2] + ", " + motif[1][2] + ", " + motif[2][2] + ", " + motif[3][2] + ", " + motif[4][2] + ", " + motif[5][2] + ", " + motif[6][2] + ", " + motif[7][2]);
 
         player.queueWaveTable(audioContext, audioContext.destination, melInst[0], repTime + motif[0][0], motif[0][1]+12*4+musicKey, motif[0][2]);
         player.queueWaveTable(audioContext, audioContext.destination, melInst[0], repTime + motif[1][0], motif[1][1]+12*4+musicKey, motif[1][2]);
@@ -622,14 +643,17 @@ function audioTester(primaryDetected, colourDetected, yClrSym, yFineSym, xClrSym
 
 }
 
-function motifGenerator(mood, layer, key, yClrSym, yFineSym, xClrSym, xFineSym) {
+function motifGenerator(mood, layer, key, decVars, symVars) {
 
     var motif = new Array(8);
 
-    var decision1 = Math.floor(yClrSym);
-    var decision2 = Math.floor(yFineSym);
-    var decision3 = Math.floor(xClrSym);
-    var decision4 = Math.floor(xFineSym);
+
+    var symScore = Math.floor( (symVars[0] + symVars[1] + symVars[2] + symVars[3])/4 );
+
+    console.log("ok its", symVars[0]);
+    console.log("ok its", symVars[1]);
+    console.log("ok its", symVars[2]);
+    console.log("ok its", symVars[3]);
 
 
     // var pixInfo = [0, 1]; //(Red, Green, Blue, noPixels)
@@ -648,34 +672,176 @@ function motifGenerator(mood, layer, key, yClrSym, yFineSym, xClrSym, xFineSym) 
         console.log("IM HERE!!!");
 
         // Start simple, always play root noot on beat 1 of bar 1
+        var firstNote = 1;//decVars[0]
         motif[0][0] = rhythm(1, 1);
-        motif[0][1] = heptScale(1);
+        motif[0][1] = heptScale(firstNote);
         motif[0][2] = dur(1);
+        console.log("Note1 = ", chromScale(motif[0][1]) );
+        firstNote = chromScale(motif[0][1]);
 
-        // Second Not Branch
-        var secondNote = ((decision1%6)+1); //Avoid 7ths for now
+        // Second Not Branch anything goes
+        var secondNote = decVars[1];
         motif[1][0] = rhythm(1, 2);
         motif[1][1] = heptScale(secondNote);
         motif[1][2] = dur(1);
+        console.log("Note2 = ", chromScale(motif[1][1]) );
+        secondNote = chromScale(motif[1][1]);
 
-        if (secondNote == 1){
-            motif[2][0] = rhythm(1, 2);
-            motif[2][1] = heptScale(5);
-            motif[2][2] = dur(1);
+        // console.log("heptNote3 = ", chromScale(motif[1][1]) );
 
-
+        // Third not branching anything goes again (unless dim 7th is chosen)
+        var thirdNote = decVars[2];
+        motif[2][0] = rhythm(1, 3);
+        motif[2][2] = dur(1);
+        if (secondNote == 7) {
+             //Stick to major 7th to play safe
+            if (thirdNote == 7) thirdNote = 7;
+            else if (thirdNote >= 5) thirdNote = 5;
+            else if (thirdNote < 5) thirdNote = 3;
         }
-        if (secondNote == 4){
-            if (decision2 < 4) {
-                motif[3][0] = rhythm(1, 3);
-                motif[3][1] = heptScale(5);
-                motif[3][2] = dur(1);
+        else if (thirdNote == 7) {
+            //If the 2nd note isnt a 3rd or 5th, change the 7th
+            if ( !(secondNote == 3 || secondNote == 5) ){
+                console.log("Changing 7th on 3rd note");
+                thirdNote = Math.abs(thirdNote - secondNote);
+                //If this is still somehow 7 just hit root again pls
+                if (thirdNote == 7) thirdNote = 1;
             }
-            if (decision2 >= 4) {
-                motif[3][0] = rhythm(1, 3);
-                motif[3][1] = heptScale(5);
-                motif[3][2] = dur(1);
+        }
+        motif[2][1] = heptScale(thirdNote);
+        console.log("Note3 = ", chromScale(motif[2][1]) );
+        // console.log("heptNote3 = ", chromScale(motif[2][1]) );
+
+        //Calculate actual outputted notes so far (in heptatonic scale)
+        firstNote = chromScale(motif[0][1]);
+        secondNote = chromScale(motif[1][1]);
+        thirdNote = chromScale(motif[2][1]);
+
+        // Fourth note must branch and consider previous Notes
+        //Check for repeats
+        if ( ( (firstNote == secondNote) || (firstNote == thirdNote) || (secondNote == thirdNote) ) && (symScore > 5) ) {
+            //If symmetry score is high then repeat the non-repeated note to give symmetrical pattern
+            console.log("There is repeat, with sym: ", symScore);
+            if ( symScore > 7 ) {
+                console.log("High Sym Score so straight repeat");
+                if (firstNote == secondNote) {
+                    // console.log("1 + 2 are the same");
+                    motif[3][1] = heptScale(thirdNote);
+                }
+                else if (firstNote == thirdNote) {
+                    // console.log("1 + 3 are the same");
+                    motif[3][1] = heptScale(secondNote);
+                }
+                else {
+                    // console.log("2 + 3 are the same");
+                    motif[3][1] = heptScale(firstNote)
+                }
             }
+            //If symmetry score is medium choose to repeat an interval instead of a direct note
+            else if (symScore > 5) {
+                console.log("symScore of 6 or 7...");
+                var tonalInterval;
+                var oddNote;
+                if (firstNote == secondNote) {
+                    if (firstNote == thirdNote) {
+                        console.log("SPecial CASE!");
+                        oddNote = 0; //Special case with 3 repeated notes
+                    }
+                    oddNote = 3;
+                    tonalInterval = Math.abs(thirdNote - firstNote) + 1;
+                }
+                else if (firstNote == thirdNote) {
+                    oddNote = 2;
+                    tonalInterval = Math.abs(secondNote - firstNote) + 1;
+                }
+                else {
+                    oddNote = 1;
+                    tonalInterval = Math.abs(firstNote - secondNote) + 1;
+                }
+                console.log("The tonal interval detected is " + tonalInterval);
+                //Handing small intervals
+                if (tonalInterval < 4) {
+                    console.log("Tonal interval of 1, 2, or 3, so doubling the interval on top.");
+                    console.log("odd note = " + oddNote);
+                    if (oddNote == 1) {
+                        if (firstNote < secondNote) {
+                            motif[3][1] = heptScale(secondNote + tonalInterval-1);
+                        }
+                        else motif[3][1] = heptScale(firstNote + tonalInterval-1);
+                    }
+                    else if (oddNote == 2) {
+                        if (secondNote < thirdNote) {
+                            motif[3][1] = heptScale(thirdNote + tonalInterval-1);
+                        }
+                        else motif[3][1] = heptScale(secondNote + tonalInterval-1);
+                    }
+                    else if (oddNote == 3) {
+                        if (thirdNote < firstNote) {
+                            motif[3][1] = heptScale(firstNote + tonalInterval-1);
+                        }
+                        else motif[3][1] = heptScale(thirdNote + tonalInterval-1);
+                    }
+                    else if (oddNote == 0) {
+                        motif[3][1] = firstNote; //Repeat the 4th like in sym > 7
+                    }
+                    else {
+                        console.log("Error at note 4 in motifGenerator");
+                    }
+                }
+                // Handling large intervals
+                if (tonalInterval > 3) {
+
+                    console.log("Tonal interval of " + tonalInterval + "so acting accordingly");
+                    if (tonalInterval == 4) tonalInterval = 0;
+                    if (tonalInterval == 5) tonalInterval = 3;
+                    if (tonalInterval == 6) {
+                        if (decVars[3] < 5) tonalInterval = -3;
+                        if (decVars[3] >= 5) tonalInterval = -4;
+                    }
+                    if (tonalInterval == 7) {
+                        if (decVars[3] < 5) tonalInterval = -2;
+                        if (decVars[3] >= 5) tonalInterval = -4;
+                    }
+
+                    if (oddNote == 1) {
+                        if (firstNote < secondNote) {
+                            motif[3][1] = heptScale(secondNote - (tonalInterval-1) );
+                        }
+                        else motif[3][1] = heptScale(firstNote - (tonalInterval-1) );
+                    }
+                    else if (oddNote == 2) {
+                        if (secondNote < thirdNote) {
+                            motif[3][1] = heptScale(thirdNote - (tonalInterval-1) );
+                        }
+                        else motif[3][1] = heptScale(secondNote - (tonalInterval-1) );
+                    }
+                    else if (oddNote == 3) {
+                        if (thirdNote < firstNote) {
+                            motif[3][1] = heptScale(firstNote - (tonalInterval-1) );
+                        }
+                        else motif[3][1] = heptScale(thirdNote - (tonalInterval-1) );
+                    }
+                    else if (oddNote == 0) {
+                        motif[3][1] = firstNote; //Repeat the 4th like in sym > 7
+                    }
+                    else {
+                        console.log("Error at note 4 in motifGenerator");
+                    }
+                }
+
+            }
+        }
+        //Else stick to pure decision for last time
+        else {
+            console.log("No repeats and/or low symmetry score")
+            fourthNote = decVars[3];
+            motif[3][1] = heptScale(fourthNote);
+
+            console.log("Catch tonal discrencies tho");
+            motif[3][0] = rhythm(1, 4);
+            console.log("Note4 = ", chromScale(motif[3][1]) );
+            motif[3][2] = dur(1);
+
         }
 
 
@@ -702,53 +868,43 @@ function motifGenerator(mood, layer, key, yClrSym, yFineSym, xClrSym, xFineSym) 
     }
 
 
-    //Ignore anything other than pentonic for now
-    // motif[0][0] = heptScale(1); //Always start with root for now
-    //
-    //
-    // motif[1][0] = heptScale(Math.floor(yClrSym/12.6));
-    // motif[2][0] = heptScale(Math.floor(yFineSym/12.6));
-    // motif[3][0] = heptScale(Math.floor(xClrSym/12.6));
-    // motif[4][0] = heptScale(Math.floor(xFineSym/12.6));
-    // motif[5][0] = heptScale(Math.floor(mood));
-    // motif[6][0] = heptScale(5);
-    // motif[7][0] = heptScale(1);
-    //
-    // motif[5][1] = 5;
-    // motif[5][2] = 5;
-
-    // console.log("Notes[i][0]: " + motif[0][0] + ", " + motif[1][0] + ", " + motif[2][0] + ", " + motif[3][0] + ", " + motif[4][0] + ", " + motif[5][0] + ", " + motif[6][0] + ", " + motif[7][0]);
-    // console.log("Rhyth[i][1]: " + motif[0][1] + ", " + motif[1][1] + ", " + motif[2][1] + ", " + motif[3][1] + ", " + motif[4][1] + ", " + motif[5][1] + ", " + motif[6][1] + ", " + motif[7][1]);
-    // console.log("Length[i][2]: " + motif[0][2] + ", " + motif[1][2] + ", " + motif[2][2] + ", " + motif[3][2] + ", " + motif[4][2] + ", " + motif[5][2] + ", " + motif[6][2] + ", " + motif[7][2]);
-
-    //
-    // var testing0 = heptScale(1); //Always start with root for now
-    // var testing1 = heptScale(Math.floor(yClrSym/12.6));
-    // var testing2 = heptScale(Math.floor(yFineSym/12.6));
-    // var testing3 = heptScale(Math.floor(xClrSym/12.6));
-    // var testing4 = heptScale(Math.floor(xFineSym/12.6));
-    // var testing5 = heptScale(Math.floor(mood));
-    // var testing6 = heptScale(5);
-    // var testing7 = heptScale(1);
-    // console.log("Notes: " + testing0 + ", " + testing1 + ", " + testing2 + ", " + testing3 + ", " + testing4 + ", " + testing5 + ", " + testing6 + ", " + testing7);
-
     return motif;
 
 }
 
 function heptScale(heptNote) {
     //Major Heptatonic to Chromatic scale
-    var chromeNote = 1;
+    var chromNote = 1;
+    // console.log("heptNote =", heptNote);
+    if (heptNote < 1 || heptNote > 7) {
+        heptNote = (heptNote%8) + 1;
+    }
+    // console.log("heptNote2 =", heptNote);
 
-    if (heptNote === 1) chromeNote = 0;
-    if (heptNote === 2) chromeNote = 2;
-    if (heptNote === 3) chromeNote = 4;
-    if (heptNote === 4) chromeNote = 5;
-    if (heptNote === 5) chromeNote = 7;
-    if (heptNote === 6) chromeNote = 9;
-    if (heptNote === 7) chromeNote = 11;
+    //Triple === didn't work here...
+    if (heptNote == 1) chromNote = 0;
+    if (heptNote == 2) chromNote = 2;
+    if (heptNote == 3) chromNote = 4;
+    if (heptNote == 4) chromNote = 5;
+    if (heptNote == 5) chromNote = 7;
+    if (heptNote == 6) chromNote = 9;
+    if (heptNote == 7) chromNote = 11;
 
-    return chromeNote;
+    return chromNote;
+}
+
+function chromScale(chromNote) {
+    var heptNote = 0;
+
+    if (chromNote == 0)  heptNote = 1;
+    if (chromNote == 2)  heptNote = 2;
+    if (chromNote == 4)  heptNote = 3;
+    if (chromNote == 5)  heptNote = 4;
+    if (chromNote == 7)  heptNote = 5;
+    if (chromNote == 9)  heptNote = 6;
+    if (chromNote == 11) heptNote = 7;
+
+    return heptNote;
 }
 
 function rhythm(bar, beats) {
@@ -769,4 +925,71 @@ function dur(noteLength) {
     //1/4 = semiquaver
 
     return ( noteLength*(60/bpm) ) ;
+}
+
+
+
+
+
+
+// Script for Testing by admin
+var slider1 = document.getElementById("slider1");
+var output1 = document.getElementById("range1");
+output1.innerHTML = slider1.value;
+slider1.oninput = function() {
+    output1.innerHTML = this.value;
+}
+
+var slider2 = document.getElementById("slider2");
+var output2 = document.getElementById("range2");
+output2.innerHTML = slider2.value;
+slider2.oninput = function() {
+    output2.innerHTML = this.value;
+}
+
+var slider3 = document.getElementById("slider3");
+var output3 = document.getElementById("range3");
+output3.innerHTML = slider3.value;
+slider3.oninput = function() {
+    output3.innerHTML = this.value;
+}
+
+var slider4 = document.getElementById("slider4");
+var output4 = document.getElementById("range4");
+output4.innerHTML = slider4.value;
+slider4.oninput = function() {
+    output4.innerHTML = this.value;
+}
+
+var slider5 = document.getElementById("slider5");
+var output5 = document.getElementById("range5");
+output5.innerHTML = slider5.value;
+slider5.oninput = function() {
+    output5.innerHTML = this.value;
+}
+
+var slider6 = document.getElementById("slider6");
+var output6 = document.getElementById("range6");
+output6.innerHTML = slider6.value;
+slider6.oninput = function() {
+    output6.innerHTML = this.value;
+}
+
+var slider7 = document.getElementById("slider7");
+var output7 = document.getElementById("range7");
+output7.innerHTML = slider7.value;
+slider7.oninput = function() {
+    output7.innerHTML = this.value;
+}
+
+var slider8 = document.getElementById("slider8");
+var output8 = document.getElementById("range8");
+output8.innerHTML = slider8.value;
+slider8.oninput = function() {
+    output8.innerHTML = this.value;
+}
+
+function adminTestButton(){
+    audioTester(1,7,slider1.value,slider2.value,slider3.value,slider4.value,
+                slider5.value,slider6.value,slider7.value,slider8.value);
 }
