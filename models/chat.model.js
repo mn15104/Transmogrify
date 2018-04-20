@@ -18,7 +18,7 @@ wsServer = new WebSocketServer({
     httpServer: server,
     autoAcceptConnections: false
 });
- 
+
 function originIsAllowed(origin) {
   return true;
 }

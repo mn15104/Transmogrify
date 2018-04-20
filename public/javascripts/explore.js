@@ -13,9 +13,13 @@ function init(){
     })
     
     $('.brick .brick_profile_img').click(function(){
-        var brick = $(this).parent('.brick');
-        $('.flipper').css({'transform':'translateY(1000px)'},'slow');
-        $('.brick_profile_img').not(this).css({'transform':'translateY(1000px)'},'slow');
+        $('.explore_wrapper').animate(
+            { "margin-left": "-100vw" },
+            { queue: false, duration: 2000, complete:function(){
+                $.getScript("sidepanel.js",function(){
+                    transitionToProfilePage();
+                })
+            } });
     })
     $('.explore_title').css('opacity', 0)
                         .slideDown('slow')
@@ -119,6 +123,7 @@ function setBlur(radius) {
 		"filter": "blur("+radius+"px)"
    });
 };
+
 var tweenBlur = function(startRadius, endRadius) {
     $({blurRadius: startRadius}).animate({blurRadius: endRadius}, {
         duration: 500,

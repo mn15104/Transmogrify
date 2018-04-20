@@ -9,7 +9,7 @@ function init(){
         $('.title.right').addClass('selected');
         $('.left_half').delay(2000).animate({left:'0%'}, {duration:2000});
         $('.right_half').delay(2000).animate({left:'100%'}, {duration:2000, complete: function(){
-            location.href="http://localhost:3000/";
+            location.href="http://localhost:3000/sidepanel";
         }});
     });
     $('#left-arrow').click(function(){

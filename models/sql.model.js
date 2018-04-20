@@ -45,31 +45,32 @@ SQL_MODEL.init = function(){
     });
 
 
-    db.run(`CREATE TABLE IF NOT EXISTS USER_CHATHISTORY      (  user_idA INT (100), 
-                                                                user_idB INT (100), 
-                                                                message     VARCHAR(555), 
-                                                                date        datetime
-                                                                id          INT (100),
-                                                                UNIQUE(user_idA, user_idB))`, (err) => {
+    db.run(`CREATE TABLE IF NOT EXISTS FRIENDLIST           (   user_idA INT (100), 
+                                                                user_idB INT (100),
+                                                                chat_id  INT (100),
+                                                                UNIQUE(user_idA, user_idB, chat_id))`, (err) => {
         if (err) {
             console.error(err.message);
         }
         else {
-            console.log("Table USER_CHATHISTORY ready");
+            console.log("Table FRIENDLIST ready");
         }
     });
 
-    db.run(`CREATE TABLE IF NOT EXISTS USER_FRIENDS          (  user_idA INT (100), 
-                                                                user_idB INT (100),
-                                                                id          INT (100),
-                                                                UNIQUE(user_idA, user_idB))`, (err) => {
+    db.run(`CREATE TABLE IF NOT EXISTS CHATMESSAGE           (  chat_id         INT (100),
+                                                                message         VARCHAR(255),
+                                                                time            datetime, 
+                                                                user_send       INT(100),
+                                                                user_receive    INT(100), 
+                                                                PRIMARY KEY(chat_id))`, (err) => {
         if (err) {
             console.error(err.message);
         }
         else {
-            console.log("Table USER_FRIENDS ready");
+            console.log("Table MESSAGES ready");
         }
     });
+
 
     db.run(`CREATE TABLE IF NOT EXISTS IMAGE_UPLOADS    (file_name VARCHAR(255), 
                                                         file_size VARCHAR(10), 

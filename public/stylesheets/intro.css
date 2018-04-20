@@ -42,7 +42,7 @@ body{
 h1.title{ 
     display: inline-block;
     position:absolute;
-    top: 25vh;
+    top: 20vh;
     font: 5em/1.5 'Open Sans', sans-serif;
     color: #202020;
     font-weight: 300;
@@ -65,7 +65,7 @@ h1.title{
     transition: transform 2s;
 }
 .title.left span {
-    color: rgb(229, 229, 245);
+    color: rgb(232, 232, 232);
 }
 .title.left.slide_down{
     transform: translateY(2000px);

@@ -1,14 +1,40 @@
+:root {
+  --clrRed:   #CD412B; /* Red Highlights*/
+  --clrBack:  #202020; /* Black Background */
+  --clrBox:   #303232; /* Dark Box */
+  --clrTitle: #F6EAE1; /* Whitish Title */
+  --clrText:  #948C87; /* Duller Text*/
+  --clrOut:   #505050; /* Faint Outline*/
+  /* --colour6: #BEEAF8; /* Lighter Blue */ 
+}
+.profile_body{
+  all:initial;
+
+  background:var(--clrBack);
+}
+
 element{
     --filterVal: 180;
 }
 @media all and (max-width: 30em) {
     /* Alternative narrow styles */
 }
+#profile_title_container{
+  position: absolute;
+  width: 100%;
+}
 h1.profile_title{ 
+  -webkit-user-select: none; /* Safari */        
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+/Edge */
+  user-select: none; /* Standard */
+
   display: inline-block;
   position:relative;
   font: 6em/1.5 'Open Sans', sans-serif;
-  color: #373737;
+  color: #F6EAE1;
+  /* margin: auto; */
+  left: 42%;
   font-weight: 800;
   line-height: 1;
   transform: translateY(90px);
@@ -19,7 +45,7 @@ h1.profile_title{
 }
 
 .profile_title span {
-  color: #373737;
+  color: #948C87;
   font-weight: 300;
   margin-left: -7px;
 }
@@ -40,23 +66,6 @@ h1.profile_title{
        transform: translateY( 200px );
 }
 
-.profile_click{
-    background: url('https://cdn2.digitalartsonline.co.uk/cmsdata/slideshow/3513552/polybreno_1500.jpg');
-    background-size:contain;
-    position: relative;
-    -webkit-border-radius: 50%;
-    -moz-border-radius: 50%;
-    border-radius: 50%;
-    -webkit-transition:cubic-bezier(.34,.43,0,1.02) 0.5s;
-    -moz-transition:cubic-bezier(.34,.43,0,1.02) 0.5s;
-    transition:cubic-bezier(.34,.43,0,1.02) 0.5s;
-    box-shadow: 0px 0px 0px 2pt transparent;
-    border: 0px solid #FFF;
-    margin: auto;
-    cursor: pointer;
-    width:120px;
-    height:120px;
-}
 .profile_profile{
     z-index: 9999;
     text-align:center;
@@ -66,27 +75,13 @@ h1.profile_title{
     -webkit-border-radius: 50%;
     -moz-border-radius: 50%;
     border-radius: 50%;
-    width:100%;
-    height:100%;
+    display: inline-block;
+    position: relative;
+    width:90%;
 }
-.profile_clickprofile{
-    margin-left:auto;
-    border-top-left-radius:20px;
-    border-top-right-radius:20px;
-    margin-right:auto;
-    background:#191919;
-    text-align:center;
-    padding:20px 0px 20px 0px;
-    -webkit-transition:cubic-bezier(.34,.43,0,1.02) 0.5s;
-    -moz-transition:cubic-bezier(.34,.43,0,1.02) 0.5s;
-    transition:cubic-bezier(.34,.43,0,1.02) 0.5s;
-    width:300px;
-    height:120px;
-    margin-top:24vh;
-    }
+
 .profile_img{
-    background: url('https://cdn2.digitalartsonline.co.uk/cmsdata/slideshow/3513552/polybreno_1500.jpg');
-    background-size:contain;
+    /* background-size:contain; */
     z-index: 9999;
     -webkit-border-radius: 50%;
     -moz-border-radius: 50%;
@@ -96,105 +91,70 @@ h1.profile_title{
     transition:cubic-bezier(.34,.43,0,1.02) 0.2s;
     box-shadow: 0px 0px 0px 2pt transparent;
     border: 0px solid #FFF;
-    left:1em;
+    margin: 15px 15px;
     cursor: pointer;
-    width:200px;
-    height:200px;
-    text-align: center;
+    width:175px;
+    height:175px;
+    /* text-align: center; */
     position: absolute;
-    backface-visibility: hidden;
+    /* backface-visibility: hidden; */
 }
+
 #profile_profile-description{
+  background:#303232;
+  -webkit-border-radius: 2%;
+  -moz-border-radius: 2%;
+  border-radius: 2%;
+  display: inline-block;
   padding-top:200px;
   position:relative;
+  width: 100%;
 }
 .profile_container { 
-    width:200px;
+    width:100%;
+    min-width:1200px;
     height:200px;
     position: relative;
     perspective: 800px;
     margin-right:100px;
 }
+.profile_card_wrapper{
+  position:relative;
+  width:14.5%;
+}
 #profile_card{
-    width: 100%;
+    display: inline-block;
     transform-origin: right center;
     transform-style: preserve-3d;
-    transition: transform 1s;  
+    transition: transform 1.4s;  
 }
 #profile_card #profile_image1 {
     
 }
 #profile_card #profile_image2 {
-    transform: rotateY( 180deg );
+    transform: rotateY( 360deg );
     filter:sepia(0.5)  ;
     -webkit-filter:  sepia(0.5) ;
 }
 #profile_card.flipped {
-    transform: translateX( -100% ) rotateY( -180deg );
-}
-
-
-#sidebar-horizontal{
-    margin-top:9em;
-    width: 300em;
-    position: absolute;
-}
-  
-#nav-horizontal {
-    position: absolute;
-    float: left;
-    list-style-type: none;
-    margin-bottom: 50em;
-    left: 12em;
-    top: -6em;
-    overflow: hidden;
-}
-  
-#nav-horizontal li{
-    float: left;    
-}
-
-#nav-horizontal li a{
-    display: block;
-    font-family: Georgia, serif, bold;
-    text-transform: none; font-weight: 100; margin-bottom: 0;
-    font-size: 20px;
-    color: #D7B148;
-    margin-top: 0px;
-    text-align: center;
-    padding: 12px 25px;
-}
-
-#nav-horizontal li a:hover {
-    background: #be9b7b;
-    color: rgb(231, 209, 181);
-    -webkit-transition:background 1s, color 1s;
-    -moz-transition:background 1s, color 1s;
-    -o-transition:background 1s, color 1s;
-    transition:background 1s, color 1s;
-}
-
-.nav-horizontal li a.active {
-    color: #fff4e6;
-    background:-webkit-linear-gradient(180deg, rgb(165, 104, 38) 21%, rgb(151, 97, 39) 53%, rgb(155, 103, 20) 78%);
-    background:-o-linear-gradient(180deg, rgb(165, 104, 38) 21%, rgb(151, 97, 39) 53%, rgb(155, 103, 20) 78%);
-    background:-moz-linear-gradient(180deg, rgb(165, 104, 38) 21%, rgb(151, 97, 39) 53%, rgb(155, 103, 20) 78%);
-    background:linear-gradient(180deg, rgb(165, 104, 38) 21%, rgb(151, 97, 39) 53%, rgb(155, 103, 20) 78%);
+    transition: all 1.4s;
+    transform: translateX( 0% ) rotateY( -360deg );
 }
 
 .profile_card {
-  position:absolute;
+  position:relative;
   font-family: 'Open Sans', Arial, sans-serif;
   float: left;
-  overflow: show;
-  margin-top:300px;
+  overflow: visible;
+  padding-top:30px;
+  margin-top:290px;
   min-width: 230px;
-  width: 315px;
-  height: 380px;
-  width: 100%;
-  left:45vw;
+  height: 600px;
+  margin-left:20%;
+  width: 60%;
+  left:290%;
   line-height: 1.4em;
-  background-color: #141414;
+  background-color: #303232;
   -webkit-transition:background 3s;
   -moz-transition:background 3s;
   -o-transition:background 3s;
@@ -229,19 +189,22 @@ h1.profile_title{
   padding: 15px 25px;
   position: relative;
   left: 0;
-
 }
 
 .profile_card h3 {
-  margin: 0 0 5px;
-  font: 20px;
+  font-size: 15px;
+  margin: 10px 0 5px;
   font-weight: 400;
   color: rgb(201, 198, 198);
 }
- .profile_card h3 span {
+.profile_card h3.profile_name{
+  font-size:16px;
+  font-weight:500;
+}
+.profile_card h3 span {
   display: block;
   margin-top:3px;
-  font-size: 0.7em;
+  font-size: 13px;
   color: #f39c12;
   opacity: 0.75;
 } 
@@ -266,19 +229,6 @@ h1.profile_title{
   transform: scale(1);
 } 
 
-
-
-.profile_body h4{
-    font-family: 'Open Sans', Arial, sans-serif;
-    color:  rgba(255, 255, 255, 0.5);
-    font-size: 1.3em;
-}
-.profile_body h5{
-    font-family: 'Open Sans', Arial, sans-serif;
-    color: #f39c12;
-    font-size: 1.2em;
-    opacity: 0.75;
-}
 #profile_webcam-icon{
     position: absolute;
     background-position: 24px 24px;
@@ -327,34 +277,331 @@ h1.profile_title{
       content: "";
       display: block;
       position: absolute;
-      width: 0;
-      height: 0;
+      width: 40px;
+      height: 28px;
       right: 10px;
-      bottom: -10px;
+      /* bottom: -10px; */
       border-left: 10px solid transparent;
       border-right: 2px solid transparent;
       border-top: 10px solid #62CFC1;
 }
 
+.profile_upload-image-container {
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate3d(-50%, -50%, 0);
+  transition: translate3d(-50%, 0%, 0);
+  position: absolute;
+  width:100%;
+  height: 100%;
+  box-sizing: border-box;
+  vertical-align: middle;
+  text-align: center;
+}
+  
+.profile_upload-image-clearfix:after {
+  clear: both;
+  content: ".";
+  display: block;
+  /* height: 0; */
+  visibility: hidden;
+}
+
+.profile_upload-image-clearfix {
+  display: inline-block;
+}
+
+.profile_upload-image-clearfix {
+  display: block;
+}
+
+.profile_upload-image-avatar {
+  display: inline-block;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  border-radius: 100%;
+  background: #C68587;
+  border: 6px solid #B3C9CB;
+  background-image: url('https://cdn2.digitalartsonline.co.uk/cmsdata/slideshow/3513552/polybreno_1500.jpg');
+  background-size: 100%;
+  background-position: 25% 25%;
+  transition: border 0.5s linear;
+}
+.profile_upload-image-avatar:after {
+  content: "";
+  position: absolute;
+  background: -webkit-gradient(linear, left top, right bottom, color-stop(0%, #f0e3c7), color-stop(100%, #6bcab4));
+  width: 100%;
+  height: 100%;
+  border-radius: 100%;
+  border: 1px solid white;
+  left: 0px;
+  top: 0px;
+  opacity: 0;
+  transition: opacity 0.3s linear;
+  cursor: pointer;
+  transform-origin: right center;
+  transform-style: preserve-3d;
+}
+
+.profile_upload-image-avatar:hover:after {
+  opacity: 0.7;
+}
+
+.profile_upload-image-avatar.open:hover:after {
+  opacity: 0;
+}
+
+#profile_upload-image-camera {
+  -webkit-transform: scale(0.4);
+  position: relative;
+  z-index: 0;
+  cursor: pointer;
+  top: 18%;
+  overflow: hidden;
+}
+
+#profile_upload-image-camera {
+  transition: 250ms cubic-bezier(0.7, 0, 0.36, 1);
+}
+
+#profile_upload-image-cameraFrame {
+  -webkit-transition: all 0.5s linear;
+  stroke-dashoffset: 72px;
+  stroke-dasharray: 72px;
+}
+
+#profile_upload-image-circle {
+  -webkit-transform: scale(0.75);
+  -webkit-transform-origin: 50% 50%;
+  -webkit-transition: all 0.3s linear;
+  stroke-dashoffset: 33px;
+  stroke-dasharray: 33px;
+}
+
+#profile_upload-image-plus {
+  -webkit-transition: all 0.3s linear;
+  stroke-dashoffset: 5px;
+  stroke-dasharray: 5px;
+}
+
+.profile_upload-image-separatorLine {
+  margin-top: 15px;
+  width: 300%;
+  position: absolute;
+  height: 1px;
+  background: rgba(0, 0, 0, 0.6);
+}
+#profile_get_file{
+  display:none;
+}
+#profile_put_file{
+  display:none;
+}
+#profile_image-upload-dummy{
+  position:absolute;
+  width:100%;
+  height:100%;
+}
+.profile_upload-image-avatar:hover  #profile_upload-image-camera > #profile_upload-image-cameraFrame {
+  stroke-dashoffset: 0;
+}
+
+.profile_upload-image-avatar:hover  #profile_upload-image-camera > #profile_upload-image-circle {
+  stroke-dashoffset: 0px;
+}
+
+.profile_upload-image-avatar:hover  #profile_upload-image-camera > #profile_upload-image-plus {
+  stroke-dashoffset: 0px;
+}
+
+.profile_upload-image-avatar:active  #profile_upload-image-camera > #cprofile_upload-image-ameraFrame {
+  -webkit-transition: none;
+  stroke: rgba(255, 255, 255, 0.7);
+}
+
+.profile_upload-image-avatar:active  #profile_upload-image-camera > #profile_upload-image-circle {
+  -webkit-transition: none;
+  stroke: rgba(255, 255, 255, 0.7);
+}
+
+.profile_upload-image-avatar:active  #profile_upload-image-camera > #profile_upload-image-plus {
+  -webkit-transition: none;
+  stroke: rgba(255, 255, 255, 0);
+}
+
+.profile_upload-image-avatar.open  #profile_upload-image-camera {
+  -webkit-transform: scale(0);
+  fill: white;
+}
+
+.profile_upload-image-avatar.open  #profile_upload-image-openModal {
+  -webkit-transform: scale(0.95);
+}
+
+.profile_upload-image-avatar.open  #profile_upload-image-camera {
+  visibility: hidden;
+}
+
 /* /////////////////////////////////////////////////////////////////////////////////////////////// */
 
+.profile_gallery-wrapper {
+    top: 300px;
+    position:absolute;
+    padding-left: 20%;
+    height: 100%;
+    padding-right:25%;
+    margin-left: 350px;
+    text-align:center;
+}
+h2.profile_gallery-title{ 
+  -webkit-user-select: none; /* Safari */        
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+/Edge */
+  user-select: none; /* Standard */
+  font: 7em/1.5 'Open Sans', sans-serif;
+  color: #67708f;
+  font-weight: 400;
+  letter-spacing: 0.5px;
+  line-height: 1;
+
+  margin-bottom: 20px;
+}
+
+
+.profile_gallery span {
+  font: 1.2em/1.5 'Open Sans', sans-serif;
+  color: #999cbd;
+  font-weight: 800;
+  margin-left: -7px;
+  padding-left:20%;
+}
+
+.profile_gallery-container{
+    position:relative;
+    width: 120%;
+    height: 100%;
+    min-width: 500px;
+}
+.profile_page_container{
+    min-width:1200px;
+    width: 100%;
+    height: 100vh;
+    position:relative;
+}
+
+h5.profile_profile-settings-type{
+  color: rgb(218, 161, 4);
+  text-align:left;
+  left: 0;
+  font-size:16px;
+}
+
+h5.profile_profile-settings-value{
+  color: rgb(235, 229, 209);
+  text-align:left;
+  left: 0;
+  font-size:15px;
+}
+
+h5.profile_profile-settings-edit{
+  width:100%;
+  color: rgb(218, 161, 4);
+  text-align:left;
+  left: 0;
+  font-size:15px;
+}
+.profile_profile-settings-edit:hover{
+  transition:1s;
+  cursor: pointer;
+  color:rgb(216, 214, 207);
+  background-color:rgb(84, 84, 84);
+}
+
+.profile_profile-settings{
+  width: 100%;
+  position:absolute;
+  left: 0;
+  background:var(--clrBox);
+}
+.profile_profile-public{
+  height: 110%;
+  width: 100%;
+  padding: 5%;
+  position:absolute;
+  left: 0;
+  background:var(--clrBox);
+  padding-bottom:30px;
+}
+/* //////////////////////////////////////////////////////// */
+
+
+.myButton {
+  position:absolute;
+  height: 30px;
+  width:80px;
+  right: 0;
+  top: 285px;
+  background-color: #292523;
+  background-image: -webkit-gradient(linear,left top,left bottom,
+                    color-stop(0rgb(24, 24, 23)2b),color-stop(1, #4b4b4a));
+  border-style: solid;
+  border-top-width: 1px;
+  border-right-width: 0px;
+  border-bottom-width: 0px;
+  border-left-width: 0px; 
+  border-top-color: #C6F17A;
+  border-bottom-color: black;
+  -webkit-border-top-left-radius: 3px;
+  border-top-left-radius: 3px;
+  -webkit-border-top-right-radius: 3px;
+  border-top-right-radius: 3px;
+  -moz-border-top-left-radius: 3px;
+  -moz-border-top-right-radius: 3px;
+  -webkit-box-shadow: 0 -5px 30px 0 rgba(0, 0, 0, .1);
+  -moz-box-shadow: 0 -5px 30px 0 rgba(0, 0, 0, .1);
+  box-shadow: 0 -5px 30px 0 rgba(0, 0, 0, .1);
+  cursor: pointer;
+  color: white;
+  display: block;
+  font-size: 16px !important;
+  font-family: 'Open Sans', sans-serif;
+  line-height: 5px;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin: 0 auto;
+}.myButton:hover {
+  background-color:#856f6f;
+  }.myButton:active {
+  position:relative;
+  top:1px;
+}
+
+@keyframes pulse {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 0.5;
+  }
+}
 .brick-wall {
     display: flex;
     flex-flow: row wrap;
-    min-width: 400px;
+    /* margin-left: 1em; Adjustment for the gutter */
     counter-reset: brick;
 }
 
 .brick {
-    overflow: hidden;
-    /* border-radius: 5px; */
-    margin: 0 0 0px 0px;  /* Some Gutter */
-    color: white;
+    box-shadow: 2px 3px 50px #233237;
+    border-radius: 5px;
     position: relative;
 }
 
 .brick:after {
-    position: absolute;
+    position: relative;
     top: 50%;
     left: 50%;
     z-index: 5000;
@@ -365,17 +612,45 @@ h1.profile_title{
     font-size: 1.25em;
   }
 
-.brick:hover:after {
-    font-size: 2.25em;
-    opacity: 1;
-}
-
 .brick {
     flex: auto;
-    height: 250px;
-    min-width: 200px;
+    height: 150px;
+    min-width: 150px;
+    perspective: 1000;
+    margin: 18px;
+    border: 2px grey;
+    -webkit-perspective: 1000;
 }
-
+.brick:hover{
+    cursor:pointer;
+}
+.brick_profile_img{
+    background: url('https://cdn2.digitalartsonline.co.uk/cmsdata/slideshow/3513552/polybreno_1500.jpg');
+    background-size: contain;
+    z-index: 9999;
+    cursor: pointer;
+    top:85%;
+    left:0;
+    width:60px;
+    height:60px;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+    border:3px rgb(138, 108, 108) solid;
+    text-align: center;
+    position: absolute;
+    opacity: .7;
+    transition: opacity .5s ease-out;
+    -moz-transition: opacity .5s ease-out;
+    -webkit-transition: opacity .5s ease-out;
+    -o-transition: opacity .5s ease-out;
+}
+@-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
+@-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
+@keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
+.brick_profile_img:hover{
+    opacity: 1;
+}
 @media only screen and (min-width: 1024px) {
     /* Horizontal bricks on desktop-sized screen */
     .brick:nth-child(4n+1) {
@@ -407,81 +682,328 @@ h1.profile_title{
     .brick:nth-child(4n+4) {
       width: 280px;
     }
+
 }
 
 .brick-img {
     object-fit: cover;
     width: 100%;
-    height: 100%;
-    filter: brightness(90%);
-
-filter: grayscale(50%) sepia(0.3) brightness(150%) hue-rotate(320deg);
--webkit-filter: grayscale(50%) sepia(0.3) brightness(150%) hue-rotate(320deg);
-}
-.profile_gallery-wrapper {
-    top: 300px;
-    position:absolute;
-    padding-left: 300px;
-    height: 100%;
-    padding-right:15%;
-    margin-left: 550px;
-    text-align:center;
-}
-h2.profile_gallery-title{ 
-  font: 7em/1.5 'Open Sans', sans-serif;
-  color: #67708f;
-  font-weight: 400;
-  letter-spacing: 0.5px;
-  line-height: 1;
-
-  margin-bottom: 20px;
+    height: 100%;   
+    -webkit-border-radius: 2%;
+    -moz-border-radius: 2%;
+    border-radius: 2%;
+    filter: grayscale(50%) sepia(0.3) brightness(150%) hue-rotate(320deg);
+    -webkit-filter: grayscale(50%) sepia(0.3) brightness(150%) hue-rotate(320deg);
 }
 
-.profile_gallery span {
-  font: 1.2em/1.5 'Open Sans', sans-serif;
-  color: #999cbd;
-  font-weight: 800;
-  margin-left: -7px;
-  padding-left:20%;
+
+.player {
+  position: absolute;
+  bottom: -10%;
+  width:100%;
+  right:0;
+  /* top: 0px; */
+}
+.player .info-bar {
+  position: absolute;
+  opacity: 0;
+  left: 80px;
+  top: 5px;
+  transition: all 0.5s ease;
+}
+.player .info-bar .artist,
+.player .info-bar .name {
+  display: block;
+}
+.player .info-bar .artist {
+  color: #222;
+  font-size: 16px;
+  margin-bottom: 5px;
+}
+.player .info-bar .name {
+  color: rgb(44, 38, 38);
+  font-size: 12px;
+  margin-bottom: 8px;
+}
+.player .info-bar .progress-bar {
+  background-color: rgba(220,220,220,0.8);
+  height: 4px;
+  width: 150px;
+  position: relative;
+}
+.player .info-bar .progress-bar .bar {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  background-color: red;
+  width: 10%;
+  transition: all 0.2s ease;
+}
+.player .info-bar.active {
+  opacity: 1;
+  transition: all 0.5s ease;
+  margin: auto;
+}
+.player .control-panel {
+  position: relative;
+  transition: 300ms all ease;
+  background-color: rgba(255,255,255,0.0);
+  border-radius: 5px;
+  width: 100%;
+  min-width:200px;
+  height: 60px;
+  z-index: 5;
+}
+.control-panel.active {
+  background-color: rgba(255,255,255,0.8);
+  box-shadow: 0px 20px 20px 5px rgba(255, 254, 254, 0.3);
+}
+.player .control-panel .album-art {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  height: 60px;
+  width: 60px;
+  border-radius: 50%;
+  box-shadow: 0px 0px 20px 5px rgba(0, 0, 0, 0);
+  transform: scale(1);
+  transition: all 0.5s ease;
 }
 
-.profile_gallery-container{
-    position:relative;
-    width: 100%;
-    height: 100%;
-    min-width: 500px;
-    align-content: center;
+.player .control-panel .album-art::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+
+  width: 10px;
+  height: 10px;
+  opacity: 0;
+  background-color: rgba(255,255,255,1);
+  border-radius: 50%;
+  z-index: 5;
+  transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
 }
-.profile_page_container{
-    min-width:2000px;
-    position:relative;
-    text-align:center;
+
+.player .control-panel .album-art::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 50%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 60px;
+  background-image: url('https://cdn2.digitalartsonline.co.uk/cmsdata/slideshow/3513552/polybreno_1500.jpg');   /*  SET PROFILE IMAGE        */
+  opacity: 0;
 }
-.profile_card_extension{
-    height: 0;
-    width: 0;
+.player .control-panel.active .album-art {
+  box-shadow: 0px 0px 20px 5px rgba(0, 0, 0, 0.2);
+  transform: scale(1.2);
+  transition: all 0.5s ease;
+  opacity:  1;
+}
+.player .control-panel.active .album-art::before {
+  animation: rotation 3s infinite linear;
+  -webkit-animation: rotation 3s infinite linear;
+  animation-fill-mode: forwards;
+  opacity:  1;
+}
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+.player .control-panel .controls {
+  display: flex;
+  justify-content: flex-end;
+  height: 60px;
+  width: 100%;
+  max-width: 250px;
+  min-width: 200px;
+  text-align:center;
+}
+
+.player .control-panel .controls .play:hover {
+  transition: background-color 0.3s ease;
+  -webkit-transition: background-color 0.3s ease; 
+}
+
+.player .control-panel .controls .play-container {
+  position: absolute;
+  font-size: 2em;
+  width: 52.75px;
+  height: 52.75px;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  border-radius: 50%;
+  background: #141414;
+  padding: 3px 5px;
+  cursor: pointer;
+  -webkit-box-shadow: 0px 0px 3px 3px rgba(0, 0, 0, 0.5);
+  -moz-box-shadow: 0px 0px 3px 3px rgba(0, 0, 0, 0.5);
+  box-shadow: 0px 0px 3px 3px rgba(0, 0, 0, 0.5);
+  right: 0;
+  bottom: 4.5px;
+  transition: all 0.7s;
+}
+.player .control-panel .controls .play-container.pause {
+  opacity: 0.7;
+}
+.player .control-panel .controls .play-container:hover {
+  opacity: 1;
+}
+
+.play-container .play {
+  position:absolute;
+  width: 45.75px;
+  height: 45.75px;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  border-radius: 50%;
+  transition: all 0.7s;
+  border: 5px solid #198f01;
+  color: #198f01;
+  padding: 7px 0 0 5px;
+  right: 3px;
+  opacity: 1;
+}
+
+.play-container .play.pause {
+  transition: all 0.7s;
+  color: #a91616;
+  border: 5px solid #7a0e06;
+  opacity: 0.7;
+} 
+.play-container .play.pause:hover {
+  transition: all 0.7s;
+  opacity: 1;
+} 
+.brick-img-audio-container{
+  position: absolute;
+  background:none;
+  height: 100%;
+}
+.brick-audio{
+  position:absolute;
+  width:100%;
+  height:40%;
+  bottom:40%;
+}
+.brick-pulse{
+  z-index: 1000;
+  position:absolute;
+  width:100%;
+  height:100%;
+  top:50%;
+}
+.glyphicon-pencil{
+    color:white;
+    margin-left:5px;
+    font-size:16px;
+}
+
+
+.icon-flipped {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  transform:scale(0.7) scaleY(-1) ;
+  -moz-transform:scale(0.7) scaleY(-1);
+  -webkit-transform:scale(0.7) scaleY(-1);
+  -ms-transform:scale(0.7) scaleY(-1);
+}
+#flip-profile-icon{
+  z-index: 1000;
+  width: 10px; height:10px;
+}
+#flip-profile-icon:hover{
+  cursor: pointer;
+}
+.profile_upload_image{
+    /* cursor: pointer; */
+
+}
+#upload-profile-image
+{
+    display:none;
+    visibility:hidden;
+}
+.profile_profile-icons{
+  position: absolute;
+  width: 100%;
+  height: 60px;
+  margin-top:5px;
+  left: 0;
+  background-color: #303232;
+}
+
+#profile_chat-btn {
+  width: 30px;
+  height: 21px;
+  background-color:  rgb(117, 183, 199);
+  border-radius: 4px;
+  position: relative;
+  margin-left: 20px;margin-top:5px;  
+  left: 35px;
+  top: 9px;
+}
+
+#profile_chat-btn:hover {
+  filter: sepia(0.3) brightness(100%) hue-rotate(220deg);
+  -webkit-filter: sepia(0.3) brightness(100%) hue-rotate(220deg);
+  cursor: pointer;
+}
+
+#profile_chat-btn:after {
+    content: "";
+    display: block;
     position: absolute;
-    filter: alpha(opacity=0);
-    opacity: 0;
-    top:0;
-    left:0;
-    bottom:0;
-    right:0;
-    margin:auto;
+    width: 0px;
+    height: 0px;
+    right: 10px;
+    bottom: -10px;
+    border-left: 10px solid transparent;
+    border-right: 2px solid transparent;
+    border-top: 10px solid #62CFC1;
 }
-/* //////////////////////////////////////////////////////// */
+#profile_webcam-icon{
+  position: absolute;
+  background-position: 24px 24px;
+  background-repeat: no-repeat;
+  display: inline-block;
+  height: 34px;
+  line-height: 54px;
+  vertical-align: text-bottom;
+  width: 34px;
+  right: 52px;
+  top: 10px;
+}
+#profile_webcam-icon:hover{
+  cursor: pointer;
+  filter: sepia(0.3) brightness(100%) hue-rotate(220deg);
+  -webkit-filter: sepia(0.3) brightness(100%) hue-rotate(220deg);
+}
 
 @import url(http://weloveiconfonts.com/api/?family=typicons);
 [class*="typicons-"]:before {
   font-family: 'Typicons', sans-serif;
 }
 .chat_container {
-  position:absolute;
-  width: 500px;
-  height: 700px;
-  left:310px;
-  margin: 20px auto;
-  top: 700px;
+  position:relative;
+  top: 250px;
+  width: 90%;
+  height: 400px;
+  left:0px;
+  
 }
 
 .chat_top-bar {
@@ -583,20 +1105,23 @@ h2.profile_gallery-title{
 
 .chat_messages {
   background: white;
+  color: black;
+  font: 12px 'Open Sans', sans-serif;
   padding: 10px;
   border-radius: 2px;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }
 .chat_messages p {
-  font-size: 1.5rem;
+  font-size: 12px ;
   margin: 0 0 0.2rem 0;
 }
 .chat_messages time {
-  font-size: 0.8rem;
-  color: #ccc;
+  font-size: 9px;
+  color: black;
 }
 
 .chat_input_wrapper{
+  position:relative;
   width: 100%;
   line-height:5px;
   height:20px;
@@ -607,8 +1132,9 @@ h2.profile_gallery-title{
 }
 
 .chat_input{
-  font-size:1.6rem;
-  font: "Droid Sans", sans-serif;
+  
+  color: black;
+  font: 12px 'Open Sans', sans-serif;
   width:100%;
   height:30px;
 }
@@ -617,10 +1143,10 @@ h2.profile_gallery-title{
 }
 .myButton {
   position:absolute;
-  height: 30px;
-  width:80px;
-  right: 0;
-  top: 285px;
+  height: 150%;
+  width:20%;
+  right:0px;
+  top: 0px;
   background-color: #292523;
   background-image: -webkit-gradient(linear,left top,left bottom,
                     color-stop(0rgb(24, 24, 23)2b),color-stop(1, #4b4b4a));
@@ -640,28 +1166,8 @@ h2.profile_gallery-title{
   -webkit-box-shadow: 0 -5px 30px 0 rgba(0, 0, 0, .1);
   -moz-box-shadow: 0 -5px 30px 0 rgba(0, 0, 0, .1);
   box-shadow: 0 -5px 30px 0 rgba(0, 0, 0, .1);
-  cursor: pointer;
-  color: white;
-  display: block;
-  font-size: 16px !important;
-  font-family: 'Open Sans', sans-serif;
-  line-height: 5px;
-  text-align: center;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  margin: 0 auto;
+
 }.myButton:hover {
   background-color:#856f6f;
-  }.myButton:active {
-  position:relative;
-  top:1px;
-}
 
-@keyframes pulse {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 0.5;
-  }
 }

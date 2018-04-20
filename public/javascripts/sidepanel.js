@@ -127,7 +127,6 @@ var initNavLinks = function(){
     });
   })
   $('.sidepanel_menu-link-mid').click(function(){
-    
     $('#page_1').fadeOut('slow', function(){
       $('#page_1').empty();
       $('#page_1').load("../views/explore.html");
@@ -154,6 +153,15 @@ TweenMax.set(".login_container", {
   transformOrigin: "-0% 50%"
 });
 TweenMax.set("#page_2", { rotationY: 90, z: -siteW / 2, x: siteW / 2 });
+
+function transitionToProfilePage(){
+  $('#page_1').fadeOut('slow', function(){
+    $('#page_1').empty();
+    $('#page_1').load("../views/profile.html");
+    changeurl('explore');
+    $('#page_1').fadeIn('slow');
+  });
+}
 
 function changeContent(){
     var tlFlip = new TimelineMax({

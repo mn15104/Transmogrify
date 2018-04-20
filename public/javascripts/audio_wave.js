@@ -13,9 +13,6 @@ function init() {
 
 }
 
-var stopshit = function (){
-	emergencyDropSound();
-}
 var update = function () {
     requestAnimationFrame(update);
     events.emit("update");
@@ -33,12 +30,11 @@ function onDocumentDrop(evt) {
 }
 
 var audioParams = {
-	useMic:false,
 	useSample:true,
 	volSens:1,
 	beatHoldTime:40,
 	beatDecayRate:0.97,
-	sampleURL: "../res/AJJ.mp3"
+	sampleURL: "../res/party-in-the-usa.mp3"
 }
 
 var init_cont = function (){
@@ -47,13 +43,10 @@ var init_cont = function (){
 	gui = new dat.GUI({autoPlace: false });
 	$('#music_visual_controls').append(gui.domElement);
 	var f2 = gui.addFolder('Settings');
-	f2.add(audioParams, 'useMic').listen().onChange(onUseMic).name("Use Mic");
 	f2.add(audioParams, 'volSens', 0, 5).step(0.1).name("Gain");
 	f2.add(audioParams, 'beatHoldTime', 0, 100).step(1).name("Beat Hold");
 	f2.add(audioParams, 'beatDecayRate', 0.9, 1).step(0.01).name("Beat Decay");
 	f2.open();
-
-	onUseMic();
 	onUseSample();
 
 }
@@ -179,7 +172,6 @@ var loadSampleAudio = function() {
 
 	request.onload = function() {
 
-
 		audioContext.decodeAudioData(request.response, function(buffer) {
 			audioBuffer = buffer;
 			startSound();
@@ -206,7 +198,6 @@ var startSound = function() {
 	source.loop = true;
 	source.start(0.0);
 	isPlayingAudio = true;
-	//startViz();
 
 	$("#music_visual_preloader").hide();
 }
@@ -228,31 +219,18 @@ var emergencyDropSound =function (){
 	
 	debugCtx.clearRect(0, 0, debugW, debugH);
 }
-var onUseMic = function (){
-
-	if (audioParams.useMic){
-		audioParams.useSample = false;
-		getMicInput();
-	}else{
-		stopSound();
-	}
-}
 
 var onUseSample = function (){
 	if (audioParams.useSample){
 		loadSampleAudio();          
-		audioParams.useMic = false;
 	}else{
 		stopSound();
 	}
 }
-//load dropped MP3
+
 var onMP3Drop = function (evt) {
 
-	//TODO - uncheck mic and sample in CP
-
 	audioParams.useSample = false;
-	audioParams.useMic = false;
 
 	stopSound();
 	initSound();
@@ -266,7 +244,6 @@ var onMP3Drop = function (evt) {
 	reader.readAsArrayBuffer(droppedFiles[0]);
 }
 
-//called from dropped MP3
 var onDroppedMP3Loaded = function (data) {
 
 	if(audioContext.decodeAudioData) {
@@ -282,23 +259,6 @@ var onDroppedMP3Loaded = function (data) {
 	}
 }
 
-
-// $(function() {
-//     // Generic function to set blur radius of $ele
-
-
-//     // Start tweening towards blurred image
-//     window.setTimeout(function() {
-//         tweenBlur('.item', 0, 10);
-//     }, 1000);
-
-//     // Reverse tweening after 3 seconds
-//     window.setTimeout(function() {
-//         tweenBlur('.item', 10, 0);
-//     }, 3000);
-// });
-//called every frame
-//update published viz data
 function update_aud(){
 	if (!isPlayingAudio) return;
 	//GET DATA
@@ -319,10 +279,6 @@ function update_aud(){
 	
 	level = sum / levelsCount;
 	amp = sum / levelsCount;
-	// $.getScript("explore.js",function(){
-	// 	setBlur(level);
-	// 	// setBlur(LEV);
-	// });
 	levelHistory.push(level);
 	levelHistory.shift(1);
 
@@ -352,13 +308,6 @@ function update_aud(){
 var debugDraw = function (){
 
 	debugCtx.clearRect(0, 0, debugW, debugH);
-	//draw chart bkgnd
-	// debugCtx.fillRect(0,0,debugW,debugH);
-
-	//DRAW AVE LEVEL + BEAT COLOR
-	if (beatTime < 6){
-		// debugCtx.fillStyle="#FFF";
-	}
 	debugCtx.fillRect(chartW, chartH, aveBarWidth, -level*chartH);
 	debugCtx.strokeStyle = "rgb(200, 250, 50)";
 	debugCtx.beginPath();

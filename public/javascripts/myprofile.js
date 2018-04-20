@@ -25,9 +25,9 @@ var init = function(){
     });
     $('.profile_img').one('click', function() {
         flipProfileImg();
-        $('#profile_img').on('click', function(){
-            document.getElementById('profile_put_file').click();
-        });
+        // $('#profile_img').on('click', function(){
+        //     document.getElementById('profile_put_file').click();
+        // });
     });
     $('.flip-profile-icon').click(function() {
         flipProfileCard();
@@ -42,6 +42,12 @@ var init = function(){
     $('.myButton').click(function(){
         sendMessage();
     })
+    // $('.play').click(function(){
+    //     var player = $(this);
+    //     initAudio(player);
+    // });
+
+    setInterval(updateBlur, 1000);
 }
 
 var flipProfileImg = function(){
@@ -105,6 +111,7 @@ var loadMyProfile = function(){
         }
     });
 }
+
 $('#upload-input').on('change', function(){
     var files = $(this).get(0).files;
     reader.readAsDataURL(input.files[0]);
@@ -187,3 +194,100 @@ var sendMessage = function(){
         }
       });
 }
+
+function refreshAudio(){
+    var curr_player = $('#CURRENT_PLAYER');
+    curr_player.closest('.brick').find('.brick-img').css({
+        "-webkit-filter": "blur(0px)",
+        "filter": "blur(0px)"});
+    curr_player.closest('.brick').find('.brick-audio').empty();
+    curr_player.removeAttr("id");
+    $.getScript("audio_wave.js",function(){
+            stopSound();
+    });
+}
+
+function initAudio(player){
+    player.toggleClass('pause');
+    player.closest('.play-container').toggleClass('pause');
+    player.closest('.control-panel').toggleClass('active');
+    player.closest('.brick').find('.info-bar').toggleClass('active');
+    
+    if(!player.hasClass('pause')) {
+        //////
+        if($('#CURRENT_PLAYER').length != 0){
+            CURRENT_PLAYER = $('#CURRENT_PLAYER');
+            if(!player.is('#CURRENT_PLAYER')){
+                $.getScript("audio_wave.js",function(){
+                    stopSound();
+                });
+                $('#CURRENT_PLAYER').closest('.brick').find('.brick-img').css({
+                    "-webkit-filter": "blur(0px)",
+                    "filter": "blur(0px)"});
+                CURRENT_PLAYER.removeAttr("id");
+                CURRENT_PLAYER.toggleClass('pause');
+                CURRENT_PLAYER.closest('.play-container').toggleClass('pause');
+                CURRENT_PLAYER.closest('.control-panel').toggleClass('active');
+                CURRENT_PLAYER.closest('.brick').find('.info-bar').toggleClass('active');
+                CURRENT_PLAYER.closest('.brick').find('.brick-audio').empty();
+                player.attr("id", "CURRENT_PLAYER");
+                player.closest('.brick').find('.brick-audio').load("../views/audio_wave.html");
+                $.getScript("audio_wave.js",function(){
+                    init();
+                });
+            }
+            else{
+                $.getScript("audio_wave.js",function(){
+                    stopSound();
+                    init();
+                });
+            }
+        }
+        else{
+            player.attr('id', 'CURRENT_PLAYER');
+            player.closest('.brick').find('.brick-audio').load("../views/audio_wave.html");
+            $.getScript("audio_wave.js",function(){
+                init();
+            });
+        }
+    }
+    else {
+        $('#CURRENT_PLAYER').closest('.brick').find('.brick-img').css({
+            "-webkit-filter": "blur(0px)",
+            "filter": "blur(0px)"});
+        $('#CURRENT_PLAYER').closest('.brick').find('.brick-audio').empty();
+        $(this).removeAttr("id");
+        $.getScript("audio_wave.js",function(){
+                stopSound();
+        });
+    }
+}
+function updateBlur(){
+    if($('#CURRENT_PLAYER').length != 0){
+        if(!$('#CURRENT_PLAYER').hasClass('pause')){
+            tweenBlur(0, 1);
+        }
+    }
+}
+var tweenBlur = function(startRadius, endRadius) {
+    $({blurRadius: startRadius}).animate({blurRadius: endRadius}, {
+        duration: 500,
+        easing: 'swing', // or "linear"
+                         // use jQuery UI or Easing plugin for more options
+        step: function() {
+            setBlur(this.blurRadius);
+        },
+        complete: function() {
+            // Final callback to set the target blur radius
+            // jQuery might not reach the end value
+            setBlur(endRadius);
+       }
+   });
+};
+function setBlur(radius) {
+	ele = $('#CURRENT_PLAYER').closest('.brick').find('.brick-img');
+	$(ele).css({
+	   "-webkit-filter": "blur("+radius+"px)",
+		"filter": "blur("+radius+"px)"
+   });
+};
