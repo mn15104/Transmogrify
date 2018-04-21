@@ -513,7 +513,7 @@ function audioTester(primaryDetected, colourDetected, decision1, decision2, deci
     var audioContext = new AudioContextFunc();
     var player=new WebAudioFontPlayer();
 
-    bpm = 60;//(60 + (primaryDetected*5) + (colourDetected * 4) );
+    bpm = 80;//(60 + (primaryDetected*5) + (colourDetected * 4) );
 
     player.loader.decodeAfterLoading(audioContext, '_tone_0000_SBLive_sf2');
     player.loader.decodeAfterLoading(audioContext, '_tone_0040_SBLive_sf2');
@@ -648,7 +648,9 @@ function motifGenerator(mood, layer, key, decVars, symVars) {
     var motif = new Array(8);
 
 
-    var symScore = Math.floor( (symVars[0] + symVars[1] + symVars[2] + symVars[3])/4 );
+    var symScore  = Math.floor( (symVars[0] + symVars[1] + symVars[2] + symVars[3])/4 );
+    var vertScore = (symVars[0] + symVars[1])/2; //Choosing not to floor this one actually
+    var horiScore = (symVars[2] + symVars[3])/2;
 
     console.log("ok its", symVars[0]);
     console.log("ok its", symVars[1]);
@@ -836,14 +838,111 @@ function motifGenerator(mood, layer, key, decVars, symVars) {
             console.log("No repeats and/or low symmetry score")
             fourthNote = decVars[3];
             motif[3][1] = heptScale(fourthNote);
+            fourthNote = chromScale(motif[3][1]);
 
-            console.log("Catch tonal discrencies tho");
-            motif[3][0] = rhythm(1, 4);
-            console.log("Note4 = ", chromScale(motif[3][1]) );
-            motif[3][2] = dur(1);
+            // console.log("Catch tonal discrencies tho");
+            //Easy one for now avoid -dim 7..
+            if (fourthNote == 7) {
+                if ( !( secondNote == 3 || secondNote == 5 ) || !( thirdNote == 3 || thirdNote == 5 ) ) {
+                    console.log("Changing 7th on 4rd note");
+                    fourthNote = Math.abs(fourthNote - thirdNote);
+                    //If this is still somehow 7 just hit root again pls
+                    if (fourthNote == 7) thirdNote = 1;
+                }
+                motif[3][1] = heptScale(fourthNote)
+            }
+
 
         }
+        motif[3][0] = rhythm(1, 4);
+        motif[3][2] = dur(1);
+        console.log("Note4 = ", chromScale(motif[3][1]) );
 
+        //Reached first four core notes!
+        //Now if there is image symmetry, we can repeat intervals, notes or general patterns for 5-8...
+
+        //Detecting if notes have been previously repeated
+        var repeatedNotes = new Array(7);
+        for (int n = 0; n < 7; n++){
+            repeatedNotes[n] = 0;
+        }
+        repeatedNotes[chromScale(motif[0][1])] += 1;
+        repeatedNotes[chromScale(motif[1][1])] += 1;
+        repeatedNotes[chromScale(motif[2][1])] += 1;
+        repeatedNotes[chromScale(motif[3][1])] += 1;
+        var mostRepeats = 0;
+        var indRepeats = 0;
+        for (int n = 0; n < 7; n++){
+            if (repeatedNotes[n] > mostRepeats) {
+                mostRepeats = repeatedNotes[n];
+                indRepeats = n+1;
+            }
+        }
+
+
+        //Look at above average symScores
+        if (symScore >= 4) {
+            motif[4][0] = rhythm(2, 1);
+            motif[4][2] = dur(1);
+
+            motif[5][0] = rhythm(2, 2);
+            motif[5][2] = dur(1);
+
+            motif[6][0] = rhythm(2, 3);
+            motif[6][2] = dur(1);
+
+            motif[7][0] = rhythm(2, 4);
+            motif[7][2] = dur(1);
+
+            //If its very high then simply invert or straight repeat
+            if (symScore >= 8) {
+                console.log("HIGH symScore = " + symScore);
+
+                if (horiScore >= vertScore) {
+
+                    motif[4][1] = motif[0][1];
+                    console.log("Note5 = ", chromScale(motif[4][1]) );
+
+                    motif[5][1] = motif[1][1];
+                    console.log("Note6 = ", chromScale(motif[5][1]) );
+
+                    motif[6][1] = motif[2][1];
+                    console.log("Note7 = ", chromScale(motif[6][1]) );
+
+                    motif[7][1] = motif[3][1];
+                    console.log("Note8 = ", chromScale(motif[7][1]) );
+
+                }
+                else {
+
+                    motif[4][1] = motif[3][1];
+                    console.log("Note5 = ", chromScale(motif[4][1]) );
+
+                    motif[5][1] = motif[2][1];
+                    console.log("Note6 = ", chromScale(motif[5][1]) );
+
+                    motif[6][1] = motif[1][1];
+                    console.log("Note7 = ", chromScale(motif[6][1]) );
+
+                    motif[7][1] = motif[0][1];
+                    console.log("Note8 = ", chromScale(motif[7][1]) );
+
+                }
+
+            }
+            else if (symScore > 7) {
+                //See if there was a repeat in original 4.
+                if (mostRepeats >= 2) {
+                    //If the repeating notes is the root then we will bounce off it
+                    if (indRepeats == 1) {
+                        
+
+
+                    }
+                }
+            }
+
+        }
 
         // motif[3][0] = rhythm(1, 4);
         // motif[3][1] = heptScale(6);
