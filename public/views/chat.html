@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Listen To This Image</title>
+    <script src="../javascripts/jstools/jquery-3.2.1.min.js"></script>
+    <script src="../javascripts/jstools/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="../stylesheets/tools/jquery-ui.min.css">
+    <meta charset="utf-8" />
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" type="text/css" media="screen" href="../stylesheets/profile.css">
+    <script src="https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.js"></script>
+    <!-- Header script to reload js on embedded pages -->
+    <script language="text/javascript">
+        function load_js()
+        {
+           var head= document.getElementsByTagName('head')[0];
+           var script= document.createElement('script');
+           script.type= 'text/javascript';
+           script.src= '../javascripts/profile.js';
+           head.appendChild(script);
+        }
+        load_js();
+    </script>
+</head>
+<body>
+<section class="chat_container">   
+    <header class="chat_top-bar">        
+        <div class="chat_left">      
+            <span class="chat_icon chat_typicons-message">
+            </span>      
+        </div>       
+        <div class="chat_right">      
+            <span class="chat_icon chat_typicons-minus"></span>      
+            <span class="chat_icon chat_typicons-times"></span>    
+        </div>      
+    </header>    
+    <ol class="chat_discussion">    
+        <li class="chat_other">      
+            <div class="chat_avatar">        
+                <img src='https://cdn2.digitalartsonline.co.uk/cmsdata/slideshow/3513552/polybreno_1500.jpg' />      
+            </div>      
+            <div class="chat_messages">        
+                <p>yeah, they do early flights cause they connect with big airports.  they wanna get u to your connection</p>        
+                <time datetime="2009-11-13T20:00">Timothy • 51 min</time>      
+            </div>    
+        </li>    
+        <li class="chat_self">      
+            <div class="chat_avatar">        
+                <img src='https://cdn2.digitalartsonline.co.uk/cmsdata/slideshow/3513552/polybreno_1500.jpg' />      
+            </div>
+            <div class="chat_messages">        
+                <p>That makes sense.</p>        
+                <p>It's a pretty small airport.</p>        
+                <time datetime="2009-11-13T20:14">37 mins</time>      
+            </div>    </li>    <li class="chat_other">      
+                <div class="chat_avatar">        
+                    <img src='https://cdn2.digitalartsonline.co.uk/cmsdata/slideshow/3513552/polybreno_1500.jpg'/>      
+                </div>      
+                <div class="chat_messages">        
+                <p> that mongodb thing looks good, huh?</p>        
+                <p> tiny master db, and huge document store</p>      
+                </div>    
+            </li>  
+        </ol>  
+        <form class="chat_input_wrapper" action="#" method="post">
+
+        <fieldset>
+            <input class="chat_input" id="chat_input" type="text" placeholder="Type your message…" autofocus>
+            <input class="chat_input chat_input_hidden" type="hidden">
+            <button id = "send_message" class = "myButton" name="send">send</button>
+        </fieldset>
+
+        </form>
+</section>
+<script src="../javascripts/chat.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.0/socket.io.js"></script>
+<script>
+$(function () {
+    init();
+});
+</script>
+</body>

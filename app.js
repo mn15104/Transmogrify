@@ -9,12 +9,12 @@ var bodyParser = require('body-parser');
 var url = require('url');
 const enablews = require('express-ws');
 var app = express();
-var webSocketServer = require('websocket').server;
+var WebSocket = require('ws');
+var WebSocketServer = require('ws').server;
 var http = require('http');
 var appws = require('http').createServer();
 var io = require('socket.io')(appws);
 
-// view engine setup
 app.set('views', path.join(__dirname, 'public/views/'));
 app.set('view engine', 'jade');
 app.engine('html', require('ejs').renderFile);
@@ -30,21 +30,10 @@ app.use(session({
   resave: true
 }));
 app.use(function (req, res, next) {
-
-  // Website you wish to allow to connect
   res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
-
-  // Request methods you wish to allow
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-
-  // Request headers you wish to allow
   res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
-
-  // Set to true if you need the website to include cookies in the requests sent
-  // to the API (e.g. in case you use sessions)
   res.setHeader('Access-Control-Allow-Credentials', true);
-
-  // Pass to next layer of middleware
   next();
 });
 app.use(logger('dev'));
@@ -61,17 +50,7 @@ app.use(function(req, res, next){
   next();
 });
 
-// ---------------------------------------------------------------//
-//https://medium.com/factory-mind/websocket-node-js-express-step-by-step-using-typescript-725114ad5fe4
 
-io.on('connection', function(socket){
-  console.log("CONNECT");
-  io.emit('chat message', "hello");
-  socket.on('chat message', function(msg){
-    io.emit('chat message', "hello");
-    console.log('message: ' + msg);
-  });
-});
 
 
 // ---------------------------------------------------------------//
@@ -102,9 +81,9 @@ app.use('/create', create_route);
 app.use('/explore', explore_route);
 app.use('/login', login_route);
 
-app.use('/', function(req, res, next){
-  res.redirect('/intro');
-});
+// app.use('/', function(req, res, next){
+//   res.redirect('/intro');
+// });
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
