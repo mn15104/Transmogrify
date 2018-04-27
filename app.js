@@ -3,15 +3,16 @@ var session = require('express-session');
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
+var http = require('http');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var url = require('url');
-var WebSocketServer = require('websocket').server;
-var WebSocketClient = require('websocket').client;
-var WebSocketFrame  = require('websocket').frame;
-var WebSocketRouter = require('websocket').router;
-var W3CWebSocket = require('websocket').w3cwebsocket;
+const enablews = require('express-ws');
 var app = express();
+var webSocketServer = require('websocket').server;
+var http = require('http');
+var appws = require('http').createServer();
+var io = require('socket.io')(appws);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'public/views/'));
@@ -28,7 +29,24 @@ app.use(session({
   saveUninitialized: true,
   resave: true
 }));
+app.use(function (req, res, next) {
 
+  // Website you wish to allow to connect
+  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
+
+  // Request methods you wish to allow
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+
+  // Request headers you wish to allow
+  res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+
+  // Set to true if you need the website to include cookies in the requests sent
+  // to the API (e.g. in case you use sessions)
+  res.setHeader('Access-Control-Allow-Credentials', true);
+
+  // Pass to next layer of middleware
+  next();
+});
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -43,15 +61,33 @@ app.use(function(req, res, next){
   next();
 });
 
-var SQL_MODEL = require('./models/sql.model');
-SQL_MODEL.init();
+// ---------------------------------------------------------------//
+//https://medium.com/factory-mind/websocket-node-js-express-step-by-step-using-typescript-725114ad5fe4
+
+io.on('connection', function(socket){
+  console.log("CONNECT");
+  io.emit('chat message', "hello");
+  socket.on('chat message', function(msg){
+    io.emit('chat message', "hello");
+    console.log('message: ' + msg);
+  });
+});
+
+
+// ---------------------------------------------------------------//
+
+var SQL_MODEL = require('./models/sql.model'); SQL_MODEL.init();
 var create_route = require('./routes/create.route');
 var explore_route = require('./routes/explore.route');
 var profile_route = require('./routes/profile.route');
 var login_route = require('./routes/login.route');
+var webcam_route = require('./routes/wc.route');
 var sidepanel_route = require('./routes/sidepanel.route');
 app.use('/flick', function(req, res, next){
   res.sendFile(path.join(__dirname + '/public/views/flick.html'));
+});
+app.use('/chat', function(req, res, next){
+  res.sendFile(path.join(__dirname + '/public/views/chat.html'));
 });
 app.use('/intro', function(req, res, next){
   res.sendFile(path.join(__dirname + '/public/views/intro.html'));
@@ -59,10 +95,7 @@ app.use('/intro', function(req, res, next){
 app.use('/profile', function(req, res, next){
   res.sendFile(path.join(__dirname + '/public/views/profile.html'));
 });
-app.use('/wc', function(req, res, next){
-  res.sendFile(path.join(__dirname + '/public/views/webcam.html'));
-});
-
+app.use('/wc', webcam_route);
 app.use('/sidepanel', sidepanel_route);
 app.use('/myprofile', profile_route);
 app.use('/create', create_route);
