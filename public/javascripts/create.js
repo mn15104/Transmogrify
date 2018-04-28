@@ -1501,7 +1501,7 @@ function bassGenerator( mood, layer, key, decVars, symVars, motif ) {
         bass[7][1] = heptScale(5)-12;
         bass[7][2] = dur(8);
     }
-    else if (decVars[1] < 10) {
+    else if (decVars[1] < 2) {
         console.log("Bass 1");
         //Put it in A minor?
         bass[0][0] = rhythm(1, 1);
@@ -1537,8 +1537,282 @@ function bassGenerator( mood, layer, key, decVars, symVars, motif ) {
         bass[7][2] = dur(8);
 
     }
+    else if (decVars[1] < 10) {
+        chordPath(decVars);
+
+    }
 
     return bass;
+}
+
+function chordPath(decVars){
+
+    var chordDecision = new Array(6);
+
+    for (var n = 0; n < 6; n++) {
+        chordDecision[n] = decVars[n];
+    }
+
+    chordDecision[4] = Math.abs(chordDecision[0]-chordDecision[1]);
+    chordDecision[5] = Math.abs(chordDecision[2]-chordDecision[3]);
+
+    var chordDecided = new Array(6);
+    for (var n = 0; n < 6; n++) {
+        if (chordDecision[n] < 4) {
+            chordDecided[n] = 0;
+        }
+        else if (chordDecision[n] < 5 ) {
+            chordDecided[n] = 1;
+        }
+        else if (chordDecision[n] < 7 ) {
+            chordDecided[n] = 2;
+        }
+        else if (chordDecision[n] < 9) {
+            chordDecided[n] = 3;
+        }
+        else {
+            chordDecided[n] = 4;
+        }
+    }
+
+    var problematic = new Array(8);
+    for (var n = 0; n < 8; n++) {
+        problematic[n] = 0;
+    }
+
+
+    // console.log("chordDecided[0] = " + chordDecided[0]);
+    // console.log("chordDecided[1] = " + chordDecided[1]);
+    // console.log("chordDecided[2] = " + chordDecided[2]);
+    // console.log("chordDecided[3] = " + chordDecided[3]);
+    // console.log("chordDecided[4] = " + chordDecided[4]);
+    //
+    // console.log("chordDecision[0] = " + chordDecision[0]);
+    // console.log("chordDecision[1] = " + chordDecision[1]);
+    // console.log("chordDecision[2] = " + chordDecision[2]);
+    // console.log("chordDecision[3] = " + chordDecision[3]);
+    // console.log("chordDecision[4] = " + chordDecision[4]);
+
+
+    var intervalNum = new Array(6);
+
+    for (var n = 0; n < 6; n++) {
+        intervalNum[n] = 0;
+    }
+
+    var nextChord;
+    var endTonic = false;
+    var harmonyOK = false;
+    var noInterations = 0;
+    // var chordDecision1 = decVars[0];
+    // var chordDecision2 = decVars[1];
+    // var chordDecision3 = decVars[2];
+    // var chordDecision4 = decVars[3];
+    // var interval1 = 0;
+    // var interval2 = 0;
+    // var interval3 = 0;
+    // var interval4 = 0;
+    // var interval5 = 0;
+    // var interval6 = 0;
+
+    var chord = new Array(8);
+    for (var n = 0; n < 8; n++) {
+        chord[n] = new Array(2);
+        // for (var c = 0; c < 2; c++) {
+        chord[n][0] = 2;//Octave
+        chord[n][1] = 0;//Note
+        // }
+    }
+
+    //Get the first chord and the last chord.
+    chord[0][1] = 1;
+
+    if (decVars[0] < 4 ){
+        chord[7][1] = 5;
+    }
+    else {
+        chord[7][1] = 1;
+        chord[6][1] = 5;
+        endTonic = true;
+    }
+
+    //Work Backwards
+    for (var tries = 0; tries < 20; tries++) {
+
+        //Deciding
+        for (var d = 0; d < 6; d++) {
+            if (chordDecided[d] == 0) {
+                intervalNum[d] = - 4; //Down a fifth
+            }
+            else if (chordDecided[d] == 1 ) {
+                intervalNum[d] = - 1; //Down a tone
+            }
+            else if (chordDecided[d] == 2  ) {
+                intervalNum[d] = + 2; //Up 2 tones
+            }
+            else if (chordDecided[d] == 3 ) {
+                intervalNum[d] = + 1; //Up a tone
+            }
+            else {
+                intervalNum[d] = - 2; //Down 2 tones
+            }
+        }
+
+        //Creating
+        for (var c = 1; c < 7; c++) {
+            if (tries == 0) {//Initial run
+                newChord = ( mod((chord[c-1][1] + intervalNum[c-1]), 7));
+                if (endTonic == true && c == 6) {
+                    //all is well
+                }
+                else {
+                    if ( newChord == 0) newChord = 7;
+                    console.log()
+                    chord[c][1] = newChord;
+                }
+            }
+            else { //Subsequent run
+                if (endTonic == true && c == 6) {
+                    //all is well
+                }
+                else if (chord[c][1] == 0) {
+                    newChord = ( mod((chord[c-1][1] + intervalNum[c-1]), 7));
+                    console.log("C = " + c + ". newChord = " + newChord);
+                    console.log("IntervalNum[c-1] = " + intervalNum[c-1] + ", chordDecided[c-1] = " + chordDecided[c-1]);
+                    if (newChord == 0) newChord = 7;
+                    console.log("C = " + c + ". newChord = " + newChord);
+                    chord[c][1] = newChord;
+                }
+            }
+        }
+
+        console.log("\nPrior to checking= " + noInterations);
+        console.log("Chord 1 = "+ chord[0][1]);
+        console.log("Chord 2 = "+ chord[1][1]);
+        console.log("Chord 3 = "+ chord[2][1]);
+        console.log("Chord 4 = "+ chord[3][1]);
+        console.log("Chord 5 = "+ chord[4][1]);
+        console.log("Chord 6 = "+ chord[5][1]);
+        console.log("Chord 7 = "+ chord[6][1]);
+        console.log("Chord 8 = "+ chord[7][1]);
+
+        //Checking
+        var problemFound = false;
+        for (var c = 1; c < 8; c++) {
+            harmonyOK = false;
+            // console.log("c is " + c + "chord is " + chord[c][1]);
+            if (chord[c][1]==0) {
+                problemFound = true; //Bad note
+                problematic[c] += 1;
+            }
+            else if (chord[c][1]==7) {
+                problemFound = true;
+                problematic[c] += 1;
+                chord[c][1] = 0; //Bad note
+            }
+            else {
+
+                newChord = ( mod( (chord[c-1][1] + 1), 7));
+                if (newChord == 0) newChord = 7;
+                // console.log("Does " + chord[c][1] + " == " + newChord + "?");
+                if (chord[c][1] == newChord) harmonyOK = true;
+
+                newChord = ( mod( (chord[c-1][1] - 1), 7));
+                if (newChord == 0) newChord = 7;
+                // console.log("Does " + chord[c][1] + " == " + newChord + "?");
+                if (chord[c][1] == newChord) harmonyOK = true;
+
+                newChord = ( mod( (chord[c-1][1] + 2), 7));
+                if (newChord == 0) newChord = 7;
+                // console.log("Does " + chord[c][1] + " == " + newChord + "?");
+                if (chord[c][1] == newChord) harmonyOK = true;
+
+                newChord = ( mod( (chord[c-1][1] - 2), 7));
+                if (newChord == 0) newChord = 7;
+                // console.log("Does " + chord[c][1] + " == " + newChord + "?");
+                if (chord[c][1] == newChord) harmonyOK = true;
+
+                newChord = ( mod( (chord[c-1][1] - 4), 7));
+                if (newChord == 0) newChord = 7;
+                // console.log("Does " + chord[c][1] + " == " + newChord + "?");
+                if (chord[c][1] == newChord) harmonyOK = true;
+
+                if (!harmonyOK) {
+                    // console.log("There was a problem soz");
+                    problemFound = true;
+                    problematic[c] += 1;
+                    chord[c][1] = 0; //Bad note
+                }
+                else {
+                    problematic[c] = 0;
+                }
+            }
+        }
+
+        //Breaking or updating decisions
+        if (problemFound) {
+            //Change the chordDecisions that lead to the error
+            for (var p = 0; p < 8; p++) {
+                if (chord[p][1] == 0) {
+                    console.log("problematic[" + p + "] = " + problematic[p]);
+                    if (problematic[p] > 5) {
+                        console.log("problem aint changin");
+                        if (p > 1) {
+                            chordDecided[p-2] = mod((chordDecided[p-1] + 1 ), 5);
+                        }
+                        else if (p < 7) {
+                            chordDecided[p] = mod((chordDecided[p-1] + 1 ), 5);
+                        }
+                        else {
+                            window.alert("Error at ChordPath iterations");
+                        }
+
+                    }
+                    else {
+                        chordDecided[p-1] = mod((chordDecided[p-1] + 1 ), 5);
+
+                    }
+                }
+            }
+        }
+        else {
+
+            break;
+        }
+
+        console.log("chordDecided[0] = " + chordDecided[0]);
+        console.log("chordDecided[1] = " + chordDecided[1]);
+        console.log("chordDecided[2] = " + chordDecided[2]);
+        console.log("chordDecided[3] = " + chordDecided[3]);
+        console.log("chordDecided[4] = " + chordDecided[4]);
+        console.log("chordDecided[5] = " + chordDecided[5]);
+
+        noInterations += 1;
+        console.log("\nNumber of Iterations = " + noInterations);
+        console.log("Chord 1 = "+ chord[0][1]);
+        console.log("Chord 2 = "+ chord[1][1]);
+        console.log("Chord 3 = "+ chord[2][1]);
+        console.log("Chord 4 = "+ chord[3][1]);
+        console.log("Chord 5 = "+ chord[4][1]);
+        console.log("Chord 6 = "+ chord[5][1]);
+        console.log("Chord 7 = "+ chord[6][1]);
+        console.log("Chord 8 = "+ chord[7][1]);
+
+    }
+    console.log("Number of Iterations = " + noInterations);
+    console.log("Chord 1 = "+ chord[0][1]);
+    console.log("Chord 2 = "+ chord[1][1]);
+    console.log("Chord 3 = "+ chord[2][1]);
+    console.log("Chord 4 = "+ chord[3][1]);
+    console.log("Chord 5 = "+ chord[4][1]);
+    console.log("Chord 6 = "+ chord[5][1]);
+    console.log("Chord 7 = "+ chord[6][1]);
+    console.log("Chord 8 = "+ chord[7][1]);
+
+
+
+
+
 }
 
 function heptScale(heptNote) {
@@ -1640,6 +1914,10 @@ function dur(noteLength) {
     //1/4 = semiquaver
 
     return ( noteLength*(60/bpm) ) ;
+}
+
+function mod(n, m) {
+  return ((n % m) + m) % m;
 }
 
 // function textPlayer(motif) {
