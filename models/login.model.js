@@ -31,7 +31,8 @@ Login.loginRequest = function(req, res){
                 if (!IS_NULL(row.password)){
                     req.session.user_id = user_id;
                     res.status(200).send({ 
-                        message: "Successful login" 
+                        message: "Successful login",
+                        user_id: user_id
                     });
                 }
                 else{

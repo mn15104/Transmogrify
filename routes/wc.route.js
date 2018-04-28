@@ -7,57 +7,76 @@ var WebSocketServer = require('ws').Server;
 var wss = new WebSocketServer({port: 1337, clientTracking: true, autoAcceptConnections: false});
 
 var clients = {  };
+var queue   = {  };
+
+router.post('/connect_chat', function(req, res, next) {
+    queue[req.body.user_id] = true;
+    console.log("queue at " + req.session.user_id + " set to " +    queue[req.session.user_id]);
+    res.status(200).send({ message: "Websocket id acknowledged"});
+});
+
+
 wss.on('request', function(request){
     console.log("HELLO");
-})
-wss.on('connection', function (connection, req) {
-    if(IS_NULL(req.session)){
-        connection.send('user id not found, please log in first');
-        connection.close();
-        return;
-    }
+});
 
-    console.log(req.session);
-    
+wss.on('connection', function (connection, req) {
+
     var name = req.connection.remoteAddress + ":" + req.connection.remotePort;
-    var user_id = req.session.user_id;
+    var user_id;
     var other_user_id;
 
-    clients[index] = connection;
-    console.log('1. server accepted connection: ' + user_id);
+   
+    console.log('1. server accepted connection');
 
     // ON MESSAGE
-    connection.on('message', function (message) 
+    connection.on('message', function (msg) 
     {
-        console.log("2. server received message: " + message);
-        if(IsJsonString(message))
+        console.log("-> server received message: " + msg);
+        if(IsJsonString(msg))
         {
-            var messageObj = JSON.parse(message);
-            if     (messageObj.type === 'other_user_id'){
-                other_user_id = messageObj.other_user_id;
-                console.log("3. other user id requested acknowledged: " + other_user_id);
+            var msgObj = JSON.parse(msg);
+            if(IS_NULL(user_id))
+            {
+                if          (msgObj.message === 'user_id')
+                {
+                    console.log(queue[msgObj.user_id]);
+                    if(!IS_NULL(queue[msgObj.user_id]))
+                    {
+                        user_id = msgObj.user_id;
+                        clients[user_id] = connection;
+                        connection.send('2. user id accepted');
+                        console.log("2. user id accepted");
+                        return;
+                    }
+                }
             }
-            else if(messageObj.type === "chat_message"){
-                other_con = clients[other_user_id];
-                other_con.send(messageObj.chat_message);
-                connection.send("message sent to: " + other_user_id);
-                console.log("4. message sent to: " + other_user_id);
+            else
+            {
+                if          (msgObj.message === 'other_user_id')
+                {
+                    other_user_id = msgObj.other_user_id;
+                    console.log("3. other user id requested acknowledged: " + other_user_id);
+                }
+                else if     (msgObj.message === "chat_message")
+                {
+                    other_con = clients[other_user_id];
+                    other_con.send(msgObj.chat_message);
+                    connection.send("message sent to: " + other_user_id);
+                    console.log("4. message sent to: " + other_user_id);
+                }
             }
         }
     });
 
     // ON DISCONNECT
     connection.on('close', function(connection) {
-        clients[index] = undefined;
+        if(!IS_NULL(user_id)) clients[user_id] = undefined;
     });
 });
 
-router.get('/connect_chat', function(req, res, next) {
-    req.session.ws_partner_id = 0;
-});
-
 router.get('/', function(req, res, next) {
-    res.sendFile(path.join(__dirname + '/../public/views/webcam.html'));
+    res.sendFile(path.join(__dirname + '/public/views/chat.html'));
 });
 
 function firstNull(){

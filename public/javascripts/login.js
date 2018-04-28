@@ -112,8 +112,9 @@ var submitLogin = function(){
         type: 'POST',
         data: {email:email, password:pass},
         success: function(data){
+            console.log(data.user_id);
             console.log("OK!");
-            transitionHomepage();
+            transitionHomepage(data.user_id);
             return true;
         },
         error: function(xhr, ajaxOptions, thrownError){
@@ -122,10 +123,13 @@ var submitLogin = function(){
         }
     });
 }
-var transitionHomepage = function(){
+
+var transitionHomepage = function(t_user_id){
     $('.login_form').fadeOut({duration:500});
     $('.login_wrapper').addClass('expand');
-    setTimeout(function(){location.href="http://localhost:3000/sidepanel";}, 1500);
+    setTimeout(function(){
+        location.href="http://localhost:3000/sidepanel?user_id="+t_user_id;
+    }, 1500);
 }
 var colors = new Array(
     [128,62,62],

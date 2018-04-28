@@ -1,20 +1,36 @@
 var ws;
-function init(){
-    ws = new WebSocket('ws://localhost:1337');
-    // event emmited when connected
-    ws.onopen = function () {
-        console.log('websocket is connected ...');
-        ws.send('client side acknowledge connection success');
-        // ws.send('connected');
-        // ws.send('userid_init', "2");
-        // ws.send(JSON.stringify({message:'userid_init',userid:'456'}));
+var user_id;
+function init()
+{
+
+
+
+    var url = new URL(window.location.href);
+    if(!IS_NULL(url.searchParams.get("user_id"))){
+        user_id = url.searchParams.get("user_id");
+        console.log(user_id);
+        ws = new WebSocket('ws://localhost:1337');
+        
+        // event emmited when connected
+        ws.onopen = function () {
+            ws.send('client side acknowledge connection success');
+            ws.send(JSON.stringify({message:'user_id', user_id: user_id}));
+        }
+
+        // event emmited when receiving message 
+        ws.onmessage = function (ev) {
+            console.log(ev);
+        }
+
+        ws.onclose = function () {
+            console.log('websocket has closed ...');
+        }
     }
-    // event emmited when receiving message 
-    ws.onmessage = function (ev) {
-        console.log(ev);
+    else{
+        console.log("No user id found in url");
     }
 
-    ws.onclose = function () {
-        console.log('websocket has closed ...');
-    }
+
+
+
 }

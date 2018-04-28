@@ -1,14 +1,18 @@
-
 var sideNav = $('.nav__list');
 var burger = $('.bar-split');
 var friends = $('.friends-list_title_cell');
 var friends_active = true;
 var panel = $('.panel');
+var user_id;
 
 function init(name){
     console.log(name)
     if(name!='<%= name %>'){
       var imagesrc = getProfilePicture(name);
+    }
+    var url = new URL(window.location.href);
+    if(!IS_NULL(url.searchParams.get("user_id"))){
+      user_id = url.searchParams.get("user_id");
     }
     $('.sidepanel_body').fadeOut({duration:0, complete:function(){
       $('.sidepanel_body').fadeIn({duration: 2000});
@@ -29,6 +33,7 @@ var toggleFriendsList = function(){
   else 
     $('.friends-list_cell').slideDown();
   friends_active = !friends_active;
+   console.log(user_id);
 }
 
 var toggleSideNav = function() {
@@ -89,7 +94,7 @@ function slideIndexItemsLeft(){
 
 var changeurl = function(url)
 {
- window.history.pushState("data","Title",url+".html");
+ window.history.pushState("data","Title",url);
  document.title=url;
 }
 
@@ -110,7 +115,7 @@ var initNavLinks = function(){
     $(this).addClass('active');
   })
 
-  $('.sidepanel_menu-link-right').click(function(){
+  $('#profile_link').click(function(){
     $('#page_1').fadeOut('slow', function(){
       $('#page_1').empty();
       $('#page_1').load("../views/myprofile.html")
@@ -118,7 +123,7 @@ var initNavLinks = function(){
       $('#page_1').fadeIn('slow');
     });
   })
-  $('.sidepanel_menu-link-left').click(function(){
+  $('#create_link').click(function(){
     $('#page_1').fadeOut('slow', function(){
       $('#page_1').empty();
       $('#page_1').load("../views/create.html")
@@ -126,7 +131,7 @@ var initNavLinks = function(){
       $('#page_1').fadeIn('slow');
     });
   })
-  $('.sidepanel_menu-link-mid').click(function(){
+  $('#explore_link').click(function(){
     $('#page_1').fadeOut('slow', function(){
       $('#page_1').empty();
       $('#page_1').load("../views/explore.html");
@@ -134,13 +139,16 @@ var initNavLinks = function(){
       $('#page_1').fadeIn('slow');
     });
   })
-  $('.sidepanel_title').click(function(){
+  $('#logout_link').click(function(){
     $('#page_1').fadeOut('slow', function(){
       $('#page_1').empty();
       $('#page_1').load("../views/profile.html");
       changeurl('explore');
       $('#page_1').fadeIn('slow');
     });
+  })
+  $('#chat_link').click(function(){
+    connectWS();
   })
 }
 
@@ -196,5 +204,29 @@ function getProfilePicture(name){
       //   '<img class="sidepanel_menu_link sidepanel_menu-link-login" src="'+ data + '">'
       // )
     }
+  });
+}
+function IS_NULL(x){
+  return (x === undefined || x === null || x === NaN); //util.isNullOrUndefined(x) || isNaN(x))
+}
+var connectWS = function(){
+  $.ajax({
+      url: '/chat/connect_chat',
+      type: 'POST',
+      data: {user_id: user_id},
+      success: function(data){
+          console.log("OK!");console.log(data);
+          $('#page_1').fadeOut('slow', function(){
+            $('#page_1').empty();
+            $('#page_1').load("../views/chat.html");
+            // changeurl('chat?user_id='+user_id);
+            $('#page_1').fadeIn('slow');
+          });
+          return true;
+      },
+      error: function(xhr, ajaxOptions, thrownError){
+          console.log("ERROR!");
+          return false;
+      }
   });
 }
