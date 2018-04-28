@@ -11,7 +11,6 @@ const enablews = require('express-ws');
 var app = express();
 var WebSocket = require('ws');
 var WebSocketServer = require('ws').server;
-var http = require('http');
 var appws = require('http').createServer();
 var io = require('socket.io')(appws);
 
@@ -29,13 +28,13 @@ app.use(session({
   saveUninitialized: true,
   resave: true
 }));
-app.use(function (req, res, next) {
-  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-  res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
-  res.setHeader('Access-Control-Allow-Credentials', true);
-  next();
-});
+// app.use(function (req, res, next) {
+//   res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
+//   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+//   res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+//   res.setHeader('Access-Control-Allow-Credentials', true);
+//   next();
+// });
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -54,7 +53,6 @@ app.use(function(req, res, next){
 
 
 // ---------------------------------------------------------------//
-
 var SQL_MODEL = require('./models/sql.model'); SQL_MODEL.init();
 var create_route = require('./routes/create.route');
 var explore_route = require('./routes/explore.route');

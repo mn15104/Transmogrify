@@ -7,10 +7,14 @@ function init(){
         ws.send('client side acknowledge connection success');
         // ws.send('connected');
         // ws.send('userid_init', "2");
-        ws.send(JSON.stringify({message:'userid_init',userid:'456'}));
+        // ws.send(JSON.stringify({message:'userid_init',userid:'456'}));
     }
     // event emmited when receiving message 
     ws.onmessage = function (ev) {
         console.log(ev);
+    }
+
+    ws.onclose = function () {
+        console.log('websocket has closed ...');
     }
 }

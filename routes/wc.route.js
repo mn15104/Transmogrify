@@ -6,47 +6,49 @@ var rooms = require("rooms");
 var WebSocketServer = require('ws').Server;
 var wss = new WebSocketServer({port: 1337, clientTracking: true, autoAcceptConnections: false});
 
-var clients = [ ];
+var clients = {  };
 wss.on('request', function(request){
     console.log("HELLO");
 })
 wss.on('connection', function (connection, req) {
-    var index;
-    var name;
+    if(IS_NULL(req.session)){
+        connection.send('user id not found, please log in first');
+        connection.close();
+        return;
+    }
 
-    console.log('1. server accepted connection');
+    console.log(req.session);
     
-    connection.on('message', function (message) {
+    var name = req.connection.remoteAddress + ":" + req.connection.remotePort;
+    var user_id = req.session.user_id;
+    var other_user_id;
+
+    clients[index] = connection;
+    console.log('1. server accepted connection: ' + user_id);
+
+    // ON MESSAGE
+    connection.on('message', function (message) 
+    {
         console.log("2. server received message: " + message);
-
-        if(IsJsonString(message)){
+        if(IsJsonString(message))
+        {
             var messageObj = JSON.parse(message);
-
-            if    (messageObj.message === 'userid_init'){
-                name  = req.connection.remoteAddress + ":" + req.connection.remotePort;
-                index = clients.push(connection) - 1;
-                connection.send("data accepted");
-                console.log('3. server accepted init data');
+            if     (messageObj.type === 'other_user_id'){
+                other_user_id = messageObj.other_user_id;
+                console.log("3. other user id requested acknowledged: " + other_user_id);
             }
-            else if(messageObj.message === "chat_message"){
-
+            else if(messageObj.type === "chat_message"){
+                other_con = clients[other_user_id];
+                other_con.send(messageObj.chat_message);
+                connection.send("message sent to: " + other_user_id);
+                console.log("4. message sent to: " + other_user_id);
             }
-
         }
     });
 
+    // ON DISCONNECT
     connection.on('close', function(connection) {
-        console.log(index);
-        console.log(name);
-        clients[index] = null;
-        // if (userName !== false && userColor !== false) {
-        //     console.log((new Date()) + " Peer "
-        //         + connection.remoteAddress + " disconnected.");
-        //     // remove user from the list of connected clients
-        //     clients.splice(index, 1);
-        //     // push back user's color to be reused by another user
-        //     colors.push(userColor);
-        // }
+        clients[index] = undefined;
     });
 });
 
@@ -58,6 +60,15 @@ router.get('/', function(req, res, next) {
     res.sendFile(path.join(__dirname + '/../public/views/webcam.html'));
 });
 
+function firstNull(){
+    for (var i = 0; i < 200000; i++){
+        var val = clients[parseInt(i)];
+        
+        if(IS_NULL(val)){
+            return parseInt(i);
+        }
+    }
+}
 
 function IsJsonString(str) {
     try {
@@ -68,12 +79,9 @@ function IsJsonString(str) {
     return true;
 }
 
-function firstNull(){
-    for (var i = 0; i < 200000; i++){
-        
-    }
+function IS_NULL(x){
+    return (x === undefined || x === null || x === NaN); //util.isNullOrUndefined(x) || isNaN(x))
 }
-
 module.exports = router;
 
 

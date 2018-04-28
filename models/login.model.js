@@ -50,17 +50,20 @@ Login.loginRequest = function(req, res){
 };
 
 Login.accountRequest = function(req, res){
+    console.log( req.body.firstname + "','" + req.body.surname + "','" + req.body.email + "','" + req.body.password);
     db.get("SELECT (email) FROM 'USER_LOGIN' WHERE email='"+req.body.email+"'" , function(err, row){
         if(err) throw err;
         if (IS_NULL(row)){
             db.all("SELECT COALESCE(MAX(user_id),0) AS max_user_id FROM USER_LOGIN", function(err, row){
                 if(err) throw err;
-                if(!IS_NULL(row.max_user_id)){
-                    user_id = parseInt(row.max_user_id) + 1;
+                if(!IS_NULL(row[0].max_user_id)){
+                    console.log(row[0].max_user_id);
+                    user_id = parseInt(row[0].max_user_id) + 1;
                     insertAccount(req, res, user_id);
                 }
                 else{
-                    insertAccount(req, res, 0);
+                    console.log("No error should occur here.");
+                    throw err;
                 }
             })
         }
@@ -73,7 +76,7 @@ Login.accountRequest = function(req, res){
 };
 
 insertAccount = function(req, res, user_id){
-    db.get("INSERT INTO USER_LOGIN (firstname, surname, email, user_id,password) VALUES ('" + 
+    db.get("INSERT INTO USER_LOGIN (firstname, surname, email, user_id, password) VALUES ('" + 
     req.body.firstname + "','" + req.body.surname + "','" + req.body.email + "','" + user_id + "','" + req.body.password + "')", function(err, row){
         if(err) throw err;
         db.get("INSERT INTO USER_PROFILE (user_id,occupation,description,profile_picture) VALUES ('" + 

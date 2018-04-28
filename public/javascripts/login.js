@@ -125,7 +125,7 @@ var submitLogin = function(){
 var transitionHomepage = function(){
     $('.login_form').fadeOut({duration:500});
     $('.login_wrapper').addClass('expand');
-    setTimeout(function(){location.href="http://localhost:3000/";}, 1500);
+    setTimeout(function(){location.href="http://localhost:3000/sidepanel";}, 1500);
 }
 var colors = new Array(
     [128,62,62],
