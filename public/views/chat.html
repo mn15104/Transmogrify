@@ -6,10 +6,9 @@
     <script src="../javascripts/jstools/jquery-3.2.1.min.js"></script>
     <script src="../javascripts/jstools/jquery-ui.min.js"></script>
     <link rel="stylesheet" href="../stylesheets/tools/jquery-ui.min.css">
-    <meta charset="utf-8" />
-    
-    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" >
+    <meta name="viewport" content="width=device-width, initial-scale=1" >
+    <meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline' 'unsafe-eval'; script-src * 'unsafe-inline' 'unsafe-eval'; connect-src * 'unsafe-inline'; img-src * data: blob: 'unsafe-inline'; frame-src *; style-src * 'unsafe-inline';"/>
     <link rel="stylesheet" type="text/css" media="screen" href="../stylesheets/profile.css">
     <script src="https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.js"></script>
     <!-- Header script to reload js on embedded pages -->
@@ -26,7 +25,7 @@
     </script>
 </head>
 <body>
-<section class="chat_container">   
+<section class="chat_container" data-chat-user="1">   
     <header class="chat_top-bar">        
         <div class="chat_left">      
             <span class="chat_icon chat_typicons-message">
@@ -70,7 +69,7 @@
         <fieldset>
             <input class="chat_input" id="chat_input" type="text" placeholder="Type your message…" autofocus>
             <input class="chat_input chat_input_hidden" type="hidden">
-            <button id = "send_message" class = "myButton" name="send">send</button>
+            <button type=button id = "send_message" class = "myButton">send</button>
         </fieldset>
 
         </form>

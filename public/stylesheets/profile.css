@@ -537,48 +537,6 @@ h5.profile_profile-settings-edit{
 /* //////////////////////////////////////////////////////// */
 
 
-.myButton {
-  position:absolute;
-  height: 30px;
-  width:80px;
-  right: 0;
-  top: 285px;
-  background-color: #292523;
-  background-image: -webkit-gradient(linear,left top,left bottom,
-                    color-stop(0rgb(24, 24, 23)2b),color-stop(1, #4b4b4a));
-  border-style: solid;
-  border-top-width: 1px;
-  border-right-width: 0px;
-  border-bottom-width: 0px;
-  border-left-width: 0px; 
-  border-top-color: #C6F17A;
-  border-bottom-color: black;
-  -webkit-border-top-left-radius: 3px;
-  border-top-left-radius: 3px;
-  -webkit-border-top-right-radius: 3px;
-  border-top-right-radius: 3px;
-  -moz-border-top-left-radius: 3px;
-  -moz-border-top-right-radius: 3px;
-  -webkit-box-shadow: 0 -5px 30px 0 rgba(0, 0, 0, .1);
-  -moz-box-shadow: 0 -5px 30px 0 rgba(0, 0, 0, .1);
-  box-shadow: 0 -5px 30px 0 rgba(0, 0, 0, .1);
-  cursor: pointer;
-  color: white;
-  display: block;
-  font-size: 16px !important;
-  font-family: 'Open Sans', sans-serif;
-  line-height: 5px;
-  text-align: center;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  margin: 0 auto;
-}.myButton:hover {
-  background-color:#856f6f;
-  }.myButton:active {
-  position:relative;
-  top:1px;
-}
-
 @keyframes pulse {
   from {
     opacity: 0;

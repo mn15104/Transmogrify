@@ -219,7 +219,6 @@ var connectWS = function(){
           $('#page_1').fadeOut('slow', function(){
             $('#page_1').empty();
             $('#page_1').load("../views/chat.html");
-            // changeurl('chat?user_id='+user_id);
             $('#page_1').fadeIn('slow');
           });
           return true;

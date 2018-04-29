@@ -10,7 +10,7 @@ var clients = {  };
 var queue   = {  };
 
 router.post('/connect_chat', function(req, res, next) {
-    queue[req.body.user_id] = true;
+    addQueue(req.body.user_id);
     console.log("queue at " + req.session.user_id + " set to " +    queue[req.session.user_id]);
     res.status(200).send({ message: "Websocket id acknowledged"});
 });
@@ -21,12 +21,6 @@ wss.on('request', function(request){
 });
 
 wss.on('connection', function (connection, req) {
-
-    var name = req.connection.remoteAddress + ":" + req.connection.remotePort;
-    var user_id;
-    var other_user_id;
-
-   
     console.log('1. server accepted connection');
 
     // ON MESSAGE
@@ -36,16 +30,16 @@ wss.on('connection', function (connection, req) {
         if(IsJsonString(msg))
         {
             var msgObj = JSON.parse(msg);
-            if(IS_NULL(user_id))
+            if(!doesClientExist(msgObj.data['user_id']))
             {
                 if          (msgObj.message === 'user_id')
                 {
-                    console.log(queue[msgObj.user_id]);
-                    if(!IS_NULL(queue[msgObj.user_id]))
+                    console.log(queue[msgObj.data['user_id']]);
+                    if(!IS_NULL(queue[msgObj.data['user_id']]))
                     {
-                        user_id = msgObj.user_id;
-                        clients[user_id] = connection;
-                        connection.send('2. user id accepted');
+                        newClient(msgObj.data['user_id'], connection, undefined);
+                        removeQueue(msgObj.data['user_id']);
+                        connection.send(JSON.stringify({message:'user_id_accepted'}));
                         console.log("2. user id accepted");
                         return;
                     }
@@ -53,17 +47,29 @@ wss.on('connection', function (connection, req) {
             }
             else
             {
-                if          (msgObj.message === 'other_user_id')
+                if          (msgObj.message === 'friend_id_req')
                 {
-                    other_user_id = msgObj.other_user_id;
-                    console.log("3. other user id requested acknowledged: " + other_user_id);
+                    setFriend(msgObj.data['user_id'], msgObj.data['friend_id']);
+                    connection.send(JSON.stringify({message:'friend_id_accepted'}));
+                    
+                    other_con =  clients[msgObj.data['friend_id']]['user_data']['con'];
+                    other_con.send(JSON.stringify({message:'friend_id_accepted'}));
+                    console.log("3. friend id requested acknowledged");
                 }
-                else if     (msgObj.message === "chat_message")
+                else if     (msgObj.message === "friend_message_send")
                 {
-                    other_con = clients[other_user_id];
-                    other_con.send(msgObj.chat_message);
-                    connection.send("message sent to: " + other_user_id);
-                    console.log("4. message sent to: " + other_user_id);
+                    user_id     = msgObj.data['user_id'];
+                    friend_id   = clients[user_id]['user_data']['friend_id'];
+                    friend_con  = clients[friend_id]['user_data']['con'];
+                    console.log(friend_con);
+                    // try {
+                        friend_con.send(JSON.stringify({message:'friend_message_rec', 
+                                                        chat_message: msgObj.data['chat_message']})
+                                                    );
+                    // } catch (error) {
+                    //     console.log(error);
+                    // }
+                    // connection.send("message sent to: " + friend_id);
                 }
             }
         }
@@ -71,14 +77,46 @@ wss.on('connection', function (connection, req) {
 
     // ON DISCONNECT
     connection.on('close', function(connection) {
-        if(!IS_NULL(user_id)) clients[user_id] = undefined;
+        removeClient(connection);
     });
 });
 
 router.get('/', function(req, res, next) {
     res.sendFile(path.join(__dirname + '/public/views/chat.html'));
 });
-
+function setFriend(user_id, friend_id){
+    clients[user_id]['user_data']['friend_id'] = friend_id; //['con'];
+}
+function doesClientExist(user_id){
+    return !IS_NULL(clients[user_id]); 
+}
+function newClient(user_id, con, friend_id){
+    clients[user_id] = { user_data: 
+                            {   con: con, 
+                                friend_id: friend_id
+                            }
+                        };
+    console.log(clients[user_id]);
+}
+function removeClient(conn){
+    for(var client in clients){
+        if(IS_NULL(client['user_data'])) {
+            return;    
+        }
+        else{
+            if(client['user_data']['con'] == conn){
+                clients[client['client_id']] = undefined;
+                return;
+            }
+        }
+    };
+}
+function addQueue(user_id){
+    queue[user_id] = true;
+}
+function removeQueue(user_id){
+    queue[user_id] = undefined;
+}
 function firstNull(){
     for (var i = 0; i < 200000; i++){
         var val = clients[parseInt(i)];
@@ -101,6 +139,8 @@ function IsJsonString(str) {
 function IS_NULL(x){
     return (x === undefined || x === null || x === NaN); //util.isNullOrUndefined(x) || isNaN(x))
 }
+
+
 module.exports = router;
 
 
