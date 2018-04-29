@@ -565,7 +565,7 @@ function audioTester(primaryDetected, colourDetected, decision1, decision2, deci
         // console.log("Rhyth[i][1]: " + motif[0][1] + ", " + motif[1][1] + ", " + motif[2][1] + ", " + motif[3][1] + ", " + motif[4][1] + ", " + motif[5][1] + ", " + motif[6][1] + ", " + motif[7][1]);
         // console.log("Length[i][2]: " + motif[0][2] + ", " + motif[1][2] + ", " + motif[2][2] + ", " + motif[3][2] + ", " + motif[4][2] + ", " + motif[5][2] + ", " + motif[6][2] + ", " + motif[7][2]);
 
-        for (var i = 0; i < 8; i++) {
+        for (var i = 0; i < 40; i++) {
             var repTime = i * (rhythm(2,4) + dur(1));
             player.queueWaveTable(audioContext, audioContext.destination, melInst[0], repTime + motif[0][0], motif[0][1]+12*4+musicKey, motif[0][2]);
             player.queueWaveTable(audioContext, audioContext.destination, melInst[0], repTime + motif[1][0], motif[1][1]+12*4+musicKey, motif[1][2]);
@@ -581,7 +581,7 @@ function audioTester(primaryDetected, colourDetected, decision1, decision2, deci
             player.queueWaveTable(audioContext, audioContext.destination, melInst[0], repTime + motif[11][0], motif[11][1]+12*4+musicKey, motif[11][2]);
             player.queueWaveTable(audioContext, audioContext.destination, melInst[0], repTime + motif[12][0], motif[12][1]+12*4+musicKey, motif[12][2]);
 
-
+            console.log("bass[" + i + "][1] = " + bass[i][1]);
             player.queueWaveTable(audioContext, audioContext.destination, melInst[0], bass[i][0], bass[i][1]+12*3+musicKey, bass[i][2]);
 
 
@@ -868,7 +868,23 @@ function motifGenerator(mood, layer, key, decVars, symVars) {
                     //If this is still somehow 7 just hit root again pls
                     if (fourthNote == 7) thirdNote = 1;
                 }
-                motif[3][1] = heptScale(fourthNote)
+                motif[3][1] = heptScale(fourthNote);
+            }
+            else if (secondNote == 7 || thirdNote == 7) {
+                console.log("REACHED!!!, ");
+                if (decVars[3] < 3 ) {
+                    fourthNote = 3;
+                }
+                else if (decVars[3] < 6) {
+                    fourthNote = 5
+                }
+                else if (decVars[3] < 8) {
+                    fourthNote = 7;
+                }
+                else {
+                    fourthNote = 1
+                }
+                motif[3][1] = heptScale(fourthNote);
             }
 
 
@@ -1454,9 +1470,9 @@ function motifGenerator(mood, layer, key, decVars, symVars) {
 function bassGenerator( mood, layer, key, decVars, symVars, motif ) {
     //For now we just generate backing chords and repeat motif over, unchanged
 
-    var bass = new Array(24);
+    var bass = new Array(160);
 
-    for (var n = 0; n < 24; n++) {
+    for (var n = 0; n < 160; n++) {
         bass[n] = new Array(3);
         // for (var c = 0; c < 2; c++) {
         bass[n][0] = 0;//Beat
@@ -1464,6 +1480,17 @@ function bassGenerator( mood, layer, key, decVars, symVars, motif ) {
         bass[n][2] = 0;//Length
         // }
     }
+    //
+    // var chord = new Array(8);
+    //
+    // for (var n = 0; n < 24; n++) {
+    //     chord[n] = new Array(2);
+    //     // for (var c = 0; c < 2; c++) {
+    //     bass[n][0] = 0;//Octave
+    //     bass[n][1] = 0;//Note
+    //     // }
+    // }
+
     //Just make decision for now....
     if (decVars[1] < 1) {
 
@@ -1538,14 +1565,28 @@ function bassGenerator( mood, layer, key, decVars, symVars, motif ) {
 
     }
     else if (decVars[1] < 10) {
-        chordPath(decVars);
+        chord = chordPath(decVars);
+        chordProg = chordProgression(decVars, chord);
+
+        for (var n = 0; n < 8; n++) {
+            bass[n][0] = rhythm((n*2)+1,1);
+            bass[n][1] = heptScale(chord[n][1]) - (chord[n][0]*12);
+            bass[n][2] = dur(8);
+        }
+        // for (var n = 0; n < 8; n++) {
+        //     for (var m = 0; m < 4; m++) {
+        //         bass[n*4 + m][0] = rhythm((n*2)+1,1);
+        //         bass[n*4 + m][1] = chordProg[n*4 + m][1];// - (chord[n*4 + m][0]*12);
+        //         bass[n*4 + m][2] = dur(8);
+        //     }
+        // }
 
     }
 
     return bass;
 }
 
-function chordPath(decVars){
+function chordPath(decVars) {
 
     var chordDecision = new Array(6);
 
@@ -1619,7 +1660,7 @@ function chordPath(decVars){
     for (var n = 0; n < 8; n++) {
         chord[n] = new Array(2);
         // for (var c = 0; c < 2; c++) {
-        chord[n][0] = 2;//Octave
+        chord[n][0] = 0;//Octave
         chord[n][1] = 0;//Note
         // }
     }
@@ -1741,7 +1782,7 @@ function chordPath(decVars){
                     // console.log("There was a problem soz");
                     problemFound = true;
                     problematic[c] += 1;
-                    chord[c][1] = 0; //Bad note
+                    chord[c-1][1] = 0; //Bad note
                 }
                 else {
                     problematic[c] = 0;
@@ -1812,7 +1853,66 @@ function chordPath(decVars){
 
 
 
+    return chord;
+}
 
+function chordProgression(decVars, chord) {
+
+    var chordProg = new Array(160);
+    for (var n = 0; n < 160; n++) {
+        chordProg[n] = new Array(3);
+
+        chordProg[n][0] = 0; //Rhythm
+        chordProg[n][1] = 0; //Note
+        chordProg[n][2] = 0; //Duration
+    }
+
+    var majMinDim = 0; //1 = major, 2 = minor, 3 = diminished
+    //test jazz vibes
+    for (var n = 0; n < 8; n++) {
+        var heptNext = heptScale(chord[n][1]);
+        console.log("chord[n][1] = " + chord[n][1]);
+        console.log("heptNext = " + chord[n][1]);
+        if (chord[n][1] == 1 || chord[n][1] == 4 || chord[n][1] == 5) {
+            majMinDim = 1;
+        }
+        else if (chord[n][1] == 2 || chord[n][1] == 3 || chord[n][1] == 6) {
+            majMinDim = 2;
+        }
+        else if (chord[n][1] == 7) {
+            majMinDim = 3;
+        }
+        console.log("majMinDim = " + majMinDim);
+        for (var m = 0; m < 4; m++) {
+            chordProg[n*4 + m][0] = rhythm((n*2)+1,1);
+            chordProg[n*4 + m][2] = dur(8);
+        }
+        if (majMinDim == 1) {
+            //M7
+            chordProg[n*4 + 0][1] = heptNext;
+            chordProg[n*4 + 1][1] = heptNext + 4;
+            chordProg[n*4 + 2][1] = heptNext + 7;
+            chordProg[n*4 + 3][1] = heptNext + 11;
+        }
+        if (majMinDim == 2) {
+            //m7
+            chordProg[n*4 + 0][1] = heptNext;
+            chordProg[n*4 + 1][1] = heptNext + 3;
+            chordProg[n*4 + 2][1] = heptNext + 7;
+            chordProg[n*4 + 3][1] = heptNext + 10;
+        }
+        if (majMinDim == 3) {
+            chordProg[n*4 + 0][1] = heptNext;
+            chordProg[n*4 + 1][1] = heptNext + 3;
+            chordProg[n*4 + 2][1] = heptNext + 6;
+            chordProg[n*4 + 3][1] = heptNext + 10;
+        }
+    }
+    for (var n = 0; n < 40; n++) {
+        console.log("chordProg[" + n + "][1] = " + chordProg[n][1]);
+    }
+
+    return chordProg;
 }
 
 function heptScale(heptNote) {
