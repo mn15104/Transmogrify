@@ -10,6 +10,18 @@ router.get('/getProfilePicture', function(req, res, next) {
 });
 
 router.get('/', function(req, res, next) {
-    res.sendFile(path.join(__dirname + '/../public/views/sidepanel.html'));
+    
+    if(!IS_NULL(req.session.user_id)){
+        console.log("HEEYYY");
+        res.redirect('/sidepanel?id=' + req.session.user_id);
+    }
+    else{
+        res.sendFile(path.join(__dirname + '/../public/views/sidepanel.html'));
+    }
 });
+
+
+function IS_NULL(x){
+    return (x === undefined || x === null || x === NaN); //util.isNullOrUndefined(x) || isNaN(x))
+}
 module.exports = router;

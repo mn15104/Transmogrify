@@ -39,7 +39,7 @@ wss.on('connection', function (connection, req) {
                     {
                         newClient(msgObj.data['user_id'], connection, undefined);
                         removeQueue(msgObj.data['user_id']);
-                        connection.send(JSON.stringify({message:'user_id_accepted'}));
+                        sendMessage(connection, JSON.stringify({message:'user_id_accepted'}));
                         console.log("2. user id accepted");
                         return;
                     }
@@ -50,10 +50,10 @@ wss.on('connection', function (connection, req) {
                 if          (msgObj.message === 'friend_id_req')
                 {
                     setFriend(msgObj.data['user_id'], msgObj.data['friend_id']);
-                    connection.send(JSON.stringify({message:'friend_id_accepted'}));
+                    sendMessage(connection, JSON.stringify({message:'friend_id_accepted'}));
                     
                     other_con =  clients[msgObj.data['friend_id']]['user_data']['con'];
-                    other_con.send(JSON.stringify({message:'friend_id_accepted'}));
+                    sendMessage(other_con, JSON.stringify({message:'friend_id_accepted'}));
                     console.log("3. friend id requested acknowledged");
                 }
                 else if     (msgObj.message === "friend_message_send")
@@ -62,19 +62,15 @@ wss.on('connection', function (connection, req) {
                     friend_id   = clients[user_id]['user_data']['friend_id'];
                     friend_con  = clients[friend_id]['user_data']['con'];
                     console.log(friend_con);
-                    // try {
-                        friend_con.send(JSON.stringify({message:'friend_message_rec', 
-                                                        chat_message: msgObj.data['chat_message']})
-                                                    );
-                    // } catch (error) {
-                    //     console.log(error);
-                    // }
-                    // connection.send("message sent to: " + friend_id);
+                    sendMessage(other_con, JSON.stringify({message:'friend_message_rec', 
+                                                    chat_message: msgObj.data['chat_message']})
+                                                );
+
                 }
             }
         }
     });
-
+    
     // ON DISCONNECT
     connection.on('close', function(connection) {
         removeClient(connection);
@@ -84,6 +80,32 @@ wss.on('connection', function (connection, req) {
 router.get('/', function(req, res, next) {
     res.sendFile(path.join(__dirname + '/public/views/chat.html'));
 });
+
+function sendMessage(ws, msg){
+    // Wait until the state of the socket is not ready and send the message when it is...
+    waitForSocketConnection(ws, function(){
+        ws.send(msg);
+    });
+}
+
+// Make the function wait until the connection is made...
+function waitForSocketConnection(socket, callback){
+    setTimeout(
+        function () {
+            if (socket.readyState === 1) {
+                console.log("Connection is made")
+                if(callback != null){
+                    callback();
+                }
+                return;
+
+            } else {
+                console.log("wait for connection...")
+                waitForSocketConnection(socket, callback);
+            }
+
+        }, 5); // wait 5 milisecond for the connection...
+}
 function setFriend(user_id, friend_id){
     clients[user_id]['user_data']['friend_id'] = friend_id; //['con'];
 }

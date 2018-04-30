@@ -1,7 +1,13 @@
-var ws;
-var user_id;
-var user_id_accepted = false;
-var friend_id_accepted = false;
+
+
+
+$.session_info = Object.create({
+    ws:'',
+    user_id:'',
+    user_id_accepted : false,
+    friend_id_accepted : false
+})
+
 function init()
 {
     var url = new URL(window.location.href);
@@ -18,27 +24,32 @@ function init()
 
         // event emmited when receiving message 
         ws.onmessage = function (ev) {
-            console.log("Received " + JSON.stringify(ev.data));
+            console.log("Received " + (ev.data));
+
+     
+
             if(user_id_accepted === false)
             {
-                if(ev.message === 'user_id_accepted')
-                {
+                console.log("DEBUG 1");
+                if(ev.data['message'] === 'user_id_accepted')
+                {   console.log("DEBUG 2");
                     user_id_accepted = true;
-                }
+                } 
             }
             else
-            {
-                if(ev.message === 'friend_id_accepted')
-                {
+            {   console.log("DEBUG 3");
+                if(ev.data['message']  === 'friend_id_accepted')
+                {   console.log("DEBUG 4");
                     friend_id_accepted = true;
                 }
-                else if(ev.message === 'friend_disconnected')
-                {
+                else if(ev.data['message']  === 'friend_disconnected')
+                {   console.log("DEBUG 5");
                     friend_id_accepted = false;
                 }
-                else if(friend_id_accepted && ev.message === 'friend_message_rec')
-                {
-                    console.log("RECEIVED MESSAGE FROM FRIEND");
+                else if(friend_id_accepted && ev.data['message']  === 'friend_message_rec')
+                {   console.log("DEBUG 6");
+                    console.log(ev.data['chat_message']);
+                    appendMessage(ev.data['chat_message']);
                 }
             }
         }
@@ -54,9 +65,21 @@ function init()
         connectToFriend(3);
     })
     $('#send_message').button().click(function(){
-        // console.log("yo");
         sendMessage("HELLO");
     })
+}
+
+function appendMessage(chat_message){
+    console.log(ev.data['chat_message']);
+    $('.chat_discussion').append(`<li class="chat_other">      
+                                        <div class="chat_avatar">        
+                                            <img src='https://cdn2.digitalartsonline.co.uk/cmsdata/slideshow/3513552/polybreno_1500.jpg' />      
+                                        </div>      
+                                        <div class="chat_messages">        
+                                            <p>` + chat_message + `</p>        
+                                            <time datetime="2009-11-13T20:00">Timothy • 51 min</time>      
+                                        </div>
+                                </li>`);
 }
 
 function sendUserId()
