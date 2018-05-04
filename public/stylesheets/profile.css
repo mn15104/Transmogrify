@@ -905,6 +905,7 @@ h5.profile_profile-settings-edit{
 }
 
 #profile_chat-btn {
+  z-index: 1000;
   width: 30px;
   height: 21px;
   background-color:  rgb(117, 183, 199);
@@ -961,7 +962,6 @@ h5.profile_profile-settings-edit{
   width: 90%;
   height: 400px;
   left:0px;
-  
 }
 
 .chat_top-bar {

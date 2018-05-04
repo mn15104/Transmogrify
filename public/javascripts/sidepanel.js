@@ -25,6 +25,9 @@ function init(name){
     friends.click(function(){
       toggleFriendsList();
     })
+    // $('.friends-list_name').on('click', function(){
+    //   $('.friends-chat-tab').load('../views/chat.html');
+    // })
 }
 
 var toggleFriendsList = function(){

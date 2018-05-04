@@ -21,6 +21,9 @@ wss.on('request', function(request){
 });
 
 wss.on('connection', function (connection, req) {
+   
+    wss.isAlive = true;
+    
     console.log('1. server accepted connection');
 
     // ON MESSAGE
@@ -70,11 +73,14 @@ wss.on('connection', function (connection, req) {
             }
         }
     });
-    
+    wss.on('pong', function(){
+        this.isAlive = true;
+    })
     // ON DISCONNECT
     connection.on('close', function(connection) {
         removeClient(connection);
     });
+    connection.ping();
 });
 
 router.get('/', function(req, res, next) {
@@ -161,8 +167,15 @@ function IsJsonString(str) {
 function IS_NULL(x){
     return (x === undefined || x === null || x === NaN); //util.isNullOrUndefined(x) || isNaN(x))
 }
-
-
+function noop() {}
+const interval = setInterval(function ping() {
+    wss.clients.forEach(function each(ws) {
+      if (ws.isAlive === false) return ws.terminate();
+  
+      ws.isAlive = false;
+      ws.ping(noop);
+    });
+  }, 30000);
 module.exports = router;
 
 

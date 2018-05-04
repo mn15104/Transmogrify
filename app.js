@@ -61,9 +61,8 @@ var create_route = require('./routes/create.route');
 var explore_route = require('./routes/explore.route');
 var profile_route = require('./routes/profile.route');
 var login_route = require('./routes/login.route');
-var webcam_route = require('./routes/wc.route');
 var sidepanel_route = require('./routes/sidepanel.route');
-var chat_route = require('./routes/wc.route');
+var chat_route = require('./routes/chat_ws.route');
 app.use('/flick', function(req, res, next){
   res.sendFile(path.join(__dirname + '/public/views/flick.html'));
 });
@@ -73,8 +72,10 @@ app.use('/intro', function(req, res, next){
 app.use('/profile', function(req, res, next){
   res.sendFile(path.join(__dirname + '/public/views/profile.html'));
 });
+app.use('/vid', function(req, res, next){
+  res.sendFile(path.join(__dirname + '/public/views/webcam.html'));
+});
 app.use('/chat', chat_route);
-app.use('/wc', webcam_route);
 app.use('/sidepanel', sidepanel_route);
 app.use('/myprofile', profile_route);
 app.use('/create', create_route);

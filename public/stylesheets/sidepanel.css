@@ -582,7 +582,7 @@ img.sidepanel_menu-link-login {
   position:fixed;
   width: 200px;
   right:20px;
-
+  z-index: 1000;
   /* left: auto; */
   bottom: 10px;
   max-height:300px;
@@ -668,4 +668,16 @@ h4.friends_list-title:hover{
 @-o-keyframes fadein {
   from { opacity: 0; }
   to   { opacity: 1; }
+}
+.friends-chat-tab-wrapper{
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  min-width: 1200px;
+  padding-right: 300px;
+  padding-bottom: 25px;
+}
+.friends-chat-tab{
+  position: relative;
+  float: right;
 }
