@@ -215,7 +215,8 @@ var connectWS = function(){
       type: 'POST',
       data: {user_id: user_id},
       success: function(data){
-          console.log("OK!");console.log(data);
+          console.log("OK!");
+          console.log(data);
           $('#page_1').fadeOut('slow', function(){
             $('#page_1').empty();
             $('#page_1').load("../views/chat.html");

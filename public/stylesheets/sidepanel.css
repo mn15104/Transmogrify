@@ -185,6 +185,7 @@ h2.sidepanel_menu-link-login{
   text-align: center;
   letter-spacing: .3em;
 }
+
 .bar-split {
     width: 100%;
     /* margin: */
@@ -192,6 +193,7 @@ h2.sidepanel_menu-link-login{
     background-color: var(--clrRed);
     overflow: hidden;
 }
+
 .bar-split:hover{
   cursor: pointer;
 }
