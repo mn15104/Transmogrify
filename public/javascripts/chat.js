@@ -10,6 +10,17 @@ session_info = Object.create({
 
 function init()
 {
+    initChat();
+    $('.chat_top-bar').on('click', function(){
+        chat_container = $(this).parent('.chat_container');
+        chat_container.toggleClass('chat_container_closed'); 
+        container_user_id = chat_container.attr('data-chat-user-id');
+        connectToFriend(container_user_id);
+    })
+}
+
+function initChat()
+{
     var url = new URL(window.location.href);
     if(!IS_NULL(url.searchParams.get("user_id"))){
 
@@ -32,6 +43,7 @@ function init()
                 if(msg['message'] === 'user_id_accepted')
                 {   console.log("DEBUG 2");
                     session_info.user_id_accepted = true;
+                  
                 }
             }
             else
@@ -47,7 +59,7 @@ function init()
                 else if(session_info.friend_id_accepted && msg['message']  === 'friend_message_rec')
                 {   console.log("DEBUG 6");
                     console.log(msg['chat_message']);
-                    appendMessage(msg['chat_message']);
+                    appendReceivedMessage(msg['chat_message']);
                 }
             }
         }
@@ -59,17 +71,23 @@ function init()
     else{
         console.log("No user id found in url");
     }
-    $('.chat_top-bar').on('click', function(){
-        connectToFriend(3);
+    $('.myButton').button().click(function(){
+        sendMessage("[USER MESSAGE] >> " + $(this).siblings('.chat_input').val());
+        appendSentMessage("[USER MESSAGE] >> " + $(this).siblings('.chat_input').val());
     })
-    $('#send_message').button().click(function(){
-        sendMessage("HELLO");
-    })
-    
 }
-
-function appendMessage(chat_message){
-    console.log(chat_message);
+function appendSentMessage(chat_message){
+    $('.chat_discussion').append('<li class="chat_self">'              +      
+                                       '<div class="chat_avatar">'      +  
+                                            '<img src="https://cdn2.digitalartsonline.co.uk/cmsdata/slideshow/3513552/polybreno_1500.jpg" /> ' +      
+                                        '</div>' +     
+                                        '<div class="chat_messages">' +        
+                                            '<p>' + chat_message + '</p>' +        
+                                            '<time datetime="2009-11-13T20:00">Timothy • 51 min</time>' +      
+                                        '</div>' +
+                                    '</li>');
+}
+function appendReceivedMessage(chat_message){
     $('.chat_discussion').append('<li class="chat_other">'              +      
                                        '<div class="chat_avatar">'      +  
                                             '<img src="https://cdn2.digitalartsonline.co.uk/cmsdata/slideshow/3513552/polybreno_1500.jpg" /> ' +      

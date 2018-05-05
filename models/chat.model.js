@@ -1,50 +1,26 @@
 var WebSocketServer = require('websocket').server;
 var http = require('http');
 
-var Chat = function(){
-    
+var Chat = function (){
+
 }
 
-var server = http.createServer(function(request, response) {
-    console.log((new Date()) + ' Received request for ' + request.url);
-    response.writeHead(404);
-    response.end();
-});
-server.listen(8080, function() {
-    console.log((new Date()) + ' Server is listening on port 8080');
-});
- 
-wsServer = new WebSocketServer({
-    httpServer: server,
-    autoAcceptConnections: false
-});
-
-function originIsAllowed(origin) {
-  return true;
+function IS_NULL(x){
+    return (x === undefined || x === null || x === NaN); //util.isNullOrUndefined(x) || isNaN(x))
 }
- 
-wsServer.on('request', function(request) {
-    if (!originIsAllowed(request.origin)) {
-      request.reject();
-      console.log((new Date()) + ' Connection from origin ' + request.origin + ' rejected.');
-      return;
+// **************************************************************************************************** //
+let db = new sqlite3.Database('./Dev.db', sqlite3.OPEN_CREATE | sqlite3.OPEN_READWRITE, (err) => {
+    if (err) {
+      return console.error(err.message);
     }
-    
-    var connection = request.accept('echo-protocol', request.origin);
-    console.log((new Date()) + ' Connection accepted.');
-    connection.on('message', function(message) {
-        if (message.type === 'utf8') {
-            console.log('Received Message: ' + message.utf8Data);
-            connection.sendUTF(message.utf8Data);
-        }
-        else if (message.type === 'binary') {
-            console.log('Received Binary Message of ' + message.binaryData.length + ' bytes');
-            connection.sendBytes(message.binaryData);
-        }
-    });
-    connection.on('close', function(reasonCode, description) {
-        console.log((new Date()) + ' Peer ' + connection.remoteAddress + ' disconnected.');
-    });
+    console.log('Connected to the Login db.');
 });
+// **************************************************************************************************** //
+
+Chat.insertMessage = function(){
+    db.get("SELECT * FROM 'USER_LOGIN' WHERE", function(err, row){
+
+    });
+};
 
 module.exports = Chat;

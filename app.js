@@ -81,11 +81,13 @@ app.use('/myprofile', profile_route);
 app.use('/create', create_route);
 app.use('/explore', explore_route);
 app.use('/login', login_route);
-
+app.post('/whatsmyid', function(req,res,next){
+    res.status(200).send({'user_id':req.session.user_id});
+})
 app.use('/', function(req, res, next){
     res.redirect('/sidepanel');
-  
 });
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');

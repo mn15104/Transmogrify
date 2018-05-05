@@ -151,7 +151,7 @@ var initNavLinks = function(){
     });
   })
   $('#chat_link').click(function(){
-    connectWS();
+     connectWS();
   })
 }
 
@@ -212,7 +212,27 @@ function getProfilePicture(name){
 function IS_NULL(x){
   return (x === undefined || x === null || x === NaN); //util.isNullOrUndefined(x) || isNaN(x))
 }
+
+var retrieveId = function(){
+  $.ajax({
+    url: '/whatsmyid',
+    type: 'POST',
+    success: function(data){
+        dataObj = JSON.parse(data);
+        console.log("got " + data);
+        return dataObj.user_id;
+    },
+    error: function(xhr, ajaxOptions, thrownError){
+        console.log("ERROR!");
+        return null;
+    }
+});
+}
+
 var connectWS = function(){
+  if(IS_NULL(user_id)){
+    user_id = retrieveId();
+  }
   $.ajax({
       url: '/chat/connect_chat',
       type: 'POST',

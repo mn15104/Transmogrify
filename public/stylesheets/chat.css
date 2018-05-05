@@ -1,9 +1,18 @@
-    .chat_container {
+  .chat_container {
     position:relative;
+    margin: 0 auto;
     width: 300px;
     height: 400px;
-    left:0px;
-    
+
+    transition: all .3s ease-out;
+  }
+  .chat_container.chat_container_closed > .chat_input_wrapper,
+  .chat_container.chat_container_closed > .chat_discussion, 
+  .chat_container.chat_container_closed > .chat_fieldset{
+    height: 0;
+    opacity: 0;
+    visibility: hidden;
+    transition: all .3s ease-out;
   }
   .chat_top-bar {
     background: #666;
@@ -47,6 +56,8 @@
   }
   
   .chat_discussion {
+
+    transition: all .3s ease-out;
     height: 350px;
     overflow: auto;
     list-style: none;
@@ -121,6 +132,7 @@
   }
   
   .chat_input_wrapper{
+    transition: all .3s ease-out;
     position:relative;
     width: 100%;
     line-height:5px;

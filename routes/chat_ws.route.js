@@ -1,4 +1,3 @@
-//https://gist.github.com/martinsik/2031681
 var express = require('express');
 var router = express.Router();
 var path = require('path');
@@ -10,9 +9,16 @@ var clients = {  };
 var queue   = {  };
 
 router.post('/connect_chat', function(req, res, next) {
-    addQueue(req.body.user_id);
-    console.log("queue at " + req.session.user_id + " set to " +    queue[req.session.user_id]);
-    res.status(200).send({ message: "Websocket id acknowledged"});
+    if(!IS_NULL(req.body.user_id))
+    {
+        addQueue(req.body.user_id);
+        console.log("queue at " + req.body.user_id + " set to " +    queue[req.body.user_id]);
+        res.status(200).send({ message: "Websocket id acknowledged"});
+    }
+    else {
+        res.status(200).send({message: "Websocket id not found"});
+    }
+    
 });
 
 
@@ -37,7 +43,7 @@ wss.on('connection', function (connection, req) {
             {
                 if          (msgObj.message === 'user_id')
                 {
-                    console.log(queue[msgObj.data['user_id']]);
+                    //Accept web socket connection from user
                     if(!IS_NULL(queue[msgObj.data['user_id']]))
                     {
                         newClient(msgObj.data['user_id'], connection, undefined);
@@ -52,23 +58,31 @@ wss.on('connection', function (connection, req) {
             {
                 if          (msgObj.message === 'friend_id_req')
                 {
-                    setFriend(msgObj.data['user_id'], msgObj.data['friend_id']);
-                    sendMessage(connection, JSON.stringify({message:'friend_id_accepted'}));
-                    
-                    other_con =  clients[msgObj.data['friend_id']]['user_data']['con'];
-                    sendMessage(other_con, JSON.stringify({message:'friend_id_accepted'}));
-                    console.log("3. friend id requested acknowledged");
+                    //Friend exists, retrieve connection and set friend info 
+                    if(!IS_NULL(clients[msgObj.data['friend_id']])){
+                        setFriend(msgObj.data['user_id'], msgObj.data['friend_id']);
+                        sendMessage(connection, JSON.stringify({message:'friend_id_accepted'}));
+                        other_con =  clients[msgObj.data['friend_id']]['user_data']['con'];
+                        sendMessage(other_con, JSON.stringify({message:'friend_id_accepted'}));
+                        console.log("3.a. friend id requested acknowledged");
+                    }
+                    //Friend hasn't connected - clients[friend_id] is undefined
+                    ///////////////////////////////////////////////////////////
+                    //  TO DO: Need to implement offline messages & use sql  //
+                    ///////////////////////////////////////////////////////////
+                    else{
+                        sendMessage(connection, JSON.stringify({message:'friend id not found in clients'}));
+                        console.log("3.b. friend id request rejected");
+                    }
                 }
                 else if     (msgObj.message === "friend_message_send")
                 {
                     user_id     = msgObj.data['user_id'];
                     friend_id   = clients[user_id]['user_data']['friend_id'];
                     friend_con  = clients[friend_id]['user_data']['con'];
-                    console.log(friend_con);
-                    sendMessage(other_con, JSON.stringify({message:'friend_message_rec', 
+                    sendMessage(friend_con, JSON.stringify({message:'friend_message_rec', 
                                                     chat_message: msgObj.data['chat_message']})
                                                 );
-
                 }
             }
         }
@@ -129,7 +143,7 @@ function newClient(user_id, con, friend_id){
 function removeClient(conn){
     for(var client in clients){
         if(IS_NULL(client['user_data'])) {
-            return;    
+            continue;    
         }
         else{
             if(client['user_data']['con'] == conn){
