@@ -189,7 +189,7 @@ h2.sidepanel_menu-link-login{
 .bar-split {
     width: 100%;
     /* margin: */
-    height: 10px;
+    height: 18px;
     background-color: var(--clrRed);
     overflow: hidden;
 }
