@@ -1,6 +1,6 @@
-var WebSocketServer = require('websocket').server;
-var http = require('http');
 
+var http = require('http');
+var sqlite3 = require('sqlite3');
 var Chat = function (){
 
 }
@@ -18,9 +18,9 @@ let db = new sqlite3.Database('./Dev.db', sqlite3.OPEN_CREATE | sqlite3.OPEN_REA
 // **************************************************************************************************** //
 
 Chat.insertMessage = function(){
-    db.get("SELECT * FROM 'USER_LOGIN' WHERE", function(err, row){
+    // db.get("SELECT * FROM 'USER_LOGIN' WHERE", function(err, row){
 
-    });
+    // });
 };
 
 module.exports = Chat;

@@ -1,7 +1,8 @@
 
 var page_init = false;
 var init = function(){
-    // loadMyProfile();
+    
+    $('.profile_chatbox_container').load('../views/chatbox.html');
     $('.profile_profile-settings').css('opacity',0);
     $('.chat_container').hide();
     $('.profile_title_container').slideDown('slow');
@@ -72,18 +73,22 @@ var flipProfileCard = function(){
 }
 var toggleChatbox = function(){
     if(!($('#profile_chat-btn').hasClass('profile_chat_open'))){
-        $(".profile_card").animate({width:"150%", left:"100%"}, 'slow');
-        $('.chat_container').slideDown('slow');
-        $(".profile_img").animate({left:"15%"}, 'fast');
-        $('#profile_chat-btn').addClass('profile_chat_open');
+         $('#profile_chat-btn').addClass('profile_chat_open');
+         chat_container = $('.chat_top-bar').parent('.chat_container');
+         chat_container.toggleClass('chat_container_closed'); 
+         container_user_id = chat_container.attr('data-chat-user-id');
+         $.getScript("chatbox.js",function(){
+            connectToFriend(container_user_id);
+         });
     }
     else {
-        $('.chat_container').slideUp('slow', function(){
-          
-        });  
-        $(".profile_card").animate({width:"100%", left:"100%"}, 'slow');
-        $(".profile_img").animate({left:"2%"}, 'fast');
         $('#profile_chat-btn').removeClass('profile_chat_open');
+        chat_container = $('.chat_top-bar').parent('.chat_container');
+        chat_container.toggleClass('chat_container_closed'); 
+        container_user_id = chat_container.attr('data-chat-user-id');
+        // $.getScript("chatbox.js",function(){
+        //    connectToFriend(container_user_id);
+        // });
     }
 }
 

@@ -4,9 +4,11 @@ var path = require('path');
 var rooms = require("rooms");
 var WebSocketServer = require('ws').Server;
 var wss = new WebSocketServer({port: 1337, clientTracking: true, autoAcceptConnections: false});
+var ChatModel = require('../models/chat.model');
 
 var clients = {  };
 var queue   = {  };
+
 
 router.post('/connect_chat', function(req, res, next) {
     if(!IS_NULL(req.body.user_id))
@@ -71,8 +73,8 @@ wss.on('connection', function (connection, req) {
                     //  TO DO: Need to implement offline messages & use sql  //
                     ///////////////////////////////////////////////////////////
                     else{
-                        sendMessage(connection, JSON.stringify({message:'friend id not found in clients'}));
-                        console.log("3.b. friend id request rejected");
+                        sendMessage(connection, JSON.stringify({message:'friend_req_offline'}));
+                        console.log("3.b. friend id request offline ");
                     }
                 }
                 else if     (msgObj.message === "friend_message_send")
@@ -100,6 +102,8 @@ wss.on('connection', function (connection, req) {
 router.get('/', function(req, res, next) {
     res.sendFile(path.join(__dirname + '/public/views/chat.html'));
 });
+
+
 
 function sendMessage(ws, msg){
     // Wait until the state of the socket is not ready and send the message when it is...

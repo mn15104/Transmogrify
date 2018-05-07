@@ -143,15 +143,10 @@ var initNavLinks = function(){
     });
   })
   $('#logout_link').click(function(){
-    $('#page_1').fadeOut('slow', function(){
-      $('#page_1').empty();
-      $('#page_1').load("../views/profile.html");
-      changeurl('explore');
-      $('#page_1').fadeIn('slow');
-    });
+    connectWS();
   })
   $('#chat_link').click(function(){
-     connectWS();
+    connectWS_debug_link();
   })
 }
 
@@ -229,7 +224,7 @@ var retrieveId = function(){
 });
 }
 
-var connectWS = function(){
+var connectWS_debug_link = function(){
   if(IS_NULL(user_id)){
     user_id = retrieveId();
   }
@@ -243,6 +238,30 @@ var connectWS = function(){
           $('#page_1').fadeOut('slow', function(){
             $('#page_1').empty();
             $('#page_1').load("../views/chat.html");
+            $('#page_1').fadeIn('slow');
+          });
+          return true;
+      },
+      error: function(xhr, ajaxOptions, thrownError){
+          console.log("ERROR!");
+          return false;
+      }
+  });
+}
+var connectWS = function(){
+  if(IS_NULL(user_id)){
+    user_id = retrieveId();
+  }
+  $.ajax({
+      url: '/chat/connect_chat',
+      type: 'POST',
+      data: {user_id: user_id},
+      success: function(data){
+          console.log("OK!");
+          console.log(data);
+          $('#page_1').fadeOut('slow', function(){
+            $('#page_1').empty();
+            $('#page_1').load("../views/profile.html");
             $('#page_1').fadeIn('slow');
           });
           return true;

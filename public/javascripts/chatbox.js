@@ -1,12 +1,8 @@
-
-
-
 session_info = Object.create({
     ws:'',
     user_id:'',
     user_id_accepted : false,
-    friend_id_accepted : false,
-    friend_id_offline: false
+    friend_id_accepted : false
 })
 
 function init()
@@ -44,30 +40,20 @@ function initChat()
                 if(msg['message'] === 'user_id_accepted')
                 {   console.log("DEBUG 2");
                     session_info.user_id_accepted = true;
-                  
                 }
             }
             else
             {   console.log("DEBUG 3");
                 if(msg['message']  === 'friend_id_accepted')
-                {   
-                    console.log("DEBUG 4.a");
+                {   console.log("DEBUG 4");
                     session_info.friend_id_accepted = true;
                 }
-                else if(msg['message']  === 'friend_req_offline')
-                {
-                    console.log("DEBUG 4.a");
-                    session_info.friend_id_offline = true;
-                }
                 else if(msg['message']  === 'friend_disconnected')
-                {   
-                    console.log("DEBUG 5");
+                {   console.log("DEBUG 5");
                     session_info.friend_id_accepted = false;
                 }
-                else if(   (session_info.friend_id_accepted && msg['message']  === 'friend_message_rec')
-                        || (session_info.friend_id_offline && msg['message']  === 'friend_message_rec'))
-                {   
-                    console.log("DEBUG 6");
+                else if(session_info.friend_id_accepted && msg['message']  === 'friend_message_rec')
+                {   console.log("DEBUG 6");
                     console.log(msg['chat_message']);
                     appendReceivedMessage(msg['chat_message']);
                 }
@@ -82,10 +68,8 @@ function initChat()
         console.log("No user id found in url");
     }
     $('.myButton').button().click(function(){
-        if(session_info.friend_id_offline || session_info.friend_id_accepted){
-            sendMessage("[USER MESSAGE] >> " + $(this).siblings('.chat_input').val());
-            appendSentMessage("[USER MESSAGE] >> " + $(this).siblings('.chat_input').val());
-        }
+        sendMessage("[USER MESSAGE] >> " + $(this).siblings('.chat_input').val());
+        appendSentMessage("[USER MESSAGE] >> " + $(this).siblings('.chat_input').val());
     })
 }
 function appendSentMessage(chat_message){
@@ -113,6 +97,7 @@ function appendReceivedMessage(chat_message){
 
 function sendUserId()
 {
+    
     session_info.ws.send(JSON.stringify({message:'user_id', 
                             data: { user_id:user_id }}));
 }

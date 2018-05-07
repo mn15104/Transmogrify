@@ -149,10 +149,9 @@ h1.profile_title{
   padding-top:30px;
   margin-top:290px;
   min-width: 230px;
+  max-width: 230px;
   height: 600px;
-  margin-left:20%;
-  width: 60%;
-  left:290%;
+  left:320%;
   line-height: 1.4em;
   background-color: #303232;
   -webkit-transition:background 3s;
@@ -256,35 +255,6 @@ h1.profile_title{
     background-color: #141414;
 }
 
-#profile_chat-btn {
-    width: 40px;
-    height: 28px;
-    background-color:  rgb(117, 183, 199);
-    border-radius: 4px;
-    position: relative;
-    margin-left: 20px;margin-top:5px;  
-    left: 35px;
-    top: 11px;
-}
-
-#profile_chat-btn:hover {
-    filter: sepia(0.3) brightness(100%) hue-rotate(220deg);
-    -webkit-filter: sepia(0.3) brightness(100%) hue-rotate(220deg);
-    cursor: pointer;
-}
-
-#profile_chat-btn:after {
-      content: "";
-      display: block;
-      position: absolute;
-      width: 40px;
-      height: 28px;
-      right: 10px;
-      /* bottom: -10px; */
-      border-left: 10px solid transparent;
-      border-right: 2px solid transparent;
-      border-top: 10px solid #62CFC1;
-}
 
 .profile_upload-image-container {
   left: 50%;
@@ -911,7 +881,8 @@ h5.profile_profile-settings-edit{
   background-color:  rgb(117, 183, 199);
   border-radius: 4px;
   position: relative;
-  margin-left: 20px;margin-top:5px;  
+  margin-left: 20px;
+  margin-top:5px;  
   left: 35px;
   top: 9px;
 }
@@ -956,149 +927,7 @@ h5.profile_profile-settings-edit{
 [class*="typicons-"]:before {
   font-family: 'Typicons', sans-serif;
 }
-.chat_container {
-  position:relative;
-  top: 250px;
-  width: 90%;
-  height: 400px;
-  left:0px;
-}
 
-.chat_top-bar {
-  background: #666;
-  color: white;
-  padding: 0.5rem;
-  position: relative;
-  overflow: hidden;
-}
-.chat_top-bar h1 {
-  display: inline;
-  font-size: 1.5em;
-}
-.chat_top-bar .chat_typicons-message {
-  display: inline-block;
-  padding: 4px 5px 2px 5px;
-}
-.chat_top-bar .chat_typicons-minus {
-  position: relative;
-  top: 3px;
-}
-.chat_top-bar .chat_left {
-  float: left;
-}
-.chat_top-bar .chat_right {
-  float: right;
-  padding-top: 5px;
-}
-.chat_top-bar > * {
-  position: relative;
-}
-.chat_top-bar::before {
-  content: "";
-  position: absolute;
-  top: -100%;
-  left: 0;
-  right: 0;
-  bottom: -100%;
-  opacity: 0.25;
-  background: radial-gradient(#ffffff, #000000);
-  animation: pulse 1s ease alternate infinite;
-}
-
-.chat_discussion {
-  list-style: none;
-  background: #e5e5e5;
-  margin: 0;
-  padding: 0 0 50px 0;
-}
-.chat_discussion li {
-  padding: 0.5rem;
-  overflow: hidden;
-  display: flex;
-}
-.chat_discussion .chat_avatar {
-  width: 40px;
-  position: relative;
-}
-.chat_discussion .chat_avatar img {
-  display: block;
-  width: 100%;
-}
-
-.chat_other .chat_avatar:after {
-  content: "";
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 0;
-  height: 0;
-  border: 5px solid white;
-  border-left-color: transparent;
-  border-bottom-color: transparent;
-}
-
-.chat_self {
-  justify-content: flex-end;
-  align-items: flex-end;
-}
-.chat_self .chat_messages {
-  order: 1;
-  border-bottom-right-radius: 0;
-}
-.chat_self .chat_avatar {
-  order: 2;
-}
-.chat_self .chat_avatar:after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 0;
-  height: 0;
-  border: 5px solid white;
-  border-right-color: transparent;
-  border-top-color: transparent;
-  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
-}
-
-.chat_messages {
-  background: white;
-  color: black;
-  font: 12px 'Open Sans', sans-serif;
-  padding: 10px;
-  border-radius: 2px;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-}
-.chat_messages p {
-  font-size: 12px ;
-  margin: 0 0 0.2rem 0;
-}
-.chat_messages time {
-  font-size: 9px;
-  color: black;
-}
-
-.chat_input_wrapper{
-  position:relative;
-  width: 100%;
-  line-height:5px;
-  height:20px;
-  border: 0;
-	color: inherit;
-  line-height: normal;
-  margin: 0;
-}
-
-.chat_input{
-  
-  color: black;
-  font: 12px 'Open Sans', sans-serif;
-  width:100%;
-  height:30px;
-}
-.chat_input.chat_input_hidden{
-  font-size:1rem;
-}
 .myButton {
   position:absolute;
   height: 150%;
@@ -1128,4 +957,16 @@ h5.profile_profile-settings-edit{
 }.myButton:hover {
   background-color:#856f6f;
 
+}
+
+.profile_icon_container{
+  position:absolute;
+  left: 14.5%;
+  width: 207px;
+  top: 697px;
+}
+
+.profile_chatbox_container{
+  position:relative;
+  width: 100%;
 }
