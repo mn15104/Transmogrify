@@ -63,8 +63,8 @@ var profile_route = require('./routes/profile.route');
 var login_route = require('./routes/login.route');
 var sidepanel_route = require('./routes/sidepanel.route');
 var chat_route = require('./routes/chat_ws.route');
-app.use('/flick', function(req, res, next){
-  res.sendFile(path.join(__dirname + '/public/views/flick.html'));
+app.use('/particles', function(req, res, next){
+  res.sendFile(path.join(__dirname + '/public/views/particles.html'));
 });
 app.use('/intro', function(req, res, next){
   res.sendFile(path.join(__dirname + '/public/views/intro.html'));
@@ -72,7 +72,7 @@ app.use('/intro', function(req, res, next){
 app.use('/profile', function(req, res, next){
   res.sendFile(path.join(__dirname + '/public/views/profile.html'));
 });
-app.use('/vid', function(req, res, next){
+app.use('/webcam', function(req, res, next){
   res.sendFile(path.join(__dirname + '/public/views/webcam.html'));
 });
 app.use('/chat', chat_route);
@@ -97,6 +97,7 @@ app.use(function(req, res, next) {
 
 // error handler
 app.use(function(err, req, res, next) {
+  res.redirect('/sidepanel');
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};

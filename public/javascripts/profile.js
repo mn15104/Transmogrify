@@ -4,8 +4,7 @@ var init = function(){
     
     $('.profile_chatbox_container').load('../views/chatbox.html');
     $('.profile_profile-settings').css('opacity',0);
-    $('.chat_container').hide();
-    $('.chat_container').hide();
+    $('.profile_icon_container').hide();
     $('.profile_title_container').slideDown('slow');
     $('#profile_card').css({'background':'none'});
     $('.profile_title').css('opacity', 0)
@@ -55,6 +54,7 @@ var flipProfileImg = function(){
     $(".profile_card").animate({"left":"100%"}, {duration:1100, complete:function(){
         $('#profile_profile-description').slideDown(600,false, function(){
             $(".profile_gallery-wrapper").fadeIn('slow');
+            $('.profile_icon_container').fadeIn('slow');
         });
     }});
     $("#sidebar-horizontal").fadeIn("slow");
