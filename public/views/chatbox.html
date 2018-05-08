@@ -2,13 +2,11 @@
 <html>
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1" >
     <title>Listen To This Image</title>
     <script src="../javascripts/jstools/jquery-3.2.1.min.js"></script>
     <script src="../javascripts/jstools/jquery-ui.min.js"></script>
-    <link rel="stylesheet" href="../stylesheets/tools/jquery-ui.min.css">
-    <meta http-equiv="content-type" content="text/html; charset=utf-8" >
-    <meta name="viewport" content="width=device-width, initial-scale=1" >
-    <link rel="stylesheet" type="text/css" media="screen" href="../stylesheets/chatbox.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.0/socket.io.js"></script>
     <script src="https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.js"></script>
     <!-- Header script to reload js on embedded pages -->
     <script language="text/javascript">
@@ -22,6 +20,8 @@
         }
         load_js();
     </script>
+    <link rel="stylesheet" href="../stylesheets/tools/jquery-ui.min.css">
+    <link rel="stylesheet" href="../stylesheets/chatbox.css">
 </head>
 <body >
 
@@ -76,7 +76,6 @@
 </section>
 
 <script src="../javascripts/chatbox.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.0/socket.io.js"></script>
 <script>
 $(function () {
     init();

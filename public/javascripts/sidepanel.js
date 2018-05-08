@@ -108,11 +108,11 @@ var initNavLinks = function(){
   $('.sidepanel_menu_link').click(function(){
     // Stop all audio if previous page contains an audio player
     var prevpage = $('.sidepanel_menu_link.active');
-    if(prevpage.find('#CURRENT_PLAYER')){
-      $.getScript("explore.js",function(){
-        refreshAudio();
-      });
-    }
+    // if(prevpage.find('#CURRENT_PLAYER')){
+    //   $.getScript("explore.js",function(){             // NOT FUNCTIONAL, NEEDS CORRECTING
+    //     refreshAudio();
+    //   });
+    // }
 
     prevpage.removeClass("active");
     $(this).addClass('active');
@@ -262,6 +262,7 @@ var connectWS = function(){
           $('#page_1').fadeOut('slow', function(){
             $('#page_1').empty();
             $('#page_1').load("../views/profile.html");
+            changeurl('profile?user_id='+user_id);
             $('#page_1').fadeIn('slow');
           });
           return true;

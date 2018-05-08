@@ -82,10 +82,7 @@ function initAudio(player){
                 });
             }
             else{
-                $.getScript("audio_wave.js",function(){
-                    stopSound();
-                    init();
-                });
+                init();
             }
         }
         else{
@@ -100,7 +97,6 @@ function initAudio(player){
         $('#CURRENT_PLAYER').closest('.brick').find('.brick-img').css({
             "-webkit-filter": "blur(0px)",
             "filter": "blur(0px)"});
-        $('#CURRENT_PLAYER').closest('.brick').find('.brick-audio').empty();
         $(this).removeAttr("id");
         $.getScript("audio_wave.js",function(){
                 stopSound();

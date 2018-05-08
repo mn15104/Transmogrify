@@ -19,7 +19,7 @@
     z-index: 1000;
     transition:0.5s;
     width:140%;
-    transform: translateX(30%);
+    transform: translateX(29%);
   }
   .chat_container.chat_container_closed > .chat_input_wrapper,
   .chat_container.chat_container_closed > .chat_discussion, 

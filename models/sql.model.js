@@ -62,7 +62,7 @@ SQL_MODEL.init = function(){
                                                                 time            datetime, 
                                                                 user_send       INT(100),
                                                                 user_receive    INT(100), 
-                                                                PRIMARY KEY(chat_id))`, (err) => {
+                                                                UNIQUE(user_send, user_receive))`, (err) => {
         if (err) {
             console.error(err.message);
         }

@@ -8,12 +8,15 @@ session_info = Object.create({
 function init()
 {
     initChat();
-    $('.chat_top-bar').on('click', function(){
-        chat_container = $(this).parent('.chat_container');
-        chat_container.toggleClass('chat_container_closed'); 
-        container_user_id = chat_container.attr('data-chat-user-id');
-        connectToFriend(container_user_id);
-    })
+}
+
+function connect(){
+    chat_container = $('.chat_container');
+    chat_container.toggleClass('chat_container_closed'); 
+    container_user_id = chat_container.attr('data-chat-user-id');
+
+    console.log(container_user_id);
+    connectToFriend(container_user_id);
 }
 
 function initChat()
@@ -97,19 +100,31 @@ function appendReceivedMessage(chat_message){
 
 function sendUserId()
 {
-    
-    session_info.ws.send(JSON.stringify({message:'user_id', 
-                            data: { user_id:user_id }}));
+    try{
+        session_info.ws.send(JSON.stringify({message:'user_id', 
+                                data: { user_id:user_id }}));
+    }catch{
+        console.log("You are not logged in/user_id not found");
+    }
+
 }
 
 function connectToFriend(friend_id)
 {
-    session_info.ws.send(JSON.stringify({message:'friend_id_req', 
-                            data: { friend_id:friend_id, user_id:user_id }}));
+    try{
+        session_info.ws.send(JSON.stringify({message:'friend_id_req', 
+                                data: { friend_id:friend_id, user_id:user_id }}));
+    }catch{
+        console.log("You are not logged in/user_id not found");
+    }
 }
 function sendMessage(msg)
 {
-    session_info.ws.send(JSON.stringify({message:'friend_message_send', 
-                            data: {user_id:user_id,
-                                   chat_message:msg}}));
+    try{
+        session_info.ws.send(JSON.stringify({message:'friend_message_send', 
+                                data: {user_id:user_id,
+                                    chat_message:msg}}));
+    }catch{
+        console.log("You are not logged in/user_id not found");
+    }
 }

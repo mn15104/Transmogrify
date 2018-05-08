@@ -73,6 +73,7 @@ wss.on('connection', function (connection, req) {
                     //  TO DO: Need to implement offline messages & use sql  //
                     ///////////////////////////////////////////////////////////
                     else{
+                        setFriend(msgObj.data['user_id'], msgObj.data['friend_id']);
                         sendMessage(connection, JSON.stringify({message:'friend_req_offline'}));
                         console.log("3.b. friend id request offline ");
                     }
@@ -81,10 +82,18 @@ wss.on('connection', function (connection, req) {
                 {
                     user_id     = msgObj.data['user_id'];
                     friend_id   = clients[user_id]['user_data']['friend_id'];
-                    friend_con  = clients[friend_id]['user_data']['con'];
-                    sendMessage(friend_con, JSON.stringify({message:'friend_message_rec', 
-                                                    chat_message: msgObj.data['chat_message']})
-                                                );
+                    // Send online message
+                    if(!IS_NULL(clients[friend_id])){
+                        friend_con  = clients[friend_id]['user_data']['con'];
+                        sendMessage(friend_con, JSON.stringify({message:'friend_message_rec', 
+                            chat_message: msgObj.data['chat_message']})
+                        );
+                    }
+                    // Leave offline message
+                    else{
+                        console.log("leaving offline message");
+                        ChatModel.insertMessage(user_id, friend_id, msgObj.data['chat_message']);
+                    }
                 }
             }
         }
