@@ -3,8 +3,6 @@
 
 function init(){
     console.log("hello");
-    $('.left_particle').load('../views/particles.html');
-    $('.right_particle').load('../views/particles.html');
     $('#right-arrow').click(function(){
         $('#left-arrow').fadeOut();
         $('.title.left').addClass('slide_down');

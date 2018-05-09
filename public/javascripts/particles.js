@@ -1,4 +1,5 @@
-var canvas = document.getElementById('nokey'),
+
+var canvas = document.getElementById('left_particle'),
    can_w = parseInt(canvas.getAttribute('width')),
    can_h = parseInt(canvas.getAttribute('height')),
    ctx = canvas.getContext('2d');
@@ -16,8 +17,8 @@ var ball = {
    },
    ball_color = {
        r: 207,
-       g: 255,
-       b: 4
+       g: 70,
+       b: 70
    },
    R = 2,
    balls = [],
@@ -127,7 +128,7 @@ function renderBalls(){
        if(!b.hasOwnProperty('type')){
            ctx.fillStyle = 'rgba('+ball_color.r+','+ball_color.g+','+ball_color.b+','+b.alpha+')';
            ctx.beginPath();
-           ctx.arc(b.x, b.y, R, 0, Math.PI*2, true);
+           ctx.arc(b.x, b.y, R*1.4, 0, Math.PI*2, true);
            ctx.closePath();
            ctx.fill();
        }
@@ -169,13 +170,14 @@ function renderLines(){
             
            if(fraction < 1){
                alpha = (1 - fraction).toString();
-
-               ctx.strokeStyle = 'rgba(0,0,0,'+alpha+')';
+               
+               ctx.strokeStyle = 'rgba(255,255,255,'+alpha+')';
                ctx.lineWidth = link_line_width;
                
                ctx.beginPath();
                ctx.moveTo(balls[i].x, balls[i].y);
                ctx.lineTo(balls[j].x, balls[j].y);
+
                ctx.stroke();
                ctx.closePath();
            }
