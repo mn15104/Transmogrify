@@ -62,7 +62,7 @@ body{
   height: 100%;
   margin:auto;
   position: relative;
-  z-index: 2;
+  z-index: -1;
   -webkit-transform-style : preserve-3d;
   -moz-transform-style    : preserve-3d;
   -o-transform-style      : preserve-3d;
@@ -189,6 +189,7 @@ h2.sidepanel_menu-link-login{
 .bar-split {
     width: 100%;
     /* margin: */
+    position:fixed;
     height: 18px;
     background-color: var(--clrRed);
     overflow: hidden;

@@ -113,10 +113,11 @@ h1.profile_title{
 .profile_container { 
     width:100%;
     min-width:1200px;
-    height:200px;
-    position: relative;
+    /* height:200px; */
+    position: absolute;
     perspective: 800px;
     margin-right:100px;
+    z-index: -1;
 }
 .profile_card_wrapper{
   position:relative;
@@ -457,7 +458,6 @@ h2.profile_gallery-title{
 .profile_page_container{
     min-width:1200px;
     width: 100%;
-    height: 100vh;
     position:relative;
 }
 
