@@ -4,7 +4,10 @@
 } */
 
 canvas{
-    height: 100%;
-    width: 100%;
+    position:fixed;
+    display: block;
+    /* height: 100%;
+    width: 100%; */
     background-color:none;
+    z-index: 0;
 }

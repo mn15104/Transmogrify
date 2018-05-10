@@ -3,6 +3,8 @@ var canvas = document.getElementById('left_particle'),
    can_w = parseInt(canvas.getAttribute('width')),
    can_h = parseInt(canvas.getAttribute('height')),
    ctx = canvas.getContext('2d');
+   
+ctx.globalCompositeOperation='destination-over';
 
 // console.log(typeof can_w);
 
@@ -121,7 +123,7 @@ function getRandomBall(){
 function randomSidePos(length){
     return Math.ceil(Math.random() * length);
 }
-
+console.log(screen.width);
 // Draw Ball
 function renderBalls(){
     Array.prototype.forEach.call(balls, function(b){
@@ -170,16 +172,74 @@ function renderLines(){
             
            if(fraction < 1){
                alpha = (1 - fraction).toString();
-               
-               ctx.strokeStyle = 'rgba(255,255,255,'+alpha+')';
-               ctx.lineWidth = link_line_width;
-               
-               ctx.beginPath();
-               ctx.moveTo(balls[i].x, balls[i].y);
-               ctx.lineTo(balls[j].x, balls[j].y);
+             
+               if(balls[i].x <= can_w/2 && balls[j].x > can_w/2) {
+                    iy_greater = balls[i].y > balls[j].y;    
+                    y_diff = (balls[j].y - balls[i].y);
+                    if(iy_greater){
+                        y_diff = (balls[j].y - balls[i].y);
+                    }
+                    line_width = link_line_width * ((can_w/2 - balls[i].x)/(balls[j].x - balls[i].x));
+                    x_frac = ((can_w/2 - balls[i].x)/(balls[j].x - balls[i].x));
 
-               ctx.stroke();
-               ctx.closePath();
+                    ctx.strokeStyle = 'rgba(0,255,255,'+255+')';
+                    ctx.lineWidth = link_line_width * ((can_w/2 - balls[i].x)/(balls[j].x - balls[i].x));
+                    ctx.beginPath();    
+                    ctx.moveTo(balls[i].x, balls[i].y);
+                    ctx.lineTo(can_w/2, balls[i].y + x_frac * y_diff );
+                    ctx.stroke();
+                    ctx.closePath();
+                    
+                    ctx.strokeStyle = 'rgba(255,50,80,'+255+')';
+                    ctx.lineWidth =  link_line_width - link_line_width * ((can_w/2 - balls[i].x)/(balls[j].x - balls[i].x));
+                    ctx.beginPath();  
+                    ctx.moveTo(can_w/2, balls[i].y + x_frac * y_diff);
+                    ctx.lineTo(balls[j].x, balls[j].y);
+                    ctx.stroke();
+                    ctx.closePath();
+               }
+               else if(balls[j].x <= can_w/2 && balls[i].x > can_w/2) {
+                    jy_greater = balls[i].y < balls[j].y;    
+                    y_diff = (balls[i].y - balls[j].y);
+                    if(jy_greater){
+                        y_diff = (balls[j].y - balls[i].y);
+                    }
+                    line_width = link_line_width * ((can_w/2 - balls[j].x)/(balls[i].x - balls[j].x));
+                    x_frac = ((can_w/2 - balls[j].x)/(balls[i].x - balls[j].x));
+                    ctx.strokeStyle = 'rgba(0,255,255,'+255+')';
+                    ctx.lineWidth = line_width;
+                    ctx.beginPath();    
+                    ctx.moveTo(balls[j].x, balls[j].y);
+                    ctx.lineTo(can_w/2, balls[j].y + x_frac * y_diff );
+                    ctx.stroke();
+                    ctx.closePath();
+                    
+                    ctx.strokeStyle = 'rgba(255,0,0,'+255+')';
+                    ctx.lineWidth = link_line_width - line_width;
+                    ctx.beginPath();  
+                    ctx.moveTo(can_w/2, balls[j].y + x_frac * y_diff );
+                    ctx.lineTo(balls[i].x, balls[i].y);
+                    ctx.stroke();
+                    ctx.closePath();
+               }
+               else if(balls[j].x <= can_w/2 && balls[i].x <= can_w/2){
+                    ctx.strokeStyle = 'rgba(0,255,255,'+255+')';
+                    ctx.lineWidth = link_line_width;
+                    ctx.beginPath();
+                    ctx.moveTo(balls[i].x, balls[i].y);
+                    ctx.lineTo(balls[j].x, balls[j].y);
+                    ctx.stroke();
+                    ctx.closePath();
+               }
+               else{
+                    ctx.strokeStyle = 'rgba(255,0,0,'+255+')';
+                    ctx.lineWidth = link_line_width;
+                    ctx.beginPath();
+                    ctx.moveTo(balls[i].x, balls[i].y);
+                    ctx.lineTo(balls[j].x, balls[j].y);
+                    ctx.stroke();
+                    ctx.closePath();
+               }
            }
         }
     }

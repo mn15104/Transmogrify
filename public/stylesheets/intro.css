@@ -25,13 +25,15 @@ body{
 }
 
 .left_half{
-    position: absolute;
+    position: fixed;
     float: left;
     left: -50%;
+    top:0;
     height: 100%;
     width: 100%;
     background: #202020;
-    opacity: 0.9;
+    opacity: 1;
+    z-index: -1;
 }
 .left_particle{
     position:absolute;
@@ -48,17 +50,20 @@ body{
     top:0;
 }
 .right_half{
-    position: absolute;
+    position: fixed;
     float: right;
+    top: 0;
     left: 50%;
     height: 100%;
     width: 50%;
+    z-index: -1;
 }
 h1.title{ 
     display: inline-block;
     position:absolute;
     top: 20vh;
     font: 5em/1.5 'Open Sans', sans-serif;
+    z-index:999;
     color: #202020;
     font-weight: 300;
     margin: 0 0 1.5em;
@@ -70,10 +75,10 @@ h1.title{
         transition: transform 2s;
 }
 .title.left{
-    z-index: 1000;
+    z-index: 0;
     position: absolute;
     transition: transform 2s;
-    color:rgb(229, 229, 245);
+    color:rgb(101, 237, 223);
     right:0;
 }
 .title.right{
@@ -81,7 +86,7 @@ h1.title{
     transition: transform 2s;
 }
 .title.left span {
-    color: rgb(232, 232, 232);
+    color: rgb(101, 238, 186);
 }
 .title.left.slide_down{
     transform: translateY(2000px);
