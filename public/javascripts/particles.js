@@ -4,7 +4,7 @@ var canvas = document.getElementById('left_particle'),
    can_h = parseInt(canvas.getAttribute('height')),
    ctx = canvas.getContext('2d');
    
-ctx.globalCompositeOperation='destination-over';
+// ctx.globalCompositeOperation='destination-over';
 
 // console.log(typeof can_w);
 
@@ -33,8 +33,8 @@ var ball = {
    add_mouse_point = true,
    mouse_in = false,
    mouse_ball = {
-      x: 0,
-      y: 0,
+      x: can_w/2,
+      y: can_h/2,
       vx: 0,
       vy: 0,
       r: 0,
@@ -255,7 +255,7 @@ function getDisOf(b1, b2){
 
 // add balls if there a little balls
 function addBallIfy(){
-    if(balls.length < 50){
+    if(balls.length < 30){
         balls.push(getRandomBall());
     }
 }

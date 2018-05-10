@@ -7,6 +7,7 @@ function init(){
         $('#left-arrow').fadeOut();
         $('.title.left').addClass('slide_down');
         $('.title.right').addClass('selected');
+        $('.triangle-left').delay(2000).animate({left:'100%'}, {duration:2000});
         $('.left_half').delay(2000).animate({left:'0%'}, {duration:2000});
         $('.right_half').delay(2000).animate({left:'100%'}, {duration:2000, complete: function(){
             location.href="http://localhost:3000/sidepanel";
@@ -16,9 +17,11 @@ function init(){
         $('#right-arrow').fadeOut();
         $('.title.right').addClass('slide_down');
         $('.title.left').addClass('selected');
+        $('.triangle-left').delay(2000).animate({left:'-40%'}, {duration:2000});
         $('.left_half').delay(2000).animate({left:'-100%'}, {duration:2000});
         $('.right_half').delay(2000).animate({left:'-50%'}, {duration:2000, complete:function(){
             location.href="http://localhost:3000/login";
         }});
+        
     });
 }
