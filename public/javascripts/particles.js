@@ -3,7 +3,7 @@ var canvas = document.getElementById('left_particle'),
    can_w = parseInt(canvas.getAttribute('width')),
    can_h = parseInt(canvas.getAttribute('height')),
    ctx = canvas.getContext('2d');
-   
+var max_balls = 30;
 // ctx.globalCompositeOperation='destination-over';
 
 // console.log(typeof can_w);
@@ -181,8 +181,8 @@ function renderLines(){
                     }
                     line_width = link_line_width * ((can_w/2 - balls[i].x)/(balls[j].x - balls[i].x));
                     x_frac = ((can_w/2 - balls[i].x)/(balls[j].x - balls[i].x));
-
-                    ctx.strokeStyle = 'rgba(0,255,255,'+255+')';
+                    //173, 68, 27
+                    ctx.strokeStyle = 'rgba(255,255,255,'+255+')';
                     ctx.lineWidth = link_line_width * ((can_w/2 - balls[i].x)/(balls[j].x - balls[i].x));
                     ctx.beginPath();    
                     ctx.moveTo(balls[i].x, balls[i].y);
@@ -190,7 +190,7 @@ function renderLines(){
                     ctx.stroke();
                     ctx.closePath();
                     
-                    ctx.strokeStyle = 'rgba(255,50,80,'+255+')';
+                    ctx.strokeStyle = 'rgba(173, 68, 27,'+255+')';
                     ctx.lineWidth =  link_line_width - link_line_width * ((can_w/2 - balls[i].x)/(balls[j].x - balls[i].x));
                     ctx.beginPath();  
                     ctx.moveTo(can_w/2, balls[i].y + x_frac * y_diff);
@@ -206,7 +206,7 @@ function renderLines(){
                     }
                     line_width = link_line_width * ((can_w/2 - balls[j].x)/(balls[i].x - balls[j].x));
                     x_frac = ((can_w/2 - balls[j].x)/(balls[i].x - balls[j].x));
-                    ctx.strokeStyle = 'rgba(0,255,255,'+255+')';
+                    ctx.strokeStyle = 'rgba(255,255,255,'+255+')';
                     ctx.lineWidth = line_width;
                     ctx.beginPath();    
                     ctx.moveTo(balls[j].x, balls[j].y);
@@ -214,7 +214,7 @@ function renderLines(){
                     ctx.stroke();
                     ctx.closePath();
                     
-                    ctx.strokeStyle = 'rgba(255,0,0,'+255+')';
+                    ctx.strokeStyle = 'rgba(173, 68, 27,'+255+')';
                     ctx.lineWidth = link_line_width - line_width;
                     ctx.beginPath();  
                     ctx.moveTo(can_w/2, balls[j].y + x_frac * y_diff );
@@ -223,7 +223,7 @@ function renderLines(){
                     ctx.closePath();
                }
                else if(balls[j].x <= can_w/2 && balls[i].x <= can_w/2){
-                    ctx.strokeStyle = 'rgba(0,255,255,'+255+')';
+                    ctx.strokeStyle = 'rgba(255,255,255,'+255+')';
                     ctx.lineWidth = link_line_width;
                     ctx.beginPath();
                     ctx.moveTo(balls[i].x, balls[i].y);
@@ -232,7 +232,7 @@ function renderLines(){
                     ctx.closePath();
                }
                else{
-                    ctx.strokeStyle = 'rgba(255,0,0,'+255+')';
+                    ctx.strokeStyle = 'rgba(190, 88, 47,'+255+')';
                     ctx.lineWidth = link_line_width;
                     ctx.beginPath();
                     ctx.moveTo(balls[i].x, balls[i].y);
@@ -255,7 +255,7 @@ function getDisOf(b1, b2){
 
 // add balls if there a little balls
 function addBallIfy(){
-    if(balls.length < 30){
+    if(balls.length < max_balls){
         balls.push(getRandomBall());
     }
 }
@@ -271,7 +271,7 @@ function render(){
     updateBalls();
     
     addBallIfy();
-    
+    window.releaseEvents();
     window.requestAnimationFrame(render);
 }
 
@@ -298,20 +298,18 @@ function initCanvas(){
     can_h = parseInt(canvas.getAttribute('height'));
 }
 window.addEventListener('resize', function(e){
-    console.log('Window Resize...');
     initCanvas();
 });
 
 function goMovie(){
     initCanvas();
-    initBalls(50);
+    initBalls(max_balls);
     window.requestAnimationFrame(render);
 }
 goMovie();
 
 // Mouse effect
 canvas.addEventListener('mouseenter', function(){
-    console.log('mouseenter');
     mouse_in = true;
     balls.push(mouse_ball);
 });

@@ -11,7 +11,7 @@
 }
   
 body{
-    background: #F6EAE1;  /* fallback for old browsers */
+    background: rgb(208, 206, 205);  /* fallback for old browsers */
     background: -webkit-linear-gradient(to right, #FFFFFF, #ECE9E6);  /* Chrome 10-25, Safari 5.1-6 */
     background: linear-gradient(to right, #FFFFFF, #ECE9E6); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
     overflow:hidden;
@@ -31,10 +31,19 @@ body{
     top:0;
     height: 100%;
     width: 100%;
-    background: #202020;
+    background: linear-gradient(to bottom, rgba(150, 146, 146, 0.15) 0%, rgba(0,0,0,0.15) 100%), 
+    radial-gradient(at top center, rgba(151, 147, 147, 0.4) 0%, rgba(0,0,0,0.40) 120%) 
+    #6e6c6c; 
+    background-blend-mode: multiply,multiply;
     opacity: 1;
     z-index: -1;
 }
+
+.left_half.fade_left{
+    transition: all 2s;
+    background: #202020;
+}
+
 .left_particle{
     position:absolute;
     width:100%;
@@ -78,7 +87,7 @@ h1.title{
     position: absolute;
     display:inline-block;
     transition: transform 2s;
-    color:rgb(101, 237, 223);
+    color:rgb(173, 68, 27);
     right:0;
 }
 .title.right{
@@ -87,7 +96,7 @@ h1.title{
     transition: transform 2s;
 }
 .title.left span {
-    color: rgb(101, 238, 186);
+    color: rgb(196, 73, 16);
 }
 .title.left.slide_down{
     transform: translateY(2000px);
@@ -120,7 +129,7 @@ h1.title{
 	width: 0;
 	height: 0;
 	border-top: 25px solid transparent;
-	border-left: 50px solid rgb(41, 38, 38);
+	border-left: 50px solid rgb(65, 65, 65);
 	border-bottom: 25px solid transparent;
 }
 .triangle-left { 
@@ -132,7 +141,7 @@ h1.title{
 	width: 0;
 	height: 0;
 	border-top: 25px solid transparent;
-	border-right: 50px solid rgb(226, 224, 224);
+	border-right: 50px solid rgb(237, 188, 165);
 	border-bottom: 25px solid transparent;
 }
 .triangle-left:hover{

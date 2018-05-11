@@ -67,7 +67,7 @@ h1.profile_title{
 }
 
 .profile_profile{
-    z-index: 9999;
+    z-index: 999;
     text-align:center;
     -webkit-transition:cubic-bezier(.34,.43,0,1.02) 0.5s;
     -moz-transition:cubic-bezier(.34,.43,0,1.02) 0.5s;
@@ -82,7 +82,7 @@ h1.profile_title{
 
 .profile_img{
     /* background-size:contain; */
-    z-index: 9999;
+    z-index: 999;
     -webkit-border-radius: 50%;
     -moz-border-radius: 50%;
     border-radius: 50%;
@@ -123,7 +123,8 @@ h1.profile_title{
   width:14.5%;
 }
 #profile_card{
-    display: inline-block;
+    position: relative; 
+    /* display: inline-block; */
     transform-origin: right center;
     transform-style: preserve-3d;
     transition: transform 1.4s;  
