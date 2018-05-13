@@ -27,10 +27,10 @@ body{
 .left_half{
     position: fixed;
     float: left;
-    left: -50%;
     top:0;
     height: 100%;
     width: 100%;
+    left:-50%;
     background: linear-gradient(to bottom, rgba(150, 146, 146, 0.15) 0%, rgba(0,0,0,0.15) 100%), 
     radial-gradient(at top center, rgba(151, 147, 147, 0.4) 0%, rgba(0,0,0,0.40) 120%) 
     #6e6c6c; 
@@ -65,7 +65,7 @@ body{
     left: 50%;
     height: 100%;
     width: 50%;
-    z-index: 0;
+    z-index: -1;
 }
 h1.title{ 
     display: inline-block;
@@ -124,7 +124,7 @@ h1.title{
 .triangle-right {
     position: absolute;
     display:inline-block;
-    right:10%;
+    right:5%;
     top:40%;
 	width: 0;
 	height: 0;

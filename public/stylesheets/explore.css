@@ -49,6 +49,7 @@ h1.explore_title{
     margin-right: auto;
     background: #202020;
     width: 80%;
+    min-width:1540px;
     align-content: center;
 }
 .clear
@@ -390,17 +391,18 @@ h1.explore_title{
   height:100%;
   top:50%;
 }
-
-.explore_feed_container{
-  width: 400px;
+.explore_feed {
+  width: 80%;
   height: 100vh;
   position: absolute;
+  min-width: 1450px;
   top: 216px;
-  right: 30px;
-  border-right :rgb(121, 51, 19) solid 3px;
-  border-left :rgb(121, 51, 19) solid 3px;
-  border-top :rgb(121, 51, 19) solid 1px;
-  border-bottom :rgb(121, 51, 19) solid 1px;
+
+}
+.explore_feed_container{
+  position:absolute;
+  width:400px;
+  right: 5%;
 }
 
 .explore_feed_recommended{
@@ -422,4 +424,26 @@ h1.explore_title{
   font-weight: 800;
   padding-top: 10px;
 	line-height: 1;
+}
+
+.explore_recommended_user{
+  margin-top:20px;
+  margin-bottom:20px;
+  width: 100%;
+  height: 50px;
+}
+
+.explore_recommended_user .explore_recommended_image{
+  position:relative;
+  float:left;
+  height:100%;
+}
+.explore_recommended_image img{
+  height:100%;
+}
+
+.explore_recommended_name{
+  position:relative;
+  margin-left: 70px;
+  padding-top:10px;
 }

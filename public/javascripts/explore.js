@@ -6,7 +6,8 @@ function init(){
             nextRow();
         }
     });
-   
+    $('.brick-wall').hide();
+    $('.brick-wall').fadeIn();
     $('.flipper').click(function(){
         if(!$(this).hasClass('flipped'))
             $(this).toggleClass('flipped');
