@@ -63,6 +63,7 @@ var profile_route = require('./routes/profile.route');
 var login_route = require('./routes/login.route');
 var sidepanel_route = require('./routes/sidepanel.route');
 var chat_route = require('./routes/chat_ws.route');
+var webcam_route = require('./routes/vid_ws.route');
 app.use('/particles', function(req, res, next){
   res.sendFile(path.join(__dirname + '/public/views/particles.html'));
 });
@@ -72,9 +73,7 @@ app.use('/intro', function(req, res, next){
 app.use('/profile', function(req, res, next){
   res.sendFile(path.join(__dirname + '/public/views/profile.html'));
 });
-app.use('/webcam', function(req, res, next){
-  res.sendFile(path.join(__dirname + '/public/views/webcam.html'));
-});
+app.use('/webcam', webcam_route);
 app.use('/chat', chat_route);
 app.use('/sidepanel', sidepanel_route);
 app.use('/myprofile', profile_route);

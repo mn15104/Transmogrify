@@ -117,7 +117,14 @@ var initNavLinks = function(){
     prevpage.removeClass("active");
     $(this).addClass('active');
   })
-
+  $('.sidepanel_title').click(function(){
+    $('#page_1').fadeOut('slow', function(){
+      $('#page_1').empty();
+      $('#page_1').load("../views/webcam.html")
+      changeurl('webcam');
+      $('#page_1').fadeIn('slow');
+    });
+  })
   $('#profile_link').click(function(){
     $('#page_1').fadeOut('slow', function(){
       $('#page_1').empty();

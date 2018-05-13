@@ -64,14 +64,14 @@
     
     var localName = "";
     var remoteName = "";
-    var wsconnection;
+    var wsconnection = "";
     $('#sendOffer').on('click', function(){
         remoteName = $('#remoteName').val();
         sendOffer(remoteName);
     });
     
     //SOCKET
-    url = 'http://localhost:3000/wc/connect'
+    url = 'ws://localhost:1338'
     $('#connect').on('click', function(){
         localName = $('#localName').val();
         
