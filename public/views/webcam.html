@@ -14,87 +14,73 @@
     <video class = "webcam_video" id="remoteView" width="300" height="250" autoplay></video>
 
     <div class = "webcam_buttons">
-        <button id="connect">Connect</button>
-        <button id='stream'> Disconnect </button>
+        <button id="connect" style='color:black;'>Connect</button>
+        <button id='offer'  style='color:black;'>Offer </button>
     </div>
 </div>
 <script>
+    var url = new URL(window.location.href);
+    var wsconnection;
     var localView = $('#localView');
     var remoteView = $('#remoteView');
+    var localName = url.searchParams.get("user_id");
+    var remoteName = "2";
     var config = {'iceServers': [{'urls': 'stun:stun.services.mozilla.com'}, {'urls': 'stun:stun.l.google.com:19302'}]};
     var RTCpc;
 
-    $('#check').on('click', function(){
-        console.log(RTCpc.iceConnectionState)
-    })
-    
-    $('#stream').on('click', function(){
-        console.log((localView.find('source')).attr('src'))
-    })
-   
-    console.log("START");
     RTCpc = new RTCPeerConnection(config);
+
     RTCpc.onicecandidate = function (event) {
-        console.log(event)
+       
         if(event.candidate) {
             wsconnection.send(JSON.stringify({
-                type: event.candidate,
-                name: remoteName
+                message: event.candidate,
+                data: remoteName
         }));}
-        console.log("sent");
+        console.log("On Ice Candidate");
     }
 
     RTCpc.onaddstream = function(event){
-        console.log("Stream added")
-        console.log(event.stream)
+        console.log("On Add Stream")
         remoteView.attr('src', window.URL.createObjectURL(event.stream));
-    
     }
 
     if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-        console.log("HI");
         navigator.webkitGetUserMedia({video: true}, function(stream){
             localView.attr('src', window.URL.createObjectURL(stream))
-            console.log(localView)
             RTCpc.addStream(stream);
+            console.log("Local Stream Added");
         }, function(error){
             console.log(error)
         })
     }
     
-    var localName = "";
-    var remoteName = "";
-    var wsconnection = "";
-    $('#sendOffer').on('click', function(){
-        remoteName = $('#remoteName').val();
+    $('#offer').on('click', function(){
+    
         sendOffer(remoteName);
     });
     
     //SOCKET
-    url = 'ws://localhost:1338'
+    url = 'ws://localhost:1338/connect'
     $('#connect').on('click', function(){
-        localName = $('#localName').val();
         
         wsconnection = new WebSocket(url);
         wsconnection.onopen = function(){
-            wsconnection.send(JSON.stringify({name: localName}))
+            console.log("Connected to websocket");
+            wsconnection.send(JSON.stringify({message: 'localName', data: localName}))
         }
         wsconnection.onmessage = function(msg){
-            var RTCmessage = JSON.parse(msg.data);
-            var type = RTCmessage.type.type;
-            var data = RTCmessage.type;
-            var name = RTCmessage.name;
-            console.log(data)
-            switch(type){
+            var data = JSON.parse(msg.data);
+            switch(data.message){
                 case "offer":
-                    console.log(data)
-                    onOffer(data, name);
+                    console.log("Received offer from ws");
+                    onOffer(data.data);
                     break;
                 case "answer":
+                    console.log("Received answer from ws");
                     onAnswer(data, name);
                     break;
                 default:
-                    console.log(data)
                     if(data.candidate)
                         onCandidate(data, name);
                     break;
@@ -116,8 +102,9 @@
         dataChannel = RTCpc.createDataChannel('sendDataChannel');
         RTCpc.createOffer(function(offer){
             wsconnection.send(JSON.stringify({
-                type: offer,
-                name: name
+                message: 'offer',
+                friend_id: name,
+                data: offer
             }));
             RTCpc.setLocalDescription(offer); 
             console.log("Offer sent to server");

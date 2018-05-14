@@ -31,9 +31,21 @@ wss.on('connection', function (connection, req) {
         console.log("-> server received message: " + msg);
         if(IsJsonString(msg))
         {
-            var msgObj = JSON.parse(msg);
-          
-            
+            var msgObj = JSON.parse(msg);      
+
+            if(msgObj.message === 'localName'){
+                console.log("RECEIVED LOCAL NAME");
+                newClient(msgObj.data, connection, undefined);
+            }
+
+            if(msgObj.message === 'offer'){
+                console.log("RECEIVED OFFER");
+                if(doesClientExist(msgObj.friend_id)){
+                    console.log("SENDING OFFER TO FRIEND");
+                    other_con = clients[msgObj.friend_id]['user_data']['con'];
+                    other_con.send(JSON.stringify({message:'offer', data:msgObj.data}))
+                }
+            }
         }
     });
     wss.on('pong', function(){
@@ -41,11 +53,53 @@ wss.on('connection', function (connection, req) {
     })
     // ON DISCONNECT
     connection.on('close', function(connection) {
-        removeClient(connection);
+        // removeClient(connection);
     });
     connection.ping();
 });
 
+function setFriend(user_id, friend_id){
+    clients[user_id]['user_data']['friend_id'] = friend_id; //['con'];
+}
+function doesClientExist(user_id){
+    return !IS_NULL(clients[user_id]); 
+}
+function newClient(user_id, con, friend_id){
+    clients[user_id] = { user_data: 
+                            {   con: con, 
+                                friend_id: friend_id
+                            }
+                        };
+    console.log(clients[user_id]);
+}
+function removeClient(conn){
+    for(var client in clients){
+        if(IS_NULL(client['user_data'])) {
+            continue;    
+        }
+        else{
+            if(client['user_data']['con'] == conn){
+                clients[client['client_id']] = undefined;
+                return;
+            }
+        }
+    };
+}
+function addQueue(user_id){
+    queue[user_id] = true;
+}
+function removeQueue(user_id){
+    queue[user_id] = undefined;
+}
+function firstNull(){
+    for (var i = 0; i < 200000; i++){
+        var val = clients[parseInt(i)];
+        
+        if(IS_NULL(val)){
+            return parseInt(i);
+        }
+    }
+}
 // Make the function wait until the connection is made...
 function waitForSocketConnection(socket, callback){
     setTimeout(

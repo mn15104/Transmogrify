@@ -36,7 +36,7 @@ var toggleFriendsList = function(){
   else 
     $('.friends-list_cell').slideDown();
   friends_active = !friends_active;
-   console.log(user_id);
+  
 }
 
 var toggleSideNav = function() {
@@ -104,7 +104,7 @@ var changeurl = function(url)
 var initNavLinks = function(){
   toggleNav();
   toggleFriendsList();
-  
+ 
   $('.sidepanel_menu_link').click(function(){
     // Stop all audio if previous page contains an audio player
     var prevpage = $('.sidepanel_menu_link.active');
@@ -118,11 +118,17 @@ var initNavLinks = function(){
     $(this).addClass('active');
   })
   $('.sidepanel_title').click(function(){
-    $('#page_1').fadeOut('slow', function(){
-      $('#page_1').empty();
-      $('#page_1').load("../views/webcam.html")
-      changeurl('webcam');
-      $('#page_1').fadeIn('slow');
+    
+      retrieveId(function(userid){
+        $('#page_1').fadeOut('slow', function(){
+        $('#page_1').empty();
+        $('#page_1').load("../views/webcam.html");
+        var url = new URL(window.location.href);
+        user_id = url.searchParams.get("user_id");
+        console.log("IS"+user_id);
+        changeurl('webcam?user_id='+user_id);
+        $('#page_1').fadeIn('slow');
+      });
     });
   })
   $('#profile_link').click(function(){
@@ -143,6 +149,7 @@ var initNavLinks = function(){
   })
   $('#explore_link').click(function(){
     $('#page_1').fadeOut('slow', function(){
+
       $('#page_1').empty();
       $('#page_1').load("../views/explore.html");
       changeurl('explore');
@@ -205,9 +212,7 @@ function getProfilePicture(name){
       console.log(data)
       var f = $(self).attr("src", data); 
       console.log($(f).find('img').attr('src'));
-      // $('.sidepanel_menu-link-login').replaceWith(
-      //   '<img class="sidepanel_menu_link sidepanel_menu-link-login" src="'+ data + '">'
-      // )
+
     }
   });
 }
@@ -215,13 +220,14 @@ function IS_NULL(x){
   return (x === undefined || x === null || x === NaN); //util.isNullOrUndefined(x) || isNaN(x))
 }
 
-var retrieveId = function(){
+var retrieveId = function(callback){
   $.ajax({
     url: '/whatsmyid',
     type: 'POST',
     success: function(data){
-        dataObj = JSON.parse(data);
+        dataObj = data;
         console.log("got " + data);
+        callback(dataObj.user_id);
         return dataObj.user_id;
     },
     error: function(xhr, ajaxOptions, thrownError){
