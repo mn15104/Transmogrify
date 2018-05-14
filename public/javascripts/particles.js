@@ -3,7 +3,7 @@ var canvas = document.getElementById('left_particle'),
    can_w = parseInt(canvas.getAttribute('width')),
    can_h = parseInt(canvas.getAttribute('height')),
    ctx = canvas.getContext('2d');
-var max_balls = 30;
+var max_balls = 50;
 // ctx.globalCompositeOperation='destination-over';
 
 // console.log(typeof can_w);
@@ -271,7 +271,6 @@ function render(){
     updateBalls();
     
     addBallIfy();
-    window.releaseEvents();
     window.requestAnimationFrame(render);
 }
 
