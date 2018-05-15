@@ -65,13 +65,17 @@ var flipProfileImg = function(){
 var flipProfileCard = function(){
     if(!$('#profile_card').hasClass('flipped')){
         $("#profile_card").toggleClass("flipped");
-        $('#profile_profile-public').animate({opacity: 0}, {duration: 650, queue: false});
-        $('.profile_profile-settings').animate({opacity: 1}, {duration: 700, queue: false});
+        $('.profile_profile-settings').css('z-index','0');
+        // $('#profile_profile-public').animate({opacity: 0}, {duration: 500, queue: false});
+        $('.profile_profile-settings').animate({opacity: 1}, {duration: 1300, queue: false});
+        // $('#profile_profile-public').animate({opacity: 1}, {duration: 650, queue: false});
     }
     else{     
         $("#profile_card").toggleClass("flipped");
-        $('.profile_profile-settings').animate({opacity: 0}, {duration: 500, queue: false});
-        $('#profile_profile-public').animate({opacity: 1}, {duration: 700, queue: false});
+        $('.profile_profile-settings').css('z-index','-1');
+        $('.profile_profile-settings').animate({opacity: 0}, {duration: 1300, queue: false});
+        // $('#profile_profile-public').animate({opacity: 1}, {duration: 1300, queue: false});
+        // $('#profile_profile-public').animate({opacity: 1}, {duration: 700, queue: false});
     }
 }
 
