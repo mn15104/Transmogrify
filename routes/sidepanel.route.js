@@ -10,14 +10,13 @@ router.get('/getProfilePicture', function(req, res, next) {
 });
 
 router.get('/', function(req, res, next) {
-    
-    if(!IS_NULL(req.session.user_id)){
-        console.log("HEEYYY");
-        res.redirect('/sidepanel?id=' + req.session.user_id);
-    }
-    else{
+    // if(!IS_NULL(req.session.user_id)){
+    //     console.log("HEEYYY");
+    //     res.redirect('/sidepanel?id=' + req.session.user_id);
+    // }
+    // else{
         res.sendFile(path.join(__dirname + '/../public/views/sidepanel.html'));
-    }
+    // }
 });
 
 

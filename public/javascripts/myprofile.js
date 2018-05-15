@@ -24,10 +24,7 @@ var init = function(){
         $('.PopUp').css('margin-top', '20px');
     });
     $('.profile_img').one('click', function() {
-        flipProfileImg();
-        // $('#profile_img').on('click', function(){
-        //     document.getElementById('profile_put_file').click();
-        // });
+        animateIntro();
     });
     $('.flip-profile-icon').click(function() {
         flipProfileCard();
@@ -42,7 +39,10 @@ var init = function(){
     $('.myButton').click(function(){
         sendMessage();
     })
-    // $('.play').click(function(){
+    $('#profile_put_file').on('change' ,function(){
+        uploadProfilePicture();
+    })
+    // $('.profile_upload-image-avatar').click(function(){
     //     var player = $(this);
     //     initAudio(player);
     // });
@@ -50,13 +50,14 @@ var init = function(){
     setInterval(updateBlur, 1000);
 }
 
-var flipProfileImg = function(){
+var animateIntro = function(){
     $("#profile_card").toggleClass("flipped");
     $(".profile_card").animate({"left":"300%"}, {duration:1100});
     $('.profile_title').removeClass('profile_title_middle').addClass('profile_title_active');
     $(".profile_card").animate({"left":"100%"}, {duration:1100, complete:function(){
         $('#profile_profile-description').slideDown(600,false, function(){
             $(".profile_gallery-wrapper").fadeIn('slow');
+            $('#profile_put_file').prop('disabled', false);
         });
     }});
     $("#sidebar-horizontal").fadeIn("slow");
@@ -66,16 +67,12 @@ var flipProfileCard = function(){
     if(!$('#profile_card').hasClass('flipped')){
         $("#profile_card").toggleClass("flipped");
         $('.profile_profile-settings').css('z-index','0');
-        // $('#profile_profile-public').animate({opacity: 0}, {duration: 500, queue: false});
         $('.profile_profile-settings').animate({opacity: 1}, {duration: 1300, queue: false});
-        // $('#profile_profile-public').animate({opacity: 1}, {duration: 650, queue: false});
     }
     else{     
         $("#profile_card").toggleClass("flipped");
         $('.profile_profile-settings').css('z-index','-1');
         $('.profile_profile-settings').animate({opacity: 0}, {duration: 1300, queue: false});
-        // $('#profile_profile-public').animate({opacity: 1}, {duration: 1300, queue: false});
-        // $('#profile_profile-public').animate({opacity: 1}, {duration: 700, queue: false});
     }
 }
 
@@ -95,22 +92,46 @@ var toggleChatbox = function(){
         $('#profile_chat-btn').removeClass('profile_chat_open');
     }
 }
+
+var uploadProfilePicture = function(){
+
+    var formData = new FormData();
+
+
+    formData.append("file",$('#profile_put_file')[0].files[0]);
+    formData.append("upload_file",true);
+    
+
+    $.ajax({
+        type: "POST",
+        url: "/myprofile/uploadprofilepicture",
+        data : formData,
+        processData: false,  // tell jQuery not to process the data
+        contentType: false,  // tell jQuery not to set contentType
+        success : function(data) {
+            console.log("success");
+        },
+        error: function(err){
+            console.log("error");
+        }
+    });
+}
+
 var loadMyProfile = function(){
     $.ajax({
         url: '/myprofile/loadmyprofile',
         type: 'POST',
         data: {},
         success: function(data){
-            console.log('message sent\n');
             var profile_obj = JSON.parse(data);
             $('#profile_name').text(profile_obj.firstname + profile_obj.surname);
+            $('#profile_settings_name').text(profile_obj.firstname + profile_obj.surname);
             $('#profile_email').text(profile_obj.email);
             $('#profile_whatido').text(profile_obj.occupation);
             $('#profile_aboutme').text(profile_obj.description);
-            $('.profile_img').css({background: 'url(' + profile_obj.profile_picture + ')','background-size': 'contain'});
-           
+            $('.profile_upload-image-avatar').css({background: 'url(' + profile_obj.profile_picture + ')','background-size': 'contain'});
         },
-        error(){
+        error: function(err){
             console.log("ERROR in loading profile");
         }
     });
