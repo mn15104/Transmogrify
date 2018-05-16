@@ -25,7 +25,7 @@ router.get('/', function(req, res, next) {
     {
         console.log("ISN'T NULL");
         res.render('myprofile', 
-        {   profile_image: '../images/profile_pictures/doggo_1526416712522.png',
+        {   profile_image: '../images/profile_pictures/doggo_1526416712522.png', //!!!!!!! modify this
             firstname:'', 
             surname: '',
             description: '',
