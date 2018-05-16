@@ -131,15 +131,18 @@ function IsJsonString(str) {
 function IS_NULL(x){
     return (x === undefined || x === null || x === NaN); //util.isNullOrUndefined(x) || isNaN(x))
 }
+
 function noop() {}
+
 const interval = setInterval(function ping() {
     wss.clients.forEach(function each(ws) {
-      if (ws.isAlive === false) return ws.terminate();
-  
-      ws.isAlive = false;
-      ws.ping(noop);
+        if (ws.isAlive === false) return ws.terminate();
+
+        ws.isAlive = false;
+        ws.ping(noop);
     });
-  }, 30000);
+}, 30000);
+
 module.exports = router;
 
 

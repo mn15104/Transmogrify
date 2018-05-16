@@ -6,8 +6,9 @@ var panel = $('.panel');
 var user_id;
 
 function init(name){
-    console.log(name)
+    
     if(name!='<%= name %>'){
+      console.log("hi");
       var imagesrc = getProfilePicture(name);
     }
     var url = new URL(window.location.href);
@@ -134,7 +135,8 @@ var initNavLinks = function(){
   $('#profile_link').click(function(){
     $('#page_1').fadeOut('slow', function(){
       $('#page_1').empty();
-      $('#page_1').load("../views/myprofile.html")
+      // $('#page_1').load("../views/myprofile.html");
+      loadMyProfilePage();
       changeurl('myprofile');
       $('#page_1').fadeIn('slow');
     });
@@ -149,7 +151,6 @@ var initNavLinks = function(){
   })
   $('#explore_link').click(function(){
     $('#page_1').fadeOut('slow', function(){
-
       $('#page_1').empty();
       $('#page_1').load("../views/explore.html");
       changeurl('explore');
@@ -200,7 +201,17 @@ function changeContent(){
         )
         .to(".login_site", 0.5, { scale: 1, ease: Power2.easeInOut }, "start+=1.2");
 }
-
+function loadMyProfilePage(){
+  $.ajax({
+    url: '/myprofile',
+    type: 'GET',
+    processData: false,
+    contentType: false,
+    success: function(data){
+      $('#page_1').html(data);
+    }
+  });
+}
 function getProfilePicture(name){
   $.ajax({
     url: '/sidepanel/getProfilePicture',

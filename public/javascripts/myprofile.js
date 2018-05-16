@@ -1,7 +1,6 @@
 
 var page_init = false;
 var init = function(){
-    loadMyProfile();
     $('.profile_profile-settings').css('opacity',0);
     $('.chat_container').hide();
     $('.profile_title_container').slideDown('slow');
@@ -117,25 +116,6 @@ var uploadProfilePicture = function(){
     });
 }
 
-var loadMyProfile = function(){
-    $.ajax({
-        url: '/myprofile/loadmyprofile',
-        type: 'POST',
-        data: {},
-        success: function(data){
-            var profile_obj = JSON.parse(data);
-            $('#profile_name').text(profile_obj.firstname + profile_obj.surname);
-            $('#profile_settings_name').text(profile_obj.firstname + profile_obj.surname);
-            $('#profile_email').text(profile_obj.email);
-            $('#profile_whatido').text(profile_obj.occupation);
-            $('#profile_aboutme').text(profile_obj.description);
-            $('.profile_upload-image-avatar').css({background: 'url(' + profile_obj.profile_picture + ')','background-size': 'contain'});
-        },
-        error: function(err){
-            console.log("ERROR in loading profile");
-        }
-    });
-}
 
 $('#upload-input').on('change', function(){
     var files = $(this).get(0).files;
@@ -183,7 +163,6 @@ $('#upload-input').on('change', function(){
               if (percentComplete === 100) {
                 $('.progress-bar').html('done');
               }
-  
             }
   
           }, false);
@@ -193,7 +172,7 @@ $('#upload-input').on('change', function(){
       });
   
     }
-  });
+});
 var loadChatHistory = function(){
     $.ajax({
         url: '/myprofile/chat/loadhistory',

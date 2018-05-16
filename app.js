@@ -17,9 +17,9 @@ var WebSocketServer = require('ws').server;
 var appws = require('http').createServer();
 var io = require('socket.io')(appws);
 
-app.set('views', path.join(__dirname, 'public/views/'));
-app.set('view engine', 'jade');
-app.engine('html', require('ejs').renderFile);
+app.set('views', path.join(__dirname, 'views/'));
+app.set('view engine', 'ejs');
+// app.engine('html', require('ejs').renderFile);
 app.use(session({
   store: new redisStore({host:'localhost', port: 6379, client: client, ttl:260}),
   cookieName: 'session',
@@ -64,8 +64,12 @@ var login_route = require('./routes/login.route');
 var sidepanel_route = require('./routes/sidepanel.route');
 var chat_route = require('./routes/chat_ws.route');
 var webcam_route = require('./routes/vid_ws.route');
-app.use('/particles', function(req, res, next){
-  res.sendFile(path.join(__dirname + '/public/views/particles.html'));
+app.use('/ej', function(req, res, next){
+  res.render('myprofile', { profile_image: '../images/profile_pictures/doggo_1526416712522.png',
+                            firstname:'',
+                            description: '',
+                            email:'',
+                                  });
 });
 app.use('/intro', function(req, res, next){
   res.sendFile(path.join(__dirname + '/public/views/intro.html'));
@@ -82,7 +86,7 @@ app.use('/explore', explore_route);
 app.use('/login', login_route);
 app.post('/whatsmyid', function(req,res,next){
     res.status(200).send({'user_id':req.session.user_id});
-})
+});
 app.use('/', function(req, res, next){
     res.redirect('/sidepanel');
 });
