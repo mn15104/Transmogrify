@@ -15,7 +15,15 @@ var server = http.createServer(app);
 server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
+server.on('data', function (chunk) {
+  if(!(chunk == undefined)) data += chunk;
+});
 
+server.on('end', function () {
+    data // should be the collect chunks
+    }, function(err) {
+        reject(err);
+    });
 /**
  * Normalize a port into a number, string, or false.
  */

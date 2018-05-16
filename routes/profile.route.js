@@ -24,18 +24,7 @@ router.get('/', function(req, res, next) {
     else 
     {
         console.log("ISN'T NULL");
-        res.render('myprofile', 
-        {   profile_image: '../images/profile_pictures/doggo_1526416712522.png', //!!!!!!! modify this
-            firstname:'', 
-            surname: '',
-            description: '',
-            occupation: '',
-            email:'',
-        },
-        function(err, html){
-            res.send(html)
-        } );
-        req.session.current_url = '/myprofile';
+        Profile.loadMyProfile(req, res, true);
     }
 });
 

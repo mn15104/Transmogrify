@@ -5,7 +5,7 @@ var path = require('path');
 var formidable = require('formidable');
 var fs = require('fs');
 var dateFormat = require('dateformat');
- 
+var ejs = require('ejs');
 
 var Profile = function (){
 
@@ -25,7 +25,7 @@ let db = new sqlite3.Database('./Dev.db', sqlite3.OPEN_CREATE | sqlite3.OPEN_REA
 
 // **************************************************************************************************** //
 
-Profile.loadMyProfile = function(req, res){
+Profile.loadMyProfile = function(req, res, load){
     var user_id = req.session.user_id;
     db.get("SELECT * FROM 'USER_PROFILE' WHERE user_id='"+  user_id  + "'", function(err, row){
         if (err) throw err;
@@ -49,9 +49,23 @@ Profile.loadMyProfile = function(req, res){
                         description:description,
                         profile_picture:profile_picture
                     }
-                    var stringprofdata = JSON.stringify(profdata);
-                    console.log(stringprofdata);
-                    res.send(stringprofdata);
+                    if(load){
+                        res.render('myprofile.ejs', 
+                        {
+                        // {   'firstname': firstname,
+                        //     'surname': surname,
+                        //     'email': email,
+                        //     'occupation':occupation,
+                        //     'description':description,
+                            'profile_picture':profile_picture
+                        });
+                        // req.session.current_url = '/myprofile';
+                    }
+                    else{
+                        var stringprofdata = JSON.stringify(profdata);
+                        console.log(stringprofdata);
+                        res.send(stringprofdata);
+                    }
                 }else res.sendStatus(400);
             });
         }else res.sendStatus(400);
