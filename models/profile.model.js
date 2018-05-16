@@ -51,12 +51,12 @@ Profile.loadMyProfile = function(req, res, load){
                     }
                     if(load){
                         res.render('myprofile.ejs', 
-                        {
-                        // {   'firstname': firstname,
-                        //     'surname': surname,
-                        //     'email': email,
-                        //     'occupation':occupation,
-                        //     'description':description,
+                        
+                        {   'firstname': firstname,
+                             'surname': surname,
+                             'email': email,
+                             'occupation':occupation,
+                            'description':description,
                             'profile_picture':profile_picture
                         });
                         // req.session.current_url = '/myprofile';
