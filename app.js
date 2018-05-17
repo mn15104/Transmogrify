@@ -83,9 +83,7 @@ app.use('/login', login_route);
 app.post('/whatsmyid', function(req,res,next){
     res.status(200).send({'user_id':req.session.user_id});
 })
-app.use('/', function(req, res, next){
-    res.redirect('/sidepanel');
-});
+app.use('/', sidepanel_route);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -97,17 +95,10 @@ app.use(function(req, res, next) {
 // error handler
 app.use(function(err, req, res, next) {
   res.redirect('/sidepanel');
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
-
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
 });
 //app.get('/sidepanel', function(req, res, next) {
 //   Sidepanel.getProfilePicture()
-//   res.render(__dirname + "/public/views/sidepanel.html", {name:"name"}); 
+//   res.render(__dirname + "/public/views/sidepanel.html", {name:"name"});
 // });
 function IS_NULL(x){
   return (x === undefined || x === null || x === NaN); //util.isNullOrUndefined(x) || isNaN(x))
