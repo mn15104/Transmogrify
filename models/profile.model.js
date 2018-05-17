@@ -72,14 +72,15 @@ Profile.loadMyProfile = function(req, res, load){
     });
 };
 Profile.loadOtherProfile = function(req, res, load){
-    var other_user_id = req.body.user_id;
-    db.get("SELECT * FROM 'USER_PROFILE' WHERE user_id='"+  user_id  + "'", function(err, row){
+    var other_user_id = req.query.user_id;
+    console.log(other_user_id);
+    db.get("SELECT * FROM 'USER_PROFILE' WHERE user_id='"+  other_user_id  + "'", function(err, row){
         if (err) throw err;
         if (!IS_NULL(row)){
             var occupation = row.occupation;
             var description = row.description;
             var profile_picture = row.profile_picture;
-            db.get("SELECT firstname, surname FROM USER_LOGIN WHERE user_id='"+  user_id  + "'", function(err, row){
+            db.get("SELECT firstname, surname FROM USER_LOGIN WHERE user_id='"+  other_user_id  + "'", function(err, row){
                 if (err) throw err;
                 if (!IS_NULL(row)){
                     console.log(row);

@@ -212,7 +212,7 @@ function retrieveProfileImage(req_user_id){
     });
 }
 
-var viewProfile = function (user_id){
+var viewProfile = function(user_id){
     // $.getScript("sidepanel.js",function(){
         loadOtherProfilePage(user_id);
     // });

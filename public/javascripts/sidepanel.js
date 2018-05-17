@@ -134,7 +134,6 @@ var initNavLinks = function(){
   })
   $('#profile_link').on('click', function(){
     loadMyProfilePage();
-
   })
   $('#create_link').click(function(){
     $('#page_1').fadeOut('slow', function(){
@@ -214,16 +213,19 @@ var loadOtherProfilePage = function(user_id){
   $.ajax({
     url: '/profile',
     type: 'GET',
-    processData: false,
-    contentType: false,
-    data: user_id,
+    data: {'user_id': user_id},
     success: function(data){
+      console.log(data);
       $('#page_1').html(data);
       changeurl('profile');
       // $('#page_1').fadeIn('slow');
+    },
+    error: function(err){
+      console.log(err);
     }
   });
 }
+
 var getProfilePicture = function (name){
   $.ajax({
     url: '/sidepanel/getProfilePicture',
