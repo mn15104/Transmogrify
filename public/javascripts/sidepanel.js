@@ -26,9 +26,7 @@ var init = function(name){
     friends.click(function(){
       toggleFriendsList();
     })
-    // $('.friends-list_name').on('click', function(){
-    //   $('.friends-chat-tab').load('../views/chat.html');
-    // })
+
 }
 
 var toggleFriendsList = function(){
@@ -215,7 +213,6 @@ var loadOtherProfilePage = function(user_id){
     type: 'GET',
     data: {'user_id': user_id},
     success: function(data){
-      console.log(data);
       $('#page_1').html(data);
       changeurl('profile');
       // $('#page_1').fadeIn('slow');
@@ -234,10 +231,7 @@ var getProfilePicture = function (name){
     processData: false,
     contentType: false,
     success: function(data){
-      console.log(data)
       var f = $(self).attr("src", data); 
-      console.log($(f).find('img').attr('src'));
-
     }
   });
 }
