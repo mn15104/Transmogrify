@@ -16,7 +16,6 @@ var WebSocketServer = require('ws').server;
 var appws = require('http').createServer();
 var io = require('socket.io')(appws);
 var expressWs = require('express-ws')(app);
-var serverjs = require('./server/server');
 var SQL_MODEL = require('./models/sql.model'); SQL_MODEL.init();
 var create_route = require('./routes/create.route');
 var explore_route = require('./routes/explore.route');
@@ -29,10 +28,9 @@ var webcam_route = require('./routes/vid_ws.route');
 var debug = require('debug')('testapp:server');
 var http = require('http');
 var port = normalizePort(process.env.PORT || '3000');
-
+var ChatModel = require('./models/chat.model');
 app.set('views', path.join(__dirname, 'public/views/'));
 app.set('view engine', 'ejs');
-// app.engine('html', require('ejs').renderFile);
 app.use(session({
   store: new redisStore({host:'localhost', port: 6379, client: client, ttl:260}),
   cookieName: 'session',
@@ -45,15 +43,6 @@ app.use(session({
   saveUninitialized: false,
   resave: false
 }));
-
-// app.use(function (req, res, next) {
-//   res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
-//   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-//   res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
-//   res.setHeader('Access-Control-Allow-Credentials', true);
-//   next();
-// });
-
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -69,12 +58,10 @@ app.use(function(req, res, next){
 });
 
 // ---------------------------------------------------------------//
+// ---------------------------------------------------------------//
 
 app.set('port', port);
-
 var server = http.createServer(app);
-
-
 server.on('error', onError);
 server.on('listening', onListening);
 server.on('data', function (chunk) {
@@ -86,44 +73,8 @@ server.on('end', function () {
         reject(err);
     });
 
-function normalizePort(val) {
-  var port = parseInt(val, 10);
-
-  if (isNaN(port)) {
-    // named pipe
-    return val;
-  }
-
-  if (port >= 0) {
-    // port number
-    return port;
-  }
-
-  return false;
-}
-
-function onError(error) {
-  if (error.syscall !== 'listen') {
-    throw error;
-  }
-
-  var bind = typeof port === 'string'
-    ? 'Pipe ' + port
-    : 'Port ' + port;
-
-  switch (error.code) {
-    case 'EACCES':
-      console.error(bind + ' requires elevated privileges');
-      process.exit(1);
-      break;
-    case 'EADDRINUSE':
-      console.error(bind + ' is already in use');
-      process.exit(1);
-      break;
-    default:
-      throw error;
-  }
-}
+// ---------------------------------------------------------------//
+// ---------------------------------------------------------------//
 
 var clients = {  };
 var queue   = {  };
@@ -158,9 +109,6 @@ app.ws('/', function(ws, req) {
                       console.log("3.a. friend id requested acknowledged");
                   }
                   //Friend hasn't connected - clients[friend_id] is undefined
-                  ///////////////////////////////////////////////////////////
-                  //  TO DO: Need to implement offline messages & use sql  //
-                  ///////////////////////////////////////////////////////////
                   else{
                     console.log(req.session.user_id);
                       setFriend(req.session.user_id, msgObj.data['friend_id']);
@@ -195,6 +143,8 @@ app.ws('/', function(ws, req) {
 
 });
 
+// ---------------------------------------------------------------//
+// ---------------------------------------------------------------//
 
 app.use('/ej', function(req, res, next){
   res.render('myprofile', { profile_image: '../images/profile_pictures/doggo_1526416712522.png',
@@ -232,6 +182,10 @@ app.use(function(req, res, next) {
 app.use(function(err, req, res, next) {
   res.redirect('/sidepanel');
 });
+
+
+// ---------------------------------------------------------------//
+// ---------------------------------------------------------------//
 
 
 function sendMessage(ws, msg){
@@ -316,12 +270,47 @@ function IS_NULL(x){
 }
 function noop() {}
 
-
-
-
 function IS_NULL(x){
   return (x === undefined || x === null || x === NaN); //util.isNullOrUndefined(x) || isNaN(x))
 }
 
+function normalizePort(val) {
+  var port = parseInt(val, 10);
+
+  if (isNaN(port)) {
+    // named pipe
+    return val;
+  }
+
+  if (port >= 0) {
+    // port number
+    return port;
+  }
+
+  return false;
+}
+
+function onError(error) {
+  if (error.syscall !== 'listen') {
+    throw error;
+  }
+
+  var bind = typeof port === 'string'
+    ? 'Pipe ' + port
+    : 'Port ' + port;
+
+  switch (error.code) {
+    case 'EACCES':
+      console.error(bind + ' requires elevated privileges');
+      process.exit(1);
+      break;
+    case 'EADDRINUSE':
+      console.error(bind + ' is already in use');
+      process.exit(1);
+      break;
+    default:
+      throw error;
+  }
+}
 app.listen(3000);
 module.exports = app;

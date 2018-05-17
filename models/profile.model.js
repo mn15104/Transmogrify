@@ -104,18 +104,23 @@ Profile.loadOtherProfile = function(req, res, load){
                         });
                     }
                     else{
-                        res.render('profile.ejs', 
+                        loadDefaultProfile(res);
+                    }
+                }else  loadDefaultProfile(res);
+            });
+        }else  loadDefaultProfile(res);
+    });
+
+
+    var loadDefaultProfile = function(res){
+        res.render('profile.ejs', 
                         {   'firstname': 'firstname',
                             'surname': 'surname',
                             'occupation':'occupation',
                             'description':'description',
                             'profile_picture':'profile_picture'
                         });
-                    }
-                }else res.sendStatus(400);
-            });
-        }else res.sendStatus(400);
-    });
+    }
 };
 Profile.loadChatHistory = function(req, res){
     var other_user_id = req.body.user_id;

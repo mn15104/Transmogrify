@@ -56,7 +56,7 @@ function initChat()
                 }
                 else if(msg['message']  === 'friend_req_offline')
                 {
-                    console.log("DEBUG 4.a");
+                    console.log("DEBUG 4.b");
                     session_info.friend_id_offline = true;
                 }
                 else if(msg['message']  === 'friend_disconnected')

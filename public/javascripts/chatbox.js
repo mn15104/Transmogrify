@@ -40,15 +40,24 @@ function initChat()
 
             {   console.log("DEBUG 3");
                 if(msg['message']  === 'friend_id_accepted')
-                {   console.log("DEBUG 4");
+                {   
+                    console.log("DEBUG 4.a");
                     session_info.friend_id_accepted = true;
                 }
+                else if(msg['message']  === 'friend_req_offline')
+                {
+                    console.log("DEBUG 4.b");
+                    session_info.friend_id_offline = true;
+                }
                 else if(msg['message']  === 'friend_disconnected')
-                {   console.log("DEBUG 5");
+                {   
+                    console.log("DEBUG 5");
                     session_info.friend_id_accepted = false;
                 }
-                else if(session_info.friend_id_accepted && msg['message']  === 'friend_message_rec')
-                {   console.log("DEBUG 6");
+                else if(   (session_info.friend_id_accepted && msg['message']  === 'friend_message_rec')
+                        || (session_info.friend_id_offline && msg['message']  === 'friend_message_rec'))
+                {   
+                    console.log("DEBUG 6");
                     console.log(msg['chat_message']);
                     appendReceivedMessage(msg['chat_message']);
                 }

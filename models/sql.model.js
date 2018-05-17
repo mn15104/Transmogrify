@@ -47,7 +47,8 @@ SQL_MODEL.init = function(){
 
     db.run(`CREATE TABLE IF NOT EXISTS FRIENDLIST           (   user_idA INT (100), 
                                                                 user_idB INT (100),
-                                                                chat_id  INT (100),
+                                                                chat_id INT AUTO_INCREMENT NOT NULL,
+                                                                PRIMARY_KEY chat_id,
                                                                 UNIQUE(user_idA, user_idB, chat_id))`, (err) => {
         if (err) {
             console.error(err.message);
