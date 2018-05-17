@@ -5,9 +5,10 @@ var friends_active = true;
 var panel = $('.panel');
 var user_id;
 
-function init(name){
-    console.log(name)
+var init = function(name){
+    
     if(name!='<%= name %>'){
+      console.log("hi");
       var imagesrc = getProfilePicture(name);
     }
     var url = new URL(window.location.href);
@@ -25,9 +26,7 @@ function init(name){
     friends.click(function(){
       toggleFriendsList();
     })
-    // $('.friends-list_name').on('click', function(){
-    //   $('.friends-chat-tab').load('../views/chat.html');
-    // })
+
 }
 
 var toggleFriendsList = function(){
@@ -45,7 +44,7 @@ var toggleSideNav = function() {
   sideNav.toggleClass('nav__list--active');
 };
 
-function toggleNav(){
+var toggleNav = function (){
   $("#sidepanel_index_button").toggleClass('open');
   if($(".sidepanel_index-button-container").attr("data-index-open") === "false"){
       $(".sidepanel_index-title").children("span").stop().animate({backgroundColor:'#854442'}, 300);
@@ -131,13 +130,8 @@ var initNavLinks = function(){
       });
     });
   })
-  $('#profile_link').click(function(){
-    $('#page_1').fadeOut('slow', function(){
-      $('#page_1').empty();
-      $('#page_1').load("../views/myprofile.html")
-      changeurl('myprofile');
-      $('#page_1').fadeIn('slow');
-    });
+  $('#profile_link').on('click', function(){
+    loadMyProfilePage();
   })
   $('#create_link').click(function(){
     $('#page_1').fadeOut('slow', function(){
@@ -149,7 +143,6 @@ var initNavLinks = function(){
   })
   $('#explore_link').click(function(){
     $('#page_1').fadeOut('slow', function(){
-
       $('#page_1').empty();
       $('#page_1').load("../views/explore.html");
       changeurl('explore');
@@ -174,7 +167,7 @@ TweenMax.set(".login_container", {
 });
 TweenMax.set("#page_2", { rotationY: 90, z: -siteW / 2, x: siteW / 2 });
 
-function transitionToProfilePage(){
+var transitionToProfilePage = function (){
   $('#page_1').fadeOut('slow', function(){
     $('#page_1').empty();
     $('#page_1').load("../views/profile.html");
@@ -183,7 +176,7 @@ function transitionToProfilePage(){
   });
 }
 
-function changeContent(){
+var changeContent = function (){
     var tlFlip = new TimelineMax({
         yoyo: false,
         delay: 1.5,
@@ -200,8 +193,37 @@ function changeContent(){
         )
         .to(".login_site", 0.5, { scale: 1, ease: Power2.easeInOut }, "start+=1.2");
 }
+var loadMyProfilePage = function (){
+  // $('#page_1').fadeOut('slow');
+  $.ajax({
+    url: '/myprofile',
+    type: 'GET',
+    processData: false,
+    contentType: false,
+    success: function(data){
+      $('#page_1').html(data);
+      changeurl('myprofile');
+      // $('#page_1').fadeIn('slow');
+    }
+  });
+}
+var loadOtherProfilePage = function(user_id){
+  $.ajax({
+    url: '/profile',
+    type: 'GET',
+    data: {'user_id': user_id},
+    success: function(data){
+      $('#page_1').html(data);
+      changeurl('profile');
+      // $('#page_1').fadeIn('slow');
+    },
+    error: function(err){
+      console.log(err);
+    }
+  });
+}
 
-function getProfilePicture(name){
+var getProfilePicture = function (name){
   $.ajax({
     url: '/sidepanel/getProfilePicture',
     type: 'POST',
@@ -209,13 +231,11 @@ function getProfilePicture(name){
     processData: false,
     contentType: false,
     success: function(data){
-      console.log(data)
       var f = $(self).attr("src", data); 
-      console.log($(f).find('img').attr('src'));
-
     }
   });
 }
+
 function IS_NULL(x){
   return (x === undefined || x === null || x === NaN); //util.isNullOrUndefined(x) || isNaN(x))
 }
@@ -272,12 +292,6 @@ var connectWS = function(){
       success: function(data){
           console.log("OK!");
           console.log(data);
-          $('#page_1').fadeOut('slow', function(){
-            $('#page_1').empty();
-            $('#page_1').load("../views/profile.html");
-            changeurl('profile?user_id='+user_id);
-            $('#page_1').fadeIn('slow');
-          });
           return true;
       },
       error: function(xhr, ajaxOptions, thrownError){

@@ -146,7 +146,7 @@ h1.profile_title{
   position:relative;
   font-family: 'Open Sans', Arial, sans-serif;
   float: left;
-  overflow: show;
+  overflow: visible;
   padding-top:30px;
   margin-top:290px;
   min-width: 230px;
@@ -199,8 +199,10 @@ h1.profile_title{
   color: rgb(201, 198, 198);
 }
 .profile_card h3.profile_name{
+  text-align:center;
   font-size:16px;
   font-weight:500;
+  margin-bottom:30px;
 }
 .profile_card h3 span {
   display: block;
@@ -288,7 +290,7 @@ h1.profile_title{
 }
 
 .profile_upload-image-container {
-  left: 50%;
+  left: 57.5%;
   top: 50%;
   -webkit-transform: translate3d(-50%, -50%, 0);
   transition: translate3d(-50%, 0%, 0);
@@ -319,22 +321,46 @@ h1.profile_title{
 .profile_upload-image-avatar {
   display: inline-block;
   overflow: hidden;
-  width: 100%;
-  height: 100%;
+  width: 175px;
+  height: 175px;
   border-radius: 100%;
   background: #C68587;
   border: 6px solid #B3C9CB;
-  background-image: url('https://cdn2.digitalartsonline.co.uk/cmsdata/slideshow/3513552/polybreno_1500.jpg');
-  background-size: 100%;
+  background-size:cover;
+  background-repeat:no-repeat;
   background-position: 25% 25%;
   transition: border 0.5s linear;
+}
+
+#description_box{
+  padding-top:4px;
+  padding-bottom:4px;
+  position: relative;
+  width: 100%;
+  border-radius: 3px;
+}
+#occupation_box {
+  padding-top:4px;
+  padding-bottom:4px;
+  position: relative;
+  width: 100%;
+  border-radius: 3px;
+}
+.editable {
+  border:2px solid #7e5201;
+  box-shadow: inset 0 0 10px #555;
+}
+
+
+.box:hover .edit {
+  opacity: 1;
 }
 .profile_upload-image-avatar:after {
   content: "";
   position: absolute;
   background: -webkit-gradient(linear, left top, right bottom, color-stop(0%, #f0e3c7), color-stop(100%, #6bcab4));
-  width: 100%;
-  height: 100%;
+  width: 175px;
+  height: 175px;
   border-radius: 100%;
   border: 1px solid white;
   left: 0px;
@@ -344,6 +370,13 @@ h1.profile_title{
   cursor: pointer;
   transform-origin: right center;
   transform-style: preserve-3d;
+}
+.profile_upload-image-avatar.profile_avatar{
+  background-size: 100%;
+  width: 175px;
+  height: 175px;
+  display: inline-block;
+  overflow: hidden;
 }
 
 .profile_upload-image-avatar:hover:after {
@@ -450,10 +483,9 @@ h1.profile_title{
 .profile_gallery-wrapper {
     top: 300px;
     position:absolute;
-    padding-left: 20%;
     height: 100%;
-    padding-right:25%;
-    margin-left: 350px;
+    left: 35%;
+    margin-right: 20%;
     text-align:center;
 }
 h2.profile_gallery-title{ 
@@ -481,7 +513,7 @@ h2.profile_gallery-title{
 
 .profile_gallery-container{
     position:relative;
-    width: 120%;
+    width: 100%;
     height: 100%;
     min-width: 500px;
 }
@@ -492,18 +524,27 @@ h2.profile_gallery-title{
     position:relative;
 }
 
+.profile_profile-settings{
+  width: 100%;
+  height: 110%;
+  position:absolute;
+  left: 0;
+  z-index:-1;
+  background:var(--clrBox);
+  padding-left: 10%;
+}
 h5.profile_profile-settings-type{
   color: rgb(218, 161, 4);
   text-align:left;
   left: 0;
-  font-size:16px;
+  font-size:12px;
 }
 
 h5.profile_profile-settings-value{
   color: rgb(235, 229, 209);
   text-align:left;
   left: 0;
-  font-size:15px;
+  font-size:12px;
 }
 
 h5.profile_profile-settings-edit{
@@ -511,7 +552,7 @@ h5.profile_profile-settings-edit{
   color: rgb(218, 161, 4);
   text-align:left;
   left: 0;
-  font-size:15px;
+  font-size:12px;
 }
 .profile_profile-settings-edit:hover{
   transition:1s;
@@ -520,12 +561,6 @@ h5.profile_profile-settings-edit{
   background-color:rgb(84, 84, 84);
 }
 
-.profile_profile-settings{
-  width: 100%;
-  position:absolute;
-  left: 0;
-  background:var(--clrBox);
-}
 .profile_profile-public{
   height: 110%;
   width: 100%;
@@ -912,6 +947,11 @@ h5.profile_profile-settings-edit{
     font-size:16px;
 }
 
+.glyphicon-pencil:hover{
+  transition: all .4s;
+  cursor: pointer;
+  color: rgb(199, 107, 32);
+}
 
 .icon-flipped {
   position: absolute;
@@ -922,11 +962,8 @@ h5.profile_profile-settings-edit{
   -webkit-transform:scale(0.7) scaleY(-1);
   -ms-transform:scale(0.7) scaleY(-1);
 }
-#flip-profile-icon{
-  z-index: 1000;
-  width: 10px; height:10px;
-}
-#flip-profile-icon:hover{
+
+.flip-profile-icon:hover{
   cursor: pointer;
 }
 .profile_upload_image{

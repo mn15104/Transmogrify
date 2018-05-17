@@ -1,6 +1,6 @@
 
 var page_init = false;
-var init = function(){
+var init_profile = function(){
     
     $('.profile_chatbox_container').load('../views/chatbox.html');
     $('.profile_profile-settings').css('opacity',0);
@@ -75,10 +75,6 @@ var flipProfileCard = function(){
 var toggleChatbox = function(){
     if(!($('#profile_chat-btn').hasClass('profile_chat_open'))){
          $('#profile_chat-btn').addClass('profile_chat_open');
-        //  chat_container = $('.chat_top-bar').parent('.chat_container');
-        //  chat_container.toggleClass('chat_container_closed'); 
-        //  container_user_id = chat_container.attr('data-chat-user-id');
-        //  console.log("THIS" + container_user_id);
          $.getScript("chatbox.js",function(){
             connect();
          });
@@ -102,6 +98,7 @@ var loadChatHistory = function(){
         }
       });
 }
+
 var sendMessage = function(){
     var message = $('#chat_input').text();
     $.ajax({

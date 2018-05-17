@@ -82,7 +82,7 @@ h1.title{
     -moz-transition: -moz-transform 2s;
     -o-transition: -o-transform 2s;
         transition: transform 2s;
-    text-shadow: 0 0 12px white; 
+    text-shadow: 0 0 6px white; 
 
 }
 .title.left{
@@ -90,7 +90,7 @@ h1.title{
     display:inline-block;
     transition: transform 2s;
     color:rgb(173, 68, 27);
-    right:0;
+    left:28.5%;
 }
 .title.right{
     position: absolute;
@@ -107,7 +107,7 @@ h1.title{
     transform: translateY(2000px);
 }
 .title.right{
-    left:0;
+    right:21.5%;
 }
 .title.right.selected > span{
     transition: all 2s;
@@ -134,16 +134,18 @@ h1.title{
     color: rgb(14, 13, 10);
     padding: 0 auto;
     padding-bottom:10px;
+    border-radius: 5px;
     font: small-caps 2em/1.5 'Open Sans', sans-serif;
     text-align: center;
     font-weight: 1000;
-    text-shadow: -1px -1px 0px rgba(0, 0, 0, 0.3), 1px 1px 0px rgba(255, 255, 255, 0.8);
+    text-shadow: 0 0 2px rgb(29, 28, 28); 
     line-height: 1;
     box-shadow: 0px 0px 2px 2px rgb(82, 82, 82);
 
 }
 .triangle-left { 
     z-index:0;
+    border-radius: 5px;
     position: absolute;
     display:inline-block;
     left:5%;
@@ -155,7 +157,8 @@ h1.title{
     color: white;
     font: small-caps 2em/1.5 'Open Sans', sans-serif;
     text-align: center;
-    text-shadow: -1px -1px 0px rgba(0, 0, 0, 0.3), 1px 1px 0px rgba(196, 196, 196, 0.8);
+    
+    text-shadow: 0 0 2px rgb(255, 255, 255); 
     font-weight: 800;
     line-height: 2;
     background-blend-mode: color-burn;

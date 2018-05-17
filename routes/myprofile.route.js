@@ -5,14 +5,19 @@ var formidable = require('formidable');
 var Profile = require('../models/profile.model');
 
 
+router.post('/loadmyprofile', function(req, res, next) {
+    Profile.loadMyProfile(req, res);
+});
 
-
+router.post('/uploadprofilepicture', function(req, res, next) {
+    Profile.uploadProfilePicture(req, res);
+});
 
 router.get('/', function(req, res, next) {
-
-    if(IS_NULL(req.query.user_id))
+    console.log(req.session.user_id);
+    if(IS_NULL(req.session.user_id))
     {
-        res.render('profile.ejs', 
+        res.render('myprofile.ejs', 
         {   'firstname': 'firstname',
              'surname': 'surname',
              'email': 'email',
@@ -25,7 +30,7 @@ router.get('/', function(req, res, next) {
     else 
     {
         console.log("ISN'T NULL");
-        Profile.loadOtherProfile(req, res, true);
+        Profile.loadMyProfile(req, res, true);
     }
 });
 

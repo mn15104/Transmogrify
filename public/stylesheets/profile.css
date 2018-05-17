@@ -21,6 +21,7 @@ element{
 }
 #profile_title_container{
   position: absolute;
+  text-align: center;
   width: 100%;
 }
 h1.profile_title{ 
@@ -28,13 +29,13 @@ h1.profile_title{
   -moz-user-select: none; /* Firefox */
   -ms-user-select: none; /* IE10+/Edge */
   user-select: none; /* Standard */
-
+  text-align: center;
   display: inline-block;
   position:relative;
-  font: 6em/1.5 'Open Sans', sans-serif;
+  font: 5em/1.5 'Open Sans', sans-serif;
   color: #F6EAE1;
-  /* margin: auto; */
-  left: 45%;
+  margin: auto;
+
   font-weight: 800;
   line-height: 1;
   transform: translateY(90px);
@@ -47,7 +48,7 @@ h1.profile_title{
 .profile_title span {
   color: #948C87;
   font-weight: 500;
-  margin-left: -7px;
+  /* margin-left: -7px; */
 }
 
 .profile_title.profile_title_top{
@@ -82,7 +83,7 @@ h1.profile_title{
 
 .profile_img{
     /* background-size:contain; */
-    z-index: 9999;
+    z-index: 999;
     -webkit-border-radius: 50%;
     -moz-border-radius: 50%;
     border-radius: 50%;
@@ -97,6 +98,7 @@ h1.profile_title{
     height:175px;
     /* text-align: center; */
     position: absolute;
+
     /* backface-visibility: hidden; */
 }
 
@@ -116,7 +118,7 @@ h1.profile_title{
     /* height:200px; */
     position: absolute;
     perspective: 800px;
-    margin-right:100px;
+    /* margin-right:100px; */
     z-index: -1;
 }
 .profile_card_wrapper{
@@ -152,7 +154,7 @@ h1.profile_title{
   min-width: 230px;
   max-width: 230px;
   height: 600px;
-  left:320%;
+  left:300%;
   line-height: 1.4em;
   background-color: #303232;
   -webkit-transition:background 3s;
@@ -175,6 +177,7 @@ h1.profile_title{
 }
 .profile_card .backdrop {
   position:absolute;
+  margin:0 auto;
   width: 100%;
   right:0%;
   height: 100%;
@@ -287,28 +290,27 @@ h1.profile_title{
 }
 
 .profile_upload-image-avatar {
+  position:relative;
   display: inline-block;
   overflow: hidden;
-  width: 100%;
-  height: 100%;
+  width: 175px;
+  height: 175px;
   border-radius: 100%;
   background: #C68587;
   border: 6px solid #B3C9CB;
-  background-image: url('https://cdn2.digitalartsonline.co.uk/cmsdata/slideshow/3513552/polybreno_1500.jpg');
-  background-size: 100%;
+  background-size:cover;
+  background-repeat:no-repeat;
   background-position: 25% 25%;
   transition: border 0.5s linear;
 }
 .profile_upload-image-avatar:after {
   content: "";
   position: absolute;
-  background: -webkit-gradient(linear, left top, right bottom, color-stop(0%, #f0e3c7), color-stop(100%, #6bcab4));
-  width: 100%;
-  height: 100%;
+  width: 175px;
+  height: 175px;
   border-radius: 100%;
-  border: 1px solid white;
-  left: 0px;
-  top: 0px;
+  /* border: 1px solid white; */
+
   opacity: 0;
   transition: opacity 0.3s linear;
   cursor: pointer;
@@ -375,32 +377,8 @@ h1.profile_title{
   width:100%;
   height:100%;
 }
-.profile_upload-image-avatar:hover  #profile_upload-image-camera > #profile_upload-image-cameraFrame {
-  stroke-dashoffset: 0;
-}
 
-.profile_upload-image-avatar:hover  #profile_upload-image-camera > #profile_upload-image-circle {
-  stroke-dashoffset: 0px;
-}
 
-.profile_upload-image-avatar:hover  #profile_upload-image-camera > #profile_upload-image-plus {
-  stroke-dashoffset: 0px;
-}
-
-.profile_upload-image-avatar:active  #profile_upload-image-camera > #cprofile_upload-image-ameraFrame {
-  -webkit-transition: none;
-  stroke: rgba(255, 255, 255, 0.7);
-}
-
-.profile_upload-image-avatar:active  #profile_upload-image-camera > #profile_upload-image-circle {
-  -webkit-transition: none;
-  stroke: rgba(255, 255, 255, 0.7);
-}
-
-.profile_upload-image-avatar:active  #profile_upload-image-camera > #profile_upload-image-plus {
-  -webkit-transition: none;
-  stroke: rgba(255, 255, 255, 0);
-}
 
 .profile_upload-image-avatar.open  #profile_upload-image-camera {
   -webkit-transform: scale(0);
@@ -423,7 +401,7 @@ h1.profile_title{
     padding-left: 20%;
     height: 100%;
     padding-right:25%;
-    margin-left: 350px;
+    margin-left: 300px;
     text-align:center;
 }
 h2.profile_gallery-title{ 
@@ -436,7 +414,6 @@ h2.profile_gallery-title{
   font-weight: 400;
   letter-spacing: 0.5px;
   line-height: 1;
-
   margin-bottom: 20px;
 }
 
@@ -498,7 +475,7 @@ h5.profile_profile-settings-edit{
 .profile_profile-public{
   height: 110%;
   width: 100%;
-  padding: 5%;
+  /* padding: 5%; */
   position:absolute;
   left: 0;
   background:var(--clrBox);

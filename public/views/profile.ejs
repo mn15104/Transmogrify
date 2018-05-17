@@ -5,19 +5,11 @@
     <title>Listen To This Image</title>
     <script src="../javascripts/jstools/jquery-3.2.1.min.js"></script>
     <script src="../javascripts/jstools/jquery-ui.min.js"></script>
-    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
     <link rel="stylesheet" href="../stylesheets/tools/jquery-ui.min.css">
-
-<!-- D75848	C15B4D	B84131	F19286	F1B8B1 D7B148	C1A34D	B89531	F1D586	F1E1B1  6B3690	643881	59257C	B57FDA	C4A3DA-->
-
-    <meta charset="utf-8" />
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-
-    <!--W3-CSS-->
-    <link rel="stylesheet" type="text/css" media="screen" href="../stylesheets/myprofile.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="../stylesheets/profile.css">
     <script src="https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js" type="text/javascript"></script>
     <!-- Header script to reload js on embedded pages -->
     <script language="text/javascript">
         function load_js()
@@ -25,7 +17,7 @@
            var head= document.getElementsByTagName('head')[0];
            var script= document.createElement('script');
            script.type= 'text/javascript';
-           script.src= '../javascripts/myprofile.js';
+           script.src= '../javascripts/profile.js';
            head.appendChild(script);
         }
         load_js();
@@ -33,71 +25,61 @@
 </head>
 <body class = "profile_body">
     <div class = "profile_page_container">
-        <div id="profile_title_container"><h1 class="profile_title"> My <span> Profile </span></h1></div>
+        <div id="profile_title_container"><h1 class="profile_title"><%=firstname%>'s Profile </h1></div>
 
         <section class="profile_container">
             <div class = "profile_card_wrapper">
                 <figure class="profile_card" id="profile_card" >
                     <div class="ACon profile_profile">
                     
-                        <div class="profile_img" id="profile_image1">
-                            <span>
-                                </img>
-                            </span>
+                        <div class="profile_img" id = "profile_image1">
+                            <span></img></span>
                         </div>
-                        <div class="profile_img" id="profile_image2">
-                            <div class="profile_upload-image-container 
-                                                                profile_upload-image-clearfix">
-                                <div class="profile_upload-image-avatar" onclick="document.getElementById('profile_put_file').click()">
-                                    <svg id="profile_upload-image-camera" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-                                        x="0px" y="0px" viewBox="0 0 25 15" enable-background="new 0 0 25 15" xml:space="preserve">
-                                        <path id="profile_upload-image-cameraFrame" fill="none" stroke="white" stroke-miterlimit="10" d="M23.1,14.1H1.9c-0.6,0-1-0.4-1-1V1.9c0-0.6,0.4-1,1-1h21.2
-                                                                    c0.6,0,1,0.4,1,1v11.3C24.1,13.7,23.7,14.1,23.1,14.1z" />
-                                        <path id="profile_upload-image-circle" fill="none" stroke="#ffffff" stroke-width="1.4" stroke-miterlimit="12" d="M17.7,7.5c0-2.8-2.3-5.2-5.2-5.2S7.3,4.7,7.3,7.5s2.3,5.2,5.2,5.2
-                                                                    S17.7,10.3,17.7,7.5z" />
-                                        <g id="profile_upload-image-plus">
-                                            <path fill="none" id="profile_upload-image-plusLine" class="profile_upload-image-line" stroke="#ffffff" stroke-linecap="round"
-                                                stroke-miterlimit="10" d="M20.9,2.3v4.4" />
-                                            <path fill="none" class="profile_upload-image-line" stroke="#ffffff" stroke-linecap="round" stroke-miterlimit="10" d="M18.7,4.6h4.4"
-                                            />
-                                        </g>
-                                    </svg>
+                        <div class="profile_img" id = "profile_image2">
+                                <div class="profile_upload-image-container 
+                                            profile_upload-image-clearfix">
+                                    <div class="profile_upload-image-avatar"
+                                         style="background-image:url('<%=profile_picture%>');">
+                                  
+                                          
+                                    </div>
                                 </div>
-                            </div>
-                            <input id="profile_put_file"  type="file" disabled />
+                                <!-- <input id="profile_put_file"  type="file" /> -->
                         </div>
-                        <figcaption id="profile_profile-description">
-                            <div class="profile_profile-public">
-                                <h3 class="profile_name" id="profile_name">Joshua Crippinson</h3>
-                                <h3>What I do
-                                    <div class="glyphicon glyphicon-pencil"></div>
-                                    <span id="profile_whatido"> Web Developer </span>
+                        <figcaption id = "profile_profile-description">
+                            <div class = "profile_profile-public">
+              
+                                <h3 class ="profile_name" id = "profile_name"><%=firstname%> <%=surname%></h3>
+             
+                                <h3>What I do 
+                                    <span id = "profile_whatido"> <%=occupation%> </span></h3>
+                                <h3>About Me 
+                                    <span id = "profile_aboutme"><%=description%> </span>
                                 </h3>
-                                <h3>About Me
-                                    <div class="glyphicon glyphicon-pencil"></div>
-                                    <span id="profile_aboutme">I really love cats I really love cats I really love cats </span>
-                                </h3>
-                                <i class="flip-profile-icon icon-flipped fa fa-share" aria-hidden="true"></i>
-                            </div>
-                            <div class="profile_profile-settings">
-                                <h5 class="profile_profile-settings-type">Name</h5>
-                                <h5 id="profile_settings_name" class="profile_profile-settings-value">Josh Crippinson</h5>
-                                <h5 class="profile_profile-settings-type">Email Address</h5>
-                                <h5 "profile_settings_email"  class="profile_profile-settings-value" id="profile_email">josh@crippinson</h5>
-                                <h5 class="profile_profile-settings-type">Statistics</h5>
-                                <h5 class="profile_profile-settings-value">Likes & Listens</h5>
-                                <br>
-                                <h5 class="profile_profile-settings-edit">RESET PASSWORD</h5>
-                                <h5 class="profile_profile-settings-edit">EDIT NAME </h5>
-                                <i class="flip-profile-icon icon-flipped fa fa-share" aria-hidden="true"></i>
                             </div>
                         </figcaption>
                     </div>
+                   
+                    
                 </figure>
             </div>
+            
         </section>
-        
-        
+
+        <div class="profile_icon_container">
+            <div class = "profile_profile-icons">
+                <div id ="profile_chat-btn-container" >
+                    <div id = "profile_chat-btn">
+                        
+                    </div>
+                </div>
+                <img id = "profile_webcam-icon" src="../images/widgets/webcam.png" class="segment" >
+            </div>
+            <div class="profile_chatbox_container">
+
+            </div>
+        </div>
+
         <div class= "profile_gallery-wrapper">
             <div class= "profile_gallery-container">
                 <div class="brick-wall">
@@ -351,10 +333,10 @@
             </div>  
         </div>
     </div>
-<script src="../javascripts/myprofile.js"></script>
+<script src="../javascripts/profile.js"></script>
 <script>
     $(document).ready(function(){
-        init();
+        init_profile();
     });    
  
 </script>

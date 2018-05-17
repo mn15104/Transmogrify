@@ -18,8 +18,8 @@ var appws = require('http').createServer();
 var io = require('socket.io')(appws);
 
 app.set('views', path.join(__dirname, 'public/views/'));
-app.set('view engine', 'jade');
-app.engine('html', require('ejs').renderFile);
+app.set('view engine', 'ejs');
+// app.engine('html', require('ejs').renderFile);
 app.use(session({
   store: new redisStore({host:'localhost', port: 6379, client: client, ttl:260}),
   cookieName: 'session',
@@ -59,31 +59,36 @@ app.use(function(req, res, next){
 var SQL_MODEL = require('./models/sql.model'); SQL_MODEL.init();
 var create_route = require('./routes/create.route');
 var explore_route = require('./routes/explore.route');
+var myprofile_route = require('./routes/myprofile.route');
 var profile_route = require('./routes/profile.route');
 var login_route = require('./routes/login.route');
 var sidepanel_route = require('./routes/sidepanel.route');
 var chat_route = require('./routes/chat_ws.route');
 var webcam_route = require('./routes/vid_ws.route');
-app.use('/particles', function(req, res, next){
-  res.sendFile(path.join(__dirname + '/public/views/particles.html'));
+app.use('/ej', function(req, res, next){
+  res.render('myprofile', { profile_image: '../images/profile_pictures/doggo_1526416712522.png',
+                            firstname:'',
+                            description: '',
+                            email:'',
+                                  });
 });
 app.use('/intro', function(req, res, next){
   res.sendFile(path.join(__dirname + '/public/views/intro.html'));
 });
-app.use('/profile', function(req, res, next){
-  res.sendFile(path.join(__dirname + '/public/views/profile.html'));
-});
 app.use('/webcam', webcam_route);
 app.use('/chat', chat_route);
 app.use('/sidepanel', sidepanel_route);
-app.use('/myprofile', profile_route);
+app.use('/profile', profile_route);
+app.use('/myprofile', myprofile_route);
 app.use('/create', create_route);
 app.use('/explore', explore_route);
 app.use('/login', login_route);
 app.post('/whatsmyid', function(req,res,next){
     res.status(200).send({'user_id':req.session.user_id});
-})
-app.use('/', sidepanel_route);
+});
+app.use('/', function(req, res, next){
+    res.redirect('/sidepanel');
+});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
