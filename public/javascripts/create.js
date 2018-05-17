@@ -508,6 +508,19 @@ function fineSimilarity (intA, intB){
 //Cheeky global
 var bpm = 10;
 
+var musicVariables = new Array(10);
+
+
+$( ".download-btn" ).one( "click", function() {
+
+    for (var i = 0; i < 10; i++) {
+        console.log("SAVING VARIABLE " + i + " as " + musicVariables[i]);
+    }
+
+
+
+});
+
 function audioTester(primaryDetected, colourDetected, decision1, decision2, decision3, decision4, yClrSym, yFineSym, xClrSym, xFineSym){
     //Demo
     // var AudioContextFunc = window.AudioContext || window.webkitAudioContext;
@@ -515,6 +528,23 @@ function audioTester(primaryDetected, colourDetected, decision1, decision2, deci
     // var player=new WebAudioFontPlayer();
     // player.loader.decodeAfterLoading(audioContext, '_tone_0250_SoundBlasterOld_sf2');
     // player.queueWaveTable(audioContext, audioContext.destination, _tone_0250_SoundBlasterOld_sf2, 0, 12*4+7, 2);
+
+    //Saving variables for later
+    musicVariables[0] = primaryDetected;
+    musicVariables[1] = colourDetected;
+    musicVariables[2] = decision1;
+    musicVariables[3] = decision2;
+    musicVariables[4] = decision3;
+    musicVariables[5] = decision4;
+    musicVariables[6] = yClrSym;
+    musicVariables[7] = yFineSym;
+    musicVariables[8] = xClrSym;
+    musicVariables[9] = xFineSym;
+
+
+
+
+
 
     var AudioContextFunc = window.AudioContext || window.webkitAudioContext;
     var audioContext = new AudioContextFunc();
@@ -598,6 +628,7 @@ function audioTester(primaryDetected, colourDetected, decision1, decision2, deci
 
 
         }
+        $( ".download-btn" ).show();
 
     // (function repeatMotif() {
     //
