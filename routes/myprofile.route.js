@@ -5,20 +5,26 @@ var formidable = require('formidable');
 var Profile = require('../models/profile.model');
 
 
+router.post('/loadmyprofile', function(req, res, next) {
+    Profile.loadMyProfile(req, res);
+});
 
-
+router.post('/uploadprofilepicture', function(req, res, next) {
+    Profile.uploadProfilePicture(req, res);
+});
 
 router.get('/', function(req, res, next) {
-    if(IS_NULL(req.body.user_id))
+    console.log(req.session.user_id);
+    if(IS_NULL(req.session.user_id))
     {
         console.log("IS NULL");
-        res.sendFile(path.join(__dirname + '/../public/views/profile.html'));
-        req.session.current_url = '/profile';
+        res.sendFile(path.join(__dirname + '/../public/views/myprofile.html'));
+        req.session.current_url = '/myprofile';
     }
     else 
     {
         console.log("ISN'T NULL");
-        Profile.loadOtherProfile(req, res, true);
+        Profile.loadMyProfile(req, res, true);
     }
 });
 

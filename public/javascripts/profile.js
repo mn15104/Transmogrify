@@ -1,6 +1,6 @@
 
 var page_init = false;
-var init = function(){
+var init_profile = function(){
     
     $('.profile_chatbox_container').load('../views/chatbox.html');
     $('.profile_profile-settings').css('opacity',0);
@@ -98,6 +98,7 @@ var loadChatHistory = function(){
         }
       });
 }
+
 var sendMessage = function(){
     var message = $('#chat_input').text();
     $.ajax({

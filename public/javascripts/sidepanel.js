@@ -210,6 +210,20 @@ var loadMyProfilePage = function (){
     }
   });
 }
+var loadOtherProfilePage = function(user_id){
+  $.ajax({
+    url: '/profile',
+    type: 'GET',
+    processData: false,
+    contentType: false,
+    data: user_id,
+    success: function(data){
+      $('#page_1').html(data);
+      changeurl('profile');
+      // $('#page_1').fadeIn('slow');
+    }
+  });
+}
 var getProfilePicture = function (name){
   $.ajax({
     url: '/sidepanel/getProfilePicture',

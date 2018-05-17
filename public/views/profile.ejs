@@ -25,7 +25,7 @@
 </head>
 <body class = "profile_body">
     <div class = "profile_page_container">
-        <div id="profile_title_container"><h1 class="profile_title"> Profile </h1></div>
+        <div id="profile_title_container"><h1 class="profile_title">'<%=firstname%>''s Profile </h1></div>
 
         <section class="profile_container">
             <div class = "profile_card_wrapper">
@@ -38,7 +38,8 @@
                         <div class="profile_img" id = "profile_image2">
                                 <div class="profile_upload-image-container 
                                             profile_upload-image-clearfix">
-                                    <div class="profile_upload-image-avatar">
+                                    <div class="profile_upload-image-avatar"
+                                         style="background:url('<%=firstname%>');">
                                             <svg id="profile_upload-image-camera" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                                                 viewBox="0 0 25 15" enable-background="new 0 0 25 15" xml:space="preserve">
                                             <path id="profile_upload-image-cameraFrame" fill="none" stroke="white" stroke-miterlimit="10" d="M23.1,14.1H1.9c-0.6,0-1-0.4-1-1V1.9c0-0.6,0.4-1,1-1h21.2
@@ -57,15 +58,13 @@
                         <figcaption id = "profile_profile-description">
                             <div class = "profile_profile-public">
               
-                                <h3 class ="profile_name" id = "profile_name">Joshua Crippinson</h3>
+                                <h3 class ="profile_name" id = "profile_name">'<%=firstname%>' '<%=surname%>'</h3>
              
                                 <h3>What I do <div class="glyphicon glyphicon-pencil"></div>  
-                                    <span id = "profile_whatido"> Web Developer </span></h3>
+                                    <span id = "profile_whatido"> '<%=occupation%>' </span></h3>
                                 <h3>About Me <div class="glyphicon glyphicon-pencil"></div> 
-                                    <span id = "profile_aboutme">I really love cats I really love cats I really love cats</span>
+                                    <span id = "profile_aboutme">'<%=description%>' </span>
                                 </h3>
-                                
-        
                             </div>
                         </figcaption>
                     </div>
@@ -343,6 +342,7 @@
             </div>  
         </div>
     </div>
+<script src="../javascripts/sidepanel.js"></script>
 <script src="../javascripts/profile.js"></script>
 <script>
     $(document).ready(function(){

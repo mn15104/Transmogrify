@@ -294,7 +294,6 @@ h1.profile_title{
   border-radius: 100%;
   background: #C68587;
   border: 6px solid #B3C9CB;
-  background-image: url('https://cdn2.digitalartsonline.co.uk/cmsdata/slideshow/3513552/polybreno_1500.jpg');
   background-size: 100%;
   background-position: 25% 25%;
   transition: border 0.5s linear;
@@ -436,7 +435,6 @@ h2.profile_gallery-title{
   font-weight: 400;
   letter-spacing: 0.5px;
   line-height: 1;
-
   margin-bottom: 20px;
 }
 

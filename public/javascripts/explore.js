@@ -14,12 +14,11 @@ function init(){
     })
     
     $('.brick .brick_profile_img').click(function(){
+        brick_user_id = $($(this).closest('.brick')).data('user-id');
         $('.explore_wrapper').animate(
             { "margin-left": "-100vw" },
             { queue: false, duration: 2000, complete:function(){
-                $.getScript("sidepanel.js",function(){
-                    transitionToProfilePage();
-                })
+                 viewProfile(brick_user_id);
             } });
     })
     $('.explore_title').css('opacity', 0)
@@ -211,6 +210,12 @@ function retrieveProfileImage(req_user_id){
           
         }
     });
+}
+
+var viewProfile = function (user_id){
+    // $.getScript("sidepanel.js",function(){
+        loadOtherProfilePage(user_id);
+    // });
 }
 
 function generateBrick(){

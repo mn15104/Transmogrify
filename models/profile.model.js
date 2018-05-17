@@ -71,7 +71,51 @@ Profile.loadMyProfile = function(req, res, load){
         }else res.sendStatus(400);
     });
 };
+Profile.loadOtherProfile = function(req, res, load){
+    var other_user_id = req.body.user_id;
+    db.get("SELECT * FROM 'USER_PROFILE' WHERE user_id='"+  user_id  + "'", function(err, row){
+        if (err) throw err;
+        if (!IS_NULL(row)){
+            var occupation = row.occupation;
+            var description = row.description;
+            var profile_picture = row.profile_picture;
+            db.get("SELECT firstname, surname FROM USER_LOGIN WHERE user_id='"+  user_id  + "'", function(err, row){
+                if (err) throw err;
+                if (!IS_NULL(row)){
+                    console.log(row);
+                    var firstname = row.firstname;
+                    var surname = row.surname;
 
+                    var profdata = {                        
+                        firstname: firstname,
+                        surname: surname,
+                        occupation:occupation,
+                        description:description,
+                        profile_picture:profile_picture
+                    }
+                    if(load){
+                        res.render('profile.ejs', 
+                        {   'firstname': firstname,
+                            'surname': surname,
+                            'occupation':occupation,
+                            'description':description,
+                            'profile_picture':profile_picture
+                        });
+                    }
+                    else{
+                        res.render('profile.ejs', 
+                        {   'firstname': 'firstname',
+                            'surname': 'surname',
+                            'occupation':'occupation',
+                            'description':'description',
+                            'profile_picture':'profile_picture'
+                        });
+                    }
+                }else res.sendStatus(400);
+            });
+        }else res.sendStatus(400);
+    });
+};
 Profile.loadChatHistory = function(req, res){
     var other_user_id = req.body.user_id;
     var user_id = req.session.user_id;

@@ -59,6 +59,7 @@ app.use(function(req, res, next){
 var SQL_MODEL = require('./models/sql.model'); SQL_MODEL.init();
 var create_route = require('./routes/create.route');
 var explore_route = require('./routes/explore.route');
+var myprofile_route = require('./routes/myprofile.route');
 var profile_route = require('./routes/profile.route');
 var login_route = require('./routes/login.route');
 var sidepanel_route = require('./routes/sidepanel.route');
@@ -74,13 +75,11 @@ app.use('/ej', function(req, res, next){
 app.use('/intro', function(req, res, next){
   res.sendFile(path.join(__dirname + '/public/views/intro.html'));
 });
-app.use('/profile', function(req, res, next){
-  res.sendFile(path.join(__dirname + '/public/views/profile.html'));
-});
 app.use('/webcam', webcam_route);
 app.use('/chat', chat_route);
 app.use('/sidepanel', sidepanel_route);
-app.use('/myprofile', profile_route);
+app.use('/profile', profile_route);
+app.use('/myprofile', myprofile_route);
 app.use('/create', create_route);
 app.use('/explore', explore_route);
 app.use('/login', login_route);
