@@ -67,23 +67,36 @@
                         </div>
                         <figcaption id="profile_profile-description">
                             <div class="profile_profile-public">
-                                <h3 class="profile_name" id="profile_name">'<%=firstname%>' '<%=surname%>'</h3>
+                                <h3 class="profile_name" id="profile_name"><%=firstname%> <%=surname%></h3>
                                 <h3>What I do
-                                    <div class="glyphicon glyphicon-pencil"></div>
-                                    <span id="profile_whatido"> '<%=occupation%>' </span>
+                                    <div  id="profile_occupation_pencil" class="glyphicon glyphicon-pencil"></div>
+                                    
+                                    <span id="profile_occupation">
+                                        <div id="occupation_box">
+                                            <div id="profile_occupation_text">
+                                                <%=occupation%>
+                                            </div>
+                                        </div>
+                                    </span>
                                 </h3>
                                 <h3>About Me
-                                    <div class="glyphicon glyphicon-pencil"></div>
-                                    <span id="profile_aboutme">'<%=description%>' </span>
+                                    <div  id="profile_description_pencil" class="glyphicon glyphicon-pencil"></div>
+                                    <span id="profile_aboutme">
+                                        <div id="description_box">
+                                            <div id="profile_description_text">
+                                                <%=description%>
+                                            </div>
+                                        </div>
+                                    </span>
                                 </h3>
                                 <i class="flip-profile-icon icon-flipped fa fa-share" aria-hidden="true"></i>
                             </div>
                             <div class="profile_profile-settings">
                                 <h5 class="profile_profile-settings-type">Name</h5>
-                                <h5 id="profile_settings_name" class="profile_profile-settings-value">'<%=firstname%>' '<%=surname%>'</h5>
+                                <h5 id="profile_settings_name" class="profile_profile-settings-value"><%=firstname%> <%=surname%></h5>
                                 <h5 class="profile_profile-settings-type">Email Address</h5>
-                                <h5 "profile_settings_email"  class="profile_profile-settings-value" id="profile_email">josh@crippinson</h5>
-                                <h5 class="profile_profile-settings-type">'<%=occupation%>'</h5>
+                                <h5 "profile_settings_email"  class="profile_profile-settings-value" id="profile_email"><%=email%></h5>
+                                <h5 class="profile_profile-settings-type"><%=occupation%></h5>
                                 <h5 class="profile_profile-settings-value">Likes & Listens</h5>
                                 <br>
                                 <h5 class="profile_profile-settings-edit">RESET PASSWORD</h5>

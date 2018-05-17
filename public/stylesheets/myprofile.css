@@ -199,8 +199,10 @@ h1.profile_title{
   color: rgb(201, 198, 198);
 }
 .profile_card h3.profile_name{
+  text-align:center;
   font-size:16px;
   font-weight:500;
+  margin-bottom:30px;
 }
 .profile_card h3 span {
   display: block;
@@ -288,7 +290,7 @@ h1.profile_title{
 }
 
 .profile_upload-image-container {
-  left: 50%;
+  left: 57.5%;
   top: 50%;
   -webkit-transform: translate3d(-50%, -50%, 0);
   transition: translate3d(-50%, 0%, 0);
@@ -328,6 +330,30 @@ h1.profile_title{
   background-repeat:no-repeat;
   background-position: 25% 25%;
   transition: border 0.5s linear;
+}
+
+#description_box{
+  padding-top:4px;
+  padding-bottom:4px;
+  position: relative;
+  width: 100%;
+  border-radius: 3px;
+}
+#occupation_box {
+  padding-top:4px;
+  padding-bottom:4px;
+  position: relative;
+  width: 100%;
+  border-radius: 3px;
+}
+.editable {
+  border:2px solid #7e5201;
+  box-shadow: inset 0 0 10px #555;
+}
+
+
+.box:hover .edit {
+  opacity: 1;
 }
 .profile_upload-image-avatar:after {
   content: "";
@@ -921,6 +947,11 @@ h5.profile_profile-settings-edit{
     font-size:16px;
 }
 
+.glyphicon-pencil:hover{
+  transition: all .4s;
+  cursor: pointer;
+  color: rgb(199, 107, 32);
+}
 
 .icon-flipped {
   position: absolute;

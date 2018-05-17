@@ -17,9 +17,15 @@ router.get('/', function(req, res, next) {
     console.log(req.session.user_id);
     if(IS_NULL(req.session.user_id))
     {
-        console.log("IS NULL");
-        res.sendFile(path.join(__dirname + '/../public/views/myprofile.html'));
-        req.session.current_url = '/myprofile';
+        res.render('myprofile.ejs', 
+        {   'firstname': 'firstname',
+             'surname': 'surname',
+             'email': 'email',
+             'occupation':'occupation',
+            'description':'description',
+            'profile_picture':'profile_picture'
+        });
+        req.session.current_url = '/profile';
     }
     else 
     {

@@ -41,10 +41,31 @@ var init = function(){
     $('#profile_put_file').on('change' ,function(){
         uploadProfilePicture();
     })
-    // $('.profile_upload-image-avatar').click(function(){
-    //     var player = $(this);
-    //     initAudio(player);
-    // });
+
+    $('#profile_occupation_pencil').click(function(){
+        if(!$(this).hasClass('occupation_edit')){
+            $('#occupation_box').addClass('editable');
+            $('#profile_occupation_text').attr('contenteditable', 'true');  
+            $(this).toggleClass('occupation_edit');
+        }
+        else{
+            $('#occupation_box').removeClass('editable');
+            $('#profile_occupation_text').attr('contenteditable', 'false');  
+            $(this).toggleClass('occupation_edit');
+        }
+    });
+    $('#profile_description_pencil').click(function(){
+        if(!$(this).hasClass('description_edit')){
+            $('#description_box').addClass('editable');
+            $('#profile_description_text').attr('contenteditable', 'true');  
+            $(this).toggleClass('description_edit');
+        }
+        else{
+            $('#description_box').removeClass('editable');
+            $('#profile_description_text').attr('contenteditable', 'false');  
+            $(this).toggleClass('description_edit');
+        }
+    });
 
     setInterval(updateBlur, 1000);
 }
