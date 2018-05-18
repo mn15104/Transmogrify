@@ -6,7 +6,7 @@ var formidable = require('formidable');
 var fs = require('fs');
 var dateFormat = require('dateformat');
 var ejs = require('ejs');
-
+var ChatModel = require('./chat.model');
 var Profile = function (){
 
 }
@@ -53,13 +53,12 @@ Profile.loadMyProfile = function(req, res, load){
                         res.render('myprofile.ejs', 
                         
                         {   'firstname': firstname,
-                             'surname': surname,
-                             'email': email,
-                             'occupation':occupation,
+                            'surname': surname,
+                            'email': email,
+                            'occupation':occupation,
                             'description':description,
                             'profile_picture':profile_picture
                         });
-                        // req.session.current_url = '/myprofile';
                     }
                     else{
                         var stringprofdata = JSON.stringify(profdata);
@@ -71,6 +70,8 @@ Profile.loadMyProfile = function(req, res, load){
         }else res.sendStatus(400);
     });
 };
+
+
 Profile.loadOtherProfile = function(req, res, load){
     var other_user_id = req.query.user_id;
     console.log(other_user_id);
@@ -79,43 +80,55 @@ Profile.loadOtherProfile = function(req, res, load){
         if (!IS_NULL(row)){
             var occupation = row.occupation;
             var description = row.description;
-            var profile_picture = row.profile_picture;
+            var friend_profile_picture = row.profile_picture;
+
             db.get("SELECT firstname, surname FROM USER_LOGIN WHERE user_id='"+  other_user_id  + "'", function(err, row){
                 if (err) throw err;
                 if (!IS_NULL(row)){
-                    console.log(row);
+
                     var firstname = row.firstname;
                     var surname = row.surname;
+                    db.get("SELECT profile_picture AS 'profile_picture' FROM 'USER_PROFILE' WHERE user_id='"+  req.session.user_id  + "'", function(err, row){
+                        if(err) console.log(err);
+                        var our_profile_picture = row.profile_picture;
+                        var render_profile = function(chat_messages){
+                            res.render('profile.ejs', 
+                            {   'firstname': firstname,
+                                'surname': surname,
+                                'user_id': other_user_id,
+                                'occupation':occupation,
+                                'description':description,
+                                'our_profile_picture':our_profile_picture,
+                                'friend_profile_picture':friend_profile_picture,
+                                'chat_messages': chat_messages,
+                            });
+                        }
 
-                    var profdata = {                        
-                        firstname: firstname,
-                        surname: surname,
-                        occupation:occupation,
-                        description:description,
-                        profile_picture:profile_picture
-                    }
-                    if(load){
-                        res.render('profile.ejs', 
-                        {   'firstname': firstname,
-                            'surname': surname,
-                            'occupation':occupation,
-                            'description':description,
-                            'profile_picture':profile_picture
-                        });
-                    }
-                    else{
-                        res.render('profile.ejs', 
+                        
+                        ChatModel.loadMessages(req.session.user_id, other_user_id, render_profile);
+                        
+
+                        if(!load){
+                            loadDefaultProfile(res);
+                        }
+                    });
+                }else  loadDefaultProfile(res);
+            });
+        }else  loadDefaultProfile(res);
+    });
+
+
+    var loadDefaultProfile = function(res){
+        res.render('profile.ejs', 
                         {   'firstname': 'firstname',
                             'surname': 'surname',
+                            'user_id': '-1',
                             'occupation':'occupation',
                             'description':'description',
-                            'profile_picture':'profile_picture'
+                            'profile_picture':'profile_picture',
+                            'friend_profile_picture':'friend_profile_picture'
                         });
-                    }
-                }else res.sendStatus(400);
-            });
-        }else res.sendStatus(400);
-    });
+    }
 };
 Profile.loadChatHistory = function(req, res){
     var other_user_id = req.body.user_id;

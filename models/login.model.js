@@ -81,7 +81,7 @@ insertAccount = function(req, res, user_id){
     req.body.firstname + "','" + req.body.surname + "','" + req.body.email + "','" + user_id + "','" + req.body.password + "')", function(err, row){
         if(err) throw err;
         db.get("INSERT INTO USER_PROFILE (user_id,occupation,description,profile_picture) VALUES ('" + 
-        user_id + "','" + " ... " + "','" + " ... " + "','" + "../images/profiledefault.png" + "')", function(err, row){
+        user_id + "','" + " ... " + "','" + " ... " + "','" + "../images/profile_pictures/profiledefault.png" + "')", function(err, row){
             if(err) throw err;
     
             res.status(200).send({ 

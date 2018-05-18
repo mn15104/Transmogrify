@@ -14,11 +14,12 @@ router.get('/', function(req, res, next) {
     {
         res.render('profile.ejs', 
         {   'firstname': 'firstname',
-             'surname': 'surname',
-             'email': 'email',
-             'occupation':'occupation',
+            'surname': 'surname',
+            'email': 'email',
+            'occupation':'occupation',
             'description':'description',
-            'profile_picture':'profile_picture'
+            'our_profile_picture':'profile_picture',
+            'friend_profile_picture':'profile_picture'
         });
         req.session.current_url = '/profile';
     }

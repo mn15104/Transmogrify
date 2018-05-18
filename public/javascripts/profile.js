@@ -1,8 +1,7 @@
 
 var page_init = false;
 var init_profile = function(){
-    
-    $('.profile_chatbox_container').load('../views/chatbox.html');
+    // $('.profile_chatbox_container').load('../views/chatbox.html');
     $('.profile_profile-settings').css('opacity',0);
     $('.profile_icon_container').hide();
     $('.profile_title_container').slideDown('slow');

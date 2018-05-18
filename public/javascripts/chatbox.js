@@ -1,11 +1,11 @@
 session_info = Object.create({
     ws:'',
-    user_id:'',
     user_id_accepted : false,
     friend_id_accepted : false
 })
 
 function init()
+
 {
     initChat();
 }
@@ -13,20 +13,22 @@ function init()
 function connect(){
     chat_container = $('.chat_container');
     chat_container.toggleClass('chat_container_closed'); 
-    container_user_id = chat_container.attr('data-chat-user-id');
+    profile_user_id = chat_container.attr('data-user-id');
 
-    console.log(container_user_id);
-    connectToFriend(container_user_id);
+ 
+    connectToFriend(profile_user_id);
 }
 
 function initChat()
 {
-    var url = new URL(window.location.href);
-    if(!IS_NULL(url.searchParams.get("user_id"))){
 
-        session_info.user_id = url.searchParams.get("user_id");
-        session_info.ws = new WebSocket('ws://localhost:1337');
-        
+        var url = new URL(window.location.href);
+   
+        session_info.ws = new WebSocket('ws://localhost:3000');
+        window.onbeforeunload = function() {
+            session_info.ws.onclose = function () {}; // disable onclose handler first
+            session_info.ws.close()
+        };
         // event emmited when connected
         session_info.ws.onopen = function () {
             console.log('client side acknowledge connection success');
@@ -36,27 +38,27 @@ function initChat()
         // event emmited when receiving message 
         session_info.ws.onmessage = function (ev) {
             var msg = JSON.parse(ev.data);
-            console.log("Received " + (msg));
-            if(session_info.user_id_accepted === false)
-            {
-                console.log("DEBUG 1" + msg['message']);
-                if(msg['message'] === 'user_id_accepted')
-                {   console.log("DEBUG 2");
-                    session_info.user_id_accepted = true;
-                }
-            }
-            else
+
             {   console.log("DEBUG 3");
                 if(msg['message']  === 'friend_id_accepted')
-                {   console.log("DEBUG 4");
+                {   
+                    console.log("DEBUG 4.a");
                     session_info.friend_id_accepted = true;
                 }
+                else if(msg['message']  === 'friend_req_offline')
+                {
+                    console.log("DEBUG 4.b");
+                    session_info.friend_id_offline = true;
+                }
                 else if(msg['message']  === 'friend_disconnected')
-                {   console.log("DEBUG 5");
+                {   
+                    console.log("DEBUG 5");
                     session_info.friend_id_accepted = false;
                 }
-                else if(session_info.friend_id_accepted && msg['message']  === 'friend_message_rec')
-                {   console.log("DEBUG 6");
+                else if(   (session_info.friend_id_accepted && msg['message']  === 'friend_message_rec')
+                        || (session_info.friend_id_offline && msg['message']  === 'friend_message_rec'))
+                {   
+                    console.log("DEBUG 6");
                     console.log(msg['chat_message']);
                     appendReceivedMessage(msg['chat_message']);
                 }
@@ -66,13 +68,11 @@ function initChat()
         session_info.ws.onclose = function () {
             console.log('websocket has closed ...');
         }
-    }
-    else{
-        console.log("No user id found in url");
-    }
-    $('.myButton').button().click(function(){
-        sendMessage("[USER MESSAGE] >> " + $(this).siblings('.chat_input').val());
-        appendSentMessage("[USER MESSAGE] >> " + $(this).siblings('.chat_input').val());
+    
+
+    $('#send_message').button().click(function(){
+        sendMessage($(this).siblings('.chat_input').eq(0).val());
+        appendSentMessage($(this).siblings('.chat_input').val());
     })
 }
 function appendSentMessage(chat_message){
@@ -101,8 +101,7 @@ function appendReceivedMessage(chat_message){
 function sendUserId()
 {
     try{
-        session_info.ws.send(JSON.stringify({message:'user_id', 
-                                data: { user_id:user_id }}));
+        session_info.ws.send(JSON.stringify({message:'user_id'}));
     }catch{
         console.log("You are not logged in/user_id not found");
     }
@@ -113,18 +112,26 @@ function connectToFriend(friend_id)
 {
     try{
         session_info.ws.send(JSON.stringify({message:'friend_id_req', 
-                                data: { friend_id:friend_id, user_id:user_id }}));
+                                data: { friend_id:friend_id}}));
     }catch{
         console.log("You are not logged in/user_id not found");
     }
 }
 function sendMessage(msg)
 {
-    try{
-        session_info.ws.send(JSON.stringify({message:'friend_message_send', 
-                                data: {user_id:user_id,
-                                    chat_message:msg}}));
-    }catch{
-        console.log("You are not logged in/user_id not found");
+    if(!IS_NULL(msg)){
+        console.log("sendingmessage");
+        try{
+            session_info.ws.send(JSON.stringify({message:'friend_message_send', 
+                                    data: {chat_message:msg}}));
+        }catch{
+            console.log("You are not logged in/user_id not found");
+        }
     }
+}
+
+
+
+function IS_NULL(x){
+    return (x === undefined || x === null || x === NaN); //util.isNullOrUndefined(x) || isNaN(x))
 }

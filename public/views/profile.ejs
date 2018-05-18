@@ -25,11 +25,11 @@
 </head>
 <body class = "profile_body">
     <div class = "profile_page_container">
-        <div id="profile_title_container"><h1 class="profile_title"><%=firstname%>'s Profile </h1></div>
+        <div id="profile_title_container"><h1 class="profile_title"><%=firstname%>'s Profile</h1></div>
 
         <section class="profile_container">
             <div class = "profile_card_wrapper">
-                <figure class="profile_card" id="profile_card" >
+                <figure class="profile_card" id="profile_card"  data-user-id = '<%=user_id%>'>
                     <div class="ACon profile_profile">
                     
                         <div class="profile_img" id = "profile_image1">
@@ -39,7 +39,7 @@
                                 <div class="profile_upload-image-container 
                                             profile_upload-image-clearfix">
                                     <div class="profile_upload-image-avatar"
-                                         style="background-image:url('<%=profile_picture%>');">
+                                         style="background-image:url('<%=friend_profile_picture%>');">
                                   
                                           
                                     </div>
@@ -76,7 +76,7 @@
                 <img id = "profile_webcam-icon" src="../images/widgets/webcam.png" class="segment" >
             </div>
             <div class="profile_chatbox_container">
-
+                <%- include chatbox.ejs %>
             </div>
         </div>
 

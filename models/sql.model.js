@@ -47,8 +47,8 @@ SQL_MODEL.init = function(){
 
     db.run(`CREATE TABLE IF NOT EXISTS FRIENDLIST           (   user_idA INT (100), 
                                                                 user_idB INT (100),
-                                                                chat_id  INT (100),
-                                                                UNIQUE(user_idA, user_idB, chat_id))`, (err) => {
+                                                                chat_id INT AUTO_INCREMENT NOT NULL,
+                                                                PRIMARY KEY (user_idA, user_idB, chat_id))`, (err) => {
         if (err) {
             console.error(err.message);
         }
@@ -61,8 +61,9 @@ SQL_MODEL.init = function(){
                                                                 message         VARCHAR(255),
                                                                 time            datetime, 
                                                                 user_send       INT(100),
-                                                                user_receive    INT(100), 
-                                                                UNIQUE(user_send, user_receive))`, (err) => {
+                                                                user_receive    INT(100),
+                                                                session_id      INT AUTO_INCREMENT NOT NULL,
+                                                                PRIMARY KEY(session_id))`, (err) => {
         if (err) {
             console.error(err.message);
         }

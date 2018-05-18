@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1" >
+    <title>Listen To This Image</title>
+    <script src="../javascripts/jstools/jquery-3.2.1.min.js"></script>
+    <script src="../javascripts/jstools/jquery-ui.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.0/socket.io.js"></script>
+    <script src="https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.js"></script>
+    <!-- Header script to reload js on embedded pages -->
+    <script language="text/javascript">
+        function load_js()
+        {
+           var head= document.getElementsByTagName('head')[0];
+           var script= document.createElement('script');
+           script.type= 'text/javascript';
+           script.src= '../javascripts/chatbox.js';
+           head.appendChild(script);
+        }
+        load_js();
+    </script>
+    <link rel="stylesheet" href="../stylesheets/tools/jquery-ui.min.css">
+    <link rel="stylesheet" href="../stylesheets/chatbox.css">
+</head>
+<body >
+
+<section class="chat_container chat_container_closed" data-user-id='<%=user_id%>' style='float:right'>
+    <header class="chat_top-bar">
+        <div class="chat_left">
+            <span class="chat_icon chat_typicons-message">
+            </span>
+        </div>
+        <div class="chat_right">
+            <span class="chat_icon chat_typicons-minus"></span>
+            <span class="chat_icon chat_typicons-times"></span>
+        </div>
+    </header>
+    <ol class="chat_discussion">
+        <% for(var i = 0; i < chat_messages.length; i++){ %>
+            <%if (chat_messages[i].user_send === user_id) { %>
+                <li class="chat_other">
+                    <div class="chat_avatar">
+                        <img src='<%=our_profile_picture%>'/>
+                    </div>
+                    <div class="chat_messages">
+                        <p><%= chat_messages[i].message %></p>
+                        <time datetime="<%= chat_messages[i].time %>"><%= chat_messages[i].time %></time>      
+                    </div>
+                </li>
+            <% } else { %>
+                <li class="chat_self">      
+                        <div class="chat_avatar">        
+                            <img src='<%=friend_profile_picture%>' />      
+                        </div>      
+                        <div class="chat_messages">        
+                            <p><%= chat_messages[i].message %></p>        
+                            <time datetime="<%= chat_messages[i].time %>"><%= chat_messages[i].time %></time>      
+                        </div>    
+                </li>
+            <% } %>
+        <% } %> 
+
+    </ol>  
+    <div class="chat_input_wrapper">
+        
+        <fieldset class="chat_fieldset">
+            <input class="chat_input" type="text" placeholder="Type your message…" autofocus>
+            <input class="chat_input_hidden" type="hidden">
+            <button type=button id = "send_message" class = "myButton">send</button>
+        </fieldset>
+    </div>
+</section>
+
+<script src="../javascripts/chatbox.js"></script>
+<script>
+$(function () {
+    init();
+});
+</script>
+</body>
