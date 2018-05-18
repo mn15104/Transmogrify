@@ -121,10 +121,11 @@ app.ws('/', function(ws, req) {
                   friend_id   = clients[req.session.user_id]['user_data']['friend_id'];
                   // Send online message
                   if(!IS_NULL(clients[friend_id])){
-                      friend_con  = clients[friend_id]['user_data']['con'];
+                      friend_con = clients[friend_id]['user_data']['con'];
                       sendMessage(friend_con, JSON.stringify({message:'friend_message_rec', 
                           chat_message: msgObj.data['chat_message']})
                       );
+                      ChatModel.insertMessage(req.session.user_id, friend_id, msgObj.data['chat_message']);
                   }
                   // Leave offline message
                   else{
