@@ -93,9 +93,11 @@ body {
     background-color: transparent;
     opacity: 1.0;
     border: solid;
-    margin-right: 8%;
+    margin-right: 4%;
+    padding-right: 0px;
+    padding-left: 0px;
     /* z-index: 10; */
-
+    font-size: 14px;
     background-color: var(--clrBox);
     color: var(--clrOut);
     border: solid;
@@ -111,40 +113,42 @@ body {
 }
 
 .audio-container {
+    text-align: left;
 }
-
-/*TEMP*/
-/* {
-  "name": "myexpressapp",
-  "version": "0.0.0",
-  "private": true,
-  "scripts": {
-    "start": "node ./server/server.js"
-  },
-  "dependencies": {
-	"webaudiofont":"^2.5.0",
-    "body-parser": "~1.17.1",
-    "cookie-parser": "~1.4.3",
-    "dateformat": "^3.0.3",
-    "debug": "~2.6.3",
-    "express": "~4.15.2",
-    "express-session": "^1.15.6",
-    "formidable": "^1.1.1",
-    "jade": "~1.11.0",
-    "morgan": "~1.8.1",
-    "mysql": "^2.15.0",
-    "serve-favicon": "~2.4.2",
-    "sqlite3": "^3.1.13"
-  }
-} */
 
 
 .retry-btn {
     display: inline-block;
     position: relative;
-    margin-left: 8%;
+    margin-right: 4%;
     bottom: 0%;
     width: 30%;
+    transform: translateY(50%);
+    text-align: center;
+    background-color: transparent;
+    opacity: 1.0;
+    border: solid;
+    /* z-index: 10; */
+    font-size: 14px;
+    background-color: var(--clrBox);
+    color: var(--clrOut);
+    border: solid;
+    border-color: var(--clrOut);
+}
+
+.retry-btn:hover {
+    transition: 1s;
+    /* background-color: var(--clrBox); */
+    color: var(--clrTitle);
+    border: solid;
+    border-color: var(--clrTitle);
+}
+.audiostop-btn {
+    display: inline-block;
+    position: relative;
+    bottom: 0%;
+    width: 30%;
+    font-size: 14px;
     transform: translateY(50%);
     text-align: center;
     background-color: transparent;
@@ -158,7 +162,7 @@ body {
     border-color: var(--clrOut);
 }
 
-.retry-btn:hover {
+.audiostop-btn:hover {
     transition: 1s;
     /* background-color: var(--clrBox); */
     color: var(--clrTitle);
