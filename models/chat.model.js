@@ -18,33 +18,46 @@ let db = new sqlite3.Database('./Dev.db', sqlite3.OPEN_CREATE | sqlite3.OPEN_REA
 // **************************************************************************************************** //
 
 Chat.insertMessage = function(user_id, friend_id, chat_message){
+    date = createDate();
     db.get("SELECT chat_id AS chat_id FROM FRIENDLIST WHERE (user_idA='"+user_id+"' and user_idB='" + friend_id + "') or (user_idA='"+friend_id+"' and user_idB='" + user_id + "') ", function(err, row){
         if(IS_NULL(row)){
-            db.get("SELECT MAX(chat_id) AS chat_id FROM FRIENDLIST", function(err, row){
-                if(IS_NULL(row.chat_id)){
-                    next_chatid = 0;
-                    db.get("INSERT INTO FRIENDLIST (user_idA, user_idB, chat_id) values ('" + user_id + "','" + friend_id + "','" + next_chatid  + "')", function(err, row){
-                        console.log(row);
-                        console.log(err);
-        
-                    });
-                }
-                else{
-                    next_chatid = row.chat_id + 1;
-                    db.get("INSERT INTO FRIENDLIST (user_idA, user_idB, chat_id) values ('" + user_id + "','" + friend_id + "','" + next_chatid  + "')", function(err, row){
-                        console.log(row);
-                        console.log(err);
-        
-                    });
-                }
-            })
+            insertChatID(user_id, friend_id, safeInsertMessage)
         }else{
             chat_id = row.chat_id;
+            safeInsertMessage(chat_id, date);
         }
     } )
-    // db.get("INSERT INTO 'CHATMESSAGE' ('" + user_id + "','" + friend_id + "','" + chat_message + "')", function(err, row){
-
-    // });
+    var safeInsertMessage = function(chat_id, date){
+         db.get("INSERT INTO CHATMESSAGE (chat_id, user_send, user_receive, message, time) values ('" + chat_id + "','" + user_id + "','" + friend_id + "','" + chat_message +  "','" + date + "')", function(err, row){
+            if(err) console.log(err);
+        })
+    };
 };
+
+Chat.insertChatID = function(user_id, friend_id, callback){
+    date = createDate();
+    db.get("SELECT MAX(chat_id) AS chat_id FROM FRIENDLIST", function(err, row){
+        if(IS_NULL(row.chat_id)){
+            next_chatid = 0;
+            db.get("INSERT INTO FRIENDLIST (user_idA, user_idB, chat_id) values ('" + user_id + "','" + friend_id + "','" + next_chatid + "')", function(err, row){
+                if(err) throw err;
+                if(callback) callback(next_chatid, date);
+            });
+        }
+        else{
+            next_chatid = row.chat_id + 1;
+            db.get("INSERT INTO FRIENDLIST (user_idA, user_idB, chat_id) values ('" + user_id + "','" + friend_id + "','" + next_chatid  + "')", function(err, row){
+                if(err) throw err;
+                if(callback) callback(next_chatid, date);
+            });
+        }
+    })
+}
+
+Chat.createDate = function(){
+    now = new Date(); 
+    var date = dateFormat(now, "yyyy-mm-dd'T'HH:MM:ss");
+    return date;
+}
 
 module.exports = Chat;

@@ -71,8 +71,8 @@ function initChat()
     
 
     $('#send_message').button().click(function(){
-        sendMessage("[USER MESSAGE] >> " + $(this).siblings('.chat_input').eq(0).val());
-        appendSentMessage("[USER MESSAGE] >> " + $(this).siblings('.chat_input').val());
+        sendMessage($(this).siblings('.chat_input').eq(0).val());
+        appendSentMessage($(this).siblings('.chat_input').val());
     })
 }
 function appendSentMessage(chat_message){
