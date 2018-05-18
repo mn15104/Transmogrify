@@ -12,12 +12,28 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/uploadaudio', function(req, res, next) {
-  Create.uploadAudio(req, res);
+  if(!IS_NULL(req.session.user_id))
+  {
+      Create.uploadAudio(req, res);
+  }
+  else{
+      res.status(400);
+      res.send('You Need To Be Logged In To Save Your Creations!');
+  }  
 });
 
 router.post('/uploadimage', function(req, res, next) {
-  Create.uploadImage(req, res);
+  if(!IS_NULL(req.session.user_id))
+  {
+      Create.uploadImage(req, res);
+  }
+  else{
+      res.status(400);
+      res.send('You Need To Be Logged In To Save Your Creations!');
+  }  
 });
 
-
+function IS_NULL(x){
+  return (x === undefined || x === null || x === NaN); //util.isNullOrUndefined(x) || isNaN(x))
+}
 module.exports = router;

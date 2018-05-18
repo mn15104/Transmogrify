@@ -24,7 +24,6 @@ let db = new sqlite3.Database('./Dev.db', sqlite3.OPEN_CREATE | sqlite3.OPEN_REA
 // **************************************************************************************************** //
 
 Explore.loadAudioFileByID = function(req, res){
-    if(!IS_NULL(req.session)){
         var file_id = req.body.file_id;
         db.get("SELECT * FROM AUDIO_UPLOADS WHERE file_id='"+  file_id  + "'", function(err, row){
             if (err) throw err;
@@ -44,15 +43,12 @@ Explore.loadAudioFileByID = function(req, res){
                 res.send('None shall pass');
             }
         });
-    }
-    else{
-        res.status(400);
-        res.send('You Need To Be Logged In To Save Your Creations!');
-    }
+    
+  
 };
 
 Explore.loadImageFileByID = function(req, res){
-    if(!IS_NULL(req.session)){
+   
         var file_id = req.body.file_id;
         db.get("SELECT * FROM IMAGE_UPLOADS WHERE file_id='"+  file_id  + "'", function(err, row){
             if (err) throw err;
@@ -65,11 +61,6 @@ Explore.loadImageFileByID = function(req, res){
                 res.send('None shall pass');
             }
         });
-    }
-    else{
-        res.status(400);
-        res.send('You Need To Be Logged In To Save Your Creations!');
-    }
 };
 
 
