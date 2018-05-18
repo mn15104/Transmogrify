@@ -83,11 +83,69 @@ body {
 
 
 .download-btn {
-    display: block;
+    display: inline-block;
+    /* display: block; */
     position: relative;
-    left: 50%;
     bottom: 0%;
-    transform: translate(-50%, 50%);
+    width: 30%;
+    transform: translateY(50%);
+    text-align: center;
+    background-color: transparent;
+    opacity: 1.0;
+    border: solid;
+    margin-right: 8%;
+    /* z-index: 10; */
+
+    background-color: var(--clrBox);
+    color: var(--clrOut);
+    border: solid;
+    border-color: var(--clrOut);
+}
+
+.download-btn:hover {
+    transition: 1s;
+    /* background-color: var(--clrBox); */
+    color: var(--clrTitle);
+    border: solid;
+    border-color: var(--clrTitle);
+}
+
+.audio-container {
+}
+
+/*TEMP*/
+/* {
+  "name": "myexpressapp",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./server/server.js"
+  },
+  "dependencies": {
+	"webaudiofont":"^2.5.0",
+    "body-parser": "~1.17.1",
+    "cookie-parser": "~1.4.3",
+    "dateformat": "^3.0.3",
+    "debug": "~2.6.3",
+    "express": "~4.15.2",
+    "express-session": "^1.15.6",
+    "formidable": "^1.1.1",
+    "jade": "~1.11.0",
+    "morgan": "~1.8.1",
+    "mysql": "^2.15.0",
+    "serve-favicon": "~2.4.2",
+    "sqlite3": "^3.1.13"
+  }
+} */
+
+
+.retry-btn {
+    display: inline-block;
+    position: relative;
+    margin-left: 8%;
+    bottom: 0%;
+    width: 30%;
+    transform: translateY(50%);
     text-align: center;
     background-color: transparent;
     opacity: 1.0;
@@ -100,8 +158,8 @@ body {
     border-color: var(--clrOut);
 }
 
-.download-btn:hover {
-    /* transition: 0.1s; */
+.retry-btn:hover {
+    transition: 1s;
     /* background-color: var(--clrBox); */
     color: var(--clrTitle);
     border: solid;
@@ -370,7 +428,7 @@ p.image_title{
     margin-right: auto;
     left: 0;
     right: 0;
-    top: 50%;
+    top: 40%;
     padding: auto;
 
     font: 14px 'Open Sans', sans-serif;
