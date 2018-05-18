@@ -511,12 +511,51 @@ var bpm = 10;
 var musicVariables = new Array(10);
 
 
-$( ".download-btn" ).one( "click", function() {
+$( ".download-btn" ).on( "click", function() {
 
-    for (var i = 0; i < 10; i++) {
-        console.log("SAVING VARIABLE " + i + " as " + musicVariables[i]);
+    // image uploaded
+    var formData = new FormData();
+
+
+    formData.append("file",$('#upload-input')[0].files[0]);
+    formData.append("upload_file",true);
+
+
+    $.ajax({
+        type: "POST",
+        url: "/create/uploadimage",
+        data : formData,
+        processData: false,  // tell jQuery not to process the data
+        contentType: false,  // tell jQuery not to set contentType
+        success : function(data) {
+            console.log("success");
+        },
+        error: function(err){
+            console.log("error");
+        }
+    });
+    // audio vars
+    music_vars =
+    {
+        'primaryDetected' : musicVariables[0],
+        'colourDetected' : musicVariables[1],
+        'decision1' : musicVariables[2],
+        'decision2' : musicVariables[3],
+        'decision3' : musicVariables[4],
+        'decision4' : musicVariables[5],
+        'yClrSym' : musicVariables[6],
+        'yFineSym' : musicVariables[7],
+        'xClrSym' : musicVariables[8],
+        'xFineSym' : musicVariables[9]
     }
-
+    $.ajax({
+        url: '/create/uploadaudio',
+        type: 'POST',
+        data: music_vars,
+        success: function(data){
+            console.log('message sent\n' + data);
+        }
+    });
 });
 
 $( ".retry-btn" ).one( "click", function() {
@@ -611,6 +650,7 @@ function audioTester(primaryDetected, colourDetected, decision1, decision2, deci
     console.log("symmetry3 = ", xClrSym);
     console.log("symmetry4 = ", xFineSym);
 
+// <<<<<<< HEAD
         motif = motifGenerator(mood, 1, 0, decVars, symVars);
         bass = bassGenerator(mood, 1, 0, decVars, symVars, motif);
         var chord = new Array(8);
@@ -619,10 +659,15 @@ function audioTester(primaryDetected, colourDetected, decision1, decision2, deci
         }
         motifVar = motifVariator(motif, chord);
         highAcc = highAccompaniment(motif, chord);
+// =======
+//     motif = motifGenerator(mood, 1, 0, decVars, symVars);
+//     bass = bassGenerator(mood, 1, 0, decVars, symVars, motif);
+// >>>>>>> e6ee9463e82753bab672051468a8f0c3da54b984
 
 
 
 
+// <<<<<<< HEAD
         // textPlayer(motif);
         // console.log("Notes[i][0]: " + motif[0][0] + ", " + motif[1][0] + ", " + motif[2][0] + ", " + motif[3][0] + ", " + motif[4][0] + ", " + motif[5][0] + ", " + motif[6][0] + ", " + motif[7][0]);
         // console.log("Rhyth[i][1]: " + motif[0][1] + ", " + motif[1][1] + ", " + motif[2][1] + ", " + motif[3][1] + ", " + motif[4][1] + ", " + motif[5][1] + ", " + motif[6][1] + ", " + motif[7][1]);
@@ -666,6 +711,37 @@ function audioTester(primaryDetected, colourDetected, decision1, decision2, deci
         }
 
         $( ".download-btn" ).show();
+// =======
+//     // textPlayer(motif);
+//     // console.log("Notes[i][0]: " + motif[0][0] + ", " + motif[1][0] + ", " + motif[2][0] + ", " + motif[3][0] + ", " + motif[4][0] + ", " + motif[5][0] + ", " + motif[6][0] + ", " + motif[7][0]);
+//     // console.log("Rhyth[i][1]: " + motif[0][1] + ", " + motif[1][1] + ", " + motif[2][1] + ", " + motif[3][1] + ", " + motif[4][1] + ", " + motif[5][1] + ", " + motif[6][1] + ", " + motif[7][1]);
+//     // console.log("Length[i][2]: " + motif[0][2] + ", " + motif[1][2] + ", " + motif[2][2] + ", " + motif[3][2] + ", " + motif[4][2] + ", " + motif[5][2] + ", " + motif[6][2] + ", " + motif[7][2]);
+//
+//     for (var i = 0; i < 8; i++) {
+//         var repTime = i * (rhythm(2,4) + dur(1));
+//         player.queueWaveTable(audioContext, audioContext.destination, melInst[0], repTime + motif[0][0], motif[0][1]+12*4+musicKey, motif[0][2]);
+//         player.queueWaveTable(audioContext, audioContext.destination, melInst[0], repTime + motif[1][0], motif[1][1]+12*4+musicKey, motif[1][2]);
+//         player.queueWaveTable(audioContext, audioContext.destination, melInst[0], repTime + motif[2][0], motif[2][1]+12*4+musicKey, motif[2][2]);
+//         player.queueWaveTable(audioContext, audioContext.destination, melInst[0], repTime + motif[3][0], motif[3][1]+12*4+musicKey, motif[3][2]);
+//         player.queueWaveTable(audioContext, audioContext.destination, melInst[0], repTime + motif[4][0], motif[4][1]+12*4+musicKey, motif[4][2]);
+//         player.queueWaveTable(audioContext, audioContext.destination, melInst[0], repTime + motif[5][0], motif[5][1]+12*4+musicKey, motif[5][2]);
+//         player.queueWaveTable(audioContext, audioContext.destination, melInst[0], repTime + motif[6][0], motif[6][1]+12*4+musicKey, motif[6][2]);
+//         player.queueWaveTable(audioContext, audioContext.destination, melInst[0], repTime + motif[7][0], motif[7][1]+12*4+musicKey, motif[7][2]);
+//         player.queueWaveTable(audioContext, audioContext.destination, melInst[0], repTime + motif[8][0], motif[8][1]+12*4+musicKey, motif[8][2]);
+//         player.queueWaveTable(audioContext, audioContext.destination, melInst[0], repTime + motif[9][0], motif[9][1]+12*4+musicKey, motif[9][2]);
+//         player.queueWaveTable(audioContext, audioContext.destination, melInst[0], repTime + motif[10][0], motif[10][1]+12*4+musicKey, motif[10][2]);
+//         player.queueWaveTable(audioContext, audioContext.destination, melInst[0], repTime + motif[11][0], motif[11][1]+12*4+musicKey, motif[11][2]);
+//         player.queueWaveTable(audioContext, audioContext.destination, melInst[0], repTime + motif[12][0], motif[12][1]+12*4+musicKey, motif[12][2]);
+//
+//
+//     }
+//     for (var i = 0; i < 40; i++)  {
+//         console.log("bass[" + i + "][1] = " + bass[i][1]);
+//         player.queueWaveTable(audioContext, audioContext.destination, melInst[0], bass[i][0], bass[i][1]+12*3+musicKey, bass[i][2]);
+//
+//     }
+//     $( ".download-btn" ).show();
+// >>>>>>> e6ee9463e82753bab672051468a8f0c3da54b984
 
 }
 

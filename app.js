@@ -29,6 +29,7 @@ var debug = require('debug')('testapp:server');
 var http = require('http');
 var port = normalizePort(process.env.PORT || '3000');
 var ChatModel = require('./models/chat.model');
+
 app.set('views', path.join(__dirname, 'public/views/'));
 app.set('view engine', 'ejs');
 app.use(session({
@@ -41,7 +42,7 @@ app.use(session({
   secure: true,
   ephemeral: true,
   saveUninitialized: false,
-  resave: false
+  resave: true
 }));
 app.use(logger('dev'));
 app.use(bodyParser.json());
@@ -121,10 +122,11 @@ app.ws('/', function(ws, req) {
                   friend_id   = clients[req.session.user_id]['user_data']['friend_id'];
                   // Send online message
                   if(!IS_NULL(clients[friend_id])){
-                      friend_con  = clients[friend_id]['user_data']['con'];
+                      friend_con = clients[friend_id]['user_data']['con'];
                       sendMessage(friend_con, JSON.stringify({message:'friend_message_rec', 
                           chat_message: msgObj.data['chat_message']})
                       );
+                      ChatModel.insertMessage(req.session.user_id, friend_id, msgObj.data['chat_message']);
                   }
                   // Leave offline message
                   else{
@@ -132,7 +134,6 @@ app.ws('/', function(ws, req) {
                       ChatModel.insertMessage(req.session.user_id, friend_id, msgObj.data['chat_message']);
                   }
               }
-          
       }
   });
 

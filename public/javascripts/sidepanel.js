@@ -155,6 +155,9 @@ var initNavLinks = function(){
   $('#chat_link').click(function(){
     connectWS_debug_link();
   })
+  $('.friend_tab_name').click(function(){
+    loadOtherProfilePage($(this).attr('data-friend-id'));
+  })
 }
 
 var siteW = $(window).width();

@@ -11,18 +11,13 @@ router.get('/', function(req, res, next) {
   res.sendFile(path.join(__dirname + '/../public/views/create.html'));
 });
 
-router.get('/drag', function(req, res, next) {
-  res.sendFile(path.join(__dirname + '/../public/views/drag.html'));
+router.post('/uploadaudio', function(req, res, next) {
+  Create.uploadAudio(req, res);
 });
 
-router.post('/drag/uploadAudio', function(req, res, next) {
-  Create.uploadAudio(req, res, next);
+router.post('/uploadimage', function(req, res, next) {
+  Create.uploadImage(req, res);
 });
-
-router.post('/drag/uploadImage', function(req, res, next) {
-  Create.uploadImage(req, res, next);
-});
-
 
 
 module.exports = router;
