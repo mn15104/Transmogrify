@@ -521,9 +521,14 @@ $( ".download-btn" ).one( "click", function() {
 
 $( ".retry-btn" ).one( "click", function() {
 
+    stopAudio();
+
     //MIN REFRESH PLS
 
 });
+
+
+var player=new WebAudioFontPlayer();
 
 function audioTester(primaryDetected, colourDetected, decision1, decision2, decision3, decision4, yClrSym, yFineSym, xClrSym, xFineSym){
     //Demo
@@ -548,24 +553,32 @@ function audioTester(primaryDetected, colourDetected, decision1, decision2, deci
 
 
 
-
-
     var AudioContextFunc = window.AudioContext || window.webkitAudioContext;
     var audioContext = new AudioContextFunc();
-    var player=new WebAudioFontPlayer();
+
+
 
     bpm = 80;//(60 + (primaryDetected*5) + (colourDetected * 4) );
 
-    player.loader.decodeAfterLoading(audioContext, '_tone_0000_SBLive_sf2');
+    player.loader.decodeAfterLoading(audioContext, '_tone_0490_SBLive_sf2');
     player.loader.decodeAfterLoading(audioContext, '_tone_0040_SBLive_sf2');
+    player.loader.decodeAfterLoading(audioContext, '_tone_0000_SBLive_sf2');
     player.loader.decodeAfterLoading(audioContext, '_tone_040_SBLive_sf2');
     player.loader.decodeAfterLoading(audioContext, '_tone_0001_FluidR3_GM_sf2_file');
+
     player.loader.decodeAfterLoading(audioContext, '_drum_60_0_SBLive_sf2');
     player.loader.decodeAfterLoading(audioContext, '_drum_61_0_SBLive_sf2');
     player.loader.decodeAfterLoading(audioContext, '_drum_62_0_SBLive_sf2');
 
-    var melInst = [_tone_0000_SBLive_sf2, _tone_0001_FluidR3_GM_sf2_file, _tone_0000_SBLive_sf2, _tone_0040_SBLive_sf2, _tone_0030_SBLive_sf2]; //Melody Instrument
+    // player.loader.decodeAfterLoading(audioContext, '_tone_0490_SBLive_sf2');
+
+    player.loader.waitLoad(function(){
+        console.log('Instruments Ready');
+    });
+
+    var melInst = [_tone_0000_SBLive_sf2, _tone_0001_FluidR3_GM_sf2_file, _tone_0000_SBLive_sf2, _tone_0040_SBLive_sf2]; //Melody Instrument
     var drmInst = [_drum_60_0_SBLive_sf2, _drum_61_0_SBLive_sf2, _drum_62_0_SBLive_sf2]; //Drum Instrument
+    var higInst = [_tone_0490_SBLive_sf2, _tone_0000_SBLive_sf2]; //High Accompaniment
 
     var insNo = primaryDetected - 1;
     if (insNo < 0 || insNo > 2) insNo = 0;
@@ -600,6 +613,12 @@ function audioTester(primaryDetected, colourDetected, decision1, decision2, deci
 
         motif = motifGenerator(mood, 1, 0, decVars, symVars);
         bass = bassGenerator(mood, 1, 0, decVars, symVars, motif);
+        var chord = new Array(8);
+        for (var c = 0; c < 8; c++) {
+            chord[c] = bass[c][3];
+        }
+        motifVar = motifVariator(motif, chord);
+        highAcc = highAccompaniment(motif, chord);
 
 
 
@@ -608,102 +627,56 @@ function audioTester(primaryDetected, colourDetected, decision1, decision2, deci
         // console.log("Notes[i][0]: " + motif[0][0] + ", " + motif[1][0] + ", " + motif[2][0] + ", " + motif[3][0] + ", " + motif[4][0] + ", " + motif[5][0] + ", " + motif[6][0] + ", " + motif[7][0]);
         // console.log("Rhyth[i][1]: " + motif[0][1] + ", " + motif[1][1] + ", " + motif[2][1] + ", " + motif[3][1] + ", " + motif[4][1] + ", " + motif[5][1] + ", " + motif[6][1] + ", " + motif[7][1]);
         // console.log("Length[i][2]: " + motif[0][2] + ", " + motif[1][2] + ", " + motif[2][2] + ", " + motif[3][2] + ", " + motif[4][2] + ", " + motif[5][2] + ", " + motif[6][2] + ", " + motif[7][2]);
+        for (var r = 0; r < 1; r++) {
+            var repTime = r * (rhythm(16,4) + dur(1));
+            for (var i = 0; i < 640; i++) {
 
-        for (var i = 0; i < 8; i++) {
-            var repTime = i * (rhythm(2,4) + dur(1));
-            player.queueWaveTable(audioContext, audioContext.destination, melInst[0], repTime + motif[0][0], motif[0][1]+12*4+musicKey, motif[0][2]);
-            player.queueWaveTable(audioContext, audioContext.destination, melInst[0], repTime + motif[1][0], motif[1][1]+12*4+musicKey, motif[1][2]);
-            player.queueWaveTable(audioContext, audioContext.destination, melInst[0], repTime + motif[2][0], motif[2][1]+12*4+musicKey, motif[2][2]);
-            player.queueWaveTable(audioContext, audioContext.destination, melInst[0], repTime + motif[3][0], motif[3][1]+12*4+musicKey, motif[3][2]);
-            player.queueWaveTable(audioContext, audioContext.destination, melInst[0], repTime + motif[4][0], motif[4][1]+12*4+musicKey, motif[4][2]);
-            player.queueWaveTable(audioContext, audioContext.destination, melInst[0], repTime + motif[5][0], motif[5][1]+12*4+musicKey, motif[5][2]);
-            player.queueWaveTable(audioContext, audioContext.destination, melInst[0], repTime + motif[6][0], motif[6][1]+12*4+musicKey, motif[6][2]);
-            player.queueWaveTable(audioContext, audioContext.destination, melInst[0], repTime + motif[7][0], motif[7][1]+12*4+musicKey, motif[7][2]);
-            player.queueWaveTable(audioContext, audioContext.destination, melInst[0], repTime + motif[8][0], motif[8][1]+12*4+musicKey, motif[8][2]);
-            player.queueWaveTable(audioContext, audioContext.destination, melInst[0], repTime + motif[9][0], motif[9][1]+12*4+musicKey, motif[9][2]);
-            player.queueWaveTable(audioContext, audioContext.destination, melInst[0], repTime + motif[10][0], motif[10][1]+12*4+musicKey, motif[10][2]);
-            player.queueWaveTable(audioContext, audioContext.destination, melInst[0], repTime + motif[11][0], motif[11][1]+12*4+musicKey, motif[11][2]);
-            player.queueWaveTable(audioContext, audioContext.destination, melInst[0], repTime + motif[12][0], motif[12][1]+12*4+musicKey, motif[12][2]);
-
+                player.queueWaveTable(audioContext, audioContext.destination, melInst[0], repTime + motifVar[i][0], motifVar[i][1]+12*motifVar[i][3]+musicKey, motifVar[i][2]);
+            }
 
         }
-        for (var i = 0; i < 40; i++)  {
-            console.log("bass[" + i + "][1] = " + bass[i][1]);
+        //
+        //
+        // for (var i = 0; i < 16; i++) {
+        //     var repTime = i * (rhythm(2,4) + dur(1));
+        //     player.queueWaveTable(audioContext, audioContext.destination, melInst[0], repTime + motif[0][0], motif[0][1]+12*4+musicKey, motif[0][2]);
+        //     player.queueWaveTable(audioContext, audioContext.destination, melInst[0], repTime + motif[1][0], motif[1][1]+12*4+musicKey, motif[1][2]);
+        //     player.queueWaveTable(audioContext, audioContext.destination, melInst[0], repTime + motif[2][0], motif[2][1]+12*4+musicKey, motif[2][2]);
+        //     player.queueWaveTable(audioContext, audioContext.destination, melInst[0], repTime + motif[3][0], motif[3][1]+12*4+musicKey, motif[3][2]);
+        //     player.queueWaveTable(audioContext, audioContext.destination, melInst[0], repTime + motif[4][0], motif[4][1]+12*4+musicKey, motif[4][2]);
+        //     player.queueWaveTable(audioContext, audioContext.destination, melInst[0], repTime + motif[5][0], motif[5][1]+12*4+musicKey, motif[5][2]);
+        //     player.queueWaveTable(audioContext, audioContext.destination, melInst[0], repTime + motif[6][0], motif[6][1]+12*4+musicKey, motif[6][2]);
+        //     player.queueWaveTable(audioContext, audioContext.destination, melInst[0], repTime + motif[7][0], motif[7][1]+12*4+musicKey, motif[7][2]);
+        //     player.queueWaveTable(audioContext, audioContext.destination, melInst[0], repTime + motif[8][0], motif[8][1]+12*4+musicKey, motif[8][2]);
+        //     player.queueWaveTable(audioContext, audioContext.destination, melInst[0], repTime + motif[9][0], motif[9][1]+12*4+musicKey, motif[9][2]);
+        //     player.queueWaveTable(audioContext, audioContext.destination, melInst[0], repTime + motif[10][0], motif[10][1]+12*4+musicKey, motif[10][2]);
+        //     player.queueWaveTable(audioContext, audioContext.destination, melInst[0], repTime + motif[11][0], motif[11][1]+12*4+musicKey, motif[11][2]);
+        //     player.queueWaveTable(audioContext, audioContext.destination, melInst[0], repTime + motif[12][0], motif[12][1]+12*4+musicKey, motif[12][2]);
+        //
+        //
+        // }
+        for (var i = 0; i < 320; i++)  {
+            // console.log("bass[" + i + "][1] = " + bass[i][1]);
             player.queueWaveTable(audioContext, audioContext.destination, melInst[0], bass[i][0], bass[i][1]+12*3+musicKey, bass[i][2]);
 
         }
+        for (var i = 0; i < 20; i++)  {
+            // console.log("bass[" + i + "][1] = " + bass[i][1]);
+            player.queueWaveTable(audioContext, audioContext.destination, higInst[0], highAcc[i][0], highAcc[i][1]+12*highAcc[i][3]+musicKey, highAcc[i][2], 0.5);
+        }
+
         $( ".download-btn" ).show();
 
-    // (function repeatMotif() {
-    //
-    //     if ( (currentMotif >= 2) && (currentMotif != 7) ) {
-    //     player.queueWaveTable(audioContext, audioContext.destination, melodyInstrument[insNo], repTime + rhythm(0, 1),    9+12*3+musicKey, note(1) );
-    //     player.queueWaveTable(audioContext, audioContext.destination, melodyInstrument[insNo], repTime + rhythm(0, 2),    0+12*4+musicKey, note(1) );
-    //     player.queueWaveTable(audioContext, audioContext.destination, melodyInstrument[insNo], repTime + rhythm(0, 3),    2+12*4+musicKey, note(1) );
-    //     player.queueWaveTable(audioContext, audioContext.destination, melodyInstrument[insNo], repTime + rhythm(0, 4),    4+12*4+musicKey, note(1) );
-    //     player.queueWaveTable(audioContext, audioContext.destination, melodyInstrument[insNo], repTime + rhythm(0, 4.75), 3+12*4+musicKey, note(1/4) );
-    //     player.queueWaveTable(audioContext, audioContext.destination, melodyInstrument[insNo], repTime + rhythm(1, 1),    2+12*4+musicKey, note(1) );
-    //     player.queueWaveTable(audioContext, audioContext.destination, melodyInstrument[insNo], repTime + rhythm(1, 1.25), 3+12*4+musicKey, note(1/4) );
-    //     player.queueWaveTable(audioContext, audioContext.destination, melodyInstrument[insNo], repTime + rhythm(1, 1.5),  2+12*4+musicKey, note(1) );
-    //     player.queueWaveTable(audioContext, audioContext.destination, melodyInstrument[insNo], repTime + rhythm(1, 2.5),  0+12*4+musicKey, note(1) );
-    //     player.queueWaveTable(audioContext, audioContext.destination, melodyInstrument[insNo], repTime + rhythm(1, 3.5),  9+12*3+musicKey, note(1/2) );
-    //     player.queueWaveTable(audioContext, audioContext.destination, melodyInstrument[insNo], repTime + rhythm(1, 4),    9+12*3+musicKey, note(1) );
-    //     }
-    //     if ( (currentMotif >= 4) && (currentMotif != 7) ) {
-    //         player.queueWaveTable(audioContext, audioContext.destination, drumInstrument[insNo], repTime + rhythm(0, 1),    0+12*5+musicKey, note(1) );
-    //         player.queueWaveTable(audioContext, audioContext.destination, drumInstrument[insNo], repTime + rhythm(0, 2),    0+12*5+musicKey, note(1) );
-    //         player.queueWaveTable(audioContext, audioContext.destination, drumInstrument[insNo], repTime + rhythm(0, 3),    0+12*5+musicKey, note(1) );
-    //         player.queueWaveTable(audioContext, audioContext.destination, drumInstrument[insNo], repTime + rhythm(0, 4),    0+12*5+musicKey, note(1) );
-    //         player.queueWaveTable(audioContext, audioContext.destination, drumInstrument[insNo], repTime + rhythm(1, 1),    0+12*5+musicKey, note(1) );
-    //         player.queueWaveTable(audioContext, audioContext.destination, drumInstrument[insNo], repTime + rhythm(1, 2),    0+12*5+musicKey, note(1) );
-    //         player.queueWaveTable(audioContext, audioContext.destination, drumInstrument[insNo], repTime + rhythm(1, 3),    0+12*5+musicKey, note(1) );
-    //         player.queueWaveTable(audioContext, audioContext.destination, drumInstrument[insNo], repTime + rhythm(1, 4),    0+12*5+musicKey, note(1) );
-    //     }
-    //
-    //     if ( (currentMotif >= 6) && (currentMotif != 7) ) {
-    //         player.queueWaveTable(audioContext, audioContext.destination, melodyInstrument[insNo], repTime + rhythm(0, 1),    9+12*6+musicKey, note(1) , 0.2);
-    //         player.queueWaveTable(audioContext, audioContext.destination, melodyInstrument[insNo], repTime + rhythm(0, 1.5),  9+12*6+musicKey, note(1) , 0.2);
-    //         player.queueWaveTable(audioContext, audioContext.destination, melodyInstrument[insNo], repTime + rhythm(0, 2),    7+12*6+musicKey, note(1) , 0.2);
-    //         player.queueWaveTable(audioContext, audioContext.destination, melodyInstrument[insNo], repTime + rhythm(0, 2.5),  9+12*6+musicKey, note(1) , 0.2);
-    //         player.queueWaveTable(audioContext, audioContext.destination, melodyInstrument[insNo], repTime + rhythm(0, 3.5),  7+12*6+musicKey, note(1.5) , 0.2);
-    //         player.queueWaveTable(audioContext, audioContext.destination, melodyInstrument[insNo], repTime + rhythm(1, 2.95), 3+12*6+musicKey, note(1/16) , 0.2);
-    //         player.queueWaveTable(audioContext, audioContext.destination, melodyInstrument[insNo], repTime + rhythm(1, 3),    4+12*6+musicKey, note(1) , 0.2);
-    //         player.queueWaveTable(audioContext, audioContext.destination, melodyInstrument[insNo], repTime + rhythm(1, 3.95), 3+12*6+musicKey, note(1/16) , 0.2);
-    //         player.queueWaveTable(audioContext, audioContext.destination, melodyInstrument[insNo], repTime + rhythm(1, 4),    4+12*6+musicKey, note(1) , 0.2);
-    //     }
-    //     if ( currentMotif >= 0) {
-    //         player.queueWaveTable(audioContext, audioContext.destination, melodyInstrument[insNo], repTime + rhythm(0, 1),    9+12*3+musicKey, note(1), 0.5 );
-    //         player.queueWaveTable(audioContext, audioContext.destination, melodyInstrument[insNo], repTime + rhythm(0, 1),    9+12*2+musicKey, note(1), 0.5 );
-    //         player.queueWaveTable(audioContext, audioContext.destination, melodyInstrument[insNo], repTime + rhythm(0, 2),    7+12*3+musicKey, note(1), 0.5 );
-    //         player.queueWaveTable(audioContext, audioContext.destination, melodyInstrument[insNo], repTime + rhythm(0, 2),    7+12*2+musicKey, note(1), 0.5 );
-    //         player.queueWaveTable(audioContext, audioContext.destination, melodyInstrument[insNo], repTime + rhythm(0, 3),    5+12*3+musicKey, note(1), 0.5 );
-    //         player.queueWaveTable(audioContext, audioContext.destination, melodyInstrument[insNo], repTime + rhythm(0, 3),    5+12*2+musicKey, note(1), 0.5 );
-    //         player.queueWaveTable(audioContext, audioContext.destination, melodyInstrument[insNo], repTime + rhythm(0, 4),    4+12*3+musicKey, note(1), 0.5 );
-    //         player.queueWaveTable(audioContext, audioContext.destination, melodyInstrument[insNo], repTime + rhythm(0, 4),    4+12*2+musicKey, note(1), 0.5 );
-    //
-    //         player.queueWaveTable(audioContext, audioContext.destination, melodyInstrument[insNo], repTime + rhythm(1, 1),    9+12*3+musicKey, note(1), 0.5 );
-    //         player.queueWaveTable(audioContext, audioContext.destination, melodyInstrument[insNo], repTime + rhythm(1, 1),    9+12*2+musicKey, note(1), 0.5 );
-    //         player.queueWaveTable(audioContext, audioContext.destination, melodyInstrument[insNo], repTime + rhythm(1, 2),    7+12*3+musicKey, note(1), 0.5 );
-    //         player.queueWaveTable(audioContext, audioContext.destination, melodyInstrument[insNo], repTime + rhythm(1, 2),    7+12*2+musicKey, note(1), 0.5 );
-    //         player.queueWaveTable(audioContext, audioContext.destination, melodyInstrument[insNo], repTime + rhythm(1, 3),    5+12*3+musicKey, note(1), 0.5 );
-    //         player.queueWaveTable(audioContext, audioContext.destination, melodyInstrument[insNo], repTime + rhythm(1, 3),    5+12*2+musicKey, note(1), 0.5 );
-    //         player.queueWaveTable(audioContext, audioContext.destination, melodyInstrument[insNo], repTime + rhythm(1, 4),    4+12*3+musicKey, note(1), 0.5 );
-    //         player.queueWaveTable(audioContext, audioContext.destination, melodyInstrument[insNo], repTime + rhythm(1, 4),    4+12*2+musicKey, note(1), 0.5 );
-    //
-    //         player.queueWaveTable(audioContext, audioContext.destination, melodyInstrument[insNo], repTime + rhythm(1, 4.75), 8+12*3+musicKey, note(1/4) );
-    //         player.queueWaveTable(audioContext, audioContext.destination, melodyInstrument[insNo], repTime + rhythm(1, 4.75), 8+12*2+musicKey, note(1/4) );
-    //     }
-    //
-    //
-    //     if (currentMotif < motifMax) {
-    //         currentMotif += 1;
-    //         console.log("repTime = " + repTime);
-    //         repTime = (repTime + rhythm(1,4) + note(1));
-    //         repeatMotif();
-    //     }
-    // //
-    // })();
+}
 
+
+function stopAudio() {
+
+    for (var i = 0; i < 1600; i++)  {
+        player.envelopes[i].cancel();
+    }
+
+    return 0;
 }
 
 function motifGenerator(mood, layer, key, decVars, symVars) {
@@ -1278,6 +1251,7 @@ function motifGenerator(mood, layer, key, decVars, symVars) {
             console.log("Rhythm 2");
 
             motif[0][0] = rhythm(1,1);
+            motif[0][2] = dur(3);
 
             motif[1][0] = rhythm(1,3.5);
             motif[1][2] = dur(1/2);
@@ -1289,6 +1263,7 @@ function motifGenerator(mood, layer, key, decVars, symVars) {
             motif[3][2] = dur(1/2);
 
             motif[4][0] = rhythm(2,1);
+            motif[4][2] = dur(3);
 
             motif[5][0] = rhythm(2,3.5);
             motif[5][2] = dur(1/2);
@@ -1348,10 +1323,10 @@ function motifGenerator(mood, layer, key, decVars, symVars) {
             motif[0][0] = rhythm(1,1);
 
             motif[1][0] = rhythm(1,1.5);
-            motif[1][2] = dur(1/2);
+            motif[1][2] = dur(1);
 
             motif[2][0] = rhythm(1,2.5);
-            motif[2][2] = dur(1/2);
+            motif[2][2] = dur(1);
 
             motif[3][0] = rhythm(1,3.5);
             motif[3][2] = dur(1.5);
@@ -1359,10 +1334,10 @@ function motifGenerator(mood, layer, key, decVars, symVars) {
             motif[4][0] = rhythm(2,1);
 
             motif[5][0] = rhythm(2,1.5);
-            motif[5][2] = dur(1/2);
+            motif[5][2] = dur(1);
 
             motif[6][0] = rhythm(2,2.5);
-            motif[6][2] = dur(1/2);
+            motif[6][2] = dur(1);
 
             motif[7][0] = rhythm(2,3.5);
             motif[7][2] = dur(1.5);
@@ -1515,18 +1490,132 @@ function motifGenerator(mood, layer, key, decVars, symVars) {
 
 }
 
+function motifVariator(motif, chord) {
+
+    motifVar = new Array(640);
+    for (var n = 0; n < 640; n++) {
+        motifVar[n] = new Array(3);
+
+        motifVar[n][0] = 0;
+        motifVar[n][1] = 0;
+        motifVar[n][2] = 0;
+        motifVar[n][3] = 4;
+    }
+
+    //Initial run
+    for (var n = 0; n < 24; n++) {
+        motifVar[n][0] = motif[n][0];
+        motifVar[n][1] = motif[n][1];
+        motifVar[n][2] = motif[n][2];
+    }
+
+    var motifPointer = 24;
+    var rhythmPointer = 3;
+
+
+    //Choose variation on note
+    for (var c = 1; c < 16; c++) {
+
+        var original = chromScale(motif[0][1]);
+        var curDiff = 0;
+        var minDiff = 10;
+        var chordCompare = new Array(3);
+        var noteChosen = 0;
+
+        chordCompare[0] = chord[mod(c,8)];
+        chordCompare[1] = mod(chord[mod(c,8)]+2, 7);
+        chordCompare[2] = mod(chord[mod(c,8)]+4, 7);
+
+        for (var i = 0; i < 3; i++) {
+            curDiff = Math.abs(chordCompare[i] - original);
+            if (curDiff < minDiff) {
+                minDiff = curDiff;
+                noteChosen = chordCompare[i];
+            }
+        }
+        //heptScale(5)
+
+        motifVar[motifPointer + 0][0] = rhythm(rhythmPointer,1) + motif[0][0];
+        motifVar[motifPointer + 0][1] = heptScale(noteChosen);
+        motifVar[motifPointer + 0][2] = motif[0][2];
+        for (var n = 1; n < 24; n++) {
+            motifVar[motifPointer + n][0] = rhythm(rhythmPointer,1) +  motif[n][0];
+            motifVar[motifPointer + n][1] = motif[n][1];
+            motifVar[motifPointer + n][2] = motif[n][2];
+        }
+
+        if (c > 8) {
+            var original = chromScale(motif[2][1]);
+            var curDiff = 0;
+            var minDiff = 10;
+            var chordCompare = new Array(3);
+            var noteChosen = 0;
+
+            chordCompare[0] = chord[mod(c,8)];
+            chordCompare[1] = mod(chord[mod(c,8)]+2, 7);
+            chordCompare[2] = mod(chord[mod(c,8)]+4, 7);
+
+            for (var i = 0; i < 3; i++) {
+                curDiff = Math.abs(chordCompare[i] - original);
+                if (curDiff < minDiff) {
+                    minDiff = curDiff;
+                    noteChosen = chordCompare[i];
+                }
+            }
+            //heptScale(5)
+
+            motifVar[motifPointer + 2][0] = rhythm(rhythmPointer,1) + motif[2][0];
+            motifVar[motifPointer + 2][1] = heptScale(noteChosen);
+            motifVar[motifPointer + 2][2] = motif[2][2];
+            // motifVar[motifPointer + 2][3] = 5;
+
+        }
+        if (c > 12) {
+            var original = chromScale(motif[3][1]);
+            var curDiff = 0;
+            var minDiff = 10;
+            var chordCompare = new Array(3);
+            var noteChosen = 0;
+
+            chordCompare[0] = chord[mod(c,8)];
+            chordCompare[1] = mod(chord[mod(c,8)]+2, 7);
+            chordCompare[2] = mod(chord[mod(c,8)]+4, 7);
+
+            for (var i = 0; i < 3; i++) {
+                curDiff = Math.abs(chordCompare[i] - original);
+                if (curDiff < minDiff) {
+                    minDiff = curDiff;
+                    noteChosen = chordCompare[i];
+                }
+            }
+
+            motifVar[motifPointer + 3][0] = rhythm(rhythmPointer,1) + motif[3][0];
+            motifVar[motifPointer + 3][1] = heptScale(noteChosen);
+            motifVar[motifPointer + 3][2] = motif[3][2];
+            // motifVar[motifPointer + 3][3] = 5;
+
+        }
+
+        motifPointer += 24;
+        rhythmPointer += 2;
+    }
+
+    return motifVar;
+
+}
 
 function bassGenerator( mood, layer, key, decVars, symVars, motif ) {
     //For now we just generate backing chords and repeat motif over, unchanged
 
-    var bass = new Array(160);
+    var bass = new Array(320);
 
-    for (var n = 0; n < 160; n++) {
-        bass[n] = new Array(3);
+    for (var n = 0; n < 320; n++) {
+        bass[n] = new Array(4);
         // for (var c = 0; c < 2; c++) {
         bass[n][0] = 0;//Beat
         bass[n][1] = 0;//Note
         bass[n][2] = 0;//Length
+        bass[n][3] = 0;//Chord for motifVariator
         // }
     }
     //
@@ -1616,6 +1705,11 @@ function bassGenerator( mood, layer, key, decVars, symVars, motif ) {
     else if (decVars[1] <= 10) {
         console.log("Custom chord progression chosen");
         chord = chordPath(decVars); //Gets the 8 chord path
+        for (var c = 0; c < 8; c++) {
+            bass[c][3] = chord[c][1];
+        }
+
+
         chordProg = chordProgression(decVars, chord);
         //
         // for (var n = 0; n < 8; n++) {
@@ -1624,7 +1718,7 @@ function bassGenerator( mood, layer, key, decVars, symVars, motif ) {
         //     bass[n][2] = dur(8);
         // }
 
-        for (var n = 0; n < 24; n++) {
+        for (var n = 0; n < 320; n++) {
             bass[n][0] = chordProg[n][0];
             bass[n][1] = chordProg[n][1];
             bass[n][2] = chordProg[n][2];
@@ -1915,11 +2009,30 @@ function chordPath(decVars) {
 
 function chordProgression(decVars, chord) {
 
-    //chord[n][0] = octave but untouched??
-    //chord[n][1] = note
+    var startTime = 0;
+    var bassPointer = 0;
 
-    var chordProg = new Array(160);
-    for (var n = 0; n < 160; n++) {
+    var baseChoser = new Array(8);
+    for (var n = 0; n < 8; n++) {
+        baseChoser[0] = 0;
+    }
+
+    if (decVars[2] > 5) {
+        baseChoser[0] = 1;
+        baseChoser[1] = 1;
+        baseChoser[3] = 1;
+        baseChoser[5] = 1;
+    }
+    else {
+        baseChoser[0] = 1;
+        baseChoser[1] = 1;
+        baseChoser[2] = 1;
+        baseChoser[4] = 1;
+    }
+
+
+    var chordProg = new Array(320);
+    for (var n = 0; n < 320; n++) {
         chordProg[n] = new Array(3);
 
         chordProg[n][0] = 0; //Rhythm
@@ -1929,70 +2042,216 @@ function chordProgression(decVars, chord) {
 
     var majMinDim = 0; //1 = major, 2 = minor, 3 = diminished
 
-    for (var n = 0; n < 8; n++) {
-        for (var m = 0; m < 3; m++) {
-            if (m == 0) {
-                chordProg[n][0] = rhythm((n*2)+1,1);
-                chordProg[n][1] = heptScale(chord[n][1]) - (chord[n][0]*12);
-                chordProg[n][2] = dur(4);
-            }
-            else if (m == 1) {
-                chordProg[n+8][0] = rhythm((n*2)+2,1);
-                chordProg[n+8][1] = heptScale(chord[n][1]+2) - ((chord[n][0]-1)*12);
-                chordProg[n+8][2] = dur(2);
-            }
-            else {
-                chordProg[n+16][0] = rhythm((n*2)+2.5,1);
-                chordProg[n+16][1] = heptScale(chord[n][1]) - ((chord[n][0]-1)*12);
-                chordProg[n+16][2] = dur(2);
+    //Choice 0
+    if (baseChoser[0] == 1) {
+        for (var n = 0; n < 4; n++) {
+            chordProg[bassPointer+n][0] = rhythm(( (startTime+n)*2 )+1,1);
+            chordProg[bassPointer+n][1] = heptScale(chord[n][1]) - (chord[n][0]*12);
+            chordProg[bassPointer+n][2] = dur(8);
+        }
+        bassPointer += 4;
+        startTime += 4;
+    }
+
+    //Choice 1
+    if (baseChoser[1] == 1) {
+        for (var n = 0; n < 4; n++) {
+            for (var m = 0; m < 3; m++) {
+                if (m == 0) {
+                    chordProg[bassPointer+n][0] = rhythm(( (startTime+n)*2 )+1,1);
+                    chordProg[bassPointer+n][1] = heptScale(chord[n][1]) - (chord[n][0]*12);
+                    chordProg[bassPointer+n][2] = dur(6);
+                }
+                else if (m == 1) {
+                    chordProg[bassPointer+n+4][0] = rhythm(( (startTime+n)*2 )+2,1);
+                    chordProg[bassPointer+n+4][1] = heptScale(chord[n][1]+2) - ((chord[n][0]-1)*12);
+                    chordProg[bassPointer+n+4][2] = dur(2);
+                }
+                else {
+                    chordProg[bassPointer+n+8][0] = rhythm(( (startTime+n)*2 )+2.5,1);
+                    chordProg[bassPointer+n+8][1] = heptScale(chord[n][1]) - ((chord[n][0]-1)*12);
+                    chordProg[bassPointer+n+8][2] = dur(2);
+                }
             }
         }
+        bassPointer += 12;
+        startTime += 4;
     }
-    // //test jazz vibes
-    // for (var n = 0; n < 8; n++) {
-    //     var heptNext = heptScale(chord[n][1]);
-    //     console.log("chord[n][1] = " + chord[n][1]);
-    //     console.log("heptNext = " + chord[n][1]);
-    //     if (chord[n][1] == 1 || chord[n][1] == 4 || chord[n][1] == 5) {
-    //         majMinDim = 1;
-    //     }
-    //     else if (chord[n][1] == 2 || chord[n][1] == 3 || chord[n][1] == 6) {
-    //         majMinDim = 2;
-    //     }
-    //     else if (chord[n][1] == 7) {
-    //         majMinDim = 3;
-    //     }
-    //     console.log("majMinDim = " + majMinDim);
-    //     for (var m = 0; m < 4; m++) {
-    //         chordProg[n*4 + m][0] = rhythm((n*2)+1,1);
-    //         chordProg[n*4 + m][2] = dur(8);
-    //     }
-    //     if (majMinDim == 1) {
-    //         //M7
-    //         chordProg[n*4 + 0][1] = heptNext;
-    //         chordProg[n*4 + 1][1] = heptNext + 4;
-    //         chordProg[n*4 + 2][1] = heptNext + 7;
-    //         chordProg[n*4 + 3][1] = heptNext + 11;
-    //     }
-    //     if (majMinDim == 2) {
-    //         //m7
-    //         chordProg[n*4 + 0][1] = heptNext;
-    //         chordProg[n*4 + 1][1] = heptNext + 3;
-    //         chordProg[n*4 + 2][1] = heptNext + 7;
-    //         chordProg[n*4 + 3][1] = heptNext + 10;
-    //     }
-    //     if (majMinDim == 3) {
-    //         chordProg[n*4 + 0][1] = heptNext;
-    //         chordProg[n*4 + 1][1] = heptNext + 3;
-    //         chordProg[n*4 + 2][1] = heptNext + 6;
-    //         chordProg[n*4 + 3][1] = heptNext + 10;
-    //     }
-    // }
-    // for (var n = 0; n < 40; n++) {
-    //     console.log("chordProg[" + n + "][1] = " + chordProg[n][1]);
-    // }
+
+    //Choice 2
+    if (baseChoser[2] == 1) {
+        for (var n = 0; n < 4; n++) {
+            for (var m = 0; m < 3; m++) {
+                if (m == 0) {
+                    chordProg[bassPointer+n][0] = rhythm(( (startTime+n)*2 )+1,1);
+                    chordProg[bassPointer+n][1] = heptScale(chord[n][1]) - (chord[n][0]*12);
+                    chordProg[bassPointer+n][2] = dur(6);
+                }
+                else if (m == 1) {
+                    chordProg[bassPointer+n+4][0] = rhythm(( (startTime+n)*2 )+2,1);
+                    chordProg[bassPointer+n+4][1] = heptScale(chord[n][1]+4) - (chord[n][0]*12);
+                    chordProg[bassPointer+n+4][2] = dur(2);
+                }
+                else {
+                    chordProg[bassPointer+n+8][0] = rhythm(( (startTime+n)*2 )+2,1);
+                    chordProg[bassPointer+n+8][1] = heptScale(chord[n][1]) - ((chord[n][0]-1)*12);
+                    chordProg[bassPointer+n+8][2] = dur(2);
+                }
+            }
+        }
+        bassPointer += 12;
+        startTime += 4;
+    }
+
+    //Choice 3
+    if (baseChoser[3] == 1) {
+        for (var n = 0; n < 4; n++) {
+            for (var m = 0; m < 4; m++) {
+                if (m == 0) {
+                    chordProg[bassPointer+n][0] = rhythm(( (startTime+n)*2 )+1,1);
+                    chordProg[bassPointer+n][1] = heptScale(chord[n][1]) - (chord[n][0]*12);
+                    chordProg[bassPointer+n][2] = dur(6);
+                }
+                else if (m == 1) {
+                    chordProg[bassPointer+n+4][0] = rhythm(( (startTime+n)*2 )+1.25,1);
+                    chordProg[bassPointer+n+4][1] = heptScale(chord[n][1]+4) - (chord[n][0]*12);
+                    chordProg[bassPointer+n+4][2] = dur(2);
+                }
+                else if (m == 2) {
+                    chordProg[bassPointer+n+8][0] = rhythm(( (startTime+n)*2 )+1.5,1);
+                    chordProg[bassPointer+n+8][1] = heptScale(chord[n][1]) - ((chord[n][0]-1)*12);
+                    chordProg[bassPointer+n+8][2] = dur(2);
+                }
+                else {
+                    chordProg[bassPointer+n+12][0] = rhythm(( (startTime+n)*2 )+1.75,1);
+                    chordProg[bassPointer+n+12][1] = heptScale(chord[n][1]+4) - (chord[n][0]*12);
+                    chordProg[bassPointer+n+12][2] = dur(6);
+                }
+            }
+        }
+        bassPointer += 16;
+        startTime += 4;
+    }
+
+    //Choice 4
+    if (baseChoser[4] == 1) {
+        for (var n = 0; n < 4; n++) {
+            for (var m = 0; m < 4; m++) {
+                if (m == 0) {
+                    chordProg[bassPointer+n][0] = rhythm(( (startTime+n)*2 )+1,1);
+                    chordProg[bassPointer+n][1] = heptScale(chord[n][1]) - (chord[n][0]*12);
+                    chordProg[bassPointer+n][2] = dur(6);
+                }
+                else if (m == 1) {
+                    chordProg[bassPointer+n+4][0] = rhythm(( (startTime+n)*2 )+2,1);
+                    chordProg[bassPointer+n+4][1] = heptScale(chord[n][1]) - ((chord[n][0]-1)*12);
+                    chordProg[bassPointer+n+4][2] = dur(2);
+                }
+                else if (m == 2) {
+                    chordProg[bassPointer+n+8][0] = rhythm(( (startTime+n)*2 )+2,1);
+                    chordProg[bassPointer+n+8][1] = heptScale(chord[n][1]+2) - ((chord[n][0]-1)*12);
+                    chordProg[bassPointer+n+8][2] = dur(2);
+                }
+                else {
+                    chordProg[bassPointer+n+12][0] = rhythm(( (startTime+n)*2 )+2,1);
+                    chordProg[bassPointer+n+12][1] = heptScale(chord[n][1]+4) - ((chord[n][0]-1)*12);
+                    chordProg[bassPointer+n+12][2] = dur(2);
+                }
+            }
+        }
+        bassPointer += 16;
+        startTime += 4;
+    }
+
+    //Choice 5
+    if (baseChoser[5] == 1) {
+        for (var n = 0; n < 4; n++) {
+            for (var m = 0; m < 8; m++) {
+                if (m == 0) {
+                    chordProg[bassPointer+n][0] = rhythm(( (startTime+n)*2 )+1,1);
+                    chordProg[bassPointer+n][1] = heptScale(chord[n][1]) - (chord[n][0]*12);
+                    chordProg[bassPointer+n][2] = dur(6);
+                }
+                else if (m == 1) {
+                    chordProg[bassPointer+n+4][0] = rhythm(( (startTime+n)*2 )+1.25,1);
+                    chordProg[bassPointer+n+4][1] = heptScale(chord[n][1]+2) - (chord[n][0]*12);
+                    chordProg[bassPointer+n+4][2] = dur(2);
+                }
+                else if (m == 2) {
+                    chordProg[bassPointer+n+8][0] = rhythm(( (startTime+n)*2 )+1.5,1);
+                    chordProg[bassPointer+n+8][1] = heptScale(chord[n][1]+4) - (chord[n][0]*12);
+                    chordProg[bassPointer+n+8][2] = dur(2);
+                }
+                else if (m == 3) {
+                    chordProg[bassPointer+n+12][0] = rhythm(( (startTime+n)*2 )+1.75,1);
+                    chordProg[bassPointer+n+12][1] = heptScale(chord[n][1]) - ((chord[n][0]-1)*12);
+                    chordProg[bassPointer+n+12][2] = dur(2);
+                }
+                else if (m == 4) {
+                    chordProg[bassPointer+n+16][0] = rhythm(( (startTime+n)*2 )+2,1);
+                    chordProg[bassPointer+n+16][1] = heptScale(chord[n][1]+2) - ((chord[n][0]-1)*12);
+                    chordProg[bassPointer+n+16][2] = dur(2);
+                }
+                else if (m == 5) {
+                    chordProg[bassPointer+n+20][0] = rhythm(( (startTime+n)*2 )+2.25,1);
+                    chordProg[bassPointer+n+20][1] = heptScale(chord[n][1]) - ((chord[n][0]-1)*12);
+                    chordProg[bassPointer+n+20][2] = dur(2);
+                }
+                else if (m == 6) {
+                    chordProg[bassPointer+n+24][0] = rhythm(( (startTime+n)*2 )+2.5,1);
+                    chordProg[bassPointer+n+24][1] = heptScale(chord[n][1]+4) - (chord[n][0]*12);
+                    chordProg[bassPointer+n+24][2] = dur(2);
+                }
+                else {
+                    chordProg[bassPointer+n+28][0] = rhythm(( (startTime+n)*2 )+2.75,1);
+                    chordProg[bassPointer+n+28][1] = heptScale(chord[n][1]+2) - (chord[n][0]*12);
+                    chordProg[bassPointer+n+28][2] = dur(2);
+                }
+            }
+        }
+        bassPointer += 32;
+        startTime += 4;
+    }
 
     return chordProg;
+}
+//
+function highAccompaniment(motif, chord) {
+
+    highAcc = new Array(640);
+    for (var n = 0; n < 640; n++) {
+        highAcc[n] = new Array(3);
+
+        highAcc[n][0] = 0;
+        highAcc[n][1] = 0;
+        highAcc[n][2] = 0;
+        highAcc[n][3] = 5;
+    }
+
+    var chordCounter = new Array(8);
+    for (var n = 0; n < 8; n++) {
+        chordCounter[n] = 0;
+    }
+
+
+    var startTime = 8;
+    var bassPointer = 8;
+
+    for (var n = 0; n < 8; n++) {
+        highAcc[n][0] = rhythm(( (startTime+n)*2 )+1,1);
+
+        highAcc[bassPointer+n][0] = rhythm(( (startTime+n)*2 )+1,1);
+        highAcc[bassPointer+n][1] = heptScale(chord[n]);
+        highAcc[bassPointer+n][2] = dur(8);
+        if (chordCounter[chord[n]] > 1) {
+            highAcc[bassPointer+n][3] = 6;
+        }
+
+        chordCounter[chord[n]] += 1;
+    }
+
+    return highAcc;
+
 }
 
 function heptScale(heptNote) {
