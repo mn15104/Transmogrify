@@ -70,26 +70,38 @@ Chat.loadMessages = function(user_id, friend_id, callback){
     db.get("SELECT chat_id AS chat_id FROM FRIENDLIST WHERE (user_idA='"+user_id+"' and user_idB='" + friend_id + "') or (user_idA='"+friend_id+"' and user_idB='" + user_id + "') ", function(err, row){
         if (err) console.log(err);
         if(IS_NULL(row)){
-            console.log("here");
             callback([]);
         }else{
             chat_id = row.chat_id;
             db.all("SELECT * FROM CHATMESSAGE WHERE chat_id='" + chat_id + "' ORDER BY session_id LIMIT 20", function(err, row){
                 if (err) console.log(err);
-                console.log("here2");
-                console.log(callback);
                 if (typeof callback == 'function'){
-                    console.log("here3");
-                    console.log(row);
+                    row.forEach(msg => {var t = Chat.parseDate(msg.time);
+                                        msg_p = msg;
+                                        msg_p.time = t;
+                                        return msg_p;})
                     callback(row);
                 }
                 else{
-                    console.log("here4");
                     return row;
                 }
             });
         }
     } )
+}
+
+Chat.parseDate = function(isostring){
+    x = isostring;
+
+    MM = {Jan:"January", Feb:"February", Mar:"March", Apr:"April", May:"May", Jun:"June", Jul:"July", Aug:"August", Sep:"September", Oct:"October", Nov:"November", Dec:"December"}
+
+    xx = String(new Date(x)).replace(
+        /\w{3} (\w{3}) (\d{2}) (\d{4}) (\d{2}):(\d{2}):[^(]+\(([A-Z]{3})\)/,
+        function($0,$1,$2,$3,$4,$5,$6){
+            return MM[$1]+" "+$2+", "+$3+" - "+$4%12+":"+$5+(+$4>12?"PM":"AM")+" "+$6 
+        }
+    )
+    return xx;
 }
 
 Chat.createDate = function(){
