@@ -20,12 +20,24 @@ let db = new sqlite3.Database('./Dev.db', sqlite3.OPEN_CREATE | sqlite3.OPEN_REA
 Chat.insertMessage = function(user_id, friend_id, chat_message){
     db.get("SELECT chat_id AS chat_id FROM FRIENDLIST WHERE (user_idA='"+user_id+"' and user_idB='" + friend_id + "') or (user_idA='"+friend_id+"' and user_idB='" + user_id + "') ", function(err, row){
         if(IS_NULL(row)){
-            db.get("INSERT INTO FRIENDLIST (user_idA, user_idB) values ('" + user_id + "','" + friend_id + "')", function(err, row){
-                db.get("SELECT chat_id AS chat_id FROM FRIENDLIST WHERE (user_idA='"+user_id+"' and user_idB='" + friend_id + "')", function(err, row){
-                    console.log(row);
-                } )
-            });
-            console.log("undefined" + user_id+ friend_id + chat_message);
+            db.get("SELECT MAX(chat_id) AS chat_id FROM FRIENDLIST", function(err, row){
+                if(IS_NULL(row.chat_id)){
+                    next_chatid = 0;
+                    db.get("INSERT INTO FRIENDLIST (user_idA, user_idB, chat_id) values ('" + user_id + "','" + friend_id + "','" + next_chatid  + "')", function(err, row){
+                        console.log(row);
+                        console.log(err);
+        
+                    });
+                }
+                else{
+                    next_chatid = row.chat_id + 1;
+                    db.get("INSERT INTO FRIENDLIST (user_idA, user_idB, chat_id) values ('" + user_id + "','" + friend_id + "','" + next_chatid  + "')", function(err, row){
+                        console.log(row);
+                        console.log(err);
+        
+                    });
+                }
+            })
         }else{
             chat_id = row.chat_id;
         }

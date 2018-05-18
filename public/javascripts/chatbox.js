@@ -5,6 +5,7 @@ session_info = Object.create({
 })
 
 function init()
+
 {
     initChat();
 }
@@ -12,10 +13,10 @@ function init()
 function connect(){
     chat_container = $('.chat_container');
     chat_container.toggleClass('chat_container_closed'); 
-    container_user_id = chat_container.attr('data-chat-user-id');
+    profile_user_id = chat_container.attr('data-user-id');
 
-    console.log(container_user_id);
-    connectToFriend(container_user_id);
+ 
+    connectToFriend(profile_user_id);
 }
 
 function initChat()
@@ -69,8 +70,8 @@ function initChat()
         }
     
 
-    $('.myButton').button().click(function(){
-        sendMessage("[USER MESSAGE] >> " + $(this).siblings('.chat_input').val());
+    $('#send_message').button().click(function(){
+        sendMessage("[USER MESSAGE] >> " + $(this).siblings('.chat_input').eq(0).val());
         appendSentMessage("[USER MESSAGE] >> " + $(this).siblings('.chat_input').val());
     })
 }
@@ -118,10 +119,19 @@ function connectToFriend(friend_id)
 }
 function sendMessage(msg)
 {
-    try{
-        session_info.ws.send(JSON.stringify({message:'friend_message_send', 
-                                data: {chat_message:msg}}));
-    }catch{
-        console.log("You are not logged in/user_id not found");
+    if(!IS_NULL(msg)){
+        console.log("sendingmessage");
+        try{
+            session_info.ws.send(JSON.stringify({message:'friend_message_send', 
+                                    data: {chat_message:msg}}));
+        }catch{
+            console.log("You are not logged in/user_id not found");
+        }
     }
+}
+
+
+
+function IS_NULL(x){
+    return (x === undefined || x === null || x === NaN); //util.isNullOrUndefined(x) || isNaN(x))
 }

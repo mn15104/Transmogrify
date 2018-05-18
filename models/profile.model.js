@@ -53,13 +53,12 @@ Profile.loadMyProfile = function(req, res, load){
                         res.render('myprofile.ejs', 
                         
                         {   'firstname': firstname,
-                             'surname': surname,
-                             'email': email,
-                             'occupation':occupation,
+                            'surname': surname,
+                            'email': email,
+                            'occupation':occupation,
                             'description':description,
                             'profile_picture':profile_picture
                         });
-                        // req.session.current_url = '/myprofile';
                     }
                     else{
                         var stringprofdata = JSON.stringify(profdata);
@@ -98,6 +97,7 @@ Profile.loadOtherProfile = function(req, res, load){
                         res.render('profile.ejs', 
                         {   'firstname': firstname,
                             'surname': surname,
+                            'user_id': other_user_id,
                             'occupation':occupation,
                             'description':description,
                             'profile_picture':profile_picture
@@ -116,6 +116,7 @@ Profile.loadOtherProfile = function(req, res, load){
         res.render('profile.ejs', 
                         {   'firstname': 'firstname',
                             'surname': 'surname',
+                            'user_id': '-1',
                             'occupation':'occupation',
                             'description':'description',
                             'profile_picture':'profile_picture'
