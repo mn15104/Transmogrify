@@ -558,10 +558,8 @@ $( ".download-btn" ).on( "click", function() {
     });
 });
 
-$( ".retry-btn" ).one( "click", function() {
-
-    //MIN REFRESH PLS
-
+$( ".retry-btn" ).on( "click", function() {
+    refreshTab();
 });
 
 function audioTester(primaryDetected, colourDetected, decision1, decision2, decision3, decision4, yClrSym, yFineSym, xClrSym, xFineSym){

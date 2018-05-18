@@ -45,28 +45,6 @@ createDate = function(){
     return date;
 }
 
-Create.uploadPair = function(req, res){
-    console.log(req.body);
-    var form = new formidable.IncomingForm()
-    form.multiples = true
-    form.keepExtensions = true
-    form.uploadDir = path.join(__dirname, '../uploads/profile_pictures');
-    form.parse(req, (err, fields, files) => {
-        if (err) return res.status(500).json({ error: err })
-        res.status(200).json({ uploaded: true })
-    });
-    form.on('fileBegin', function (name, file) {
-        const [fileName, fileExt] = file.name.split('.');
-        console.log(fileName)
-        file.path = path.join( path.join(__dirname, '../uploads/profile_pictures')
-                                , `${fileName}_${new Date().getTime()}.${fileExt}`);
-        relative_file_path = '/../../uploads/profile_pictures/' + `${fileName}_${new Date().getTime()}.${fileExt}`;
-        
-        // db.all("UPDATE USER_PROFILE SET profile_picture = '" + relative_file_path 
-        //         + "' WHERE user_id='" + req.session.user_id + "'", function(row,err) {
-        // });
-    });
-}
 Create.uploadAudio = function(req, res){
     aud_vars = req.body;
     // console.log(req.body);
@@ -89,6 +67,48 @@ Create.uploadAudio = function(req, res){
         }
     })
 }
+
+Create.uploadImage = function(req, res, callback){
+    var form = new formidable.IncomingForm()
+    form.multiples = true
+    form.keepExtensions = true
+    form.uploadDir = path.join(__dirname, '../uploads/images');
+    form.parse(req, (err, fields, files) => {
+        if (err) return res.status(500).json({ error: err })
+        res.status(200).json({ uploaded: true })
+    });
+    form.on('fileBegin', function (name, file) {
+        const [fileName, fileExt] = file.name.split('.');
+        console.log(file);
+        file.path = path.join( path.join(__dirname, '../uploads/images')
+                                , `${fileName}_${new Date().getTime()}.${fileExt}`);
+        relative_file_path = '/../../uploads/images/' + `${fileName}_${new Date().getTime()}.${fileExt}`;
+
+        user_id = req.session.user_id;
+        time = Create.createDate();
+
+        db.get("SELECT MAX(pair_id) AS pair_id FROM IMAGE_UPLOADS", function(err,row){
+            if(IS_NULL(row)){
+                pair_id = 0;
+                insertImage(user_id, pair_id, time, fileName, relative_file_path);
+            }
+            else{
+                img_pair_id = row.pair_id + 1;
+                insertImage(user_id, img_pair_id, time, fileName, relative_file_path);
+            }
+        })
+    });
+
+
+
+    var insertImage = function( user_id, pair_id, time, file_name, file_path){
+        db.get("INSERT INTO IMAGE_UPLOADS (user_id, pair_id, time, file_name, file_path) VALUES ('" + 
+                                                    user_id + "','" + pair_id + "','" + time  + "','" + file_name + "','" + file_path + "')", function(err, row){
+                                                        console.log(err);
+                                                })
+    }
+}
+
 
 Create.uploadAudioFile = function(req, res, callback){
 
@@ -133,46 +153,7 @@ Create.uploadAudioFile = function(req, res, callback){
   form.parse(req);
 }
 
-Create.uploadImage = function(req, res, callback){
-    var form = new formidable.IncomingForm()
-    form.multiples = true
-    form.keepExtensions = true
-    form.uploadDir = path.join(__dirname, '../uploads/images');
-    form.parse(req, (err, fields, files) => {
-        if (err) return res.status(500).json({ error: err })
-        res.status(200).json({ uploaded: true })
-    });
-    form.on('fileBegin', function (name, file) {
-        const [fileName, fileExt] = file.name.split('.');
-        console.log(file);
-        file.path = path.join( path.join(__dirname, '../uploads/images')
-                                , `${fileName}_${new Date().getTime()}.${fileExt}`);
-        relative_file_path = '/../../uploads/images/' + `${fileName}_${new Date().getTime()}.${fileExt}`;
 
-        user_id = req.session.user_id;
-        time = Create.createDate();
-
-        db.get("SELECT MAX(pair_id) AS pair_id FROM IMAGE_UPLOADS", function(err,row){
-            if(IS_NULL(row)){
-                pair_id = 0;
-                insertImage(user_id, pair_id, time, fileName, relative_file_path);
-            }
-            else{
-                img_pair_id = row.pair_id + 1;
-                insertImage(user_id, img_pair_id, time, fileName, relative_file_path);
-            }
-        })
-    });
-
-
-
-    var insertImage = function( user_id, pair_id, time, file_name, file_path){
-        db.get("INSERT INTO IMAGE_UPLOADS (user_id, pair_id, time, file_name, file_path) VALUES ('" + 
-                                                    user_id + "','" + pair_id + "','" + time  + "','" + file_name + "','" + file_path + "')", function(err, row){
-                                                        console.log(err);
-                                                })
-    }
-}
 
 Create.createDate = function(){
     now = new Date(); 
