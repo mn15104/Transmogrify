@@ -18,6 +18,7 @@ let db = new sqlite3.Database('./Dev.db', sqlite3.OPEN_CREATE | sqlite3.OPEN_REA
 // **************************************************************************************************** //
 
 Chat.insertMessage = function(user_id, friend_id, chat_message){
+    this.loadMessages(0);
     date = createDate();
     db.get("SELECT chat_id AS chat_id FROM FRIENDLIST WHERE (user_idA='"+user_id+"' and user_idB='" + friend_id + "') or (user_idA='"+friend_id+"' and user_idB='" + user_id + "') ", function(err, row){
         if(IS_NULL(row)){
@@ -52,6 +53,13 @@ Chat.insertChatID = function(user_id, friend_id, callback){
             });
         }
     })
+}
+
+Chat.loadMessages = function(chat_id){
+    db.get("SELECT * FROM CHATMESSAGE WHERE chat_id='" + chat_id + "' ORDER BY 'time' DESC LIMIT 10", function(err, row){
+        if (err) console.log(err);
+        console.log(row);
+    });
 }
 
 Chat.createDate = function(){

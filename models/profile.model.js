@@ -70,6 +70,8 @@ Profile.loadMyProfile = function(req, res, load){
         }else res.sendStatus(400);
     });
 };
+
+
 Profile.loadOtherProfile = function(req, res, load){
     var other_user_id = req.query.user_id;
     console.log(other_user_id);
@@ -78,34 +80,33 @@ Profile.loadOtherProfile = function(req, res, load){
         if (!IS_NULL(row)){
             var occupation = row.occupation;
             var description = row.description;
-            var profile_picture = row.profile_picture;
+            var friend_profile_picture = row.profile_picture;
+            console.log(row);
             db.get("SELECT firstname, surname FROM USER_LOGIN WHERE user_id='"+  other_user_id  + "'", function(err, row){
                 if (err) throw err;
                 if (!IS_NULL(row)){
                     console.log(row);
                     var firstname = row.firstname;
                     var surname = row.surname;
-
-                    var profdata = {                        
-                        firstname: firstname,
-                        surname: surname,
-                        occupation:occupation,
-                        description:description,
-                        profile_picture:profile_picture
-                    }
-                    if(load){
-                        res.render('profile.ejs', 
-                        {   'firstname': firstname,
-                            'surname': surname,
-                            'user_id': other_user_id,
-                            'occupation':occupation,
-                            'description':description,
-                            'profile_picture':profile_picture
-                        });
-                    }
-                    else{
-                        loadDefaultProfile(res);
-                    }
+                    db.get("SELECT profile_picture AS 'profile_picture' FROM 'USER_PROFILE' WHERE user_id='"+  req.session.user_id  + "'", function(err, row){
+                        if(err) console.log(err);
+                        console.log(row);
+                        var our_profile_picture = row.profile_picture;
+                        if(load){
+                            res.render('profile.ejs', 
+                            {   'firstname': firstname,
+                                'surname': surname,
+                                'user_id': other_user_id,
+                                'occupation':occupation,
+                                'description':description,
+                                'our_profile_picture':our_profile_picture,
+                                'friend_profile_picture':friend_profile_picture
+                            });
+                        }
+                        else{
+                            loadDefaultProfile(res);
+                        }
+                    });
                 }else  loadDefaultProfile(res);
             });
         }else  loadDefaultProfile(res);
@@ -119,7 +120,8 @@ Profile.loadOtherProfile = function(req, res, load){
                             'user_id': '-1',
                             'occupation':'occupation',
                             'description':'description',
-                            'profile_picture':'profile_picture'
+                            'profile_picture':'profile_picture',
+                            'friend_profile_picture':'friend_profile_picture'
                         });
     }
 };
