@@ -45,7 +45,52 @@ createDate = function(){
     return date;
 }
 
-Create.uploadAudio = function(req, res, callback){
+Create.uploadPair = function(req, res){
+    console.log(req.body);
+    var form = new formidable.IncomingForm()
+    form.multiples = true
+    form.keepExtensions = true
+    form.uploadDir = path.join(__dirname, '../uploads/profile_pictures');
+    form.parse(req, (err, fields, files) => {
+        if (err) return res.status(500).json({ error: err })
+        res.status(200).json({ uploaded: true })
+    });
+    form.on('fileBegin', function (name, file) {
+        const [fileName, fileExt] = file.name.split('.');
+        console.log(fileName)
+        file.path = path.join( path.join(__dirname, '../uploads/profile_pictures')
+                                , `${fileName}_${new Date().getTime()}.${fileExt}`);
+        relative_file_path = '/../../uploads/profile_pictures/' + `${fileName}_${new Date().getTime()}.${fileExt}`;
+        
+        // db.all("UPDATE USER_PROFILE SET profile_picture = '" + relative_file_path 
+        //         + "' WHERE user_id='" + req.session.user_id + "'", function(row,err) {
+        // });
+    });
+}
+Create.uploadAudio = function(req, res){
+    aud_vars = req.body;
+    // console.log(req.body);
+    db.get("SELECT MAX(pair_id) AS pair_id FROM AUDIO_UPLOADS", function(err,row){
+        if(IS_NULL(row.pair_id)){
+            pair_id = 0;
+            time = createDate();
+            db.get("INSERT INTO AUDIO_UPLOADS (user_id, pair_id, time, primaryDetected, colourDetected, decision1, decision2, decision3, decision4, yClrSym, yFineSym, xClrSym, xFineSym)" + 
+            "VALUES ('" +    req.session.user_id + "','" + pair_id + "','" + time + "','"  + aud_vars.primaryDetected + "','" + aud_vars.colourDetected + "','" + 
+                             aud_vars.decision1  + "','" + aud_vars.decision2   + "','" + aud_vars.decision3       + "','" + aud_vars.decision4      + "','" + 
+                             aud_vars.yClrSym    + "','" + aud_vars.yFineSym    + "','" + aud_vars.xClrSym         + "','" + aud_vars.xFineSym + "')"  )
+        }
+        else {
+            pair_id = row.pair_id + 1;
+            time = createDate();
+            db.get("INSERT INTO AUDIO_UPLOADS (user_id, pair_id, time, primaryDetected, colourDetected, decision1, decision2, decision3, decision4, yClrSym, yFineSym, xClrSym, xFineSym)" + 
+            "VALUES ('" +    req.session.user_id + "','" + pair_id + "','" + time + "','"  + aud_vars.primaryDetected + "','" + aud_vars.colourDetected + "','" + 
+                             aud_vars.decision1  + "','" + aud_vars.decision2   + "','" + aud_vars.decision3       + "','" + aud_vars.decision4      + "','" + 
+                             aud_vars.yClrSym    + "','" + aud_vars.yFineSym    + "','" + aud_vars.xClrSym         + "','" + aud_vars.xFineSym + "')"  )
+        }
+    })
+}
+
+Create.uploadAudioFile = function(req, res, callback){
 
   var form = new formidable.IncomingForm();
 
@@ -89,43 +134,50 @@ Create.uploadAudio = function(req, res, callback){
 }
 
 Create.uploadImage = function(req, res, callback){
-
-  var form = new formidable.IncomingForm();
-
-  form.multiples = false;
-
-  form.uploadDir = path.join(__dirname, '../uploads/images');
-
-  form.on('file', function(field, file) {
-    db.get("SELECT MAX(file_id) as max_id FROM IMAGE_UPLOADS", function(err, row){
-        if (err) throw err;
-
-        var file_id = IS_NULL(row.max_id) ? 0 : row.max_id + 1;
-        var file_id_str = file_id.toString();
-
-        fs.mkdir(path.join(form.uploadDir, file_id_str), function(err){
-            if(err) console.log('mkdir callback ', err);
-
-            fs.rename(file.path, path.join(form.uploadDir, file_id_str, file.name), function (err) {
-                if(err) console.log('rename callback ', err); 
-                
-                insertImageToDB(file.name, file.size, createDate(), file_id, req.user_id);
-            });
-        });
+    var form = new formidable.IncomingForm()
+    form.multiples = true
+    form.keepExtensions = true
+    form.uploadDir = path.join(__dirname, '../uploads/images');
+    form.parse(req, (err, fields, files) => {
+        if (err) return res.status(500).json({ error: err })
+        res.status(200).json({ uploaded: true })
     });
-  });
+    form.on('fileBegin', function (name, file) {
+        const [fileName, fileExt] = file.name.split('.');
+        console.log(file);
+        file.path = path.join( path.join(__dirname, '../uploads/images')
+                                , `${fileName}_${new Date().getTime()}.${fileExt}`);
+        relative_file_path = '/../../uploads/images/' + `${fileName}_${new Date().getTime()}.${fileExt}`;
 
-  // log any errors that occur
-  form.on('error', function(err) {
-    console.log('An error has occurred: \n' + err);
-  });
+        user_id = req.session.user_id;
+        time = Create.createDate();
 
-  // once all the files have been uploaded, send a response to the client
-  form.on('end', function() {
-    res.end('success');
-  });
+        db.get("SELECT MAX(pair_id) AS pair_id FROM IMAGE_UPLOADS", function(err,row){
+            if(IS_NULL(row)){
+                pair_id = 0;
+                insertImage(user_id, pair_id, time, fileName, relative_file_path);
+            }
+            else{
+                img_pair_id = row.pair_id + 1;
+                insertImage(user_id, img_pair_id, time, fileName, relative_file_path);
+            }
+        })
+    });
 
-  form.parse(req);
+
+
+    var insertImage = function( user_id, pair_id, time, file_name, file_path){
+        db.get("INSERT INTO IMAGE_UPLOADS (user_id, pair_id, time, file_name, file_path) VALUES ('" + 
+                                                    user_id + "','" + pair_id + "','" + time  + "','" + file_name + "','" + file_path + "')", function(err, row){
+                                                        console.log(err);
+                                                })
+    }
+}
+
+Create.createDate = function(){
+    now = new Date(); 
+    var date = dateFormat(now, "yyyy-mm-dd'T'HH:MM:ss");
+    return date;
 }
 
 Create.db = db;

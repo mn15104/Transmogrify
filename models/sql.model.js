@@ -73,14 +73,13 @@ SQL_MODEL.init = function(){
     });
 
 
-    db.run(`CREATE TABLE IF NOT EXISTS IMAGE_UPLOADS    (file_name VARCHAR(255), 
-                                                        file_size VARCHAR(10), 
-                                                        file_upload_date VARCHAR(255), 
-                                                        file_id INT (100),
-                                                        partner_id INT(100),
-                                                        user_id VARCHAR(255),
-                                                        FOREIGN KEY(partner_id) REFERENCES AUDIO_UPLOADS(file_id),
-                                                        PRIMARY KEY(file_id))`, (err) => {
+    db.run(`CREATE TABLE IF NOT EXISTS IMAGE_UPLOADS    (user_id INT (100), 
+                                                        pair_id INT (100), 
+                                                        time datetime,
+                                                        file_name VARCHAR(255),
+                                                        file_path VARCHAR(255),
+                                                        FOREIGN KEY(pair_id) REFERENCES AUDIO_UPLOADS(pair_id),
+                                                        PRIMARY KEY(pair_id))`, (err) => {
         if (err) {
             console.error(err.message);
         }
@@ -89,14 +88,21 @@ SQL_MODEL.init = function(){
         }
     });
 
-    db.run(`CREATE TABLE IF NOT EXISTS AUDIO_UPLOADS    (file_name VARCHAR(255), 
-                                                        file_size VARCHAR(10), 
-                                                        file_upload_date VARCHAR(255), 
-                                                        file_id INT (100),
-                                                        partner_id INT(100),
-                                                        user_id VARCHAR(255),
-                                                        FOREIGN KEY(partner_id) REFERENCES IMAGE_UPLOADS(file_id),
-                                                        PRIMARY KEY(file_id))`, (err) => {
+    db.run(`CREATE TABLE IF NOT EXISTS AUDIO_UPLOADS    (user_id INT (100), 
+                                                        pair_id INT (100), 
+                                                        time datetime, 
+                                                        primaryDetected INT(100), 
+                                                        colourDetected INT(100), 
+                                                        decision1 INT(100), 
+                                                        decision2 INT(100), 
+                                                        decision3 INT(100), 
+                                                        decision4 INT(100), 
+                                                        yClrSym INT(100), 
+                                                        yFineSym INT(100), 
+                                                        xClrSym INT(100), 
+                                                        xFineSym INT(100),
+                                                        FOREIGN KEY(pair_id) REFERENCES IMAGE_UPLOADS(pair_id)
+                                                        PRIMARY KEY(pair_id))`, (err) => {
         if (err) {
             console.error(err.message);
         }
