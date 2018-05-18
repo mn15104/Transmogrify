@@ -6,7 +6,7 @@ var formidable = require('formidable');
 var fs = require('fs');
 var dateFormat = require('dateformat');
 var ejs = require('ejs');
-
+var ChatModel = require('./chat.model');
 var Profile = function (){
 
 }
@@ -81,18 +81,17 @@ Profile.loadOtherProfile = function(req, res, load){
             var occupation = row.occupation;
             var description = row.description;
             var friend_profile_picture = row.profile_picture;
-            console.log(row);
+
             db.get("SELECT firstname, surname FROM USER_LOGIN WHERE user_id='"+  other_user_id  + "'", function(err, row){
                 if (err) throw err;
                 if (!IS_NULL(row)){
-                    console.log(row);
+
                     var firstname = row.firstname;
                     var surname = row.surname;
                     db.get("SELECT profile_picture AS 'profile_picture' FROM 'USER_PROFILE' WHERE user_id='"+  req.session.user_id  + "'", function(err, row){
                         if(err) console.log(err);
-                        console.log(row);
                         var our_profile_picture = row.profile_picture;
-                        if(load){
+                        var render_profile = function(chat_messages){
                             res.render('profile.ejs', 
                             {   'firstname': firstname,
                                 'surname': surname,
@@ -100,10 +99,16 @@ Profile.loadOtherProfile = function(req, res, load){
                                 'occupation':occupation,
                                 'description':description,
                                 'our_profile_picture':our_profile_picture,
-                                'friend_profile_picture':friend_profile_picture
+                                'friend_profile_picture':friend_profile_picture,
+                                'chat_messages': chat_messages,
                             });
                         }
-                        else{
+
+                        
+                        ChatModel.loadMessages(req.session.user_id, other_user_id, render_profile);
+                        
+
+                        if(!load){
                             loadDefaultProfile(res);
                         }
                     });

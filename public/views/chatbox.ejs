@@ -37,9 +37,33 @@
         </div>
     </header>
     <ol class="chat_discussion">
+        <% for(var i = 0; i < chat_messages.length; i++){ %>
+            <%if (chat_messages[i].user_send === user_id) { %>
+                <li class="chat_self">
+                    <div class="chat_avatar">
+                        <img src='<%=our_profile_picture%>'/>
+                    </div>
+                    <div class="chat_messages">
+                        <p><%= chat_messages[i].message %></p>
+                        <time datetime="<%= chat_messages[i].time %>"><%= chat_messages[i].time %></time>      
+                    </div>
+                </li>
+            <% } else { %>
+                <li class="chat_other">      
+                        <div class="chat_avatar">        
+                            <img src='<%=friend_profile_picture%>' />      
+                        </div>      
+                        <div class="chat_messages">        
+                            <p><%= chat_messages[i].message %></p>        
+                            <time datetime="<%= chat_messages[i].time %>"><%= chat_messages[i].time %></time>      
+                        </div>    
+                </li>
+            <% } %>
+        <% } %> 
 
     </ol>  
     <div class="chat_input_wrapper">
+        
         <fieldset class="chat_fieldset">
             <input class="chat_input" type="text" placeholder="Type your message…" autofocus>
             <input class="chat_input_hidden" type="hidden">

@@ -17,22 +17,33 @@ let db = new sqlite3.Database('./Dev.db', sqlite3.OPEN_CREATE | sqlite3.OPEN_REA
 });
 // **************************************************************************************************** //
 
+Chat.safeInsertMessage = function(chat_id, date, user_id, friend_id, chat_message){
+    db.get("SELECT MAX(session_id) AS session_id FROM CHATMESSAGE", function(err, row){
+        if(IS_NULL(row)){
+            session_id = 0;
+            db.get("INSERT INTO CHATMESSAGE (chat_id, user_send, user_receive, message, time, session_id) values ('" + chat_id + "','" + user_id + "','" + friend_id + "','" + chat_message +  "','" + date +"','" + session_id + "')", function(err, row){
+                if(err) console.log(err);
+            })
+        }else{
+            session_id = row.session_id + 1;
+            db.get("INSERT INTO CHATMESSAGE (chat_id, user_send, user_receive, message, time, session_id) values ('" + chat_id + "','" + user_id + "','" + friend_id + "','" + chat_message +  "','" + date + "','"+session_id+"')", function(err, row){
+                if(err) console.log(err);
+            })
+        }
+    } )
+};
+
 Chat.insertMessage = function(user_id, friend_id, chat_message){
-    this.loadMessages(0);
+    Chat.loadMessages(0);
     date = createDate();
     db.get("SELECT chat_id AS chat_id FROM FRIENDLIST WHERE (user_idA='"+user_id+"' and user_idB='" + friend_id + "') or (user_idA='"+friend_id+"' and user_idB='" + user_id + "') ", function(err, row){
         if(IS_NULL(row)){
-            insertChatID(user_id, friend_id, safeInsertMessage)
+            insertChatID(user_id, friend_id, Chat.safeInsertMessage)
         }else{
             chat_id = row.chat_id;
-            safeInsertMessage(chat_id, date);
+            Chat.safeInsertMessage(chat_id, date, user_id, friend_id, chat_message);
         }
     } )
-    var safeInsertMessage = function(chat_id, date){
-         db.get("INSERT INTO CHATMESSAGE (chat_id, user_send, user_receive, message, time) values ('" + chat_id + "','" + user_id + "','" + friend_id + "','" + chat_message +  "','" + date + "')", function(err, row){
-            if(err) console.log(err);
-        })
-    };
 };
 
 Chat.insertChatID = function(user_id, friend_id, callback){
@@ -42,24 +53,43 @@ Chat.insertChatID = function(user_id, friend_id, callback){
             next_chatid = 0;
             db.get("INSERT INTO FRIENDLIST (user_idA, user_idB, chat_id) values ('" + user_id + "','" + friend_id + "','" + next_chatid + "')", function(err, row){
                 if(err) throw err;
-                if(callback) callback(next_chatid, date);
+                if(callback) callback(next_chatid, date, user_id, friend_id, chat_message);
             });
         }
         else{
             next_chatid = row.chat_id + 1;
             db.get("INSERT INTO FRIENDLIST (user_idA, user_idB, chat_id) values ('" + user_id + "','" + friend_id + "','" + next_chatid  + "')", function(err, row){
                 if(err) throw err;
-                if(callback) callback(next_chatid, date);
+                if(callback) callback(next_chatid, date, user_id, friend_id, chat_message);
             });
         }
     })
 }
 
-Chat.loadMessages = function(chat_id){
-    db.get("SELECT * FROM CHATMESSAGE WHERE chat_id='" + chat_id + "' ORDER BY 'time' DESC LIMIT 10", function(err, row){
+Chat.loadMessages = function(user_id, friend_id, callback){
+    db.get("SELECT chat_id AS chat_id FROM FRIENDLIST WHERE (user_idA='"+user_id+"' and user_idB='" + friend_id + "') or (user_idA='"+friend_id+"' and user_idB='" + user_id + "') ", function(err, row){
         if (err) console.log(err);
-        console.log(row);
-    });
+        if(IS_NULL(row)){
+            console.log("here");
+            callback([]);
+        }else{
+            chat_id = row.chat_id;
+            db.all("SELECT * FROM CHATMESSAGE WHERE chat_id='" + chat_id + "' ORDER BY session_id LIMIT 20", function(err, row){
+                if (err) console.log(err);
+                console.log("here2");
+                console.log(callback);
+                if (typeof callback == 'function'){
+                    console.log("here3");
+                    console.log(row);
+                    callback(row);
+                }
+                else{
+                    console.log("here4");
+                    return row;
+                }
+            });
+        }
+    } )
 }
 
 Chat.createDate = function(){
