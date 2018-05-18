@@ -36,7 +36,7 @@ body{
 }
 
 .sidepanel_body h1{
-  
+
   color: var(--clrTitle);
   font-family:Georgia,serif;
   text-transform: none; font-weight: 100;
@@ -202,7 +202,7 @@ h2.sidepanel_menu-link-login{
 }
 
 h3.sidepanel_title{
-  -webkit-user-select: none; /* Safari */        
+  -webkit-user-select: none; /* Safari */
   -moz-user-select: none; /* Firefox */
   -ms-user-select: none; /* IE10+/Edge */
   user-select: none; /* Standard */
@@ -419,7 +419,7 @@ ul {
   cursor: pointer;
   -webkit-transition: all 1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   transition: all 1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  background-color: linear-gradient(to right, var(--clrTitle), var(--clrTitle)); 
+  background-color: linear-gradient(to right, var(--clrTitle), var(--clrTitle));
 
 }
 .burger__patty {
@@ -454,7 +454,7 @@ ul {
   transition: all 1.0s;
   left: 0;
   width:100vw;
-  background:   linear-gradient(to right, var(--clrRed), var(--clrTitle)); 
+  background:   linear-gradient(to right, var(--clrRed), var(--clrTitle));
 }
 
 
@@ -580,6 +580,12 @@ img.sidepanel_menu-link-login {
   -moz-border-radius: 50%;
   border-radius: 50%;
   box-shadow: 0 0px 10px rgba(255, 255, 255, 0.4);
+}
+
+#logo-image {
+    position: absolute;
+    height: 60px;
+    transform: translateX(18%);
 }
 
 .friends-list{

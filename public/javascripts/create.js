@@ -241,7 +241,7 @@ $( ".convert-btn" ).one( "click", function() {
                         var decision3 = Math.floor( (blueSum/pixelSum) / 23.3 );
                         var decision4 = Math.abs( decision1 - decision2 );
 
-                        audioTester(primaryDetected, colourDetected, 1,2,3,4, symmetry[0], symmetry[1], symmetry[2], symmetry[3]);
+                        audioTester(primaryDetected, colourDetected, decision1, decision2, decision3, decision4, symmetry[0], symmetry[1], symmetry[2], symmetry[3]);
                         updateProgress(100);
 
                         //Show the placeholder audio
@@ -517,7 +517,11 @@ $( ".download-btn" ).one( "click", function() {
         console.log("SAVING VARIABLE " + i + " as " + musicVariables[i]);
     }
 
+});
 
+$( ".retry-btn" ).one( "click", function() {
+
+    //MIN REFRESH PLS
 
 });
 
@@ -621,11 +625,11 @@ function audioTester(primaryDetected, colourDetected, decision1, decision2, deci
             player.queueWaveTable(audioContext, audioContext.destination, melInst[0], repTime + motif[11][0], motif[11][1]+12*4+musicKey, motif[11][2]);
             player.queueWaveTable(audioContext, audioContext.destination, melInst[0], repTime + motif[12][0], motif[12][1]+12*4+musicKey, motif[12][2]);
 
+
+        }
+        for (var i = 0; i < 40; i++)  {
             console.log("bass[" + i + "][1] = " + bass[i][1]);
             player.queueWaveTable(audioContext, audioContext.destination, melInst[0], bass[i][0], bass[i][1]+12*3+musicKey, bass[i][2]);
-
-
-
 
         }
         $( ".download-btn" ).show();
@@ -1128,7 +1132,7 @@ function motifGenerator(mood, layer, key, decVars, symVars) {
                     //repeat position 1 -> 5
                     motif[4][1] = motif[0][1];
 
-                    if (noDim == 0) {
+                    if (noDimin == 0) {
                         if (chromScale(motif[1][1]) != 6) {
                             motif[5][1] = heptScale(secondNote + 1);
                         }
@@ -1609,15 +1613,23 @@ function bassGenerator( mood, layer, key, decVars, symVars, motif ) {
         bass[7][2] = dur(8);
 
     }
-    else if (decVars[1] < 10) {
-        chord = chordPath(decVars);
+    else if (decVars[1] <= 10) {
+        console.log("Custom chord progression chosen");
+        chord = chordPath(decVars); //Gets the 8 chord path
         chordProg = chordProgression(decVars, chord);
+        //
+        // for (var n = 0; n < 8; n++) {
+        //     bass[n][0] = rhythm((n*2)+1,1);
+        //     bass[n][1] = heptScale(chord[n][1]) - (chord[n][0]*12);
+        //     bass[n][2] = dur(8);
+        // }
 
-        for (var n = 0; n < 8; n++) {
-            bass[n][0] = rhythm((n*2)+1,1);
-            bass[n][1] = heptScale(chord[n][1]) - (chord[n][0]*12);
-            bass[n][2] = dur(8);
+        for (var n = 0; n < 24; n++) {
+            bass[n][0] = chordProg[n][0];
+            bass[n][1] = chordProg[n][1];
+            bass[n][2] = chordProg[n][2];
         }
+
         // for (var n = 0; n < 8; n++) {
         //     for (var m = 0; m < 4; m++) {
         //         bass[n*4 + m][0] = rhythm((n*2)+1,1);
@@ -1903,6 +1915,9 @@ function chordPath(decVars) {
 
 function chordProgression(decVars, chord) {
 
+    //chord[n][0] = octave but untouched??
+    //chord[n][1] = note
+
     var chordProg = new Array(160);
     for (var n = 0; n < 160; n++) {
         chordProg[n] = new Array(3);
@@ -1913,49 +1928,69 @@ function chordProgression(decVars, chord) {
     }
 
     var majMinDim = 0; //1 = major, 2 = minor, 3 = diminished
-    //test jazz vibes
+
     for (var n = 0; n < 8; n++) {
-        var heptNext = heptScale(chord[n][1]);
-        console.log("chord[n][1] = " + chord[n][1]);
-        console.log("heptNext = " + chord[n][1]);
-        if (chord[n][1] == 1 || chord[n][1] == 4 || chord[n][1] == 5) {
-            majMinDim = 1;
-        }
-        else if (chord[n][1] == 2 || chord[n][1] == 3 || chord[n][1] == 6) {
-            majMinDim = 2;
-        }
-        else if (chord[n][1] == 7) {
-            majMinDim = 3;
-        }
-        console.log("majMinDim = " + majMinDim);
-        for (var m = 0; m < 4; m++) {
-            chordProg[n*4 + m][0] = rhythm((n*2)+1,1);
-            chordProg[n*4 + m][2] = dur(8);
-        }
-        if (majMinDim == 1) {
-            //M7
-            chordProg[n*4 + 0][1] = heptNext;
-            chordProg[n*4 + 1][1] = heptNext + 4;
-            chordProg[n*4 + 2][1] = heptNext + 7;
-            chordProg[n*4 + 3][1] = heptNext + 11;
-        }
-        if (majMinDim == 2) {
-            //m7
-            chordProg[n*4 + 0][1] = heptNext;
-            chordProg[n*4 + 1][1] = heptNext + 3;
-            chordProg[n*4 + 2][1] = heptNext + 7;
-            chordProg[n*4 + 3][1] = heptNext + 10;
-        }
-        if (majMinDim == 3) {
-            chordProg[n*4 + 0][1] = heptNext;
-            chordProg[n*4 + 1][1] = heptNext + 3;
-            chordProg[n*4 + 2][1] = heptNext + 6;
-            chordProg[n*4 + 3][1] = heptNext + 10;
+        for (var m = 0; m < 3; m++) {
+            if (m == 0) {
+                chordProg[n][0] = rhythm((n*2)+1,1);
+                chordProg[n][1] = heptScale(chord[n][1]) - (chord[n][0]*12);
+                chordProg[n][2] = dur(4);
+            }
+            else if (m == 1) {
+                chordProg[n+8][0] = rhythm((n*2)+2,1);
+                chordProg[n+8][1] = heptScale(chord[n][1]+2) - ((chord[n][0]-1)*12);
+                chordProg[n+8][2] = dur(2);
+            }
+            else {
+                chordProg[n+16][0] = rhythm((n*2)+2.5,1);
+                chordProg[n+16][1] = heptScale(chord[n][1]) - ((chord[n][0]-1)*12);
+                chordProg[n+16][2] = dur(2);
+            }
         }
     }
-    for (var n = 0; n < 40; n++) {
-        console.log("chordProg[" + n + "][1] = " + chordProg[n][1]);
-    }
+    // //test jazz vibes
+    // for (var n = 0; n < 8; n++) {
+    //     var heptNext = heptScale(chord[n][1]);
+    //     console.log("chord[n][1] = " + chord[n][1]);
+    //     console.log("heptNext = " + chord[n][1]);
+    //     if (chord[n][1] == 1 || chord[n][1] == 4 || chord[n][1] == 5) {
+    //         majMinDim = 1;
+    //     }
+    //     else if (chord[n][1] == 2 || chord[n][1] == 3 || chord[n][1] == 6) {
+    //         majMinDim = 2;
+    //     }
+    //     else if (chord[n][1] == 7) {
+    //         majMinDim = 3;
+    //     }
+    //     console.log("majMinDim = " + majMinDim);
+    //     for (var m = 0; m < 4; m++) {
+    //         chordProg[n*4 + m][0] = rhythm((n*2)+1,1);
+    //         chordProg[n*4 + m][2] = dur(8);
+    //     }
+    //     if (majMinDim == 1) {
+    //         //M7
+    //         chordProg[n*4 + 0][1] = heptNext;
+    //         chordProg[n*4 + 1][1] = heptNext + 4;
+    //         chordProg[n*4 + 2][1] = heptNext + 7;
+    //         chordProg[n*4 + 3][1] = heptNext + 11;
+    //     }
+    //     if (majMinDim == 2) {
+    //         //m7
+    //         chordProg[n*4 + 0][1] = heptNext;
+    //         chordProg[n*4 + 1][1] = heptNext + 3;
+    //         chordProg[n*4 + 2][1] = heptNext + 7;
+    //         chordProg[n*4 + 3][1] = heptNext + 10;
+    //     }
+    //     if (majMinDim == 3) {
+    //         chordProg[n*4 + 0][1] = heptNext;
+    //         chordProg[n*4 + 1][1] = heptNext + 3;
+    //         chordProg[n*4 + 2][1] = heptNext + 6;
+    //         chordProg[n*4 + 3][1] = heptNext + 10;
+    //     }
+    // }
+    // for (var n = 0; n < 40; n++) {
+    //     console.log("chordProg[" + n + "][1] = " + chordProg[n][1]);
+    // }
 
     return chordProg;
 }
