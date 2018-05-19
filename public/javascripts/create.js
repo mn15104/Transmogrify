@@ -590,8 +590,6 @@ function audioTester(primaryDetected, colourDetected, decision1, decision2, deci
     musicVariables[9] = xFineSym;
 
 
-
-
     var AudioContextFunc = window.AudioContext || window.webkitAudioContext;
     var audioContext = new AudioContextFunc();
 
