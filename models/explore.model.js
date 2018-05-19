@@ -5,6 +5,8 @@ var path = require('path');
 var formidable = require('formidable');
 var fs = require('fs');
 var dateFormat = require('dateformat'); 
+var async = require('async');
+
 var Explore = function (){
 
 }
@@ -48,9 +50,8 @@ Explore.loadAudioFileByID = function(req, res){
 };
 
 Explore.loadFile = function(req, res){
-   
-        var pair_id     = req.query.pair_id;
-        var num_files   = req.query.num_files;
+        var pair_id     = req.body.pair_id;
+        var num_files   = req.body.num_files;
         if(pair_id === 'max'){
             db.all("SELECT * FROM IMAGE_UPLOADS ORDER BY pair_id LIMIT '" + num_files + "'", function(err, row){
                 if (err) console.log(err);
@@ -60,12 +61,31 @@ Explore.loadFile = function(req, res){
                                                      
                 if (!IS_NULL(row)){
                     db.all("SELECT * FROM AUDIO_UPLOADS ORDER BY pair_id LIMIT '" + num_files + "'", function(err, row){
+                        if(err) console.log(err);
                         file_data = row.map((aud,index) => {if(image_data.length < index + 1) return {};
                                                              file = aud;
                                                              file['file_path'] = image_data[index].file_path; 
-                                                             return file;});
-                        file_data = file_data.filter(file_d => {return Object.keys(file_d).length !== 0;})
-                        res.status(200).send(JSON.stringify(file_data));
+                                                             return file;}).filter(
+                                                             file_d => {return Object.keys(file_d).length !== 0;});
+                        
+
+                        async.forEachOf(file_data, function(file_d, i, inner_callback){
+                            db.get("SELECT profile_picture AS profile_picture FROM USER_PROFILE WHERE user_id='" + file_d.user_id + "'", function(err, row){
+                                if(err) console.log(err);
+                                if(!IS_NULL(row)){
+                                    file_d['profile_picture'] = row.profile_picture;
+                                    inner_callback(null);
+                                }   
+                                else{
+                                    file_d['profile_picture'] = "not found"; 
+                                    inner_callback(null);
+                                }
+                            });
+                        }, function(err){
+                            if(err) console.log(err);
+                            res.status(200).send(JSON.stringify(file_data));
+                        })                                        
+                                     
                     })
                 }
                 else{
@@ -75,6 +95,7 @@ Explore.loadFile = function(req, res){
             });
         }
         else{
+            console.log(req.query);
             db.all("SELECT * FROM IMAGE_UPLOADS WHERE pair_id >= " + pair_id + " ORDER BY pair_id LIMIT " + num_files, function(err, row){
                 if (err) console.log(err);
                 image_data = row.map(img => {return {pair_id:   img.pair_id, 

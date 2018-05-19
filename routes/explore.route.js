@@ -9,7 +9,7 @@ router.get('/', function(req, res, next) {
   res.sendFile(path.join(__dirname + '/../public/views/explore.html'));
 });
 
-router.get('/loadfile', function(req,res,next){
+router.post('/loadfile', function(req,res,next){
   console.log("here");
   Explore.loadFile(req,res);
 })

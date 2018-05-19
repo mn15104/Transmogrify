@@ -39,7 +39,10 @@ function init(){
 
     setInterval(updateBlur, 1000);
 
-    retrieveFileData(20, 'max');
+    bricks = retrieveFileData(20, 'max');
+    // for(i = 0; i < bricks.length; i++){
+
+    // }
 }
 
 function refreshAudio(){
@@ -109,11 +112,12 @@ function initAudio(player){
 function retrieveFileData(numb, req_file_id){
     $.ajax({
         url: '/explore/loadfile',
-        type: 'GET',
+        type: 'POST',
         data: {'num_files' : numb,
                'pair_id': req_file_id},
         success: function(data){
             console.log(data);
+            return data;
         },
         error: function (err) {
             console.log(err);
@@ -125,13 +129,24 @@ var viewProfile = function(user_id){
     loadOtherProfilePage(user_id);
 }
 
-function generateBrick(){
-    '<figure class="brick"'   +  
-    'data-user-id   = ""'    +
-    'data-date       = ""'    +
-    'data-file-id    = "">'   +
+function generateBrick(file_data){
+    '<figure class="brick"'      +   
+    'data-user-id   = "'         + file_data.user_id         + '" ' +
+    'data-pair-id   = "'         + file_data.pair_id         + '" ' +
+    'data-time      = "'         + file_data.time            + '" ' +
+    'data-primaryDetected ="'    + file_data.primaryDetected + '" ' +
+    'data-colourDetected ="'     + file_data.colourDetected  + '" ' +
+    'data-decision1 ="'          + file_data.decision1       + '" ' +
+    'data-decision2 ="'          + file_data.decision2       + '" ' +
+    'data-decision3 ="'          + file_data.decision3       + '" ' +
+    'data-decision4 ="'          + file_data.decision4       + '" ' +
+    'data-yClrSym ="'            + file_data.yClrSym         + '" ' +
+    'data-yFineSym ="'           + file_data.yFineSym        + '" ' +
+    'data-xClrSym ="'            + file_data.xClrSym         + '" ' +
+    'data-xFineSym ="'           + file_data.xFineSym        + '" ' +
+    '>'  +
     '<div class = "brick-img-audio-container">' +
-        '<img  class = "brick-img" src="">'     +
+        '<img  class = "brick-img" src="'       +  file_data.file_path + '">'
         '<div class = "brick-audio"> </div>'    +
     '</div>'                                    +    
     '<div class="player">'                                  +
