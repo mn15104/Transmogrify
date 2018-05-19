@@ -39,7 +39,7 @@ function init(){
 
     setInterval(updateBlur, 1000);
 
-    bricks = retrieveFileData(20, 'max');
+    bricks = retrieveFileData(20, 2);
     // for(i = 0; i < bricks.length; i++){
 
     // }
