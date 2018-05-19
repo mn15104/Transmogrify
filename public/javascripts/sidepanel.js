@@ -160,6 +160,13 @@ var initNavLinks = function(){
   })
 }
 
+var refreshTab = function(){
+  var activetab = $('.sidepanel_menu_link.active')
+  if(activetab.length){
+    activetab.trigger('click');
+  }
+}
+
 var siteW = $(window).width();
 var siteH = $(window).height();
 

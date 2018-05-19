@@ -554,16 +554,18 @@ $( ".download-btn" ).on( "click", function() {
         data: music_vars,
         success: function(data){
             console.log('message sent\n' + data);
+        },
+        error: function(){
+            alert("You need to be logged in, to save a creation.");
         }
     });
 });
 
 $( ".retry-btn" ).one( "click", function() {
-
+    refreshTab();
+})
+$( ".audiostop-btn" ).one( "click", function() {
     stopAudio();
-
-    //MIN REFRESH PLS
-
 });
 
 
