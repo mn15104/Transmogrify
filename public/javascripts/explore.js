@@ -38,6 +38,8 @@ function init(){
     });
 
     setInterval(updateBlur, 1000);
+
+    retrieveFileData(20, 'max');
 }
 
 function refreshAudio(){
@@ -104,6 +106,55 @@ function initAudio(player){
     }
 }
 
+function retrieveFileData(numb, req_file_id){
+    $.ajax({
+        url: '/explore/loadfile',
+        type: 'GET',
+        data: {'num_files' : numb,
+               'pair_id': req_file_id},
+        success: function(data){
+            console.log(data);
+        },
+        error: function (err) {
+            console.log(err);
+        }
+    });
+}
+
+var viewProfile = function(user_id){
+    loadOtherProfilePage(user_id);
+}
+
+function generateBrick(){
+    '<figure class="brick"'   +  
+    'data-user-id   = ""'    +
+    'data-date       = ""'    +
+    'data-file-id    = "">'   +
+    '<div class = "brick-img-audio-container">' +
+        '<img  class = "brick-img" src="">'     +
+        '<div class = "brick-audio"> </div>'    +
+    '</div>'                                    +    
+    '<div class="player">'                                  +
+        '<div class="control-panel">'                       +
+            '<div class="album-art brick_profile_img">'     +
+                '<span><img class = "profile_img"/></span>' +
+            '</div>'                                        +
+            '<div class="info-bar">'                        +        
+                '<span class="artist">  </span>'         +
+                '<span class="name">   </span>'          +
+                '<div class="progress-bar">'        +
+                    '<div class="bar"></div>'       +
+                '</div>'                            +                
+            '</div>'                                +
+            '<div class="controls">'                +
+                '<div class="play-container pause">'+
+                    '<i class="fa fa-play play pause" aria-hidden="true"></i>' +
+                '</div>'            +
+    '</div></div> </div></figure>'  
+}
+
+
+
 function updateBlur(){
     if($('#CURRENT_PLAYER').length != 0){
         if(!$('#CURRENT_PLAYER').hasClass('pause')){
@@ -135,113 +186,3 @@ var tweenBlur = function(startRadius, endRadius) {
        }
    });
 };
-
-function retrieveFileData(req_file_id){
-    $.ajax({
-        url: '/explore.html/loadfiledatabyid',
-        type: 'GET',
-        data: req_file_id,
-        processData: false,
-        contentType: false,
-        success: function(data){
-            console.log('upload successful!\n' + data);
-        },
-        error: function (xhr, ajaxOptions, thrownError) {
-            console.log("Error during id request : " + thrownError);
-        },
-        xhr: function() {
-          
-        }
-    });
-}
-
-function retrieveImageFile(req_file_id){
-    $.ajax({
-        url: '/explore.html/loadimagefilebyid',
-        type: 'GET',
-        data: req_file_id,
-        processData: false,
-        contentType: false,
-        success: function(data){
-            console.log('upload successful!\n' + data);
-        },
-        error: function (xhr, ajaxOptions, thrownError) {
-            console.log("Error during id request : " + thrownError);
-        },
-        xhr: function() {
-          
-        }
-    });
-}
-
-function retrieveAudioFile(req_file_id){
-    $.ajax({
-        url: '/explore.html/loadaudiofilebyid',
-        type: 'GET',
-        data: req_file_id,
-        processData: false,
-        contentType: false,
-        success: function(data){
-            console.log('upload successful!\n' + data);
-        },
-        error: function (xhr, ajaxOptions, thrownError) {
-            console.log("Error during id request : " + thrownError);
-        },
-        xhr: function() {
-          
-        }
-    });
-}
-
-function retrieveProfileImage(req_user_id){
-    $.ajax({
-        url: '/explore.html/loadprofileimage',
-        type: 'GET',
-        data: req_file_id,
-        processData: false,
-        contentType: false,
-        success: function(data){
-            console.log('upload successful!\n' + data);
-        },
-        error: function (xhr, ajaxOptions, thrownError) {
-            console.log("Error during id request : " + thrownError);
-        },
-        xhr: function() {
-          
-        }
-    });
-}
-
-var viewProfile = function(user_id){
-    // $.getScript("sidepanel.js",function(){
-        loadOtherProfilePage(user_id);
-    // });
-}
-
-function generateBrick(){
-    '<figure class="brick"'   +  
-    'data-username   = ""'    +
-    'data-date       = ""'    +
-    'data-file-id    = "">'   +
-    '<div class = "brick-img-audio-container">' +
-        '<img  class = "brick-img" src="">'     +
-        '<div class = "brick-audio"> </div>'    +
-    '</div>'                                    +    
-    '<div class="player">'                                  +
-        '<div class="control-panel">'                       +
-            '<div class="album-art brick_profile_img">'     +
-                '<span><img class = "profile_img"/></span>' +
-            '</div>'                                        +
-            '<div class="info-bar">'                        +        
-                '<span class="artist">  </span>'         +
-                '<span class="name">   </span>'          +
-                '<div class="progress-bar">'        +
-                    '<div class="bar"></div>'       +
-                '</div>'                            +                
-            '</div>'                                +
-            '<div class="controls">'                +
-                '<div class="play-container pause">'+
-                    '<i class="fa fa-play play pause" aria-hidden="true"></i>' +
-                '</div>'            +
-    '</div></div> </div></figure>'  
-}

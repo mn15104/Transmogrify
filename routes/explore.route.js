@@ -9,13 +9,8 @@ router.get('/', function(req, res, next) {
   res.sendFile(path.join(__dirname + '/../public/views/explore.html'));
 });
 
-router.get('/loadfiledatabyid', function(req,res,next){
-  var filedata = Explore.loadFileDataByID(req,res);
-})
-router.get('/loadimagefilebyid', function(req,res,next){
-  var filedata = Explore.loadImageFileByID(req,res);
-})
-router.get('/loadaudiofilebyid', function(req,res,next){
-  var filedata = Explore.loadAudioFileByID(req,res);
+router.get('/loadfile', function(req,res,next){
+  console.log("here");
+  Explore.loadFile(req,res);
 })
 module.exports = router;

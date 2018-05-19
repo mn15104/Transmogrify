@@ -47,20 +47,56 @@ Explore.loadAudioFileByID = function(req, res){
   
 };
 
-Explore.loadImageFileByID = function(req, res){
+Explore.loadFile = function(req, res){
    
-        var file_id = req.body.file_id;
-        db.get("SELECT * FROM IMAGE_UPLOADS WHERE file_id='"+  file_id  + "'", function(err, row){
-            if (err) throw err;
-            if (!IS_NULL(row)){
-                var filePath = path.join(__dirname, '../uploads/image/' + file_id + '/' + row.file_name);
-                res.send(filepath);      
-            }
-            else{
-                res.status(400);
-                res.send('None shall pass');
-            }
-        });
+        var pair_id     = req.query.pair_id;
+        var num_files   = req.query.num_files;
+        if(pair_id === 'max'){
+            db.all("SELECT * FROM IMAGE_UPLOADS ORDER BY pair_id LIMIT '" + num_files + "'", function(err, row){
+                if (err) console.log(err);
+                image_data = row.map(img => {return {pair_id:   img.pair_id, 
+                                                     file_path: img.file_path, 
+                                                     user_id:   img.user_id}})
+                                                     
+                if (!IS_NULL(row)){
+                    db.all("SELECT * FROM AUDIO_UPLOADS ORDER BY pair_id LIMIT '" + num_files + "'", function(err, row){
+                        file_data = row.map((aud,index) => {if(image_data.length < index + 1) return {};
+                                                             file = aud;
+                                                             file['file_path'] = image_data[index].file_path; 
+                                                             return file;});
+                        file_data = file_data.filter(file_d => {return Object.keys(file_d).length !== 0;})
+                        res.status(200).send(JSON.stringify(file_data));
+                    })
+                }
+                else{
+                    res.status(400);
+                    res.send('None shall pass');
+                }
+            });
+        }
+        else{
+            db.all("SELECT * FROM IMAGE_UPLOADS WHERE pair_id >= " + pair_id + " ORDER BY pair_id LIMIT " + num_files, function(err, row){
+                if (err) console.log(err);
+                image_data = row.map(img => {return {pair_id:   img.pair_id, 
+                                                     file_path: img.file_path, 
+                                                     user_id:   img.user_id}})
+                                                     
+                if (!IS_NULL(row)){
+                    db.all("SELECT * FROM AUDIO_UPLOADS pair_id >= " + pair_id + " ORDER BY pair_id LIMIT " + num_files, function(err, row){
+                        file_data = row.map((aud,index) => {if(image_data.length < index + 1) return {};
+                                                             file = aud;
+                                                             file['file_path'] = image_data[index].file_path; 
+                                                             return file;});
+                        file_data = file_data.filter(file_d => {return Object.keys(file_d).length !== 0;})
+                        res.status(200).send(JSON.stringify(file_data));
+                    })
+                }
+                else{
+                    res.status(400);
+                    res.send('None shall pass');
+                }
+            });
+        }
 };
 
 

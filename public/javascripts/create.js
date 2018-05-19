@@ -519,21 +519,19 @@ $( ".download-btn" ).on( "click", function() {
 
     formData.append("file",$('#upload-input')[0].files[0]);
     formData.append("upload_file",true);
-
-
-    $.ajax({
-        type: "POST",
-        url: "/create/uploadimage",
-        data : formData,
-        processData: false,  // tell jQuery not to process the data
-        contentType: false,  // tell jQuery not to set contentType
-        success : function(data) {
-            console.log("success");
-        },
-        error: function(err){
-            console.log("error");
-        }
-    });
+    music_vars =
+    {
+        'primaryDetected' : musicVariables[0],
+        'colourDetected' : musicVariables[1],
+        'decision1' : musicVariables[2],
+        'decision2' : musicVariables[3],
+        'decision3' : musicVariables[4],
+        'decision4' : musicVariables[5],
+        'yClrSym' : musicVariables[6],
+        'yFineSym' : musicVariables[7],
+        'xClrSym' : musicVariables[8],
+        'xFineSym' : musicVariables[9]
+    }
     // audio vars
     music_vars =
     {
@@ -549,16 +547,30 @@ $( ".download-btn" ).on( "click", function() {
         'xFineSym' : musicVariables[9]
     }
     $.ajax({
-        url: '/create/uploadaudio',
-        type: 'POST',
-        data: music_vars,
-        success: function(data){
-            console.log('message sent\n' + data);
+        type: "POST",
+        url: "/create/uploadimage",
+        data : formData,
+        processData: false,  // tell jQuery not to process the data
+        contentType: false,  // tell jQuery not to set contentType
+        success : function(data) {
+            $.ajax({
+                url: '/create/uploadaudio',
+                type: 'POST',
+                data: music_vars,
+                success: function(data){
+                    console.log('message sent\n' + data);
+                },
+                error: function(){
+                    alert("You need to be logged in, to save a creation.");
+                }
+            });
         },
-        error: function(){
-            alert("You need to be logged in, to save a creation.");
+        error: function(err){
+            console.log("error");
         }
     });
+
+
 });
 
 $( ".retry-btn" ).one( "click", function() {
