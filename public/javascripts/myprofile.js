@@ -256,6 +256,13 @@ function retrieveFileData(numb, req_file_id){
     });
 }
 function generateBrick(file_data){
+    var styleEl = document.createElement('style'),
+                    styleSheet;
+
+    document.head.appendChild(styleEl);
+
+    styleSheet = styleEl.sheet;
+    styleSheet.insertRule('#pair' + file_data.pair_id + ' .player .control-panel .album-art::before' + '{ background-image: url(' + file_data.profile_picture + ');}', styleSheet.cssRules.length);
     brick =     '<figure class="brick"'      +   
                 'data-user-id   = "'         + file_data.user_id         + '" ' +
                 'data-pair-id   = "'         + file_data.pair_id         + '" ' +
@@ -270,7 +277,7 @@ function generateBrick(file_data){
                 'data-yFineSym ="'           + file_data.yFineSym        + '" ' +
                 'data-xClrSym ="'            + file_data.xClrSym         + '" ' +
                 'data-xFineSym ="'           + file_data.xFineSym        + '" ' +
-                '>'  +
+                'id = "pair' + file_data.pair_id + '">'  +
                 '<div class = "brick-img-audio-container">' +
                     '<img  class = "brick-img" src="'       +  file_data.file_path + '">' +
                     '<div class = "brick-audio"> </div>'    +
@@ -278,6 +285,7 @@ function generateBrick(file_data){
                 '<div class="player">'                                  +
                     '<div class="control-panel">'                       +
                         '<div class="album-art brick_profile_img" style="background-image:url('+ file_data.profile_picture +')">'  +
+                            // '<span><img class = "profile_img"/></span>' +
                         '</div>'                                        +
                         '<div class="info-bar">'                        +        
                             '<span class="artist">' + file_data.firstname + '</span>' +

@@ -39,20 +39,20 @@ function retrieveFileData(numb, req_file_id){
             }
             for(var i = 0; i < dataObj.length; i++){
                 generateBrick(dataObj[i]);
+                $('.brick .brick_profile_img').click(function(){
+                    brick_user_id = $($(this).closest('.brick')).data('user-id');
+                    $('.explore_wrapper').animate(
+                        { "margin-left": "-100vw" },
+                        { queue: false, duration: 2000, complete:function(){
+                             viewProfile(brick_user_id);
+                        } });
+                })
+                console.log(i);
             }
-   
             $('.play-container').click(function(){
                 var player = $(this);
                 initAudio(player);
             });
-            $('.brick .brick_profile_img').click(function(){
-                brick_user_id = $($(this).closest('.brick')).data('user-id');
-                $('.explore_wrapper').animate(
-                    { "margin-left": "-100vw" },
-                    { queue: false, duration: 2000, complete:function(){
-                         viewProfile(brick_user_id);
-                    } });
-            })
             return data;
         },
         error: function (err) {
@@ -67,6 +67,13 @@ var viewProfile = function(user_id){
 }
 
 function generateBrick(file_data){
+    var styleEl = document.createElement('style'),
+                    styleSheet;
+
+    document.head.appendChild(styleEl);
+
+    styleSheet = styleEl.sheet;
+    styleSheet.insertRule('#pair' + file_data.pair_id + ' .player .control-panel .album-art::before' + '{ background-image: url(' + file_data.profile_picture + ');}', styleSheet.cssRules.length);
     brick =     '<figure class="brick"'      +   
                 'data-user-id   = "'         + file_data.user_id         + '" ' +
                 'data-pair-id   = "'         + file_data.pair_id         + '" ' +
@@ -81,7 +88,7 @@ function generateBrick(file_data){
                 'data-yFineSym ="'           + file_data.yFineSym        + '" ' +
                 'data-xClrSym ="'            + file_data.xClrSym         + '" ' +
                 'data-xFineSym ="'           + file_data.xFineSym        + '" ' +
-                '>'  +
+                'id = "pair' + file_data.pair_id + '">'  +
                 '<div class = "brick-img-audio-container">' +
                     '<img  class = "brick-img" src="'       +  file_data.file_path + '">' +
                     '<div class = "brick-audio"> </div>'    +
@@ -89,7 +96,7 @@ function generateBrick(file_data){
                 '<div class="player">'                                  +
                     '<div class="control-panel">'                       +
                         '<div class="album-art brick_profile_img" style="background-image:url('+ file_data.profile_picture +')">'  +
-                            '<span><img class = "profile_img"/></span>' +
+                            // '<span><img class = "profile_img"/></span>' +
                         '</div>'                                        +
                         '<div class="info-bar">'                        +        
                             '<span class="artist">' + file_data.firstname + '</span>' +
