@@ -11,7 +11,7 @@ function readURL(files) {
       reader.onload = function (e) {
           $('#image_test')
               .attr('src', e.target.result);
-      };
+      }
 
       reader.readAsDataURL(files[0]);
   }

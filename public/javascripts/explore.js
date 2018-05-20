@@ -6,21 +6,9 @@ function init(){
             nextRow();
         }
     });
+    retrieveFileData(20, 'max');
     $('.brick-wall').hide();
     $('.brick-wall').fadeIn();
-    $('.flipper').click(function(){
-        if(!$(this).hasClass('flipped'))
-            $(this).toggleClass('flipped');
-    })
-    
-    $('.brick .brick_profile_img').click(function(){
-        brick_user_id = $($(this).closest('.brick')).data('user-id');
-        $('.explore_wrapper').animate(
-            { "margin-left": "-100vw" },
-            { queue: false, duration: 2000, complete:function(){
-                 viewProfile(brick_user_id);
-            } });
-    })
     $('.explore_title').css('opacity', 0)
                         .slideDown('slow')
                         .animate(
@@ -32,14 +20,9 @@ function init(){
       refreshAudio();
     }
 
-    $('.play').click(function(){
-        var player = $(this);
-        initAudio(player);
-    });
 
     setInterval(updateBlur, 1000);
 
-    retrieveFileData(20, 'max');
 
 }
 
@@ -53,6 +36,18 @@ function retrieveFileData(numb, req_file_id){
             dataObj = JSON.parse(data);
             for(var i = 0; i < dataObj.length; i++){
                 generateBrick(dataObj[i]);
+                $('.brick .brick_profile_img').click(function(){
+                    brick_user_id = $($(this).closest('.brick')).data('user-id');
+                    $('.explore_wrapper').animate(
+                        { "margin-left": "-100vw" },
+                        { queue: false, duration: 2000, complete:function(){
+                             viewProfile(brick_user_id);
+                        } });
+                })
+                $('.play').click(function(){
+                    var player = $(this);
+                    initAudio(player);
+                });
             }
             return data;
         },
@@ -92,11 +87,8 @@ function generateBrick(file_data){
                             '<span><img class = "profile_img"/></span>' +
                         '</div>'                                        +
                         '<div class="info-bar">'                        +        
-                            '<span class="artist">  </span>'         +
-                            '<span class="name">   </span>'          +
-                            '<div class="progress-bar">'        +
-                                '<div class="bar"></div>'       +
-                            '</div>'                            +                
+                            '<span class="artist">' + file_data.firstname + '</span>' +
+                            '<span class="name">' + file_data.file_name + '</span>'   +           
                         '</div>'                                +
                         '<div class="controls">'                +
                             '<div class="play-container pause">'+
@@ -188,7 +180,7 @@ function setBlur(radius) {
 	   "-webkit-filter": "blur("+radius+"px)",
 		"filter": "blur("+radius+"px)"
    });
-};
+}
 
 var tweenBlur = function(startRadius, endRadius) {
     $({blurRadius: startRadius}).animate({blurRadius: endRadius}, {
@@ -204,4 +196,4 @@ var tweenBlur = function(startRadius, endRadius) {
             setBlur(endRadius);
        }
    });
-};
+}

@@ -1,9 +1,10 @@
+
 var events = new Events();
-function init() {
+var init = function() {
 
     document.onselectstart = function() {
         return false;
-    };
+    }
     document.addEventListener('drop', onDocumentDrop, false);
     document.addEventListener('dragover', onDocumentDragOver, false);
 
@@ -12,7 +13,6 @@ function init() {
     update();
 
 }
-
 var update = function () {
     requestAnimationFrame(update);
     events.emit("update");
@@ -180,7 +180,7 @@ var loadSampleAudio = function() {
 		});
 
 
-	};
+	}
 	request.send();
 }
 
@@ -240,7 +240,7 @@ var onMP3Drop = function (evt) {
 	reader.onload = function(fileEvent) {
 		var data = fileEvent.target.result;
 		onDroppedMP3Loaded(data);
-	};
+	}
 	reader.readAsArrayBuffer(droppedFiles[0]);
 }
 

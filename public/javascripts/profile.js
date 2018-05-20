@@ -93,7 +93,7 @@ var loadChatHistory = function(){
         processData: false,
         contentType: false,
         success: function(data){
-            console.log('message sent\n' + data);
+           
         }
       });
 }
@@ -107,7 +107,7 @@ var sendMessage = function(){
         processData: false,
         contentType: false,
         success: function(data){
-            console.log('message sent\n' + data);
+            
         }
       });
 }

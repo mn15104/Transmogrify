@@ -39,7 +39,7 @@ var ball = {
       vy: 0,
       r: 0,
       type: 'mouse'
-   };
+   }
 
 // Random speed
 function getRandomSpeed(pos){

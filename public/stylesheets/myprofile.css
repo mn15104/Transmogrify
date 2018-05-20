@@ -355,6 +355,7 @@ h1.profile_title{
 .box:hover .edit {
   opacity: 1;
 }
+
 .profile_upload-image-avatar:after {
   content: "";
   position: absolute;

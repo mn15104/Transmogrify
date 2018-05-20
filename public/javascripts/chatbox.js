@@ -26,9 +26,9 @@ function initChat()
    
         session_info.ws = new WebSocket('ws://localhost:3000');
         window.onbeforeunload = function() {
-            session_info.ws.onclose = function () {}; // disable onclose handler first
+            session_info.ws.onclose = function () {} // disable onclose handler first
             session_info.ws.close()
-        };
+        }
         // event emmited when connected
         session_info.ws.onopen = function () {
             console.log('client side acknowledge connection success');

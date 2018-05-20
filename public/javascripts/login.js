@@ -13,7 +13,7 @@ function docReady(){
                     box.removeClassName( panelClassName );
                     panelClassName = event.target.className;
                     box.addClassName( panelClassName );
-                };
+                }
 
     // $('.login_site').hide();
     // $('#email_container').hide();
@@ -72,7 +72,7 @@ function docReady(){
     $('#login_btn').click(function(){
         submitLogin();
     })
-};
+}
 
 var password_gradient = false;
 
@@ -105,7 +105,7 @@ var submitAccount = function(){
 var submitLogin = function(){
     var email = $('#login_email').val();
     var pass = $('#login_pass').val();
-    var form = {email:email, password:pass};
+    var form = {email:email, password:pass}
     // var data_str = JSON.stringify(form);
     $.ajax({
         url: '/login/submit_login',

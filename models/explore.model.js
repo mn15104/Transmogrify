@@ -57,7 +57,8 @@ Explore.loadFile = function(req, res){
                 if (err) console.log(err);
                 image_data = row.map(img => {return {pair_id:   img.pair_id, 
                                                      file_path: img.file_path, 
-                                                     user_id:   img.user_id}})
+                                                     user_id:   img.user_id, 
+                                                     file_name: img.file_name}})
                                                      
                 if (!IS_NULL(row)){
                     db.all("SELECT * FROM AUDIO_UPLOADS ORDER BY pair_id LIMIT '" + num_files + "'", function(err, row){
@@ -65,24 +66,36 @@ Explore.loadFile = function(req, res){
                         file_data = row.map((aud,index) => {if(image_data.length < index + 1) return {};
                                                              file = aud;
                                                              file['file_path'] = image_data[index].file_path; 
+                                                             file['file_name'] = image_data[index].file_name; 
                                                              return file;}).filter(
                                                              file_d => {return Object.keys(file_d).length !== 0;});
                         
 
                         async.forEachOf(file_data, function(file_d, i, inner_callback){
-                            db.get("SELECT profile_picture AS profile_picture FROM USER_PROFILE WHERE user_id='" + file_d.user_id + "'", function(err, row){
+                            db.get("SELECT * FROM USER_PROFILE WHERE user_id='" + file_d.user_id + "'", function(err, row){
                                 if(err) console.log(err);
                                 if(!IS_NULL(row)){
                                     file_d['profile_picture'] = row.profile_picture;
-                                    inner_callback(null);
+                                    db.get("SELECT * FROM USER_LOGIN WHERE user_id='" + file_d.user_id + "'", function(err, row){
+                                        if(err) console.log(err);
+                                        file_d['firstname']       = row.firstname;
+                                        file_d['surname']         = row.surname;
+                                        inner_callback(null);
+                                    })
                                 }   
                                 else{
                                     file_d['profile_picture'] = "not found"; 
-                                    inner_callback(null);
+                                    db.get("SELECT * FROM USER_LOGIN WHERE user_id='" + file_d.user_id + "'", function(err, row){
+                                        if(err) console.log(err);
+                                        file_d['firstname']       = row.firstname;
+                                        file_d['surname']         = row.surname;
+                                        inner_callback(null);
+                                    })
                                 }
                             });
                         }, function(err){
                             if(err) console.log(err);
+                            console.log(file_data);
                             res.status(200).send(JSON.stringify(file_data));
                         })                                        
                                      
@@ -107,19 +120,24 @@ Explore.loadFile = function(req, res){
                         file_data = row.map((aud,index) => {if(image_data.length < index + 1) return {};
                                                              file = aud;
                                                              file['file_path'] = image_data[index].file_path; 
+                                                             file['file_name'] = image_data[index].file_name; 
                                                              return file;}).filter(
                                                              file_d => {return Object.keys(file_d).length !== 0;});
                         
 
                         async.forEachOf(file_data, function(file_d, i, inner_callback){
-                            db.get("SELECT profile_picture AS profile_picture FROM USER_PROFILE WHERE user_id='" + file_d.user_id + "'", function(err, row){
+                            db.get("SELECT * FROM USER_PROFILE WHERE user_id='" + file_d.user_id + "'", function(err, row){
                                 if(err) console.log(err);
                                 if(!IS_NULL(row)){
-                                    file_d['profile_picture'] = row.profile_picture;
+                                    file_d['profile_picture']   = row.profile_picture;
+                                    file_d['firstname']         = row.firstname;
+                                    file_d['surname']           = row.surname;
                                     inner_callback(null);
                                 }   
                                 else{
                                     file_d['profile_picture'] = "not found"; 
+                                    file_d['firstname']         = row.firstname;
+                                    file_d['surname']           = row.surname;
                                     inner_callback(null);
                                 }
                             });

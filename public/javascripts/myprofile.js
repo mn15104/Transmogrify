@@ -308,11 +308,11 @@ var tweenBlur = function(startRadius, endRadius) {
             setBlur(endRadius);
        }
    });
-};
+}
 function setBlur(radius) {
 	ele = $('#CURRENT_PLAYER').closest('.brick').find('.brick-img');
 	$(ele).css({
 	   "-webkit-filter": "blur("+radius+"px)",
 		"filter": "blur("+radius+"px)"
    });
-};
+}
