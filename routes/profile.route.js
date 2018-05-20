@@ -12,7 +12,7 @@ router.post('/loadfile', function(req,res,next){
 })
 
 router.get('/', function(req, res, next) {
-
+    req.session.last_window = 'profile';
     if(IS_NULL(req.query.user_id))
     {
         res.render('profile.ejs', 

@@ -6,7 +6,6 @@ var panel = $('.panel');
 var user_id;
 
 var init = function(name){
-
     var url = new URL(window.location.href);
     if(!IS_NULL(url.searchParams.get("user_id"))){
       user_id = url.searchParams.get("user_id")
@@ -135,7 +134,6 @@ var initNavLinks = function(){
     $('#page_1').fadeOut('slow', function(){
       $('#page_1').empty();
       $('#page_1').load("../views/create.html")
-      changeurl('create');
       $('#page_1').fadeIn('slow');
     });
   })
@@ -143,7 +141,6 @@ var initNavLinks = function(){
     $('#page_1').fadeOut('slow', function(){
       $('#page_1').empty();
       $('#page_1').load("../views/explore.html");
-      changeurl('explore');
       $('#page_1').fadeIn('slow');
     });
   })
@@ -181,7 +178,6 @@ var transitionToProfilePage = function (){
   $('#page_1').fadeOut('slow', function(){
     $('#page_1').empty();
     $('#page_1').load("../views/profile.html");
-    changeurl('explore');
     $('#page_1').fadeIn('slow');
   });
 }
@@ -212,7 +208,6 @@ var loadMyProfilePage = function (){
     contentType: false,
     success: function(data){
       $('#page_1').html(data);
-      changeurl('myprofile');
       // $('#page_1').fadeIn('slow');
     }
   });
@@ -227,7 +222,6 @@ var loadOtherProfilePage = function(user_id){
       data: {'user_id': user_id},
       success: function(data){
         $('#page_1').html(data);
-        changeurl('profile');
         $('#page_1').fadeIn('slow');
       }
     });

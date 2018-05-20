@@ -128,7 +128,7 @@ var transitionHomepage = function(t_user_id){
     $('.login_form').fadeOut({duration:500});
     $('.login_wrapper').addClass('expand');
     setTimeout(function(){
-        location.href="http://localhost:3000/sidepanel?user_id="+t_user_id;
+        location.href="http://localhost:3000/"
     }, 1500);
 }
 var colors = new Array(

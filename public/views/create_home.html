@@ -27,46 +27,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <title>Transmogrify</title>
+  <link rel="shortcut icon" type="image/x-icon" href="//static.codepen.io/assets/favicon/favicon-8ea04875e70c4b0bb41da869e81236e54394d63638a1ef12fa558a4a835f1164.ico">
   <link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
-  <link href="../stylesheets/create.css" rel="stylesheet">
+  <link href="../stylesheets/create_home.css" rel="stylesheet">
+  <link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
 
 </head>
-<!-- <body>
-	<div id="admin_testing">
-
-		<div class="admin_sub">
-			<p>Decision 1: <span id="range1"></span></p>
-			<input type="range" min="0" max="10" value="5" id="slider1">
-
-			<p>Decision 2: <span id="range2"></span></p>
-			<input type="range" min="0" max="10" value="5" id="slider2">
-
-			<p>Decision 3: <span id="range3"></span></p>
-			<input type="range" min="0" max="10" value="5" id="slider3">
-
-			<p>Decision 4: <span id="range4"></span></p>
-			<input type="range" min="0" max="10" value="5" id="slider4">
-		</div>
-		<div class="admin_sub">
-			<p>yClrSymmetry: <span id="range5"></span></p>
-			<input type="range" min="0" max="100" value="50" id="slider5">
-
-			<p>yFineSymmetry: <span id="range6"></span></p>
-			<input type="range" min="0" max="100" value="50" id="slider6">
-
-			<p>xClrSymmetry: <span id="range7"></span></p>
-			<input type="range" min="0" max="100" value="50" id="slider7">
-
-			<p>xFineSymmetry: <span id="range8"></span></p>
-			<input type="range" min="0" max="100" value="50" id="slider8">
-		</div>
-		<button onclick="adminTestButton()">Test playing</button>
-	</div> -->
-
-
 
 	<div class = "home_container">
-		<!-- <p class="create_title">Create</p> -->
+		<h3 class="create_title">Create</h3>
 	    <div id = "wrap">
 	        <div id = "left">
 	            <div class="container1" id = "container_1">
@@ -119,9 +88,12 @@
 				<div>
 
 				</div>
+		
 
-
-	        </div>
+			</div>
+			<div class = 'arrow_box'>
+				<h1>return</h1>
+			</div>
 	    </div>
 	</div>
 
@@ -130,5 +102,10 @@
 	<script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
 	<script src="../javascripts/sidepanel.js"></script>
 	<script src="../javascripts/create.js"></script>
+	<script>
+   	$(document).ready(function(){
+		   init_create();
+	});
+	</script>
 </body>
 </html>

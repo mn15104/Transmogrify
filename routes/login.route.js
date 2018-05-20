@@ -9,7 +9,7 @@ var Login = require('../models/login.model');
 /* GET home page. */
 router.get('/', function(req, res, next) {
     res.sendFile(path.join(__dirname + '/../public/views/login.html'));
-    // req.session.current_url = '/login';
+    
 });
 
 router.post('/submit_login', function(req, res, next) {

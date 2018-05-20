@@ -134,16 +134,15 @@ h1.title{
     height: 60px;
     background-color: rgba(255, 255, 255, 0.3);
     color: rgb(14, 13, 10);
-    backdrop-filter: blur(55px);
-    padding: 0 auto;
-    padding-bottom:10px;
+    /* padding: 0 auto; */
+    padding-bottom:10px; 
     border-radius: 5px;
     font: small-caps 2em/1.5 'Open Sans', sans-serif;
     text-align: center;
     font-weight: 1000;
     text-shadow: 0 0 2px rgb(29, 28, 28); 
     line-height: 1;
-    box-shadow: 0px 0px 2px 2px rgb(82, 82, 82);
+    box-shadow: 0px 0px 30px 2px rgb(153, 145, 145);
 
 }
 .triangle-left { 
@@ -168,7 +167,7 @@ h1.title{
     text-shadow: 0 0 2px rgb(255, 255, 255); 
     font-weight: 800;
     line-height: 2;
-    box-shadow: 0px 0px 2px 2px rgb(255, 255, 255);
+    box-shadow: 0px 0px 30px 2px rgb(54, 52, 52);
 
 }
 .triangle-left:hover{

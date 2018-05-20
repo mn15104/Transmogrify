@@ -35,8 +35,7 @@ app.use(session({
   store: new redisStore({host:'localhost', port: 6379, client: client, ttl:260}),
   cookieName: 'session',
   secret: 'eg[isfd-8yF9-7w2315df{}+Ijsli;;to8',
-  duration: 30 * 60 * 1000,
-  activeDuration: 5 * 60 * 1000,
+  maxAge: null,
   httpOnly: true,
   secure: true,
   ephemeral: true,
@@ -159,18 +158,15 @@ app.use('/intro', function(req, res, next){
   res.sendFile(path.join(__dirname + '/public/views/intro.html'));
 });
 app.use('/login', login_route);
-
+app.use('/create', create_route);
+app.use('/', sidepanel_route);
 app.use('/webcam', webcam_route);
-app.use('/sidepanel', sidepanel_route);
 app.use('/profile', profile_route);
 app.use('/myprofile', myprofile_route);
-app.use('/create', create_route);
 app.use('/explore', explore_route);
+
 app.post('/whatsmyid', function(req,res,next){
     res.status(200).send({'user_id':req.session.user_id});
-});
-app.use('/', function(req, res, next){
-    res.redirect('/sidepanel');
 });
 
 // catch 404 and forward to error handler
@@ -182,7 +178,7 @@ app.use(function(req, res, next) {
 
 // error handler
 app.use(function(err, req, res, next) {
-  res.redirect('/sidepanel');
+  res.redirect('/');
 });
 
 

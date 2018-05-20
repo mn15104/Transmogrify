@@ -6,6 +6,7 @@ var Explore = require('../models/explore.model');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
+  req.session.last_window = 'explore';
   res.sendFile(path.join(__dirname + '/../public/views/explore.html'));
 });
 
