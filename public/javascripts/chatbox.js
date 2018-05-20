@@ -60,7 +60,14 @@ function initChat()
                 {   
                     console.log("DEBUG 6");
                     console.log(msg['chat_message']);
-                    appendReceivedMessage(msg['chat_message']);
+                    appendReceivedMessage(msg['chat_message'],msg['profile_picture']);
+                }
+                else if(   (session_info.friend_id_accepted && msg['message']  === 'friend_message_send')
+                        || (session_info.friend_id_offline && msg['message']  === 'friend_message_send'))
+                {   
+                    console.log("DEBUG 7");
+                    console.log(msg['chat_message']);
+                    appendSentMessage(msg['chat_message'], msg['profile_picture']);
                 }
             }
         }
@@ -72,13 +79,12 @@ function initChat()
 
     $('#send_message').button().click(function(){
         sendMessage($(this).siblings('.chat_input').eq(0).val());
-        appendSentMessage($(this).siblings('.chat_input').val());
     })
 }
-function appendSentMessage(chat_message){
+function appendSentMessage(chat_message, profile_picture){
     $('.chat_discussion').append('<li class="chat_self">'              +      
                                        '<div class="chat_avatar">'      +  
-                                            '<img src="https://cdn2.digitalartsonline.co.uk/cmsdata/slideshow/3513552/polybreno_1500.jpg" /> ' +      
+                                            '<img src="' + profile_picture + '" /> ' +      
                                         '</div>' +     
                                         '<div class="chat_messages">' +        
                                             '<p>' + chat_message + '</p>' +        
@@ -86,10 +92,10 @@ function appendSentMessage(chat_message){
                                         '</div>' +
                                     '</li>');
 }
-function appendReceivedMessage(chat_message){
+function appendReceivedMessage(chat_message, profile_picture){
     $('.chat_discussion').append('<li class="chat_other">'              +      
                                        '<div class="chat_avatar">'      +  
-                                            '<img src="https://cdn2.digitalartsonline.co.uk/cmsdata/slideshow/3513552/polybreno_1500.jpg" /> ' +      
+                                            '<img src="' + profile_picture + '" /> ' +      
                                         '</div>' +     
                                         '<div class="chat_messages">' +        
                                             '<p>' + chat_message + '</p>' +        

@@ -33,8 +33,7 @@ Chat.safeInsertMessage = function(chat_id, date, user_id, friend_id, chat_messag
     } )
 };
 
-Chat.insertMessage = function(user_id, friend_id, chat_message){
-    Chat.loadMessages(0);
+Chat.insertMessage = function(user_id, friend_id, chat_message, callback){
     date = createDate();
     db.get("SELECT chat_id AS chat_id FROM FRIENDLIST WHERE (user_idA='"+user_id+"' and user_idB='" + friend_id + "') or (user_idA='"+friend_id+"' and user_idB='" + user_id + "') ", function(err, row){
         if(IS_NULL(row)){
@@ -44,6 +43,13 @@ Chat.insertMessage = function(user_id, friend_id, chat_message){
             Chat.safeInsertMessage(chat_id, date, user_id, friend_id, chat_message);
         }
     } )
+    db.get("SELECT profile_picture AS profile_picture FROM USER_PROFILE WHERE user_id='"+user_id+"'",function(err, row){
+        if(err)console.log(err)
+        profile_picture = row.profile_picture;
+        if(callback && typeof(callback) === "function"){
+            callback(profile_picture);
+        }
+    })
 };
 
 Chat.insertChatID = function(user_id, friend_id, callback){

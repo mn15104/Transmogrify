@@ -23,7 +23,6 @@ var myprofile_route = require('./routes/myprofile.route');
 var profile_route = require('./routes/profile.route');
 var login_route = require('./routes/login.route');
 var sidepanel_route = require('./routes/sidepanel.route');
-var chat_route = require('./routes/chat_ws.route');
 var webcam_route = require('./routes/vid_ws.route');
 var debug = require('debug')('testapp:server');
 var http = require('http');
@@ -123,15 +122,25 @@ app.ws('/', function(ws, req) {
                   // Send online message
                   if(!IS_NULL(clients[friend_id])){
                       friend_con = clients[friend_id]['user_data']['con'];
-                      sendMessage(friend_con, JSON.stringify({message:'friend_message_rec', 
-                          chat_message: msgObj.data['chat_message']})
-                      );
-                      ChatModel.insertMessage(req.session.user_id, friend_id, msgObj.data['chat_message']);
+                      var sendFunc = function(profile_picture){
+                        sendMessage(friend_con, JSON.stringify({message:'friend_message_rec', 
+                            chat_message: msgObj.data['chat_message'], profile_picture: profile_picture})
+                        );
+                        sendMessage(ws, JSON.stringify({message:'friend_message_send', 
+                            chat_message: msgObj.data['chat_message'], profile_picture: profile_picture})
+                        );
+                      }
+                      ChatModel.insertMessage(req.session.user_id, friend_id, msgObj.data['chat_message'], sendFunc);
                   }
                   // Leave offline message
                   else{
                       console.log("leaving offline message");
-                      ChatModel.insertMessage(req.session.user_id, friend_id, msgObj.data['chat_message']);
+                      var sendFunc = function(profile_picture){
+                        sendMessage(ws, JSON.stringify({message:'friend_message_send', 
+                            chat_message: msgObj.data['chat_message'], profile_picture: profile_picture})
+                        );
+                      }
+                      ChatModel.insertMessage(req.session.user_id, friend_id, msgObj.data['chat_message'], sendFunc);
                   }
               }
       }
@@ -146,25 +155,17 @@ app.ws('/', function(ws, req) {
 
 // ---------------------------------------------------------------//
 // ---------------------------------------------------------------//
-
-app.use('/ej', function(req, res, next){
-  res.render('myprofile', { profile_image: '../images/profile_pictures/doggo_1526416712522.png',
-                            firstname:'',
-                            description: '',
-                            email:'',
-                                  });
-});
 app.use('/intro', function(req, res, next){
   res.sendFile(path.join(__dirname + '/public/views/intro.html'));
 });
+app.use('/login', login_route);
+
 app.use('/webcam', webcam_route);
-// app.use('/chat', chat_route);
 app.use('/sidepanel', sidepanel_route);
 app.use('/profile', profile_route);
 app.use('/myprofile', myprofile_route);
 app.use('/create', create_route);
 app.use('/explore', explore_route);
-app.use('/login', login_route);
 app.post('/whatsmyid', function(req,res,next){
     res.status(200).send({'user_id':req.session.user_id});
 });

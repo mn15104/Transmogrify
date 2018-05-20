@@ -4,6 +4,22 @@ $('.upload-btn').on('click', function (){
     $('.progress-bar').width('0%');
 });
 
+var init_create = function(){
+ 
+    $('.home_container').css('opacity', 0)
+    .slideDown('slow')
+    .animate(
+    { opacity: 1 },
+    { queue: false, duration: 1000 });
+      
+
+    $('.arrow_box').on('click', function(){
+        $('.home_container').fadeOut({duration:1000, complete: function(){
+            location.href="http://localhost:3000/intro";
+        }});
+    })
+}
+
 function readURL(files) {
   if (files[0]) {
       var reader = new FileReader();

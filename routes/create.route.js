@@ -7,6 +7,9 @@ var formidable = require('formidable');
 var Create = require('../models/create.model');
 
 /* GET home page. */
+router.get('/home', function(req, res, next) {
+  res.sendFile(path.join(__dirname + '/../public/views/create_home.html'));
+});
 router.get('/', function(req, res, next) {
   res.sendFile(path.join(__dirname + '/../public/views/create.html'));
 });

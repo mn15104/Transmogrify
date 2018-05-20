@@ -38,10 +38,10 @@
     </header>
     <ol class="chat_discussion">
         <% for(var i = 0; i < chat_messages.length; i++){ %>
-            <%if (chat_messages[i].user_send === user_id) { %>
+            <%if (JSON.stringify(chat_messages[i].user_send) == user_id) { %>
                 <li class="chat_other">
                     <div class="chat_avatar">
-                        <img src='<%=our_profile_picture%>'/>
+                        <img src='<%=friend_profile_picture%>'/>
                     </div>
                     <div class="chat_messages">
                         <p><%= chat_messages[i].message %></p>
@@ -51,9 +51,10 @@
             <% } else { %>
                 <li class="chat_self">      
                         <div class="chat_avatar">        
-                            <img src='<%=friend_profile_picture%>' />      
+                            <img src='<%=our_profile_picture%>' />      
                         </div>      
                         <div class="chat_messages">        
+                            <%=chat_messages[i].user_send%> <%=user_id%>
                             <p><%= chat_messages[i].message %></p>        
                             <time datetime="<%= chat_messages[i].time %>"><%= chat_messages[i].time %></time>      
                         </div>    
