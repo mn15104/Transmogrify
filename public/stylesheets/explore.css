@@ -110,25 +110,11 @@ h1.explore_title{
     cursor:pointer;
 }
 .brick_profile_img{
-    background: url('https://cdn2.digitalartsonline.co.uk/cmsdata/slideshow/3513552/polybreno_1500.jpg');
-    background-size: contain;
+    background: url('../images/profile_pictures/profiledefault.png');
+    background-size: 37px 37px;
     z-index: 999;
     cursor: pointer;
-    top:85%;
-    left:0;
-    width:45px;
-    height:45px;
-    -webkit-border-radius: 50%;
-    -moz-border-radius: 50%;
-    border-radius: 50%;
     border:3px rgb(138, 108, 108) solid;
-    text-align: center;
-    position: absolute;
-    /* opacity: .7; */
-    transition: opacity .5s ease-out;
-    -moz-transition: opacity .5s ease-out;
-    -webkit-transition: opacity .5s ease-out;
-    -o-transition: opacity .5s ease-out;
 }
 @-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
 @-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
@@ -250,8 +236,7 @@ h1.explore_title{
 }
 .player .control-panel .album-art {
   position: absolute;
-  left: 0px;
-  top: 0px;
+
   height: 42px;
   width: 42px;
   border-radius: 50%;
@@ -264,8 +249,8 @@ h1.explore_title{
   content: "";
   position: absolute;
   top: 50%;
-  width: 10px;
-  height: 10px;
+  width: 35px;
+  height: 35px;
   opacity: 1;
   border-radius: 50%;
   z-index: 5;
@@ -276,20 +261,20 @@ h1.explore_title{
 .player .control-panel .album-art::before {
   content: "";
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  width: 100%;
+  height: 100%;
+  
   border-radius: 50%;
-  background-position: center;
+  /* background-attachment: fixed; */
+  background-position: 0 0;
   background-repeat: no-repeat;
-  background-size: 45px;
-  background-image: url('https://cdn2.digitalartsonline.co.uk/cmsdata/slideshow/3513552/polybreno_1500.jpg');   /*  SET PROFILE IMAGE        */
+  /* background-size: 200%; */
+  /* background-image: url('https://cdn2.digitalartsonline.co.uk/cmsdata/slideshow/3513552/polybreno_1500.jpg');    SET PROFILE IMAGE        */
   opacity: 0;
 }
 .player .control-panel.active .album-art {
   box-shadow: 0px 0px 20px 5px rgba(0, 0, 0, 0.2);
-  transform: scale(1.2);
+  /* transform: scale(1.2); */
   transition: all 0.5s ease;
 }
 .player .control-panel.active .album-art::before {

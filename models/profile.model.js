@@ -103,10 +103,7 @@ Profile.loadOtherProfile = function(req, res, load){
                                 'chat_messages': chat_messages,
                             });
                         }
-
-                        
                         ChatModel.loadMessages(req.session.user_id, other_user_id, render_profile);
-                        
 
                         if(!load){
                             loadDefaultProfile(res);
@@ -157,19 +154,22 @@ Profile.uploadProfilePicture = function(req, res){
     var form = new formidable.IncomingForm()
     form.multiples = true
     form.keepExtensions = true
-    form.uploadDir = path.join(__dirname, '../uploads/profile_pictures');
+    form.uploadDir = path.join(__dirname, '../public/images/profile_pictures');
     form.parse(req, (err, fields, files) => {
         if (err) return res.status(500).json({ error: err })
-        res.status(200).json({ uploaded: true })
+        
     });
     form.on('fileBegin', function (name, file) {
         const [fileName, fileExt] = file.name.split('.');
-        
-        file.path = path.join( path.join(__dirname, '../uploads/profile_pictures')
+        console.log(fileName);
+        file.path = path.join( path.join(__dirname, '../public/images/profile_pictures')
                                 , `${fileName}_${new Date().getTime()}.${fileExt}`);
-        relative_file_path = '/../../uploads/profile_pictures/' + `${fileName}_${new Date().getTime()}.${fileExt}`;
-        db.all("UPDATE USER_PROFILE SET profile_picture = '" + relative_file_path 
+        relative_file_path = '../images/profile_pictures/' + `${fileName}_${new Date().getTime()}.${fileExt}`;
+        console.log(relative_file_path);
+        db.get("UPDATE USER_PROFILE SET profile_picture = '" + relative_file_path 
                 + "' WHERE user_id='" + req.session.user_id + "'", function(row,err) {
+                    if(err) console.log(err); 
+                    else {console.log(relative_file_path + "  " +req.session.user_id);res.status(200).json({ uploaded: true })}
         });
     });
 

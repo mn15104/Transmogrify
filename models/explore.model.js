@@ -30,7 +30,7 @@ Explore.loadAudioFileByID = function(req, res){
         db.get("SELECT * FROM AUDIO_UPLOADS WHERE file_id='"+  file_id  + "'", function(err, row){
             if (err) throw err;
             if (!IS_NULL(row)){
-                var filePath = path.join(__dirname, '../uploads/audio/' + file_id + '/' + row.file_name);
+                var filePath = path.join(__dirname, '../audio/' + file_id + '/' + row.file_name);
                 var stat = fileSystem.statSync(filePath);
                 res.writeHead(200, {
                     'Content-Type': 'audio/mpeg',

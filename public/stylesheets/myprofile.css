@@ -326,7 +326,7 @@ h1.profile_title{
   border-radius: 100%;
   background: #C68587;
   border: 6px solid #B3C9CB;
-  background-size:cover;
+  background-size: 165px 165px;
   background-repeat:no-repeat;
   background-position: 25% 25%;
   transition: border 0.5s linear;
@@ -372,7 +372,6 @@ h1.profile_title{
   transform-style: preserve-3d;
 }
 .profile_upload-image-avatar.profile_avatar{
-  background-size: 100%;
   width: 175px;
   height: 175px;
   display: inline-block;

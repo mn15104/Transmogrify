@@ -76,16 +76,16 @@ Create.uploadImage = function(req, res, callback){
     var form = new formidable.IncomingForm()
     form.multiples = true
     form.keepExtensions = true
-    form.uploadDir = path.join(__dirname, '../uploads/images');
+    form.uploadDir = path.join(__dirname, '../public/images/imageuploads/');
     form.parse(req, (err, fields, files) => {
         if (err) return res.status(500).json({ error: err })
     });
     form.on('fileBegin', function (name, file) {
         const [fileName, fileExt] = file.name.split('.');
         console.log(file);
-        file.path = path.join( path.join(__dirname, '../uploads/images')
+        file.path = path.join( path.join(__dirname, '../public/images/imageuploads/')
                                 , `${fileName}_${new Date().getTime()}.${fileExt}`);
-        relative_file_path = '/../../uploads/images/' + `${fileName}_${new Date().getTime()}.${fileExt}`;
+        relative_file_path = '../images/imageuploads/' + `${fileName}_${new Date().getTime()}.${fileExt}`;
 
         user_id = req.session.user_id;
         time = Create.createDate();
