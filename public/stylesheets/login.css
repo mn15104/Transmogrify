@@ -189,7 +189,11 @@
     width: 150%;
     height:100vh;
   }
-
+  .login_wrapper.shrink{
+    transition: 1s;
+    width: 0;
+    height:0;
+  }
   @-webkit-keyframes bummer {
       100% {
           -webkit-transform: scale(1,1); 
@@ -310,6 +314,12 @@
     left: -310px;
     float: left;
   }
+  .back_arrow-container{
+    font-size: 25px;
+    position: absolute;
+    left: -400px;
+    float: left;
+  }
   .login_arrow-login {
     position: absolute;
     width: 100px;
@@ -322,6 +332,7 @@
   .login_arrow-login:hover {
     cursor: pointer;
   }
+
   .login_arrow-create-account {
     position: absolute;
     width: 35px;
@@ -332,6 +343,18 @@
     
   }
   .login_arrow-create-account:hover {
+    cursor: pointer;
+  }
+  .back_arrow {
+    position: absolute;
+    width: 35px;
+    right: 90px;
+    margin-top: 15px;
+    font-size:100px;
+    background-size: contain;
+    
+  }
+  .back_arrow:hover {
     cursor: pointer;
   }
   @-moz-keyframes bounce {

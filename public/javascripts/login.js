@@ -15,19 +15,6 @@ function docReady(){
                     box.addClassName( panelClassName );
                 }
 
-    // $('.login_site').hide();
-    // $('#email_container').hide();
-    // $('#password_container').hide();
-    // $("#login_button_container").hide();
-    // $('#login_title').hide();
-    // $('#login_facebook_container').hide();
-    // $('.login_site').fadeIn(1300);
-    // $('#login_title').show("slide", { direction: "up" },1000, {duration:"slow", easing:'ease-in'});
-    // $('#login_facebook_container').show("slide", { direction: "up" },1000, {duration:"slow",easing:'ease-in'});
-    // $('#email_container').show("slide", { direction: "left" }, 1000, {duration:"slow", easing:'ease-in'});
-    // $('#password_container').show("slide", { direction: "right" },1000,  {duration:"slow", easing:'ease-in'});
-    // $("#login_button_container").show("slide", { direction: "down" },1000,  {duration:"slow", easing:'ease-in'});
-
     $('#login_arrow').hover(
         function(){
             $(this).addClass('bounce');
@@ -45,6 +32,19 @@ function docReady(){
         }, function(){
             $(this).removeClass('bounce');
         })
+    $('#back_arrow').hover(
+        function(){
+            $(this).addClass('bounce');
+        }, function(){
+            $(this).removeClass('bounce');
+        })
+    $('#back_arrow').click(function(){
+        $('.login_form').fadeOut({duration:500});
+        $('.login_wrapper').addClass('shrink');
+        setTimeout(function(){
+            location.href="http://localhost:3000/intro";
+        }, 1500);
+    })
     $('#login_arrow-create-account').click(function(){
         $('#cube').addClass('show-front');
         $('#cube').removeClass('show-right');    

@@ -147,7 +147,11 @@ var initNavLinks = function(){
       $('#page_1').fadeIn('slow');
     });
   })
-
+  $('#logout_link').click(function(){
+    $('.sidepanel_body').fadeOut('slow', function(){
+        location.href="http://localhost:3000/login";
+    });
+  })
   $('#chat_link').click(function(){
     connectWS_debug_link();
   })

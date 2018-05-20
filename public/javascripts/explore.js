@@ -147,23 +147,25 @@ function initAudio(player){
                 CURRENT_PLAYER.closest('.brick').find('.info-bar').toggleClass('active');
                 CURRENT_PLAYER.closest('.brick').find('.brick-audio').empty();
                 player.attr("id", "CURRENT_PLAYER");
-                player.closest('.brick').find('.brick-audio').load("../views/audio_wave.html");
+                player.closest('.brick').find('.brick-audio').html("<canvas id='music_visual_audioDebug'></canvas>");
 
                 audioTester(primaryDetected, colourDetected, decision1, decision2, decision3, decision4,
                             yClrSym, yFineSym, xClrSym, xFineSym);
+            
             }
             else{
                 audioTester(primaryDetected, colourDetected, decision1, decision2, decision3, decision4,
                     yClrSym, yFineSym, xClrSym, xFineSym);
-
+  
             }
         }
         else{
             player.attr('id', 'CURRENT_PLAYER');
-            player.closest('.brick').find('.brick-audio').load("../views/audio_wave.html");
+            player.closest('.brick').find('.brick-audio').html("<canvas id='music_visual_audioDebug'></canvas>");
+
             audioTester(primaryDetected, colourDetected, decision1, decision2, decision3, decision4,
                 yClrSym, yFineSym, xClrSym, xFineSym);
-
+ 
         }
     }
     else {
