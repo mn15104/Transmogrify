@@ -93,7 +93,10 @@ Profile.loadOtherProfile = function(req, res, load){
                     var surname = row.surname;
                     db.get("SELECT profile_picture AS 'profile_picture' FROM 'USER_PROFILE' WHERE user_id='"+  req.session.user_id  + "'", function(err, row){
                         if(err) console.log(err);
-                        var our_profile_picture = row.profile_picture;
+                        if(IS_NULL(row))
+                            our_profile_picture = ""
+                        else
+                            our_profile_picture = row.profile_picture;
                         var render_profile = function(chat_messages){
                             res.render('profile.ejs', 
                             {   'firstname': firstname,

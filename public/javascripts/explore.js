@@ -39,21 +39,20 @@ function retrieveFileData(numb, req_file_id){
             }
             for(var i = 0; i < dataObj.length; i++){
                 generateBrick(dataObj[i]);
-                $('.brick .brick_profile_img').click(function(){
-                    brick_user_id = $($(this).closest('.brick')).data('user-id');
-                    $('.explore_wrapper').animate(
-                        { "margin-left": "-100vw" },
-                        { queue: false, duration: 2000, complete:function(){
-                             viewProfile(brick_user_id);
-                        } });
-                })
-                console.log(i);
             }
    
             $('.play-container').click(function(){
                 var player = $(this);
                 initAudio(player);
             });
+            $('.brick .brick_profile_img').click(function(){
+                brick_user_id = $($(this).closest('.brick')).data('user-id');
+                $('.explore_wrapper').animate(
+                    { "margin-left": "-100vw" },
+                    { queue: false, duration: 2000, complete:function(){
+                         viewProfile(brick_user_id);
+                    } });
+            })
             return data;
         },
         error: function (err) {
@@ -63,6 +62,7 @@ function retrieveFileData(numb, req_file_id){
 }
 
 var viewProfile = function(user_id){
+    console.log("OK");
     loadOtherProfilePage(user_id);
 }
 
@@ -105,18 +105,6 @@ function generateBrick(file_data){
 }
 
 
-function refreshAudio(){
-    var curr_player = $('#CURRENT_PLAYER');
-    curr_player.closest('.brick').find('.brick-img').css({
-        "-webkit-filter": "blur(0px)",
-        "filter": "blur(0px)"});
-    curr_player.closest('.brick').find('.brick-audio').empty();
-    curr_player.removeAttr("id");
-    $.getScript("audio_wave.js",function(){
-            stopSound();
-    });
-}
-
 function initAudio(player){
     player.toggleClass('pause');
     player.closest('.control-panel').toggleClass('active');
@@ -135,7 +123,6 @@ function initAudio(player){
     xFineSym = parseFloat(player.closest('.brick').attr('data-xFineSym'));
 
     if(!player.hasClass('pause')) {
-        //////
         if($('#CURRENT_PLAYER').length != 0){
             CURRENT_PLAYER = $('#CURRENT_PLAYER');
             if(player.attr('id') !== 'CURRENT_PLAYER'){
@@ -155,7 +142,6 @@ function initAudio(player){
                 }
                 player.attr("id", "CURRENT_PLAYER");
                 player.closest('.brick').find('.brick-audio').html("<canvas id='music_visual_audioDebug'></canvas>");
-                console.log("REMOVING ID");
             }
             else{
                 audioTester(primaryDetected, colourDetected, decision1, decision2, decision3, decision4,

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <meta charset="UTF-8">
   <!-- <meta http-equiv="X-UA-Compatible" content="IE=edge"> -->
@@ -7,45 +8,43 @@
   <!-- <meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline' 'unsafe-eval' data: blob:; "/> -->
   <link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-  <script src="../javascripts/jstools/jquery-3.2.1.min.js"></script>
-  <script src="../javascripts/jstools/jquery-ui.min.js"></script>
-  <script src="../javascripts/jstools/jQuery.scrollSpeed.js"></script>
-  <script src="../javascripts/jstools/minivents.min.js"></script>
   <script src='https://surikov.github.io/webaudiofont/npm/dist/WebAudioFontPlayer.js'></script>
   <script src='https://surikov.github.io/webaudiofontdata/sound/0000_SBLive_sf2.js'></script>
   <script src='https://surikov.github.io/webaudiofontdata/sound/0040_SBLive_sf2.js'></script>
   <script src='https://surikov.github.io/webaudiofontdata/sound/0000_SBLive_sf2.js'></script>
-
   <script src='https://surikov.github.io/webaudiofontdata/sound/0490_SBLive_sf2.js'></script>
   <script src='https://surikov.github.io/webaudiofontdata/sound/0010_SBLive_sf2.js'></script>
-
   <script src='https://surikov.github.io/webaudiofontdata/sound/12869_0_SBLive_sf2.js'></script>
   <script src='https://surikov.github.io/webaudiofontdata/sound/12860_0_SBLive_sf2.js'></script>
   <script src='https://surikov.github.io/webaudiofontdata/sound/12861_0_SBLive_sf2.js'></script>
   <script src='https://surikov.github.io/webaudiofontdata/sound/12862_0_SBLive_sf2.js'></script>
   <script src='https://surikov.github.io/webaudiofontdata/sound/0001_FluidR3_GM_sf2_file.js'></script>
-  <!-- <script src="../javascripts/audio_wave.js"></script> -->
+
+  <script src="../javascripts/jstools/jquery-3.2.1.min.js"></script>
+  <script src="../javascripts/jstools/jquery-ui.min.js"></script>
+  <script src="../javascripts/jstools/jQuery.scrollSpeed.js"></script>
+  <script src="../javascripts/jstools/minivents.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.4/TweenMax.min.js"></script>
   <link rel="stylesheet" href="../stylesheets/tools/jquery-ui.min.css">
   <link rel="stylesheet" href="../stylesheets/sidepanel.css">
 </head>
 
-<body class = "sidepanel_body">
+<body class="sidepanel_body">
 
   <div class="sidepanel_menu">
-    <h3 class = "sidepanel_title">Transmogrify</h3>
+    <h3 class="sidepanel_title">Transmogrify</h3>
     <img id="logo-image" src="../images/logos/transmogrifyLogo.svg">
     <!-- <h3 class = "sidepanel_title">
       the <br><span>image listener</span>
     </h3> -->
-      <div class="sidepanel_menu-text">
+    <div class="sidepanel_menu-text">
 
-        <h2 id="create_link" class="sidepanel_menu_link sidepanel_menu-link-left">Create</h2>
-        <h2 id="explore_link" class="sidepanel_menu_link sidepanel_menu-link-mid">Explore</h2>
-        <h2 id="profile_link" class="sidepanel_menu_link sidepanel_menu-link-right">Profile</h2>
-        <h2 id="logout_link" class="sidepanel_menu_link sidepanel_menu-link-login">Logout</h2>
-        <h2 id="chat_link" class="sidepanel_menu_link sidepanel_menu-link-left">Tempchat</h2>
-      </div>
+      <h2 id="create_link" class="sidepanel_menu_link sidepanel_menu-link-left">Create</h2>
+      <h2 id="explore_link" class="sidepanel_menu_link sidepanel_menu-link-mid">Explore</h2>
+      <h2 id="profile_link" class="sidepanel_menu_link sidepanel_menu-link-right">Profile</h2>
+      <h2 id="logout_link" class="sidepanel_menu_link sidepanel_menu-link-login">Logout</h2>
+      <h2 id="chat_link" class="sidepanel_menu_link sidepanel_menu-link-left">Tempchat</h2>
+    </div>
 
   </div>
   <div class="bar-split">
@@ -56,16 +55,24 @@
         </div>
         <ul class="nav__list">
           <li class="nav__item">
-            <a class="nav__link c-blue"><i class="fa fa-camera-retro"></i></a>
+            <a class="nav__link c-blue">
+              <i class="fa fa-camera-retro"></i>
+            </a>
           </li>
           <li class="nav__item">
-            <a class="nav__link c-yellow scrolly"><i class="fa fa-bolt"></i></a>
+            <a class="nav__link c-yellow scrolly">
+              <i class="fa fa-bolt"></i>
+            </a>
           </li>
           <li class="nav__item">
-            <a class="nav__link c-red"><i class="fa fa-music"></i></a>
+            <a class="nav__link c-red">
+              <i class="fa fa-music"></i>
+            </a>
           </li>
           <li class="nav__item">
-            <a class="nav__link c-green"><i class="fa fa-paper-plane"></i></a>
+            <a class="nav__link c-green">
+              <i class="fa fa-paper-plane"></i>
+            </a>
           </li>
         </ul>
       </nav>
@@ -73,14 +80,14 @@
   </div>
   <div id="sidepanel_index" class="sidepanel_index-container">
     <div class="sidepanel_index-wrapper">
-    <span class = "sidepanel_index-button-container" data-index-open="false">
-      <div class='sidepanel_index-title' id="sidepanel_index_button" style="font-size:30px; cursor:pointer" onclick="toggleNav()">
+      <span class="sidepanel_index-button-container" data-index-open="false">
+        <div class='sidepanel_index-title' id="sidepanel_index_button" style="font-size:30px; cursor:pointer" onclick="toggleNav()">
           <span></span>
           <span></span>
-      </div>
-    </span>
-  </div>
-  <div class = "friends-list">
+        </div>
+      </span>
+    </div>
+    <div class="friends-list">
       <div class="container">
         <div class="row">
 
@@ -92,7 +99,7 @@
                 <img src="https://www.infrascan.net/demo/assets/img/avatar5.png" class="img-circle" width="60px">
               </div>
               <div class="col-sm-8">
-                <h4 class="friends-list_name" >
+                <h4 class="friends-list_name">
                   <a class="friend_tab_name" data-friend-id='1' href="#">Rahul Jain</a>
                 </h4>
               </div>
@@ -107,8 +114,9 @@
                 <img src="https://www.infrascan.net/demo/assets/img/avatar5.png" class="img-circle" width="60px">
               </div>
               <div class="col-sm-8">
-                <h4 class="friends-list_name" >
-                  <a class="friend_tab_name"  data-friend-id='2' href="#">Rahul Jain</a></h4>
+                <h4 class="friends-list_name">
+                  <a class="friend_tab_name" data-friend-id='2' href="#">Rahul Jain</a>
+                </h4>
               </div>
 
             </div>
@@ -121,52 +129,51 @@
                 <img src="https://www.infrascan.net/demo/assets/img/avatar5.png" class="img-circle" width="60px">
               </div>
               <div class="col-sm-8">
-                <h4 class="friends-list_name" >
-                  <a class="friend_tab_name" data-friend-id='3' href="#"> Rahul Jain </a></h4>
+                <h4 class="friends-list_name">
+                  <a class="friend_tab_name" data-friend-id='3' href="#"> Rahul Jain </a>
+                </h4>
               </div>
             </div>
 
             <div class="clearfix"></div>
 
             <div class=" friends-list_title_cell col-sm-12">
-                <div class="col-sm-12">
-                    <h4 class="friends_list-title"> FRIENDS LIST </h4>
-                </div>
+              <div class="col-sm-12">
+                <h4 class="friends_list-title"> FRIENDS LIST </h4>
+              </div>
 
             </div>
           </div>
         </div>
       </div>
+    </div>
+
   </div>
 
-</div>
 
 
-
-<div class = "embedded_div">
-  <div class = "embedded_container ">
-    <div class = "embedded_main_content " id="embedded_main_content">
-        <div class = "embedded_page-content"  id = "page_1">
+  <div class="embedded_div">
+    <div class="embedded_container ">
+      <div class="embedded_main_content " id="embedded_main_content">
+        <div class="embedded_page-content" id="page_1">
 
         </div>
+      </div>
     </div>
   </div>
-</div>
-<script src="../javascripts/sidepanel.js"></script>
-<!-- <script>var name = "<%= name %>";</script> -->
-<script>
+  <script src="../javascripts/sidepanel.js"></script>
+  <!-- <script>var name = "<%= name %>";</script> -->
+  <script>
+    ///////////Insert Main Page/////////////
 
-///////////Insert Main Page/////////////
+    ////////////////////////////////////////
+    $(document).ready(function () {
 
-////////////////////////////////////////
-  $(document).ready(function(){
-
-    init(name);
-    jQuery.scrollspeed(100,800);
-  });
-
-
-</script>
+      init(name);
+      jQuery.scrollspeed(100, 800);
+    });
+  </script>
 
 </body>
+
 </html>

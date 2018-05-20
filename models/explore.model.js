@@ -164,7 +164,7 @@ Explore.loadProfileFile = function(req, res){
         user_id  = req.session.user_id;
     else 
         user_id  = req.body.user_id;
-    
+    console.log(user_id);
     if(pair_id === 'max'){
         db.all("SELECT * FROM IMAGE_UPLOADS WHERE user_id='" +user_id + "' ORDER BY pair_id LIMIT '" + num_files + "'", function(err, row){
             if (err) console.log(err);

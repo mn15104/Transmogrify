@@ -2,6 +2,8 @@
 var page_init = false;
 var all_images_loaded = false;
 var init_profile = function(){
+    console.log("hi");
+    retrieveFileData(20, 'max',  $('.chat_container').attr('data-user-id'));
     // $('.profile_chatbox_container').load('../views/chatbox.html');
     $('.profile_profile-settings').css('opacity',0);
     $('.profile_icon_container').hide();
@@ -14,7 +16,7 @@ var init_profile = function(){
         { opacity: 1 },
         { queue: false, duration: 2000 }
     );
-    retrieveFileData(20, 'max',  $('.chat_container').attr('data-user-id'));
+    
     $(".profile_gallery-wrapper").hide();
     $("#profile_card").toggleClass("flipped");
     $('#profile_profile-description').hide();
@@ -44,8 +46,7 @@ var init_profile = function(){
     //     var player = $(this);
     //     initAudio(player);
     // });
-
-    // setInterval(updateBlur, 1000);
+    setInterval(updateBlur, 1000);
 }
 
 var flipProfileImg = function(){
@@ -114,6 +115,7 @@ var sendMessage = function(){
 }
 
 function retrieveFileData(numb, req_file_id, req_user_id){
+    console.log("CALLED");
     $.ajax({
         url: '/profile/loadfile',
         type: 'POST',
@@ -122,10 +124,10 @@ function retrieveFileData(numb, req_file_id, req_user_id){
                'user_id': req_user_id},
         success: function(data){
             dataObj = JSON.parse(data);
+            if(dataObj.length < numb){
+                all_images_loaded = true;
+            }
             for(var i = 0; i < dataObj.length; i++){
-                if(dataObj.length < numb){
-                    all_images_loaded = true;
-                }
                 generateBrick(dataObj[i]);
                 $('.brick .brick_profile_img').click(function(){
                     brick_user_id = $($(this).closest('.brick')).data('user-id');
@@ -135,11 +137,12 @@ function retrieveFileData(numb, req_file_id, req_user_id){
                              viewProfile(brick_user_id);
                         } });
                 })
-                $('.play').click(function(){
-                    var player = $(this);
-                    initAudio(player);
-                });
+                console.log(i);
             }
+            $('.play-container').click(function(){
+                var player = $(this);
+                initAudio(player);
+            });
             return data;
         },
         error: function (err) {
@@ -177,9 +180,100 @@ function generateBrick(file_data){
                         '</div>'                                +
                         '<div class="controls">'                +
                             '<div class="play-container pause">'+
-                                '<i class="fa fa-play play pause" aria-hidden="true"></i>' +
+                                '<i class="fa fa-play play" aria-hidden="true"></i>' +
                             '</div>'            +
                 '</div></div></div></figure>'  
     
     $('.brick-wall').append(brick);
+}
+function initAudio(player){
+    player.toggleClass('pause');
+    player.closest('.control-panel').toggleClass('active');
+    player.closest('.player').find('.info-bar').toggleClass('active');
+    
+
+    primaryDetected = parseFloat(player.closest('.brick').attr('data-primaryDetected'));
+    colourDetected = parseFloat( player.closest('.brick').attr('data-colourDetected'));
+    decision1 = parseFloat(player.closest('.brick').attr('data-decision1'));
+    decision2 = parseFloat(player.closest('.brick').attr('data-decision2'));
+    decision3 = parseFloat(player.closest('.brick').attr('data-decision3'));
+    decision4 = parseFloat(player.closest('.brick').attr('data-decision4'));
+    yClrSym = parseFloat(player.closest('.brick').attr('data-yClrSym'));
+    yFineSym = parseFloat(player.closest('.brick').attr('data-yFineSym'));
+    xClrSym = parseFloat(player.closest('.brick').attr('data-xClrSym'));
+    xFineSym = parseFloat(player.closest('.brick').attr('data-xFineSym'));
+
+    if(!player.hasClass('pause')) {
+        if($('#CURRENT_PLAYER').length != 0){
+            CURRENT_PLAYER = $('#CURRENT_PLAYER');
+            if(player.attr('id') !== 'CURRENT_PLAYER'){
+                stopAudio(function(){
+                    audioTester(primaryDetected, colourDetected, decision1, decision2, decision3, decision4,
+                        yClrSym, yFineSym, xClrSym, xFineSym);
+                });
+                $('#CURRENT_PLAYER').closest('.brick').find('.brick-img').css({
+                    "-webkit-filter": "blur(0px)",
+                    "filter": "blur(0px)"});
+                CURRENT_PLAYER.removeAttr("id");
+                if(!CURRENT_PLAYER.hasClass('pause')){
+                    CURRENT_PLAYER.toggleClass('pause');
+                    CURRENT_PLAYER.closest('.control-panel').toggleClass('active');
+                    CURRENT_PLAYER.closest('.brick').find('.info-bar').toggleClass('active');
+                    CURRENT_PLAYER.closest('.brick').find('.brick-audio').empty();
+                }
+                player.attr("id", "CURRENT_PLAYER");
+                player.closest('.brick').find('.brick-audio').html("<canvas id='music_visual_audioDebug'></canvas>");
+            }
+            else{
+                audioTester(primaryDetected, colourDetected, decision1, decision2, decision3, decision4,
+                    yClrSym, yFineSym, xClrSym, xFineSym);
+            }
+        }
+        else{
+            player.attr('id', 'CURRENT_PLAYER');
+            player.closest('.brick').find('.brick-audio').html("<canvas id='music_visual_audioDebug'></canvas>");
+
+            audioTester(primaryDetected, colourDetected, decision1, decision2, decision3, decision4,
+                yClrSym, yFineSym, xClrSym, xFineSym);
+ 
+        }
+    }
+    else {
+        $('#CURRENT_PLAYER').closest('.brick').find('.brick-img').css({
+            "-webkit-filter": "blur(0px)",
+            "filter": "blur(0px)"});
+        player.removeAttr("id");
+        stopAudio();
+    }
+}
+
+
+function updateBlur(){
+    if($('#CURRENT_PLAYER').length != 0){
+        if(!$('#CURRENT_PLAYER').hasClass('pause')){
+            tweenBlur(0, 1);
+        }
+    }
+}
+var tweenBlur = function(startRadius, endRadius) {
+    $({blurRadius: startRadius}).animate({blurRadius: endRadius}, {
+        duration: 500,
+        easing: 'swing', // or "linear"
+                         // use jQuery UI or Easing plugin for more options
+        step: function() {
+            setBlur(this.blurRadius);
+        },
+        complete: function() {
+            // Final callback to set the target blur radius
+            // jQuery might not reach the end value
+            setBlur(endRadius);
+       }
+   });
+}
+function setBlur(radius) {
+	ele = $('#CURRENT_PLAYER').closest('.brick').find('.brick-img');
+	$(ele).css({
+	   "-webkit-filter": "blur("+radius+"px)",
+		"filter": "blur("+radius+"px)"
+   });
 }

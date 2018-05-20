@@ -218,19 +218,22 @@ var loadMyProfilePage = function (){
   });
 }
 var loadOtherProfilePage = function(user_id){
-  $.ajax({
-    url: '/profile',
-    type: 'GET',
-    data: {'user_id': user_id},
-    success: function(data){
-      $('#page_1').html(data);
-      changeurl('profile');
-      // $('#page_1').fadeIn('slow');
-    },
-    error: function(err){
-      console.log(err);
-    }
+  console.log("HELLO");
+  $('#page_1').fadeOut('slow', function(){
+    $('#page_1').empty();
+    $.ajax({
+      url: '/profile',
+      type: 'GET',
+      data: {'user_id': user_id},
+      success: function(data){
+        $('#page_1').html(data);
+        changeurl('profile');
+        $('#page_1').fadeIn('slow');
+      }
+    });
   });
+
+
 }
 
 function IS_NULL(x){

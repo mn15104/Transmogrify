@@ -673,15 +673,6 @@ function audioTester(primaryDetected, colourDetected, decision1, decision2, deci
     decVars[2] = decision3;
     decVars[3] = decision4;
 
-    console.log("decision1 = ", decision1);
-    console.log("decision2 = ", decision2);
-    console.log("decision3 = ", decision3);
-    console.log("decision4 = ", decision4);
-    console.log("symmetry1 = ", yClrSym);
-    console.log("symmetry2 = ", yFineSym);
-    console.log("symmetry3 = ", xClrSym);
-    console.log("symmetry4 = ", xFineSym);
-
     motif = motifGenerator(mood, 1, 0, decVars, symVars);
     bass = bassGenerator(mood, 1, 0, decVars, symVars, motif);
     var chord = new Array(8);
@@ -741,11 +732,6 @@ function motifGenerator(mood, layer, key, decVars, symVars) {
     var vertScore = (symVars[0] + symVars[1])/2; //Choosing not to floor this one actually
     var horiScore = (symVars[2] + symVars[3])/2;
 
-    console.log("ok its", symVars[0]);
-    console.log("ok its", symVars[1]);
-    console.log("ok its", symVars[2]);
-    console.log("ok its", symVars[3]);
-
 
     // var pixInfo = [0, 1]; //(Red, Green, Blue, noPixels)
 
@@ -757,17 +743,14 @@ function motifGenerator(mood, layer, key, decVars, symVars) {
         motif[n][2] = 0;//Length
         // }
     }
-    console.log("The mood is " + mood);
 
     if (mood > 3) {
-        console.log("IM HERE!!!");
 
         // Start simple, always play root noot on beat 1 of bar 1
         var firstNote = 1;//decVars[0]
         motif[0][0] = rhythm(1, 1);
         motif[0][1] = heptScale(firstNote);
         motif[0][2] = dur(1);
-        console.log("Note1 = ", chromScale(motif[0][1]) );
         firstNote = chromScale(motif[0][1]);
 
         // Second Not Branch anything goes
@@ -775,7 +758,6 @@ function motifGenerator(mood, layer, key, decVars, symVars) {
         motif[1][0] = rhythm(1, 2);
         motif[1][1] = heptScale(secondNote);
         motif[1][2] = dur(1);
-        console.log("Note2 = ", chromScale(motif[1][1]) );
         secondNote = chromScale(motif[1][1]);
 
         // console.log("heptNote3 = ", chromScale(motif[1][1]) );
@@ -793,14 +775,12 @@ function motifGenerator(mood, layer, key, decVars, symVars) {
         else if (thirdNote == 7) {
             //If the 2nd note isnt a 3rd or 5th, change the 7th
             if ( !(secondNote == 3 || secondNote == 5) ){
-                console.log("Changing 7th on 3rd note");
                 thirdNote = Math.abs(thirdNote - secondNote);
                 //If this is still somehow 7 just hit root again pls
                 if (thirdNote == 7) thirdNote = 1;
             }
         }
         motif[2][1] = heptScale(thirdNote);
-        console.log("Note3 = ", chromScale(motif[2][1]) );
         // console.log("heptNote3 = ", chromScale(motif[2][1]) );
 
         //Calculate actual outputted notes so far (in heptatonic scale)
@@ -812,9 +792,7 @@ function motifGenerator(mood, layer, key, decVars, symVars) {
         //Check for repeats
         if ( ( (firstNote == secondNote) || (firstNote == thirdNote) || (secondNote == thirdNote) ) && (symScore > 5) ) {
             //If symmetry score is high then repeat the non-repeated note to give symmetrical pattern
-            console.log("There is repeat, with sym: ", symScore);
             if ( symScore > 7 ) {
-                console.log("High Sym Score so straight repeat");
                 if (firstNote == secondNote) {
                     // console.log("1 + 2 are the same");
                     motif[3][1] = heptScale(thirdNote);
@@ -830,12 +808,10 @@ function motifGenerator(mood, layer, key, decVars, symVars) {
             }
             //If symmetry score is medium choose to repeat an interval instead of a direct note
             else if (symScore > 5) {
-                console.log("symScore of 6 or 7...");
                 var tonalInterval;
                 var oddNote;
                 if (firstNote == secondNote) {
                     if (firstNote == thirdNote) {
-                        console.log("SPecial CASE!");
                         oddNote = 0; //Special case with 3 repeated notes
                     }
                     oddNote = 3;
@@ -849,11 +825,8 @@ function motifGenerator(mood, layer, key, decVars, symVars) {
                     oddNote = 1;
                     tonalInterval = Math.abs(firstNote - secondNote) + 1;
                 }
-                console.log("The tonal interval detected is " + tonalInterval);
                 //Handing small intervals
                 if (tonalInterval < 4) {
-                    console.log("Tonal interval of 1, 2, or 3, so doubling the interval on top.");
-                    console.log("odd note = " + oddNote);
                     if (oddNote == 1) {
                         if (firstNote < secondNote) {
                             motif[3][1] = heptScale(secondNote + tonalInterval-1);
@@ -876,13 +849,11 @@ function motifGenerator(mood, layer, key, decVars, symVars) {
                         motif[3][1] = firstNote; //Repeat the 4th like in sym > 7
                     }
                     else {
-                        console.log("Error at note 4 in motifGenerator");
                     }
                 }
                 // Handling large intervals
                 if (tonalInterval > 3) {
 
-                    console.log("Tonal interval of " + tonalInterval + "so acting accordingly");
                     if (tonalInterval == 4) tonalInterval = 0;
                     if (tonalInterval == 5) tonalInterval = 3;
                     if (tonalInterval == 6) {
@@ -916,7 +887,6 @@ function motifGenerator(mood, layer, key, decVars, symVars) {
                         motif[3][1] = firstNote; //Repeat the 4th like in sym > 7
                     }
                     else {
-                        console.log("Error at note 4 in motifGenerator");
                     }
                 }
 
@@ -924,7 +894,6 @@ function motifGenerator(mood, layer, key, decVars, symVars) {
         }
         //Else stick to pure decision for last time
         else {
-            console.log("No repeats and/or low symmetry score")
             fourthNote = decVars[3];
             motif[3][1] = heptScale(fourthNote);
             fourthNote = chromScale(motif[3][1]);
@@ -933,7 +902,7 @@ function motifGenerator(mood, layer, key, decVars, symVars) {
             //Easy one for now avoid -dim 7..
             if (fourthNote == 7) {
                 if ( !( secondNote == 3 || secondNote == 5 ) || !( thirdNote == 3 || thirdNote == 5 ) ) {
-                    console.log("Changing 7th on 4rd note");
+      
                     fourthNote = Math.abs(fourthNote - thirdNote);
                     //If this is still somehow 7 just hit root again pls
                     if (fourthNote == 7) thirdNote = 1;
@@ -941,7 +910,7 @@ function motifGenerator(mood, layer, key, decVars, symVars) {
                 motif[3][1] = heptScale(fourthNote);
             }
             else if (secondNote == 7 || thirdNote == 7) {
-                console.log("REACHED!!!, ");
+    
                 if (decVars[3] < 3 ) {
                     fourthNote = 3;
                 }
@@ -961,7 +930,6 @@ function motifGenerator(mood, layer, key, decVars, symVars) {
         }
         motif[3][0] = rhythm(1, 4);
         motif[3][2] = dur(1);
-        console.log("Note4 = ", chromScale(motif[3][1]) );
 
         //Reached first four core notes!
         //Now if there is image symmetry, we can repeat intervals, notes or general patterns for 5-8...
@@ -993,7 +961,6 @@ function motifGenerator(mood, layer, key, decVars, symVars) {
                 indRepeats = n;
             }
         }
-        console.log("MostRepeats = " + mostRepeats + ". indRepeats = " + indRepeats);
 
         var noMajor = 0;
         var noMinor = 0;
@@ -1026,7 +993,7 @@ function motifGenerator(mood, layer, key, decVars, symVars) {
 
 
             //If its very high then simply invert or straight repeat
-            console.log("symScore = " + symScore);
+ 
             if (symScore >= 8) {
 
                 if (horiScore >= vertScore) {
@@ -1088,7 +1055,6 @@ function motifGenerator(mood, layer, key, decVars, symVars) {
                     }
 
 
-                    console.log("pivot 1 = " + pivot1 + ". Pivot 2 = " + pivot2);
                     if (noDimin == 0) {
                         var cadencePresent = 0;
                         if ( pivot1 == 5 || pivot1 == 4 ) {
@@ -1097,7 +1063,6 @@ function motifGenerator(mood, layer, key, decVars, symVars) {
                         if ( pivot1 == 5 || pivot1 == 4 ) {
                             cadencePresent += 1;
                         }
-                        console.log("Number of cadences in pivots = " + cadencePresent);
                         //Work out based on cadence
                         if (cadencePresent == 0) {
                             if (decVars[2] > 5){
@@ -1126,7 +1091,6 @@ function motifGenerator(mood, layer, key, decVars, symVars) {
                         if ( pivot1 == 5 || pivot1 == 4 ) {
                             cadencePresent += 1;
                         }
-                        console.log("Number of cadences in pivots = " + cadencePresent);
                         //Work out based on cadence
                         if (cadencePresent == 0) {
                             if (decVars[2] > 5){
@@ -1242,17 +1206,12 @@ function motifGenerator(mood, layer, key, decVars, symVars) {
         // motif[7][1] = heptScale(1);
         // motif[7][2] = dur(1);
 
-        console.log("Note5 = ", chromScale(motif[4][1]) );
-        console.log("Note6 = ", chromScale(motif[5][1]) );
-        console.log("Note7 = ", chromScale(motif[6][1]) );
-        console.log("Note8 = ", chromScale(motif[7][1]) );
-
 
         // ----------------------------- Rhythm ------------------------------
 
         if ( decVars[0] < 1 ) {
 
-            console.log("Rhythm 0");
+
 
             motif[0][0] = rhythm(1,1);
 
@@ -1276,7 +1235,7 @@ function motifGenerator(mood, layer, key, decVars, symVars) {
         }
         else if ( decVars[0] < 2 ) {
 
-            console.log("Rhythm 1");
+
 
             motif[0][0] = rhythm(1,1);
 
@@ -1296,7 +1255,7 @@ function motifGenerator(mood, layer, key, decVars, symVars) {
         }
         else if ( decVars[0] < 3 ) {
 
-            console.log("Rhythm 2");
+
 
             motif[0][0] = rhythm(1,1);
             motif[0][2] = dur(3);
@@ -1324,7 +1283,7 @@ function motifGenerator(mood, layer, key, decVars, symVars) {
         }
         else if ( decVars[0] < 4 ) {
 
-            console.log("Rhythm 3");
+  
 
             motif[0][0] = rhythm(1,1);
 
@@ -1366,7 +1325,7 @@ function motifGenerator(mood, layer, key, decVars, symVars) {
         }
         else if ( decVars[0] < 5 ) {
 
-            console.log("Rhythm 4");
+
 
             motif[0][0] = rhythm(1,1);
 
@@ -1393,7 +1352,7 @@ function motifGenerator(mood, layer, key, decVars, symVars) {
         }
         else if ( decVars[0] < 6 ) {
 
-            console.log("Rhythm 5");
+    
 
             motif[0][0] = rhythm(1,1);
 
@@ -1428,7 +1387,6 @@ function motifGenerator(mood, layer, key, decVars, symVars) {
         }
         else if ( decVars[0] < 7 ) {
 
-            console.log("Rhythm 6");
 
             motif[0][0] = rhythm(1,1);
 
@@ -1461,7 +1419,6 @@ function motifGenerator(mood, layer, key, decVars, symVars) {
         }
         else if ( decVars[0] < 8 ) {
 
-            console.log("Rhythm 7");
 
             motif[0][0] = rhythm(1,1);
 
@@ -1484,7 +1441,7 @@ function motifGenerator(mood, layer, key, decVars, symVars) {
         }
         else if ( decVars[0] < 9 ) {
 
-            console.log("Rhythm 8");
+
 
             motif[0][0] = rhythm(1,1);
 
@@ -1507,7 +1464,7 @@ function motifGenerator(mood, layer, key, decVars, symVars) {
         }
         else if ( decVars[0] <= 10 ) {
             //Change
-            console.log("Rhythm 9");
+    
 
             motif[0][0] = rhythm(1,1);
 
@@ -1680,7 +1637,7 @@ function bassGenerator( mood, layer, key, decVars, symVars, motif ) {
     //Just make decision for now....
     if (decVars[1] < 1) {
 
-        console.log("Bass 0");
+   
         //The absolute classic
         bass[0][0] = rhythm(1, 1);
         bass[0][1] = heptScale(1);
@@ -1715,7 +1672,6 @@ function bassGenerator( mood, layer, key, decVars, symVars, motif ) {
         bass[7][2] = dur(8);
     }
     else if (decVars[1] < 2) {
-        console.log("Bass 1");
         //Put it in A minor?
         bass[0][0] = rhythm(1, 1);
         bass[0][1] = heptScale(6)-12;
@@ -1751,7 +1707,6 @@ function bassGenerator( mood, layer, key, decVars, symVars, motif ) {
 
     }
     else if (decVars[1] <= 10) {
-        console.log("Custom chord progression chosen");
         chord = chordPath(decVars); //Gets the 8 chord path
         for (var c = 0; c < 8; c++) {
             bass[c][3] = chord[c][1];
@@ -1907,7 +1862,7 @@ function chordPath(decVars) {
                 }
                 else {
                     if ( newChord == 0) newChord = 7;
-                    console.log()
+               
                     chord[c][1] = newChord;
                 }
             }
@@ -1917,24 +1872,11 @@ function chordPath(decVars) {
                 }
                 else if (chord[c][1] == 0) {
                     newChord = ( mod((chord[c-1][1] + intervalNum[c-1]), 7));
-                    console.log("C = " + c + ". newChord = " + newChord);
-                    console.log("IntervalNum[c-1] = " + intervalNum[c-1] + ", chordDecided[c-1] = " + chordDecided[c-1]);
                     if (newChord == 0) newChord = 7;
-                    console.log("C = " + c + ". newChord = " + newChord);
                     chord[c][1] = newChord;
                 }
             }
         }
-
-        console.log("\nPrior to checking= " + noInterations);
-        console.log("Chord 1 = "+ chord[0][1]);
-        console.log("Chord 2 = "+ chord[1][1]);
-        console.log("Chord 3 = "+ chord[2][1]);
-        console.log("Chord 4 = "+ chord[3][1]);
-        console.log("Chord 5 = "+ chord[4][1]);
-        console.log("Chord 6 = "+ chord[5][1]);
-        console.log("Chord 7 = "+ chord[6][1]);
-        console.log("Chord 8 = "+ chord[7][1]);
 
         //Checking
         var problemFound = false;
@@ -1994,9 +1936,7 @@ function chordPath(decVars) {
             //Change the chordDecisions that lead to the error
             for (var p = 0; p < 8; p++) {
                 if (chord[p][1] == 0) {
-                    console.log("problematic[" + p + "] = " + problematic[p]);
                     if (problematic[p] > 5) {
-                        console.log("problem aint changin");
                         if (p > 1) {
                             chordDecided[p-2] = mod((chordDecided[p-1] + 1 ), 5);
                         }
@@ -2020,34 +1960,12 @@ function chordPath(decVars) {
             break;
         }
 
-        console.log("chordDecided[0] = " + chordDecided[0]);
-        console.log("chordDecided[1] = " + chordDecided[1]);
-        console.log("chordDecided[2] = " + chordDecided[2]);
-        console.log("chordDecided[3] = " + chordDecided[3]);
-        console.log("chordDecided[4] = " + chordDecided[4]);
-        console.log("chordDecided[5] = " + chordDecided[5]);
+       
 
         noInterations += 1;
-        console.log("\nNumber of Iterations = " + noInterations);
-        console.log("Chord 1 = "+ chord[0][1]);
-        console.log("Chord 2 = "+ chord[1][1]);
-        console.log("Chord 3 = "+ chord[2][1]);
-        console.log("Chord 4 = "+ chord[3][1]);
-        console.log("Chord 5 = "+ chord[4][1]);
-        console.log("Chord 6 = "+ chord[5][1]);
-        console.log("Chord 7 = "+ chord[6][1]);
-        console.log("Chord 8 = "+ chord[7][1]);
+
 
     }
-    console.log("Number of Iterations = " + noInterations);
-    console.log("Chord 1 = "+ chord[0][1]);
-    console.log("Chord 2 = "+ chord[1][1]);
-    console.log("Chord 3 = "+ chord[2][1]);
-    console.log("Chord 4 = "+ chord[3][1]);
-    console.log("Chord 5 = "+ chord[4][1]);
-    console.log("Chord 6 = "+ chord[5][1]);
-    console.log("Chord 7 = "+ chord[6][1]);
-    console.log("Chord 8 = "+ chord[7][1]);
 
 
 

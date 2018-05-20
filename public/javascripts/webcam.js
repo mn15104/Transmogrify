@@ -10,7 +10,7 @@ var peerConnectionConfig = {
     {'urls': 'stun:stun.stunprotocol.org:3478'},
     {'urls': 'stun:stun.l.google.com:19302'},
   ]
-};
+}
 
 function pageReady() {
   uuid = createUUID();
@@ -24,7 +24,7 @@ function pageReady() {
   var constraints = {
     video: true,
     audio: true,
-  };
+  }
 
   if(navigator.mediaDevices.getUserMedia) {
     navigator.mediaDevices.getUserMedia(constraints).then(getUserMediaSuccess).catch(errorHandler);
