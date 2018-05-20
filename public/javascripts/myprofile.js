@@ -296,7 +296,7 @@ function initAudio(player){
     player.toggleClass('pause');
     player.closest('.control-panel').toggleClass('active');
     player.closest('.player').find('.info-bar').toggleClass('active');
-    
+    player.closest('.brick').find('.brick-img-audio-container').toggleClass('animate_gradient');
 
     primaryDetected = parseFloat(player.closest('.brick').attr('data-primaryDetected'));
     colourDetected = parseFloat( player.closest('.brick').attr('data-colourDetected'));
@@ -323,6 +323,7 @@ function initAudio(player){
                 CURRENT_PLAYER.removeAttr("id");
                 if(!CURRENT_PLAYER.hasClass('pause')){
                     CURRENT_PLAYER.toggleClass('pause');
+                    CURRENT_PLAYER.closest('.brick').find('.brick-img-audio-container').toggleClass('animate_gradient');
                     CURRENT_PLAYER.closest('.control-panel').toggleClass('active');
                     CURRENT_PLAYER.closest('.brick').find('.info-bar').toggleClass('active');
                     CURRENT_PLAYER.closest('.brick').find('.brick-audio').empty();
