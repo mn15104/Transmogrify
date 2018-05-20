@@ -335,13 +335,13 @@ h1.explore_title{
   opacity: 1;
 }
 
-.play-container .play.pause {
+.play-container.pause .play {
   transition: all 0.7s;
   color: #a91616;
   border: 5px solid #7a0e06;
   opacity: 0.7;
 } 
-.play-container .play.pause:hover {
+.play-container.pause .play:hover {
   transition: all 0.7s;
   opacity: 1;
 } 

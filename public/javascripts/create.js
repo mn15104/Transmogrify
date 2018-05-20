@@ -599,7 +599,8 @@ $( ".audiostop-btn" ).one( "click", function() {
 
 
 var player=new WebAudioFontPlayer();
-
+var AudioContextFunc;
+var audioContext; 
 function audioTester(primaryDetected, colourDetected, decision1, decision2, decision3, decision4, yClrSym, yFineSym, xClrSym, xFineSym){
     console.log(typeof(yClrSym));
     //Demo
@@ -622,10 +623,9 @@ function audioTester(primaryDetected, colourDetected, decision1, decision2, deci
     musicVariables[9] = xFineSym;
 
 
+    AudioContextFunc = window.AudioContext || window.webkitAudioContext;
+    audioContext = new AudioContextFunc();
 
-
-    var AudioContextFunc = window.AudioContext || window.webkitAudioContext;
-    var audioContext = new AudioContextFunc();
 
 
 
@@ -714,10 +714,14 @@ function audioTester(primaryDetected, colourDetected, decision1, decision2, deci
 }
 
 
-function stopAudio() {
-
-    for (var i = 0; i < 1600; i++)  {
-        player.envelopes[i].cancel();
+function stopAudio(callback) {
+    player.cancelQueue(audioContext);
+    // for (var i = 0; i < 1600; i++)  {
+    //     player.envelopes = [];
+    //     player.
+    // }
+    if(callback && typeof(callback) === "function"){
+        callback();
     }
 
     return 0;

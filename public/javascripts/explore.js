@@ -47,11 +47,13 @@ function retrieveFileData(numb, req_file_id){
                              viewProfile(brick_user_id);
                         } });
                 })
-                $('.play').click(function(){
-                    var player = $(this);
-                    initAudio(player);
-                });
+                console.log(i);
             }
+   
+            $('.play-container').click(function(){
+                var player = $(this);
+                initAudio(player);
+            });
             return data;
         },
         error: function (err) {
@@ -95,7 +97,7 @@ function generateBrick(file_data){
                         '</div>'                                +
                         '<div class="controls">'                +
                             '<div class="play-container pause">'+
-                                '<i class="fa fa-play play pause" aria-hidden="true"></i>' +
+                                '<i class="fa fa-play play" aria-hidden="true"></i>' +
                             '</div>'            +
                 '</div></div></div></figure>'  
     
@@ -117,9 +119,8 @@ function refreshAudio(){
 
 function initAudio(player){
     player.toggleClass('pause');
-    player.closest('.play-container').toggleClass('pause');
     player.closest('.control-panel').toggleClass('active');
-    player.closest('.brick').find('.info-bar').toggleClass('active');
+    player.closest('.player').find('.info-bar').toggleClass('active');
     
 
     primaryDetected = parseFloat(player.closest('.brick').attr('data-primaryDetected'));
@@ -137,28 +138,28 @@ function initAudio(player){
         //////
         if($('#CURRENT_PLAYER').length != 0){
             CURRENT_PLAYER = $('#CURRENT_PLAYER');
-            if(!player.is('#CURRENT_PLAYER')){
-                stopAudio();
+            if(player.attr('id') !== 'CURRENT_PLAYER'){
+                stopAudio(function(){
+                    audioTester(primaryDetected, colourDetected, decision1, decision2, decision3, decision4,
+                        yClrSym, yFineSym, xClrSym, xFineSym);
+                });
                 $('#CURRENT_PLAYER').closest('.brick').find('.brick-img').css({
                     "-webkit-filter": "blur(0px)",
                     "filter": "blur(0px)"});
                 CURRENT_PLAYER.removeAttr("id");
-                CURRENT_PLAYER.toggleClass('pause');
-                CURRENT_PLAYER.closest('.play-container').toggleClass('pause');
-                CURRENT_PLAYER.closest('.control-panel').toggleClass('active');
-                CURRENT_PLAYER.closest('.brick').find('.info-bar').toggleClass('active');
-                CURRENT_PLAYER.closest('.brick').find('.brick-audio').empty();
+                if(!CURRENT_PLAYER.hasClass('pause')){
+                    CURRENT_PLAYER.toggleClass('pause');
+                    CURRENT_PLAYER.closest('.control-panel').toggleClass('active');
+                    CURRENT_PLAYER.closest('.brick').find('.info-bar').toggleClass('active');
+                    CURRENT_PLAYER.closest('.brick').find('.brick-audio').empty();
+                }
                 player.attr("id", "CURRENT_PLAYER");
                 player.closest('.brick').find('.brick-audio').html("<canvas id='music_visual_audioDebug'></canvas>");
-
-                audioTester(primaryDetected, colourDetected, decision1, decision2, decision3, decision4,
-                            yClrSym, yFineSym, xClrSym, xFineSym);
-            
+                console.log("REMOVING ID");
             }
             else{
                 audioTester(primaryDetected, colourDetected, decision1, decision2, decision3, decision4,
                     yClrSym, yFineSym, xClrSym, xFineSym);
-  
             }
         }
         else{
