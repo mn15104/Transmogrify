@@ -7,6 +7,9 @@ var Profile = require('../models/profile.model');
 
 
 
+router.post('/loadfile', function(req,res,next){
+    Profile.loadProfileFile(req, res);
+})
 
 router.get('/', function(req, res, next) {
 

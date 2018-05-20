@@ -7,6 +7,7 @@ var fs = require('fs');
 var dateFormat = require('dateformat');
 var ejs = require('ejs');
 var ChatModel = require('./chat.model');
+var ExploreModel = require('./explore.model');
 var Profile = function (){
 
 }
@@ -71,7 +72,9 @@ Profile.loadMyProfile = function(req, res, load){
     });
 };
 
-
+Profile.loadProfileFile = function(req, res){
+    ExploreModel.loadProfileFile(req, res);
+};
 Profile.loadOtherProfile = function(req, res, load){
     var other_user_id = req.query.user_id;
     console.log(other_user_id);

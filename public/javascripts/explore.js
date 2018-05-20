@@ -1,9 +1,11 @@
 
-// var newMusicplayer = new musicPlayer;
+
+var all_images_loaded = false;
+
 function init_explore(){
     $(window).scroll(function() {
         if($(window).scrollTop() + $(window).height() == $(document).height()) {
-            nextRow();
+            if(!all_images_loaded) retrieveFileData(20, 'max');
         }
     });
     retrieveFileData(20, 'max');
@@ -22,8 +24,6 @@ function init_explore(){
 
 
     setInterval(updateBlur, 1000);
-
-
 }
 
 function retrieveFileData(numb, req_file_id){
@@ -34,6 +34,9 @@ function retrieveFileData(numb, req_file_id){
                'pair_id': req_file_id},
         success: function(data){
             dataObj = JSON.parse(data);
+            if(dataObj.length < numb){
+                all_images_loaded = true;
+            }
             for(var i = 0; i < dataObj.length; i++){
                 generateBrick(dataObj[i]);
                 $('.brick .brick_profile_img').click(function(){
@@ -97,7 +100,6 @@ function generateBrick(file_data){
                 '</div></div></div></figure>'  
     
     $('.brick-wall').append(brick);
-
 }
 
 
