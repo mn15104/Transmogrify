@@ -575,6 +575,7 @@ $( ".download-btn" ).on( "click", function() {
 
 $( ".retry-btn" ).one( "click", function() {
     refreshTab();
+    stopAudio();
 })
 $( ".audiostop-btn" ).one( "click", function() {
     stopAudio();
@@ -584,6 +585,7 @@ $( ".audiostop-btn" ).one( "click", function() {
 var player=new WebAudioFontPlayer();
 
 function audioTester(primaryDetected, colourDetected, decision1, decision2, decision3, decision4, yClrSym, yFineSym, xClrSym, xFineSym){
+    console.log(typeof(yClrSym));
     //Demo
     // var AudioContextFunc = window.AudioContext || window.webkitAudioContext;
     // var audioContext = new AudioContextFunc();
@@ -664,98 +666,34 @@ function audioTester(primaryDetected, colourDetected, decision1, decision2, deci
     console.log("symmetry3 = ", xClrSym);
     console.log("symmetry4 = ", xFineSym);
 
-// <<<<<<< HEAD
-        motif = motifGenerator(mood, 1, 0, decVars, symVars);
-        bass = bassGenerator(mood, 1, 0, decVars, symVars, motif);
-        var chord = new Array(8);
-        for (var c = 0; c < 8; c++) {
-            chord[c] = bass[c][3];
-        }
-        motifVar = motifVariator(motif, chord);
-        highAcc = highAccompaniment(motif, chord);
-// =======
-//     motif = motifGenerator(mood, 1, 0, decVars, symVars);
-//     bass = bassGenerator(mood, 1, 0, decVars, symVars, motif);
-// >>>>>>> e6ee9463e82753bab672051468a8f0c3da54b984
+    motif = motifGenerator(mood, 1, 0, decVars, symVars);
+    bass = bassGenerator(mood, 1, 0, decVars, symVars, motif);
+    var chord = new Array(8);
+    for (var c = 0; c < 8; c++) {
+        chord[c] = bass[c][3];
+    }
+    motifVar = motifVariator(motif, chord);
+    highAcc = highAccompaniment(motif, chord);
+    for (var r = 0; r < 1; r++) {
+        var repTime = r * (rhythm(16,4) + dur(1));
+        for (var i = 0; i < 640; i++) {
 
-
-
-
-// <<<<<<< HEAD
-        // textPlayer(motif);
-        // console.log("Notes[i][0]: " + motif[0][0] + ", " + motif[1][0] + ", " + motif[2][0] + ", " + motif[3][0] + ", " + motif[4][0] + ", " + motif[5][0] + ", " + motif[6][0] + ", " + motif[7][0]);
-        // console.log("Rhyth[i][1]: " + motif[0][1] + ", " + motif[1][1] + ", " + motif[2][1] + ", " + motif[3][1] + ", " + motif[4][1] + ", " + motif[5][1] + ", " + motif[6][1] + ", " + motif[7][1]);
-        // console.log("Length[i][2]: " + motif[0][2] + ", " + motif[1][2] + ", " + motif[2][2] + ", " + motif[3][2] + ", " + motif[4][2] + ", " + motif[5][2] + ", " + motif[6][2] + ", " + motif[7][2]);
-        for (var r = 0; r < 1; r++) {
-            var repTime = r * (rhythm(16,4) + dur(1));
-            for (var i = 0; i < 640; i++) {
-
-                player.queueWaveTable(audioContext, audioContext.destination, melInst[0], repTime + motifVar[i][0], motifVar[i][1]+12*motifVar[i][3]+musicKey, motifVar[i][2]);
-            }
-
-        }
-        //
-        //
-        // for (var i = 0; i < 16; i++) {
-        //     var repTime = i * (rhythm(2,4) + dur(1));
-        //     player.queueWaveTable(audioContext, audioContext.destination, melInst[0], repTime + motif[0][0], motif[0][1]+12*4+musicKey, motif[0][2]);
-        //     player.queueWaveTable(audioContext, audioContext.destination, melInst[0], repTime + motif[1][0], motif[1][1]+12*4+musicKey, motif[1][2]);
-        //     player.queueWaveTable(audioContext, audioContext.destination, melInst[0], repTime + motif[2][0], motif[2][1]+12*4+musicKey, motif[2][2]);
-        //     player.queueWaveTable(audioContext, audioContext.destination, melInst[0], repTime + motif[3][0], motif[3][1]+12*4+musicKey, motif[3][2]);
-        //     player.queueWaveTable(audioContext, audioContext.destination, melInst[0], repTime + motif[4][0], motif[4][1]+12*4+musicKey, motif[4][2]);
-        //     player.queueWaveTable(audioContext, audioContext.destination, melInst[0], repTime + motif[5][0], motif[5][1]+12*4+musicKey, motif[5][2]);
-        //     player.queueWaveTable(audioContext, audioContext.destination, melInst[0], repTime + motif[6][0], motif[6][1]+12*4+musicKey, motif[6][2]);
-        //     player.queueWaveTable(audioContext, audioContext.destination, melInst[0], repTime + motif[7][0], motif[7][1]+12*4+musicKey, motif[7][2]);
-        //     player.queueWaveTable(audioContext, audioContext.destination, melInst[0], repTime + motif[8][0], motif[8][1]+12*4+musicKey, motif[8][2]);
-        //     player.queueWaveTable(audioContext, audioContext.destination, melInst[0], repTime + motif[9][0], motif[9][1]+12*4+musicKey, motif[9][2]);
-        //     player.queueWaveTable(audioContext, audioContext.destination, melInst[0], repTime + motif[10][0], motif[10][1]+12*4+musicKey, motif[10][2]);
-        //     player.queueWaveTable(audioContext, audioContext.destination, melInst[0], repTime + motif[11][0], motif[11][1]+12*4+musicKey, motif[11][2]);
-        //     player.queueWaveTable(audioContext, audioContext.destination, melInst[0], repTime + motif[12][0], motif[12][1]+12*4+musicKey, motif[12][2]);
-        //
-        //
-        // }
-        for (var i = 0; i < 320; i++)  {
-            // console.log("bass[" + i + "][1] = " + bass[i][1]);
-            player.queueWaveTable(audioContext, audioContext.destination, melInst[0], bass[i][0], bass[i][1]+12*3+musicKey, bass[i][2]);
-
-        }
-        for (var i = 0; i < 20; i++)  {
-            // console.log("bass[" + i + "][1] = " + bass[i][1]);
-            player.queueWaveTable(audioContext, audioContext.destination, higInst[0], highAcc[i][0], highAcc[i][1]+12*highAcc[i][3]+musicKey, highAcc[i][2], 0.5);
+            player.queueWaveTable(audioContext, audioContext.destination, melInst[0], repTime + motifVar[i][0], motifVar[i][1]+12*motifVar[i][3]+musicKey, motifVar[i][2]);
         }
 
-        $( ".download-btn" ).show();
-// =======
-//     // textPlayer(motif);
-//     // console.log("Notes[i][0]: " + motif[0][0] + ", " + motif[1][0] + ", " + motif[2][0] + ", " + motif[3][0] + ", " + motif[4][0] + ", " + motif[5][0] + ", " + motif[6][0] + ", " + motif[7][0]);
-//     // console.log("Rhyth[i][1]: " + motif[0][1] + ", " + motif[1][1] + ", " + motif[2][1] + ", " + motif[3][1] + ", " + motif[4][1] + ", " + motif[5][1] + ", " + motif[6][1] + ", " + motif[7][1]);
-//     // console.log("Length[i][2]: " + motif[0][2] + ", " + motif[1][2] + ", " + motif[2][2] + ", " + motif[3][2] + ", " + motif[4][2] + ", " + motif[5][2] + ", " + motif[6][2] + ", " + motif[7][2]);
-//
-//     for (var i = 0; i < 8; i++) {
-//         var repTime = i * (rhythm(2,4) + dur(1));
-//         player.queueWaveTable(audioContext, audioContext.destination, melInst[0], repTime + motif[0][0], motif[0][1]+12*4+musicKey, motif[0][2]);
-//         player.queueWaveTable(audioContext, audioContext.destination, melInst[0], repTime + motif[1][0], motif[1][1]+12*4+musicKey, motif[1][2]);
-//         player.queueWaveTable(audioContext, audioContext.destination, melInst[0], repTime + motif[2][0], motif[2][1]+12*4+musicKey, motif[2][2]);
-//         player.queueWaveTable(audioContext, audioContext.destination, melInst[0], repTime + motif[3][0], motif[3][1]+12*4+musicKey, motif[3][2]);
-//         player.queueWaveTable(audioContext, audioContext.destination, melInst[0], repTime + motif[4][0], motif[4][1]+12*4+musicKey, motif[4][2]);
-//         player.queueWaveTable(audioContext, audioContext.destination, melInst[0], repTime + motif[5][0], motif[5][1]+12*4+musicKey, motif[5][2]);
-//         player.queueWaveTable(audioContext, audioContext.destination, melInst[0], repTime + motif[6][0], motif[6][1]+12*4+musicKey, motif[6][2]);
-//         player.queueWaveTable(audioContext, audioContext.destination, melInst[0], repTime + motif[7][0], motif[7][1]+12*4+musicKey, motif[7][2]);
-//         player.queueWaveTable(audioContext, audioContext.destination, melInst[0], repTime + motif[8][0], motif[8][1]+12*4+musicKey, motif[8][2]);
-//         player.queueWaveTable(audioContext, audioContext.destination, melInst[0], repTime + motif[9][0], motif[9][1]+12*4+musicKey, motif[9][2]);
-//         player.queueWaveTable(audioContext, audioContext.destination, melInst[0], repTime + motif[10][0], motif[10][1]+12*4+musicKey, motif[10][2]);
-//         player.queueWaveTable(audioContext, audioContext.destination, melInst[0], repTime + motif[11][0], motif[11][1]+12*4+musicKey, motif[11][2]);
-//         player.queueWaveTable(audioContext, audioContext.destination, melInst[0], repTime + motif[12][0], motif[12][1]+12*4+musicKey, motif[12][2]);
-//
-//
-//     }
-//     for (var i = 0; i < 40; i++)  {
-//         console.log("bass[" + i + "][1] = " + bass[i][1]);
-//         player.queueWaveTable(audioContext, audioContext.destination, melInst[0], bass[i][0], bass[i][1]+12*3+musicKey, bass[i][2]);
-//
-//     }
-//     $( ".download-btn" ).show();
-// >>>>>>> e6ee9463e82753bab672051468a8f0c3da54b984
+    }
+
+    for (var i = 0; i < 320; i++)  {
+        // console.log("bass[" + i + "][1] = " + bass[i][1]);
+        player.queueWaveTable(audioContext, audioContext.destination, melInst[0], bass[i][0], bass[i][1]+12*3+musicKey, bass[i][2]);
+
+    }
+    for (var i = 0; i < 20; i++)  {
+        // console.log("bass[" + i + "][1] = " + bass[i][1]);
+        player.queueWaveTable(audioContext, audioContext.destination, higInst[0], highAcc[i][0], highAcc[i][1]+12*highAcc[i][3]+musicKey, highAcc[i][2], 0.5);
+    }
+
+    $( ".download-btn" ).show();
 
 }
 

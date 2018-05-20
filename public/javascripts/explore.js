@@ -1,6 +1,6 @@
 
 // var newMusicplayer = new musicPlayer;
-function init(){
+function init_explore(){
     $(window).scroll(function() {
         if($(window).scrollTop() + $(window).height() == $(document).height()) {
             nextRow();
@@ -119,14 +119,24 @@ function initAudio(player){
     player.closest('.control-panel').toggleClass('active');
     player.closest('.brick').find('.info-bar').toggleClass('active');
     
+
+    primaryDetected = parseFloat(player.closest('.brick').attr('data-primaryDetected'));
+    colourDetected = parseFloat( player.closest('.brick').attr('data-colourDetected'));
+    decision1 = parseFloat(player.closest('.brick').attr('data-decision1'));
+    decision2 = parseFloat(player.closest('.brick').attr('data-decision2'));
+    decision3 = parseFloat(player.closest('.brick').attr('data-decision3'));
+    decision4 = parseFloat(player.closest('.brick').attr('data-decision4'));
+    yClrSym = parseFloat(player.closest('.brick').attr('data-yClrSym'));
+    yFineSym = parseFloat(player.closest('.brick').attr('data-yFineSym'));
+    xClrSym = parseFloat(player.closest('.brick').attr('data-xClrSym'));
+    xFineSym = parseFloat(player.closest('.brick').attr('data-xFineSym'));
+
     if(!player.hasClass('pause')) {
         //////
         if($('#CURRENT_PLAYER').length != 0){
             CURRENT_PLAYER = $('#CURRENT_PLAYER');
             if(!player.is('#CURRENT_PLAYER')){
-                $.getScript("audio_wave.js",function(){
-                    stopSound();
-                });
+                stopAudio();
                 $('#CURRENT_PLAYER').closest('.brick').find('.brick-img').css({
                     "-webkit-filter": "blur(0px)",
                     "filter": "blur(0px)"});
@@ -138,20 +148,22 @@ function initAudio(player){
                 CURRENT_PLAYER.closest('.brick').find('.brick-audio').empty();
                 player.attr("id", "CURRENT_PLAYER");
                 player.closest('.brick').find('.brick-audio').load("../views/audio_wave.html");
-                $.getScript("audio_wave.js",function(){
-                    init();
-                });
+
+                audioTester(primaryDetected, colourDetected, decision1, decision2, decision3, decision4,
+                            yClrSym, yFineSym, xClrSym, xFineSym);
             }
             else{
-                init();
+                audioTester(primaryDetected, colourDetected, decision1, decision2, decision3, decision4,
+                    yClrSym, yFineSym, xClrSym, xFineSym);
+
             }
         }
         else{
             player.attr('id', 'CURRENT_PLAYER');
             player.closest('.brick').find('.brick-audio').load("../views/audio_wave.html");
-            $.getScript("audio_wave.js",function(){
-                init();
-            });
+            audioTester(primaryDetected, colourDetected, decision1, decision2, decision3, decision4,
+                yClrSym, yFineSym, xClrSym, xFineSym);
+
         }
     }
     else {
@@ -159,9 +171,7 @@ function initAudio(player){
             "-webkit-filter": "blur(0px)",
             "filter": "blur(0px)"});
         $(this).removeAttr("id");
-        $.getScript("audio_wave.js",function(){
-                stopSound();
-        });
+        stopAudio();
     }
 }
 
