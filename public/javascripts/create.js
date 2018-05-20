@@ -241,7 +241,8 @@ $( ".convert-btn" ).one( "click", function() {
                         var decision3 = Math.floor( (blueSum/pixelSum) / 23.3 );
                         var decision4 = Math.abs( decision1 - decision2 );
 
-                        audioTester(primaryDetected, colourDetected, decision1, decision2, decision3, decision4, symmetry[0], symmetry[1], symmetry[2], symmetry[3]);
+                        playAudio(primaryDetected, colourDetected, decision1, decision2, decision3, decision4, symmetry[0], symmetry[1], symmetry[2], symmetry[3], true);
+                        // audioTester(primaryDetected, colourDetected, decision1, decision2, decision3, decision4, symmetry[0], symmetry[1], symmetry[2], symmetry[3]);
                         updateProgress(100);
 
                         //Show the placeholder audio
@@ -565,11 +566,11 @@ $( ".retry-btn" ).one( "click", function() {
     refreshTab();
 })
 $( ".audiostop-btn" ).one( "click", function() {
-    stopAudio();
+    playAudio(0,1,2,3,4,5,6,7,8,9, false);
 });
 
+// var player=new WebAudioFontPlayer();
 
-var player=new WebAudioFontPlayer();
 
 function audioTester(primaryDetected, colourDetected, decision1, decision2, decision3, decision4, yClrSym, yFineSym, xClrSym, xFineSym){
     //Demo
@@ -594,14 +595,20 @@ function audioTester(primaryDetected, colourDetected, decision1, decision2, deci
 
     var AudioContextFunc = window.AudioContext || window.webkitAudioContext;
     var audioContext = new AudioContextFunc();
+    var player=new WebAudioFontPlayer();
 
 
 
     bpm = 80;//(60 + (primaryDetected*5) + (colourDetected * 4) );
 
-    player.loader.decodeAfterLoading(audioContext, '_tone_0490_SBLive_sf2');
-    player.loader.decodeAfterLoading(audioContext, '_tone_0040_SBLive_sf2');
+    //0
     player.loader.decodeAfterLoading(audioContext, '_tone_0000_SBLive_sf2');
+    player.loader.decodeAfterLoading(audioContext, '_tone_0490_SBLive_sf2');
+
+    //1
+    player.loader.decodeAfterLoading(audioContext, '_tone_0040_SBLive_sf2');
+
+
     player.loader.decodeAfterLoading(audioContext, '_tone_040_SBLive_sf2');
     player.loader.decodeAfterLoading(audioContext, '_tone_0001_FluidR3_GM_sf2_file');
 
@@ -609,16 +616,28 @@ function audioTester(primaryDetected, colourDetected, decision1, decision2, deci
     player.loader.decodeAfterLoading(audioContext, '_drum_61_0_SBLive_sf2');
     player.loader.decodeAfterLoading(audioContext, '_drum_62_0_SBLive_sf2');
 
-    // player.loader.decodeAfterLoading(audioContext, '_tone_0490_SBLive_sf2');
+    player.loader.decodeAfterLoading(audioContext, '_tone_0490_SBLive_sf2');
 
     player.loader.waitLoad(function(){
         console.log('Instruments Ready');
     });
 
-    var melInst = [_tone_0000_SBLive_sf2, _tone_0001_FluidR3_GM_sf2_file, _tone_0000_SBLive_sf2, _tone_0040_SBLive_sf2]; //Melody Instrument
+    var melInst = [_tone_0000_SBLive_sf2, _tone_0040_SBLive_sf2, _tone_0001_FluidR3_GM_sf2_file, _tone_0000_SBLive_sf2, _tone_0040_SBLive_sf2]; //Melody Instrument
+    var basInst = [_tone_0000_SBLive_sf2, ]
     var drmInst = [_drum_60_0_SBLive_sf2, _drum_61_0_SBLive_sf2, _drum_62_0_SBLive_sf2]; //Drum Instrument
     var higInst = [_tone_0490_SBLive_sf2, _tone_0000_SBLive_sf2]; //High Accompaniment
 
+    /*
+        - Instruments -
+        - 0 = Piano, piano and strings -
+        - 1 =         -
+        - 2 =          -
+        - 4 =
+        - 3 =         -          -
+        - 5 =
+        - 6 =
+        - 7 =
+    */
     var insNo = primaryDetected - 1;
     if (insNo < 0 || insNo > 2) insNo = 0;
 
@@ -702,7 +721,7 @@ function audioTester(primaryDetected, colourDetected, decision1, decision2, deci
         // }
         for (var i = 0; i < 320; i++)  {
             // console.log("bass[" + i + "][1] = " + bass[i][1]);
-            player.queueWaveTable(audioContext, audioContext.destination, melInst[0], bass[i][0], bass[i][1]+12*3+musicKey, bass[i][2]);
+            player.queueWaveTable(audioContext, audioContext.destination, basInst[0], bass[i][0], bass[i][1]+12*3+musicKey, bass[i][2]);
 
         }
         for (var i = 0; i < 20; i++)  {
@@ -743,13 +762,20 @@ function audioTester(primaryDetected, colourDetected, decision1, decision2, deci
 //     $( ".download-btn" ).show();
 // >>>>>>> e6ee9463e82753bab672051468a8f0c3da54b984
 
+    return player;
+
 }
 
+var player1 = new WebAudioFontPlayer();
 
-function stopAudio() {
-
-    for (var i = 0; i < 1600; i++)  {
-        player.envelopes[i].cancel();
+function playAudio(musicVar0, musicVar1, musicVar2, musicVar3, musicVar4, musicVar5, musicVar6, musicVar7, musicVar8, musicVar9, shouldPlay) {
+    if (shouldPlay == true) {
+        player1 = audioTester(musicVar0, musicVar1, musicVar2, musicVar3, musicVar4, musicVar5, musicVar6, musicVar7, musicVar8, musicVar9);
+    }
+    if (shouldPlay == false) {
+        for (var i = 0; i < 1600; i++)  {
+            player1.envelopes[i].cancel();
+        }
     }
 
     return 0;
@@ -759,10 +785,10 @@ function motifGenerator(mood, layer, key, decVars, symVars) {
 
     var motif = new Array(24);
 
-    //Temp
-    if (mood <= 3) {
-        mood = 5;
-    }
+    // //Temp
+    // if (mood <= 3) {
+    //     mood = 5;
+    // }
 
 
     var symScore  = Math.floor( (symVars[0] + symVars[1] + symVars[2] + symVars[3])/4 );
@@ -787,7 +813,7 @@ function motifGenerator(mood, layer, key, decVars, symVars) {
     }
     console.log("The mood is " + mood);
 
-    if (mood > 3) {
+    if (mood >= 0) {
         console.log("IM HERE!!!");
 
         // Start simple, always play root noot on beat 1 of bar 1
@@ -1706,7 +1732,7 @@ function bassGenerator( mood, layer, key, decVars, symVars, motif ) {
     // }
 
     //Just make decision for now....
-    if (decVars[1] < 1) {
+    if (decVars[1] < 0) {
 
         console.log("Bass 0");
         //The absolute classic
@@ -1742,7 +1768,7 @@ function bassGenerator( mood, layer, key, decVars, symVars, motif ) {
         bass[7][1] = heptScale(5)-12;
         bass[7][2] = dur(8);
     }
-    else if (decVars[1] < 2) {
+    else if (decVars[1] < 0) {
         console.log("Bass 1");
         //Put it in A minor?
         bass[0][0] = rhythm(1, 1);
@@ -2136,7 +2162,7 @@ function chordProgression(decVars, chord) {
                 if (m == 0) {
                     chordProg[bassPointer+n][0] = rhythm(( (startTime+n)*2 )+1,1);
                     chordProg[bassPointer+n][1] = heptScale(chord[n][1]) - (chord[n][0]*12);
-                    chordProg[bassPointer+n][2] = dur(6);
+                    chordProg[bassPointer+n][2] = dur(8);
                 }
                 else if (m == 1) {
                     chordProg[bassPointer+n+4][0] = rhythm(( (startTime+n)*2 )+2,1);
@@ -2161,7 +2187,7 @@ function chordProgression(decVars, chord) {
                 if (m == 0) {
                     chordProg[bassPointer+n][0] = rhythm(( (startTime+n)*2 )+1,1);
                     chordProg[bassPointer+n][1] = heptScale(chord[n][1]) - (chord[n][0]*12);
-                    chordProg[bassPointer+n][2] = dur(6);
+                    chordProg[bassPointer+n][2] = dur(8);
                 }
                 else if (m == 1) {
                     chordProg[bassPointer+n+4][0] = rhythm(( (startTime+n)*2 )+2,1);
@@ -2186,7 +2212,7 @@ function chordProgression(decVars, chord) {
                 if (m == 0) {
                     chordProg[bassPointer+n][0] = rhythm(( (startTime+n)*2 )+1,1);
                     chordProg[bassPointer+n][1] = heptScale(chord[n][1]) - (chord[n][0]*12);
-                    chordProg[bassPointer+n][2] = dur(6);
+                    chordProg[bassPointer+n][2] = dur(8);
                 }
                 else if (m == 1) {
                     chordProg[bassPointer+n+4][0] = rhythm(( (startTime+n)*2 )+1.25,1);
@@ -2216,7 +2242,7 @@ function chordProgression(decVars, chord) {
                 if (m == 0) {
                     chordProg[bassPointer+n][0] = rhythm(( (startTime+n)*2 )+1,1);
                     chordProg[bassPointer+n][1] = heptScale(chord[n][1]) - (chord[n][0]*12);
-                    chordProg[bassPointer+n][2] = dur(6);
+                    chordProg[bassPointer+n][2] = dur(8);
                 }
                 else if (m == 1) {
                     chordProg[bassPointer+n+4][0] = rhythm(( (startTime+n)*2 )+2,1);
@@ -2291,7 +2317,7 @@ function chordProgression(decVars, chord) {
 
     return chordProg;
 }
-//
+s
 function highAccompaniment(motif, chord) {
 
     highAcc = new Array(640);
@@ -2304,27 +2330,90 @@ function highAccompaniment(motif, chord) {
         highAcc[n][3] = 5;
     }
 
-    var chordCounter = new Array(8);
-    for (var n = 0; n < 8; n++) {
-        chordCounter[n] = 0;
-    }
-
-
     var startTime = 8;
     var bassPointer = 8;
 
+    var currDiff;
+    var minDiff;
+    var tempChord = new Array(3);
+    var nextChord;
+
+    var currOctave;
+    var nextOctave;
+
+    var prevChord;
+
     for (var n = 0; n < 8; n++) {
+
+        //Ignore first iteration and just use normal chod[n]
+        nextChord = chord[n];
+        nextOctave = 0;
+        if (n > 0) {
+
+            minDiff = 10;
+
+            tempChord[0] = chord[n];
+            tempChord[1] = mod(chord[n]+2, 7);
+            tempChord[2] = mod(chord[n]+4, 7);
+
+            //on next 4 notes
+            if (n < 5) {
+
+                for (var i = 0; i < 3; i++) {
+                    currDiff = tempChord[i] - prevChord;
+                    // console.log(currDiff)
+                    currOctave = Math.floor( tempChord[i]/7 );
+                    if (currDiff < 0) {
+                        currDiff = (tempChord[i]+7) - prevChord;
+                        currOctave = Math.floor( (tempChord[i]+7)/7 );
+                    }
+
+                    // console.log("Previous Chord = " + prevChord + ", Current Chord = " + tempChord[i]);
+                    // console.log("Chosen Chord i = " + i + ", Current Difference = " + currDiff);
+
+                    if (currDiff < minDiff) {
+                        // console.log("Chosen chord i = " + i + " is the current best");
+                        minDiff = currDiff;
+                        nextChord = tempChord[i];
+                        nextOctave = currOctave;
+                    }
+                }
+            }
+            else {
+
+                for (var c = 0; c < 3; c++) {
+                    currDiff = prevChord - tempChord[i];
+                    currOctave = Math.floor( tempChord[i]/7 );
+                    if (currDiff < 0) {
+                        currDiff = prevChord - (tempChord[i]-7);
+                        currOctave = Math.floor( (tempChord[i]-7)/7 );
+                    }
+
+                    if (currDiff < minDiff) {
+                        minDiff = currDiff;
+                        nextChord = tempChord[i];
+                        nextOctave = currOctave;
+                    }
+                }
+            }
+
+
+        }
+
         highAcc[n][0] = rhythm(( (startTime+n)*2 )+1,1);
 
         highAcc[bassPointer+n][0] = rhythm(( (startTime+n)*2 )+1,1);
-        highAcc[bassPointer+n][1] = heptScale(chord[n]);
+        highAcc[bassPointer+n][1] = heptScale(nextChord);
         highAcc[bassPointer+n][2] = dur(8);
-        if (chordCounter[chord[n]] > 1) {
-            highAcc[bassPointer+n][3] = 6;
-        }
+        highAcc[bassPointer+n][3] = 5 + nextOctave;
 
-        chordCounter[chord[n]] += 1;
+        // console.log("High Acc Chord: " + nextChord);
+        // console.log("High Acc Octav: " + nextOctave);
+
+
+        prevChord = nextChord + (7*nextOctave);
     }
+
 
     return highAcc;
 
