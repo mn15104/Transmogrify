@@ -176,7 +176,7 @@ function initAudio(player){
 function updateBlur(){
     if($('#CURRENT_PLAYER').length != 0){
         if(!$('#CURRENT_PLAYER').hasClass('pause')){
-            tweenBlur(0, 15);
+            tweenBlur(0, 5);
         }
     }
 }

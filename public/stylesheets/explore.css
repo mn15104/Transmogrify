@@ -209,7 +209,7 @@ h1.explore_title{
 }
 .player .control-panel .album-art {
   position: absolute;
-  background-image: url('https://cdn2.digitalartsonline.co.uk/cmsdata/slideshow/3513552/polybreno_1500.jpg');   /*  SET PROFILE IMAGE        */
+
   height: 42px;
   width: 42px;
   border-radius: 50%;
@@ -232,7 +232,9 @@ h1.explore_title{
   transform: translate(-50%, -50%);
   -webkit-transform: translate(-50%, -50%);
 }
-
+.player .control-panel .album-art.change:before{
+  content: attr(data-content) ' any other text you may want';
+}
 .player .control-panel .album-art::before {
   content: "";
   position: absolute;
@@ -244,7 +246,7 @@ h1.explore_title{
   background-position: center;
   background-repeat: no-repeat;
   background-size: 60px;
- 
+  background-image: url('https://cdn2.digitalartsonline.co.uk/cmsdata/slideshow/3513552/polybreno_1500.jpg');   /*  SET PROFILE IMAGE        */
   opacity: 0;
 }
 .player .control-panel.active .album-art {

@@ -396,6 +396,7 @@ h1.profile_title{
 /* /////////////////////////////////////////////////////////////////////////////////////////////// */
 
 .profile_gallery-wrapper {
+    min-width: 1300px;
     top: 300px;
     position:absolute;
     padding-left: 20%;
