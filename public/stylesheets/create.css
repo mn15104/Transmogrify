@@ -27,6 +27,12 @@ body {
     overflow: hidden;
 }
 
+.row {
+    border: solid;
+    margin: auto;
+    height: 100%;
+    width: 100%;
+}
 
 .upload-btn {
     background-color: var(--clrBox);
@@ -75,6 +81,14 @@ body {
     border-color: var(--clrTitle);
 }
 
+#logo-bottom {
+    display: inline-block;
+    position: relative;
+    left: 0;
+    bottom:0;
+    transform: translate(50%, -10%);
+}
+
 
 .download-btn {
     display: inline-block;
@@ -90,7 +104,7 @@ body {
     margin-right: 4%;
     padding-right: 0px;
     padding-left: 0px;
-    z-index: 10;
+    /* z-index: 10; */
     font-size: 14px;
     background-color: var(--clrBox);
     color: var(--clrOut);
@@ -99,49 +113,14 @@ body {
 }
 
 .download-btn:hover {
-    cursor:pointer;
     transition: 1s;
+    /* background-color: var(--clrBox); */
     color: var(--clrTitle);
     border: solid;
     border-color: var(--clrTitle);
 }
-.download-btn.activate{
-    border: 2px solid;
-    transition:1s all;
-    opacity:0;
-}
-.download-btn-downloaded  {
-    display: inline-block;
-    position:absolute;
-    -webkit-transition: background-image 1s ease-in-out;
-    transition: background-image 1s ease-in-out;    
-    content: "Downloaded";
-    background-image:radial-gradient(
-      rgb(0, 173, 43),
-      #1c5303
-    );
-    left: 0;
-    font-family: 'Raleway', sans-serif;
-    font: bold;
-    width: 30%;
-    transform: translateY(50%);
-    text-align: center;
-    background-color: transparent;
-    opacity: 0.0;
-    color: white;
-    border: rgb(255, 255, 255) solid;
-    margin-right: 4%;
-    padding-right: 0px;
-    padding-left: 0px;
-    font-size: 14px;
-}
-.download-btn-downloaded.activate{
-    transition: 1s all;
-    opacity: 1;
-}
 
 .audio-container {
-    position:relative;
     text-align: left;
 }
 
@@ -184,6 +163,7 @@ body {
     opacity: 1.0;
     border: solid;
     /* z-index: 10; */
+
     background-color: var(--clrBox);
     color: var(--clrOut);
     border: solid;
@@ -236,7 +216,7 @@ body {
 
 .home_container{
     min-width: 100px;
-    padding-top: 10.8vh;
+    padding-top: 4.8vh;
     padding-bottom: 10.8vh;
     height: 100%;
     width: 100%;
@@ -252,6 +232,7 @@ body {
 #wrap {
     min-width: 1000px;
     padding: 40px;
+    padding-top: -30px;
     text-align: center;
     width: 100%;
     height: 100%;

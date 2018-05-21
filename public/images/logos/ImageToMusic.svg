@@ -812,7 +812,7 @@
        xlink:href="#linearGradient1714"
        id="linearGradient1807"
        gradientUnits="userSpaceOnUse"
-       gradientTransform="matrix(2.0253201,0,0,1.2290482,52.959442,-131.20732)"
+       gradientTransform="matrix(2.0484442,0,0,1.2290482,54.224862,-131.20732)"
        x1="-135.62906"
        y1="269.04633"
        x2="-54.722809"
@@ -825,11 +825,11 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="2"
-     inkscape:cx="419.0923"
-     inkscape:cy="320.16627"
+     inkscape:zoom="2.8284271"
+     inkscape:cx="741.25864"
+     inkscape:cy="250.96546"
      inkscape:document-units="mm"
-     inkscape:current-layer="layer1"
+     inkscape:current-layer="layer8"
      showgrid="false"
      inkscape:window-width="3840"
      inkscape:window-height="2004"
@@ -1597,11 +1597,11 @@
        style="fill:none;stroke:#202020;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
     <rect
        y="157.98999"
-       x="-221.73314"
+       x="-223.60402"
        height="82.947182"
-       width="163.86107"
+       width="165.73195"
        id="rect1805"
-       style="fill:url(#linearGradient1807);fill-opacity:1;stroke:none;stroke-width:0.1577725;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke fill markers"
+       style="fill:url(#linearGradient1807);fill-opacity:1;stroke:none;stroke-width:0.15867062;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke fill markers"
        transform="scale(-1,1)" />
   </g>
   <g
