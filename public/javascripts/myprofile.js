@@ -42,28 +42,7 @@ var init_myprofile = function(){
     $('#profile_put_file').on('change' ,function(){
         uploadProfilePicture();
     })
-    // $('textarea').autoResize();
-    $(function() {
-        var txt = $('#profile_occupation_text'),
-          hiddenDiv = $(document.createElement('div')),
-          content = null;
-      
-        // txt.addClass('txtstuff');
-        hiddenDiv.addClass('hiddendiv common');
-      
-        $('body').append(hiddenDiv);
-      
-        txt.on('keyup', function () {
-      
-          content = $(this).val();
-      
-          content = content.replace(/\n/g, '<br>');
-          hiddenDiv.html(content + '<br class="lbr">');
-      
-          $(this).css('height', hiddenDiv.height());
-      
-        });
-      });
+
     // Initialise input text
     $('#profile_occupation_pencil').click(function(){
         if(!$(this).hasClass('occupation_edit')){
