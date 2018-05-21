@@ -11,6 +11,9 @@ session_info = Object.create({
 
 function init()
 {
+    window.onbeforeunload = function (e) {
+        if(!IS_NULL(session_info.ws)) session_info.ws.close();
+    };
     initChat();
     $('.chat_top-bar').on('click', function(){
         chat_container = $(this).parent('.chat_container');

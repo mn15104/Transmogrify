@@ -10,6 +10,7 @@ var http = require('http');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var url = require('url');
+var Promise = require('promise');
 var app = express();
 var WebSocket = require('ws');
 var WebSocketServer = require('ws').server;
@@ -133,13 +134,26 @@ app.ws('/', function(ws, req) {
                   }
                   // Leave offline message
                   else{
-                      console.log("leaving offline message");
-                      var sendFunc = function(profile_picture){
-                        sendMessage(ws, JSON.stringify({message:'friend_message_send', 
-                            chat_message: msgObj.data['chat_message'], profile_picture: profile_picture})
-                        );
-                      }
-                      ChatModel.insertMessage(req.session.user_id, friend_id, msgObj.data['chat_message'], sendFunc);
+                          console.log("leaving offline message");
+
+                          var getMessage = function(){ return new Promise((resolve, reject) => { ChatModel.getSelfProfilePicture(req.session.user_id, resolve, reject );}); }
+                          var replyMessage =  function(profile_picture){return new Promise((resolve, reject) => { sendMessage(ws, JSON.stringify({message:'friend_message_send', 
+                                                                                                                     chat_message: msgObj.data['chat_message'], 
+                                                                                                                     profile_picture: profile_picture}), resolve, reject);});}
+                          var insertMessage =  function(){ return new Promise((resolve, reject) => {  ChatModel.insertMessage(req.session.user_id, friend_id, msgObj.data['chat_message'], resolve, reject); })}
+                          async function insert_message(){
+                            getMessage().then(function(prof_pic){replyMessage(prof_pic);}).then(function(){
+                              insertMessage();
+                            })
+                          }
+                          insert_message();
+                          // Promise.all([getMessage, insertMessage]);
+                          
+                      // }
+                     
+                      // insert_message();
+                    
+
                   }
               }
       }
@@ -147,6 +161,7 @@ app.ws('/', function(ws, req) {
 
   // ON DISCONNECT
   ws.on('close', function(connection) {
+    console.log("LEFT");
       removeClient(connection);
   });
 
@@ -186,10 +201,13 @@ app.use(function(err, req, res, next) {
 // ---------------------------------------------------------------//
 
 
-function sendMessage(ws, msg){
+function sendMessage(ws, msg, resolve, reject){
   // Wait until the state of the socket is not ready and send the message when it is...
   waitForSocketConnection(ws, function(){
       ws.send(msg);
+      if(resolve && typeof(resolve) == 'function'){
+        resolve();
+      }
   });
 }
 

@@ -5,6 +5,9 @@ session_info = Object.create({
 })
 
 function connect(){
+    window.onbeforeunload = function (e) {
+        if(!IS_NULL(session_info.ws)) session_info.ws.close();
+    };
     chat_container = $('.chat_container');
     chat_container.toggleClass('chat_container_closed'); 
     profile_user_id = chat_container.attr('data-user-id');
@@ -32,7 +35,7 @@ function initChat()
         // event emmited when receiving message 
         session_info.ws.onmessage = function (ev) {
             var msg = JSON.parse(ev.data);
-
+            console.log(msg)
             {   console.log("DEBUG 3");
                 if(msg['message']  === 'friend_id_accepted')
                 {   
@@ -120,9 +123,9 @@ function connectToFriend(friend_id)
 }
 function sendMessage(msg)
 {
-    console.log("send");
     if(!IS_NULL(msg)){
-        console.log("sendingmessage");
+        
+        console.log("SEND + " + msg);
         try{
             session_info.ws.send(JSON.stringify({message:'friend_message_send', 
                                     data: {chat_message:msg}}));

@@ -32,7 +32,7 @@ SQL_MODEL.init = function(){
 
     db.run(`CREATE TABLE IF NOT EXISTS USER_LOGIN       (   firstname VARCHAR(255), 
                                                             surname VARCHAR(10), 
-                                                            email VARCHAR(255), 
+                                                            email VARCHAR(255) UNIQUE, 
                                                             user_id INT (100),
                                                             password VARCHAR(512),
                                                             salt    VARCHAR(255),
@@ -64,6 +64,7 @@ SQL_MODEL.init = function(){
                                                                 user_send       INT(100),
                                                                 user_receive    INT(100),
                                                                 session_id      INT AUTO_INCREMENT NOT NULL,
+                                                                FOREIGN KEY(chat_id) REFERENCES FRIENDLIST(chat_id),
                                                                 PRIMARY KEY(session_id))`, (err) => {
         if (err) {
             console.error(err.message);

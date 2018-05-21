@@ -10,13 +10,23 @@ $('.download-btn').on('click', function (){
 })
 
 var init_create = function(){
- 
+  
+
     $('.home_container').css('opacity', 0)
     .slideDown('slow')
     .animate(
     { opacity: 1 },
     { queue: false, duration: 1000 });
-      
+
+    $('.arrow_box').on('click', function(){
+        $('.home_container').fadeOut({duration:1000, complete: function(){
+            location.href="http://localhost:3000/intro";
+        }});
+    })
+}
+
+var fadeInArrow = function(){
+    $('.arrow_box').css('opacity', 0);
 
     $('.arrow_box').on('click', function(){
         $('.home_container').fadeOut({duration:1000, complete: function(){
@@ -288,7 +298,7 @@ function updateProgress(percentage){
         $("#progress-information").html("Applying final touches");
     }
     if (percentage === 100) {
-        document.getElementById("progress-bar-convert").style.color = "#202020";
+        // document.getElementById("progress-bar-convert").style.color = "#202020";
         $("#progress-information").html("Conversion Completed");
     }
 }
@@ -532,7 +542,7 @@ var bpm = 10;
 var musicVariables = new Array(10);
 
 
-$( ".download-btn" ).once( "click", function() {
+$( ".download-btn" ).one( "click", function() {
 
     // image uploaded
     var formData = new FormData();

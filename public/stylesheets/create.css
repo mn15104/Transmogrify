@@ -27,12 +27,6 @@ body {
     overflow: hidden;
 }
 
-.row {
-    border: solid;
-    margin: auto;
-    height: 100%;
-    width: 100%;
-}
 
 .upload-btn {
     background-color: var(--clrBox);
@@ -105,12 +99,14 @@ body {
 }
 
 .download-btn:hover {
+    cursor:pointer;
     transition: 1s;
     color: var(--clrTitle);
     border: solid;
     border-color: var(--clrTitle);
 }
 .download-btn.activate{
+    border: 2px solid;
     transition:1s all;
     opacity:0;
 }
