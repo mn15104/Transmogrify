@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+	<script src='https://surikov.github.io/webaudiofont/npm/dist/WebAudioFontPlayer.js'></script>
+    <script src='https://surikov.github.io/webaudiofontdata/sound/0000_SBLive_sf2.js'></script>
+	<script src='https://surikov.github.io/webaudiofontdata/sound/0040_SBLive_sf2.js'></script>
+	<script src='https://surikov.github.io/webaudiofontdata/sound/0000_SBLive_sf2.js'></script>
+
+	<script src='https://surikov.github.io/webaudiofontdata/sound/0490_SBLive_sf2.js'></script>
+	<script src='https://surikov.github.io/webaudiofontdata/sound/0010_SBLive_sf2.js'></script>
+
+	<script src='https://surikov.github.io/webaudiofontdata/sound/12869_0_SBLive_sf2.js'></script>
+	<script src='https://surikov.github.io/webaudiofontdata/sound/12860_0_SBLive_sf2.js'></script>
+	<script src='https://surikov.github.io/webaudiofontdata/sound/12861_0_SBLive_sf2.js'></script>
+	<script src='https://surikov.github.io/webaudiofontdata/sound/12862_0_SBLive_sf2.js'></script>
+	<script src='https://surikov.github.io/webaudiofontdata/sound/0001_FluidR3_GM_sf2_file.js'></script>
+
+
+
+
+
+
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Transmogrify</title>
+  <link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
+  <link href="../stylesheets/create.css" rel="stylesheet">
+
+</head>
+<!-- <body>
+	<div id="admin_testing">
+
+		<div class="admin_sub">
+			<p>Decision 1: <span id="range1"></span></p>
+			<input type="range" min="0" max="10" value="5" id="slider1">
+
+			<p>Decision 2: <span id="range2"></span></p>
+			<input type="range" min="0" max="10" value="5" id="slider2">
+
+			<p>Decision 3: <span id="range3"></span></p>
+			<input type="range" min="0" max="10" value="5" id="slider3">
+
+			<p>Decision 4: <span id="range4"></span></p>
+			<input type="range" min="0" max="10" value="5" id="slider4">
+		</div>
+		<div class="admin_sub">
+			<p>yClrSymmetry: <span id="range5"></span></p>
+			<input type="range" min="0" max="100" value="50" id="slider5">
+
+			<p>yFineSymmetry: <span id="range6"></span></p>
+			<input type="range" min="0" max="100" value="50" id="slider6">
+
+			<p>xClrSymmetry: <span id="range7"></span></p>
+			<input type="range" min="0" max="100" value="50" id="slider7">
+
+			<p>xFineSymmetry: <span id="range8"></span></p>
+			<input type="range" min="0" max="100" value="50" id="slider8">
+		</div>
+		<button onclick="adminTestButton()">Test playing</button>
+	</div> -->
+
+
+
+	<div class = "home_container">
+		<!-- <p class="create_title">Create</p> -->
+	    <div id = "wrap">
+	        <div id = "left">
+	            <div class="container1" id = "container_1">
+	                    <div class="panel-body">
+	                        <p class="image_title">Place Image</p>
+	                        <!-- <div class="progress">
+	                            <div class="progress-bar" role="progressbar"></div>
+	                        </div> -->
+	                        <button class="btn btn-lg upload-btn" type="button">Upload File</button>
+	                    </div>
+	            </div>
+	            <div id = "overlay1">
+	                <img id = "image_test" src = "">
+	                <button class="btn btn-lg convert-btn" type="button">Convert</button>
+	            </div>
+	        </div>
+	        <div id = "centre-convert">
+				<div id="information-holder">
+		            <p id = "progress-information"></p>
+				</div>
+	            <div id="progress-convert">
+	                <div id="progress-bar-convert">0%</div>
+	            </div>
+	        </div>
+	        <div id = "right">
+	            <img id = "image_test2" src = "">
+	            <div id = "audio_test">
+	                <audio id="audio_reloader" controls>
+	                    <source id="audio1" src="" type="audio/wav">
+	                    Your browser does not support the audio element.
+	                </audio>
+	            </div>
+				<div id=conversion-infomation>
+					<p class="audioTitle" id = "image-info0"></p>
+					<p class="audioText" id = "image-info1"></p>
+					<p class="audioText" id = "image-info2"></p>
+					<p class="audioText" id = "image-info3"></p>
+					<p class="audioText" id = "image-info4"></p>
+					<p class="audioText" id = "image-info5"></p>
+					<p class="audioText" id = "image-info6"></p>
+					<p class="audioText" id = "image-info7"></p>
+					<p class="audioText" id = "image-info8"></p>
+					<div class="audio-container">
+						<button class="btn btn-lg download-btn" type="button">Save To Profile</button>
+						<button class="btn btn-lg download-btn-downloaded" type="button">Saved!</button>
+						<button class="btn btn-lg retry-btn" type="button">Retry</button>
+						<button class="btn btn-lg audiostop-btn" type="button">Stop Audio</button>
+					</div>
+					<!-- <button class="btn btn-lg download-btn" type="button">Download</button> -->
+				</div>
+				<div>
+
+				</div>
+
+
+	        </div>
+	    </div>
+	</div>
+
+	<input id="upload-input" type="file" name="uploads[]" multiple="multiple"></br>
+
+	<script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
+	<script src="../javascripts/sidepanel.js"></script>
+	<script src="../javascripts/create.js"></script>
+</body>
+</html>
