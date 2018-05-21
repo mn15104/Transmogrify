@@ -6,23 +6,20 @@ var panel = $('.panel');
 var user_id;
 
 var init = function(name){
-    
-    if(name!='<%= name %>'){
-      console.log("hi");
-      var imagesrc = getProfilePicture(name);
-    }
     var url = new URL(window.location.href);
     if(!IS_NULL(url.searchParams.get("user_id"))){
-      user_id = url.searchParams.get("user_id");
+      user_id = url.searchParams.get("user_id")
     }
     $('.sidepanel_body').fadeOut({duration:0, complete:function(){
-      $('.sidepanel_body').fadeIn({duration: 2000});
+      $('.sidepanel_body').fadeIn({duration: 2000})
     }});
     
     initNavLinks();
+
     burger.click(function(){
       toggleSideNav();
-    });
+    })
+
     friends.click(function(){
       toggleFriendsList();
     })
@@ -42,7 +39,7 @@ var toggleSideNav = function() {
   $('.sidepanel_title').toggleClass('title--nav_active');
   burger.toggleClass('burger--active');
   sideNav.toggleClass('nav__list--active');
-};
+}
 
 var toggleNav = function (){
   $("#sidepanel_index_button").toggleClass('open');
@@ -120,14 +117,14 @@ var initNavLinks = function(){
     
       retrieveId(function(userid){
         $('#page_1').fadeOut('slow', function(){
-        $('#page_1').empty();
-        $('#page_1').load("../views/webcam.html");
-        var url = new URL(window.location.href);
-        user_id = url.searchParams.get("user_id");
-        console.log("IS"+user_id);
-        changeurl('webcam?user_id='+user_id);
-        $('#page_1').fadeIn('slow');
-      });
+          $('#page_1').empty();
+          $('#page_1').load("../views/webcam.html");
+          var url = new URL(window.location.href);
+          user_id = url.searchParams.get("user_id");
+          console.log("IS"+user_id);
+          changeurl('webcam?user_id='+user_id);
+          $('#page_1').fadeIn('slow');
+        });
     });
   })
   $('#profile_link').on('click', function(){
@@ -137,7 +134,6 @@ var initNavLinks = function(){
     $('#page_1').fadeOut('slow', function(){
       $('#page_1').empty();
       $('#page_1').load("../views/create.html")
-      changeurl('create');
       $('#page_1').fadeIn('slow');
     });
   })
@@ -145,12 +141,13 @@ var initNavLinks = function(){
     $('#page_1').fadeOut('slow', function(){
       $('#page_1').empty();
       $('#page_1').load("../views/explore.html");
-      changeurl('explore');
       $('#page_1').fadeIn('slow');
     });
   })
   $('#logout_link').click(function(){
-    connectWS();
+    $('.sidepanel_body').fadeOut('slow', function(){
+        location.href="http://localhost:3000/login";
+    });
   })
   $('#chat_link').click(function(){
     connectWS_debug_link();
@@ -181,7 +178,6 @@ var transitionToProfilePage = function (){
   $('#page_1').fadeOut('slow', function(){
     $('#page_1').empty();
     $('#page_1').load("../views/profile.html");
-    changeurl('explore');
     $('#page_1').fadeIn('slow');
   });
 }
@@ -212,38 +208,26 @@ var loadMyProfilePage = function (){
     contentType: false,
     success: function(data){
       $('#page_1').html(data);
-      changeurl('myprofile');
       // $('#page_1').fadeIn('slow');
     }
   });
 }
 var loadOtherProfilePage = function(user_id){
-  $.ajax({
-    url: '/profile',
-    type: 'GET',
-    data: {'user_id': user_id},
-    success: function(data){
-      $('#page_1').html(data);
-      changeurl('profile');
-      // $('#page_1').fadeIn('slow');
-    },
-    error: function(err){
-      console.log(err);
-    }
+  console.log("HELLO");
+  $('#page_1').fadeOut('slow', function(){
+    $('#page_1').empty();
+    $.ajax({
+      url: '/profile',
+      type: 'GET',
+      data: {'user_id': user_id},
+      success: function(data){
+        $('#page_1').html(data);
+        $('#page_1').fadeIn('slow');
+      }
+    });
   });
-}
 
-var getProfilePicture = function (name){
-  $.ajax({
-    url: '/sidepanel/getProfilePicture',
-    type: 'POST',
-    data: {name: name},
-    processData: false,
-    contentType: false,
-    success: function(data){
-      var f = $(self).attr("src", data); 
-    }
-  });
+
 }
 
 function IS_NULL(x){

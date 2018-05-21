@@ -55,7 +55,9 @@ Create.uploadAudio = function(req, res){
             db.get("INSERT INTO AUDIO_UPLOADS (user_id, pair_id, time, primaryDetected, colourDetected, decision1, decision2, decision3, decision4, yClrSym, yFineSym, xClrSym, xFineSym)" + 
             "VALUES ('" +    req.session.user_id + "','" + pair_id + "','" + time + "','"  + aud_vars.primaryDetected + "','" + aud_vars.colourDetected + "','" + 
                              aud_vars.decision1  + "','" + aud_vars.decision2   + "','" + aud_vars.decision3       + "','" + aud_vars.decision4      + "','" + 
-                             aud_vars.yClrSym    + "','" + aud_vars.yFineSym    + "','" + aud_vars.xClrSym         + "','" + aud_vars.xFineSym + "')"  )
+                             aud_vars.yClrSym    + "','" + aud_vars.yFineSym    + "','" + aud_vars.xClrSym         + "','" + aud_vars.xFineSym + "')", function(err, row){
+                                res.status(200).send(JSON.stringify({ uploaded: true }));
+                             }  )
         }
         else {
             pair_id = row.pair_id + 1;
@@ -63,7 +65,9 @@ Create.uploadAudio = function(req, res){
             db.get("INSERT INTO AUDIO_UPLOADS (user_id, pair_id, time, primaryDetected, colourDetected, decision1, decision2, decision3, decision4, yClrSym, yFineSym, xClrSym, xFineSym)" + 
             "VALUES ('" +    req.session.user_id + "','" + pair_id + "','" + time + "','"  + aud_vars.primaryDetected + "','" + aud_vars.colourDetected + "','" + 
                              aud_vars.decision1  + "','" + aud_vars.decision2   + "','" + aud_vars.decision3       + "','" + aud_vars.decision4      + "','" + 
-                             aud_vars.yClrSym    + "','" + aud_vars.yFineSym    + "','" + aud_vars.xClrSym         + "','" + aud_vars.xFineSym + "')"  )
+                             aud_vars.yClrSym    + "','" + aud_vars.yFineSym    + "','" + aud_vars.xClrSym         + "','" + aud_vars.xFineSym + "')"  , function(err, row){
+                                res.status(200).send(JSON.stringify({ uploaded: true }));
+                             })
         }
     })
 }
@@ -72,17 +76,16 @@ Create.uploadImage = function(req, res, callback){
     var form = new formidable.IncomingForm()
     form.multiples = true
     form.keepExtensions = true
-    form.uploadDir = path.join(__dirname, '../uploads/images');
+    form.uploadDir = path.join(__dirname, '../public/images/imageuploads/');
     form.parse(req, (err, fields, files) => {
         if (err) return res.status(500).json({ error: err })
-        res.status(200).json({ uploaded: true })
     });
     form.on('fileBegin', function (name, file) {
         const [fileName, fileExt] = file.name.split('.');
         console.log(file);
-        file.path = path.join( path.join(__dirname, '../uploads/images')
+        file.path = path.join( path.join(__dirname, '../public/images/imageuploads/')
                                 , `${fileName}_${new Date().getTime()}.${fileExt}`);
-        relative_file_path = '/../../uploads/images/' + `${fileName}_${new Date().getTime()}.${fileExt}`;
+        relative_file_path = '../images/imageuploads/' + `${fileName}_${new Date().getTime()}.${fileExt}`;
 
         user_id = req.session.user_id;
         time = Create.createDate();
@@ -99,12 +102,10 @@ Create.uploadImage = function(req, res, callback){
         })
     });
 
-
-
     var insertImage = function( user_id, pair_id, time, file_name, file_path){
         db.get("INSERT INTO IMAGE_UPLOADS (user_id, pair_id, time, file_name, file_path) VALUES ('" + 
                                                     user_id + "','" + pair_id + "','" + time  + "','" + file_name + "','" + file_path + "')", function(err, row){
-                                                        console.log(err);
+                                                        res.status(200).send(JSON.stringify({ uploaded: true }));
                                                 })
     }
 }
@@ -133,8 +134,8 @@ Create.uploadAudioFile = function(req, res, callback){
 
             fs.rename(file.path, path.join(form.uploadDir, file_id_str, file.name), function (err) {
                 if(err) console.log('rename callback ', err); 
-
                 insertAudioToDB(file.name, file.size, createDate(), file_id, req.user_id);
+                res.status(200).json({ uploaded: true });
             });
         });
     });
@@ -143,11 +144,6 @@ Create.uploadAudioFile = function(req, res, callback){
   // log any errors that occur
   form.on('error', function(err) {
     console.log('An error has occurred: \n' + err);
-  });
-
-  // once all the files have been uploaded, send a response to the client
-  form.on('end', function() {
-    res.end('success');
   });
 
   form.parse(req);

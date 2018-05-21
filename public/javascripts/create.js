@@ -4,6 +4,22 @@ $('.upload-btn').on('click', function (){
     $('.progress-bar').width('0%');
 });
 
+var init_create = function(){
+
+    $('.home_container').css('opacity', 0)
+    .slideDown('slow')
+    .animate(
+    { opacity: 1 },
+    { queue: false, duration: 1000 });
+
+
+    $('.arrow_box').on('click', function(){
+        $('.home_container').fadeOut({duration:1000, complete: function(){
+            location.href="http://localhost:3000/intro";
+        }});
+    })
+}
+
 function readURL(files) {
   if (files[0]) {
       var reader = new FileReader();
@@ -11,7 +27,7 @@ function readURL(files) {
       reader.onload = function (e) {
           $('#image_test')
               .attr('src', e.target.result);
-      };
+      }
 
       reader.readAsDataURL(files[0]);
   }
@@ -520,21 +536,19 @@ $( ".download-btn" ).on( "click", function() {
 
     formData.append("file",$('#upload-input')[0].files[0]);
     formData.append("upload_file",true);
-
-
-    $.ajax({
-        type: "POST",
-        url: "/create/uploadimage",
-        data : formData,
-        processData: false,  // tell jQuery not to process the data
-        contentType: false,  // tell jQuery not to set contentType
-        success : function(data) {
-            console.log("success");
-        },
-        error: function(err){
-            console.log("error");
-        }
-    });
+    music_vars =
+    {
+        'primaryDetected' : musicVariables[0],
+        'colourDetected' : musicVariables[1],
+        'decision1' : musicVariables[2],
+        'decision2' : musicVariables[3],
+        'decision3' : musicVariables[4],
+        'decision4' : musicVariables[5],
+        'yClrSym' : musicVariables[6],
+        'yFineSym' : musicVariables[7],
+        'xClrSym' : musicVariables[8],
+        'xFineSym' : musicVariables[9]
+    }
     // audio vars
     music_vars =
     {
@@ -550,20 +564,35 @@ $( ".download-btn" ).on( "click", function() {
         'xFineSym' : musicVariables[9]
     }
     $.ajax({
-        url: '/create/uploadaudio',
-        type: 'POST',
-        data: music_vars,
-        success: function(data){
-            console.log('message sent\n' + data);
+        type: "POST",
+        url: "/create/uploadimage",
+        data : formData,
+        processData: false,  // tell jQuery not to process the data
+        contentType: false,  // tell jQuery not to set contentType
+        success : function(data) {
+            $.ajax({
+                url: '/create/uploadaudio',
+                type: 'POST',
+                data: music_vars,
+                success: function(data){
+                    console.log('message sent\n' + data);
+                },
+                error: function(){
+                    alert("You need to be logged in, to save a creation.");
+                }
+            });
         },
-        error: function(){
-            alert("You need to be logged in, to save a creation.");
+        error: function(err){
+            console.log("error");
         }
     });
+
+
 });
 
 $( ".retry-btn" ).one( "click", function() {
     refreshTab();
+    stopAudio();
 })
 $( ".audiostop-btn" ).one( "click", function() {
     playAudio(0,1,2,3,4,5,6,7,8,9, false);
@@ -571,8 +600,11 @@ $( ".audiostop-btn" ).one( "click", function() {
 
 // var player=new WebAudioFontPlayer();
 
-
+var player=new WebAudioFontPlayer();
+var AudioContextFunc;
+var audioContext;
 function audioTester(primaryDetected, colourDetected, decision1, decision2, decision3, decision4, yClrSym, yFineSym, xClrSym, xFineSym){
+    console.log(typeof(yClrSym));
     //Demo
     // var AudioContextFunc = window.AudioContext || window.webkitAudioContext;
     // var audioContext = new AudioContextFunc();
@@ -593,9 +625,9 @@ function audioTester(primaryDetected, colourDetected, decision1, decision2, deci
     musicVariables[9] = xFineSym;
 
 
-    var AudioContextFunc = window.AudioContext || window.webkitAudioContext;
-    var audioContext = new AudioContextFunc();
-    var player=new WebAudioFontPlayer();
+    AudioContextFunc = window.AudioContext || window.webkitAudioContext;
+    audioContext = new AudioContextFunc();
+
 
 
 
@@ -660,43 +692,22 @@ function audioTester(primaryDetected, colourDetected, decision1, decision2, deci
     decVars[2] = decision3;
     decVars[3] = decision4;
 
-    console.log("decision1 = ", decision1);
-    console.log("decision2 = ", decision2);
-    console.log("decision3 = ", decision3);
-    console.log("decision4 = ", decision4);
-    console.log("symmetry1 = ", yClrSym);
-    console.log("symmetry2 = ", yFineSym);
-    console.log("symmetry3 = ", xClrSym);
-    console.log("symmetry4 = ", xFineSym);
+    motif = motifGenerator(mood, 1, 0, decVars, symVars);
+    bass = bassGenerator(mood, 1, 0, decVars, symVars, motif);
+    var chord = new Array(8);
+    for (var c = 0; c < 8; c++) {
+        chord[c] = bass[c][3];
+    }
+    motifVar = motifVariator(motif, chord);
+    highAcc = highAccompaniment(motif, chord);
+    for (var r = 0; r < 1; r++) {
+        var repTime = r * (rhythm(16,4) + dur(1));
+        for (var i = 0; i < 640; i++) {
 
-// <<<<<<< HEAD
-        motif = motifGenerator(mood, 1, 0, decVars, symVars);
-        bass = bassGenerator(mood, 1, 0, decVars, symVars, motif);
-        var chord = new Array(8);
-        for (var c = 0; c < 8; c++) {
-            chord[c] = bass[c][3];
+            player.queueWaveTable(audioContext, audioContext.destination, melInst[0], repTime + motifVar[i][0], motifVar[i][1]+12*motifVar[i][3]+musicKey, motifVar[i][2]);
         }
-        motifVar = motifVariator(motif, chord);
-        highAcc = highAccompaniment(motif, chord);
-// =======
-//     motif = motifGenerator(mood, 1, 0, decVars, symVars);
-//     bass = bassGenerator(mood, 1, 0, decVars, symVars, motif);
-// >>>>>>> e6ee9463e82753bab672051468a8f0c3da54b984
 
-
-
-
-// <<<<<<< HEAD
-        // textPlayer(motif);
-        // console.log("Notes[i][0]: " + motif[0][0] + ", " + motif[1][0] + ", " + motif[2][0] + ", " + motif[3][0] + ", " + motif[4][0] + ", " + motif[5][0] + ", " + motif[6][0] + ", " + motif[7][0]);
-        // console.log("Rhyth[i][1]: " + motif[0][1] + ", " + motif[1][1] + ", " + motif[2][1] + ", " + motif[3][1] + ", " + motif[4][1] + ", " + motif[5][1] + ", " + motif[6][1] + ", " + motif[7][1]);
-        // console.log("Length[i][2]: " + motif[0][2] + ", " + motif[1][2] + ", " + motif[2][2] + ", " + motif[3][2] + ", " + motif[4][2] + ", " + motif[5][2] + ", " + motif[6][2] + ", " + motif[7][2]);
-        for (var r = 0; r < 1; r++) {
-            var repTime = r * (rhythm(16,4) + dur(1));
-            for (var i = 0; i < 640; i++) {
-
-                player.queueWaveTable(audioContext, audioContext.destination, melInst[0], repTime + motifVar[i][0], motifVar[i][1]+12*motifVar[i][3]+musicKey, motifVar[i][2]);
-            }
+    }
 
         }
         //
@@ -723,59 +734,26 @@ function audioTester(primaryDetected, colourDetected, decision1, decision2, deci
             // console.log("bass[" + i + "][1] = " + bass[i][1]);
             player.queueWaveTable(audioContext, audioContext.destination, basInst[0], bass[i][0], bass[i][1]+12*3+musicKey, bass[i][2]);
 
-        }
-        for (var i = 0; i < 20; i++)  {
-            // console.log("bass[" + i + "][1] = " + bass[i][1]);
-            player.queueWaveTable(audioContext, audioContext.destination, higInst[0], highAcc[i][0], highAcc[i][1]+12*highAcc[i][3]+musicKey, highAcc[i][2], 0.5);
-        }
+    }
+    for (var i = 0; i < 20; i++)  {
+        // console.log("bass[" + i + "][1] = " + bass[i][1]);
+        player.queueWaveTable(audioContext, audioContext.destination, higInst[0], highAcc[i][0], highAcc[i][1]+12*highAcc[i][3]+musicKey, highAcc[i][2], 0.5);
+    }
 
-        $( ".download-btn" ).show();
-// =======
-//     // textPlayer(motif);
-//     // console.log("Notes[i][0]: " + motif[0][0] + ", " + motif[1][0] + ", " + motif[2][0] + ", " + motif[3][0] + ", " + motif[4][0] + ", " + motif[5][0] + ", " + motif[6][0] + ", " + motif[7][0]);
-//     // console.log("Rhyth[i][1]: " + motif[0][1] + ", " + motif[1][1] + ", " + motif[2][1] + ", " + motif[3][1] + ", " + motif[4][1] + ", " + motif[5][1] + ", " + motif[6][1] + ", " + motif[7][1]);
-//     // console.log("Length[i][2]: " + motif[0][2] + ", " + motif[1][2] + ", " + motif[2][2] + ", " + motif[3][2] + ", " + motif[4][2] + ", " + motif[5][2] + ", " + motif[6][2] + ", " + motif[7][2]);
-//
-//     for (var i = 0; i < 8; i++) {
-//         var repTime = i * (rhythm(2,4) + dur(1));
-//         player.queueWaveTable(audioContext, audioContext.destination, melInst[0], repTime + motif[0][0], motif[0][1]+12*4+musicKey, motif[0][2]);
-//         player.queueWaveTable(audioContext, audioContext.destination, melInst[0], repTime + motif[1][0], motif[1][1]+12*4+musicKey, motif[1][2]);
-//         player.queueWaveTable(audioContext, audioContext.destination, melInst[0], repTime + motif[2][0], motif[2][1]+12*4+musicKey, motif[2][2]);
-//         player.queueWaveTable(audioContext, audioContext.destination, melInst[0], repTime + motif[3][0], motif[3][1]+12*4+musicKey, motif[3][2]);
-//         player.queueWaveTable(audioContext, audioContext.destination, melInst[0], repTime + motif[4][0], motif[4][1]+12*4+musicKey, motif[4][2]);
-//         player.queueWaveTable(audioContext, audioContext.destination, melInst[0], repTime + motif[5][0], motif[5][1]+12*4+musicKey, motif[5][2]);
-//         player.queueWaveTable(audioContext, audioContext.destination, melInst[0], repTime + motif[6][0], motif[6][1]+12*4+musicKey, motif[6][2]);
-//         player.queueWaveTable(audioContext, audioContext.destination, melInst[0], repTime + motif[7][0], motif[7][1]+12*4+musicKey, motif[7][2]);
-//         player.queueWaveTable(audioContext, audioContext.destination, melInst[0], repTime + motif[8][0], motif[8][1]+12*4+musicKey, motif[8][2]);
-//         player.queueWaveTable(audioContext, audioContext.destination, melInst[0], repTime + motif[9][0], motif[9][1]+12*4+musicKey, motif[9][2]);
-//         player.queueWaveTable(audioContext, audioContext.destination, melInst[0], repTime + motif[10][0], motif[10][1]+12*4+musicKey, motif[10][2]);
-//         player.queueWaveTable(audioContext, audioContext.destination, melInst[0], repTime + motif[11][0], motif[11][1]+12*4+musicKey, motif[11][2]);
-//         player.queueWaveTable(audioContext, audioContext.destination, melInst[0], repTime + motif[12][0], motif[12][1]+12*4+musicKey, motif[12][2]);
-//
-//
-//     }
-//     for (var i = 0; i < 40; i++)  {
-//         console.log("bass[" + i + "][1] = " + bass[i][1]);
-//         player.queueWaveTable(audioContext, audioContext.destination, melInst[0], bass[i][0], bass[i][1]+12*3+musicKey, bass[i][2]);
-//
-//     }
-//     $( ".download-btn" ).show();
-// >>>>>>> e6ee9463e82753bab672051468a8f0c3da54b984
+    $( ".download-btn" ).show();
 
     return player;
 
 }
 
-var player1 = new WebAudioFontPlayer();
-
-function playAudio(musicVar0, musicVar1, musicVar2, musicVar3, musicVar4, musicVar5, musicVar6, musicVar7, musicVar8, musicVar9, shouldPlay) {
-    if (shouldPlay == true) {
-        player1 = audioTester(musicVar0, musicVar1, musicVar2, musicVar3, musicVar4, musicVar5, musicVar6, musicVar7, musicVar8, musicVar9);
-    }
-    if (shouldPlay == false) {
-        for (var i = 0; i < 1600; i++)  {
-            player1.envelopes[i].cancel();
-        }
+function stopAudio(callback) {
+    player.cancelQueue(audioContext);
+    // for (var i = 0; i < 1600; i++)  {
+    //     player.envelopes = [];
+    //     player.
+    // }
+    if(callback && typeof(callback) === "function"){
+        callback();
     }
 
     return 0;
@@ -795,11 +773,6 @@ function motifGenerator(mood, layer, key, decVars, symVars) {
     var vertScore = (symVars[0] + symVars[1])/2; //Choosing not to floor this one actually
     var horiScore = (symVars[2] + symVars[3])/2;
 
-    console.log("ok its", symVars[0]);
-    console.log("ok its", symVars[1]);
-    console.log("ok its", symVars[2]);
-    console.log("ok its", symVars[3]);
-
 
     // var pixInfo = [0, 1]; //(Red, Green, Blue, noPixels)
 
@@ -811,7 +784,6 @@ function motifGenerator(mood, layer, key, decVars, symVars) {
         motif[n][2] = 0;//Length
         // }
     }
-    console.log("The mood is " + mood);
 
     if (mood >= 0) {
         console.log("IM HERE!!!");
@@ -821,7 +793,6 @@ function motifGenerator(mood, layer, key, decVars, symVars) {
         motif[0][0] = rhythm(1, 1);
         motif[0][1] = heptScale(firstNote);
         motif[0][2] = dur(1);
-        console.log("Note1 = ", chromScale(motif[0][1]) );
         firstNote = chromScale(motif[0][1]);
 
         // Second Not Branch anything goes
@@ -829,7 +800,6 @@ function motifGenerator(mood, layer, key, decVars, symVars) {
         motif[1][0] = rhythm(1, 2);
         motif[1][1] = heptScale(secondNote);
         motif[1][2] = dur(1);
-        console.log("Note2 = ", chromScale(motif[1][1]) );
         secondNote = chromScale(motif[1][1]);
 
         // console.log("heptNote3 = ", chromScale(motif[1][1]) );
@@ -847,14 +817,12 @@ function motifGenerator(mood, layer, key, decVars, symVars) {
         else if (thirdNote == 7) {
             //If the 2nd note isnt a 3rd or 5th, change the 7th
             if ( !(secondNote == 3 || secondNote == 5) ){
-                console.log("Changing 7th on 3rd note");
                 thirdNote = Math.abs(thirdNote - secondNote);
                 //If this is still somehow 7 just hit root again pls
                 if (thirdNote == 7) thirdNote = 1;
             }
         }
         motif[2][1] = heptScale(thirdNote);
-        console.log("Note3 = ", chromScale(motif[2][1]) );
         // console.log("heptNote3 = ", chromScale(motif[2][1]) );
 
         //Calculate actual outputted notes so far (in heptatonic scale)
@@ -866,9 +834,7 @@ function motifGenerator(mood, layer, key, decVars, symVars) {
         //Check for repeats
         if ( ( (firstNote == secondNote) || (firstNote == thirdNote) || (secondNote == thirdNote) ) && (symScore > 5) ) {
             //If symmetry score is high then repeat the non-repeated note to give symmetrical pattern
-            console.log("There is repeat, with sym: ", symScore);
             if ( symScore > 7 ) {
-                console.log("High Sym Score so straight repeat");
                 if (firstNote == secondNote) {
                     // console.log("1 + 2 are the same");
                     motif[3][1] = heptScale(thirdNote);
@@ -884,12 +850,10 @@ function motifGenerator(mood, layer, key, decVars, symVars) {
             }
             //If symmetry score is medium choose to repeat an interval instead of a direct note
             else if (symScore > 5) {
-                console.log("symScore of 6 or 7...");
                 var tonalInterval;
                 var oddNote;
                 if (firstNote == secondNote) {
                     if (firstNote == thirdNote) {
-                        console.log("SPecial CASE!");
                         oddNote = 0; //Special case with 3 repeated notes
                     }
                     oddNote = 3;
@@ -903,11 +867,8 @@ function motifGenerator(mood, layer, key, decVars, symVars) {
                     oddNote = 1;
                     tonalInterval = Math.abs(firstNote - secondNote) + 1;
                 }
-                console.log("The tonal interval detected is " + tonalInterval);
                 //Handing small intervals
                 if (tonalInterval < 4) {
-                    console.log("Tonal interval of 1, 2, or 3, so doubling the interval on top.");
-                    console.log("odd note = " + oddNote);
                     if (oddNote == 1) {
                         if (firstNote < secondNote) {
                             motif[3][1] = heptScale(secondNote + tonalInterval-1);
@@ -930,13 +891,11 @@ function motifGenerator(mood, layer, key, decVars, symVars) {
                         motif[3][1] = firstNote; //Repeat the 4th like in sym > 7
                     }
                     else {
-                        console.log("Error at note 4 in motifGenerator");
                     }
                 }
                 // Handling large intervals
                 if (tonalInterval > 3) {
 
-                    console.log("Tonal interval of " + tonalInterval + "so acting accordingly");
                     if (tonalInterval == 4) tonalInterval = 0;
                     if (tonalInterval == 5) tonalInterval = 3;
                     if (tonalInterval == 6) {
@@ -970,7 +929,6 @@ function motifGenerator(mood, layer, key, decVars, symVars) {
                         motif[3][1] = firstNote; //Repeat the 4th like in sym > 7
                     }
                     else {
-                        console.log("Error at note 4 in motifGenerator");
                     }
                 }
 
@@ -978,7 +936,6 @@ function motifGenerator(mood, layer, key, decVars, symVars) {
         }
         //Else stick to pure decision for last time
         else {
-            console.log("No repeats and/or low symmetry score")
             fourthNote = decVars[3];
             motif[3][1] = heptScale(fourthNote);
             fourthNote = chromScale(motif[3][1]);
@@ -987,7 +944,7 @@ function motifGenerator(mood, layer, key, decVars, symVars) {
             //Easy one for now avoid -dim 7..
             if (fourthNote == 7) {
                 if ( !( secondNote == 3 || secondNote == 5 ) || !( thirdNote == 3 || thirdNote == 5 ) ) {
-                    console.log("Changing 7th on 4rd note");
+
                     fourthNote = Math.abs(fourthNote - thirdNote);
                     //If this is still somehow 7 just hit root again pls
                     if (fourthNote == 7) thirdNote = 1;
@@ -995,7 +952,7 @@ function motifGenerator(mood, layer, key, decVars, symVars) {
                 motif[3][1] = heptScale(fourthNote);
             }
             else if (secondNote == 7 || thirdNote == 7) {
-                console.log("REACHED!!!, ");
+
                 if (decVars[3] < 3 ) {
                     fourthNote = 3;
                 }
@@ -1015,7 +972,6 @@ function motifGenerator(mood, layer, key, decVars, symVars) {
         }
         motif[3][0] = rhythm(1, 4);
         motif[3][2] = dur(1);
-        console.log("Note4 = ", chromScale(motif[3][1]) );
 
         //Reached first four core notes!
         //Now if there is image symmetry, we can repeat intervals, notes or general patterns for 5-8...
@@ -1047,7 +1003,6 @@ function motifGenerator(mood, layer, key, decVars, symVars) {
                 indRepeats = n;
             }
         }
-        console.log("MostRepeats = " + mostRepeats + ". indRepeats = " + indRepeats);
 
         var noMajor = 0;
         var noMinor = 0;
@@ -1080,7 +1035,7 @@ function motifGenerator(mood, layer, key, decVars, symVars) {
 
 
             //If its very high then simply invert or straight repeat
-            console.log("symScore = " + symScore);
+
             if (symScore >= 8) {
 
                 if (horiScore >= vertScore) {
@@ -1142,7 +1097,6 @@ function motifGenerator(mood, layer, key, decVars, symVars) {
                     }
 
 
-                    console.log("pivot 1 = " + pivot1 + ". Pivot 2 = " + pivot2);
                     if (noDimin == 0) {
                         var cadencePresent = 0;
                         if ( pivot1 == 5 || pivot1 == 4 ) {
@@ -1151,7 +1105,6 @@ function motifGenerator(mood, layer, key, decVars, symVars) {
                         if ( pivot1 == 5 || pivot1 == 4 ) {
                             cadencePresent += 1;
                         }
-                        console.log("Number of cadences in pivots = " + cadencePresent);
                         //Work out based on cadence
                         if (cadencePresent == 0) {
                             if (decVars[2] > 5){
@@ -1180,7 +1133,6 @@ function motifGenerator(mood, layer, key, decVars, symVars) {
                         if ( pivot1 == 5 || pivot1 == 4 ) {
                             cadencePresent += 1;
                         }
-                        console.log("Number of cadences in pivots = " + cadencePresent);
                         //Work out based on cadence
                         if (cadencePresent == 0) {
                             if (decVars[2] > 5){
@@ -1296,17 +1248,12 @@ function motifGenerator(mood, layer, key, decVars, symVars) {
         // motif[7][1] = heptScale(1);
         // motif[7][2] = dur(1);
 
-        console.log("Note5 = ", chromScale(motif[4][1]) );
-        console.log("Note6 = ", chromScale(motif[5][1]) );
-        console.log("Note7 = ", chromScale(motif[6][1]) );
-        console.log("Note8 = ", chromScale(motif[7][1]) );
-
 
         // ----------------------------- Rhythm ------------------------------
 
         if ( decVars[0] < 1 ) {
 
-            console.log("Rhythm 0");
+
 
             motif[0][0] = rhythm(1,1);
 
@@ -1330,7 +1277,7 @@ function motifGenerator(mood, layer, key, decVars, symVars) {
         }
         else if ( decVars[0] < 2 ) {
 
-            console.log("Rhythm 1");
+
 
             motif[0][0] = rhythm(1,1);
 
@@ -1350,7 +1297,7 @@ function motifGenerator(mood, layer, key, decVars, symVars) {
         }
         else if ( decVars[0] < 3 ) {
 
-            console.log("Rhythm 2");
+
 
             motif[0][0] = rhythm(1,1);
             motif[0][2] = dur(3);
@@ -1378,7 +1325,7 @@ function motifGenerator(mood, layer, key, decVars, symVars) {
         }
         else if ( decVars[0] < 4 ) {
 
-            console.log("Rhythm 3");
+
 
             motif[0][0] = rhythm(1,1);
 
@@ -1420,7 +1367,7 @@ function motifGenerator(mood, layer, key, decVars, symVars) {
         }
         else if ( decVars[0] < 5 ) {
 
-            console.log("Rhythm 4");
+
 
             motif[0][0] = rhythm(1,1);
 
@@ -1447,7 +1394,7 @@ function motifGenerator(mood, layer, key, decVars, symVars) {
         }
         else if ( decVars[0] < 6 ) {
 
-            console.log("Rhythm 5");
+
 
             motif[0][0] = rhythm(1,1);
 
@@ -1482,7 +1429,6 @@ function motifGenerator(mood, layer, key, decVars, symVars) {
         }
         else if ( decVars[0] < 7 ) {
 
-            console.log("Rhythm 6");
 
             motif[0][0] = rhythm(1,1);
 
@@ -1515,7 +1461,6 @@ function motifGenerator(mood, layer, key, decVars, symVars) {
         }
         else if ( decVars[0] < 8 ) {
 
-            console.log("Rhythm 7");
 
             motif[0][0] = rhythm(1,1);
 
@@ -1538,7 +1483,7 @@ function motifGenerator(mood, layer, key, decVars, symVars) {
         }
         else if ( decVars[0] < 9 ) {
 
-            console.log("Rhythm 8");
+
 
             motif[0][0] = rhythm(1,1);
 
@@ -1561,7 +1506,7 @@ function motifGenerator(mood, layer, key, decVars, symVars) {
         }
         else if ( decVars[0] <= 10 ) {
             //Change
-            console.log("Rhythm 9");
+
 
             motif[0][0] = rhythm(1,1);
 
@@ -1734,7 +1679,7 @@ function bassGenerator( mood, layer, key, decVars, symVars, motif ) {
     //Just make decision for now....
     if (decVars[1] < 0) {
 
-        console.log("Bass 0");
+
         //The absolute classic
         bass[0][0] = rhythm(1, 1);
         bass[0][1] = heptScale(1);
@@ -1768,8 +1713,12 @@ function bassGenerator( mood, layer, key, decVars, symVars, motif ) {
         bass[7][1] = heptScale(5)-12;
         bass[7][2] = dur(8);
     }
+<<<<<<< HEAD
     else if (decVars[1] < 0) {
         console.log("Bass 1");
+=======
+    else if (decVars[1] < 2) {
+>>>>>>> 9e15eff1694c363accef7671d91789efdcaf327e
         //Put it in A minor?
         bass[0][0] = rhythm(1, 1);
         bass[0][1] = heptScale(6)-12;
@@ -1805,7 +1754,6 @@ function bassGenerator( mood, layer, key, decVars, symVars, motif ) {
 
     }
     else if (decVars[1] <= 10) {
-        console.log("Custom chord progression chosen");
         chord = chordPath(decVars); //Gets the 8 chord path
         for (var c = 0; c < 8; c++) {
             bass[c][3] = chord[c][1];
@@ -1961,7 +1909,7 @@ function chordPath(decVars) {
                 }
                 else {
                     if ( newChord == 0) newChord = 7;
-                    console.log()
+
                     chord[c][1] = newChord;
                 }
             }
@@ -1971,24 +1919,11 @@ function chordPath(decVars) {
                 }
                 else if (chord[c][1] == 0) {
                     newChord = ( mod((chord[c-1][1] + intervalNum[c-1]), 7));
-                    console.log("C = " + c + ". newChord = " + newChord);
-                    console.log("IntervalNum[c-1] = " + intervalNum[c-1] + ", chordDecided[c-1] = " + chordDecided[c-1]);
                     if (newChord == 0) newChord = 7;
-                    console.log("C = " + c + ". newChord = " + newChord);
                     chord[c][1] = newChord;
                 }
             }
         }
-
-        console.log("\nPrior to checking= " + noInterations);
-        console.log("Chord 1 = "+ chord[0][1]);
-        console.log("Chord 2 = "+ chord[1][1]);
-        console.log("Chord 3 = "+ chord[2][1]);
-        console.log("Chord 4 = "+ chord[3][1]);
-        console.log("Chord 5 = "+ chord[4][1]);
-        console.log("Chord 6 = "+ chord[5][1]);
-        console.log("Chord 7 = "+ chord[6][1]);
-        console.log("Chord 8 = "+ chord[7][1]);
 
         //Checking
         var problemFound = false;
@@ -2048,9 +1983,7 @@ function chordPath(decVars) {
             //Change the chordDecisions that lead to the error
             for (var p = 0; p < 8; p++) {
                 if (chord[p][1] == 0) {
-                    console.log("problematic[" + p + "] = " + problematic[p]);
                     if (problematic[p] > 5) {
-                        console.log("problem aint changin");
                         if (p > 1) {
                             chordDecided[p-2] = mod((chordDecided[p-1] + 1 ), 5);
                         }
@@ -2074,34 +2007,12 @@ function chordPath(decVars) {
             break;
         }
 
-        console.log("chordDecided[0] = " + chordDecided[0]);
-        console.log("chordDecided[1] = " + chordDecided[1]);
-        console.log("chordDecided[2] = " + chordDecided[2]);
-        console.log("chordDecided[3] = " + chordDecided[3]);
-        console.log("chordDecided[4] = " + chordDecided[4]);
-        console.log("chordDecided[5] = " + chordDecided[5]);
+
 
         noInterations += 1;
-        console.log("\nNumber of Iterations = " + noInterations);
-        console.log("Chord 1 = "+ chord[0][1]);
-        console.log("Chord 2 = "+ chord[1][1]);
-        console.log("Chord 3 = "+ chord[2][1]);
-        console.log("Chord 4 = "+ chord[3][1]);
-        console.log("Chord 5 = "+ chord[4][1]);
-        console.log("Chord 6 = "+ chord[5][1]);
-        console.log("Chord 7 = "+ chord[6][1]);
-        console.log("Chord 8 = "+ chord[7][1]);
+
 
     }
-    console.log("Number of Iterations = " + noInterations);
-    console.log("Chord 1 = "+ chord[0][1]);
-    console.log("Chord 2 = "+ chord[1][1]);
-    console.log("Chord 3 = "+ chord[2][1]);
-    console.log("Chord 4 = "+ chord[3][1]);
-    console.log("Chord 5 = "+ chord[4][1]);
-    console.log("Chord 6 = "+ chord[5][1]);
-    console.log("Chord 7 = "+ chord[6][1]);
-    console.log("Chord 8 = "+ chord[7][1]);
 
 
 

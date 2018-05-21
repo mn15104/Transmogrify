@@ -22,6 +22,7 @@ body{
     top:0;
     width: 100%;
     height: 100%;
+    min-width:1300px;
 }
 
 .left_half{
@@ -90,7 +91,7 @@ h1.title{
     display:inline-block;
     transition: transform 2s;
     color:rgb(173, 68, 27);
-    left:28.5%;
+    right:50.5%;
 }
 .title.right{
     position: absolute;
@@ -107,7 +108,7 @@ h1.title{
     transform: translateY(2000px);
 }
 .title.right{
-    right:21.5%;
+    left:50.5%;
 }
 .title.right.selected > span{
     transition: all 2s;
@@ -131,19 +132,24 @@ h1.title{
     top: 25vh;
 	width: 150px;
     height: 60px;
+    background-color: rgba(255, 255, 255, 0.3);
     color: rgb(14, 13, 10);
-    padding: 0 auto;
-    padding-bottom:10px;
+    /* padding: 0 auto; */
+    padding-bottom:10px; 
     border-radius: 5px;
     font: small-caps 2em/1.5 'Open Sans', sans-serif;
     text-align: center;
     font-weight: 1000;
     text-shadow: 0 0 2px rgb(29, 28, 28); 
     line-height: 1;
-    box-shadow: 0px 0px 2px 2px rgb(82, 82, 82);
+    box-shadow: 0px 0px 30px 2px rgb(153, 145, 145);
 
 }
 .triangle-left { 
+
+    background-color: rgba(41, 41, 41, 0.2);
+    -webkit-backdrop-filter: invert(70%);
+    backdrop-filter: invert(70%);
     z-index:0;
     border-radius: 5px;
     position: absolute;
@@ -161,8 +167,7 @@ h1.title{
     text-shadow: 0 0 2px rgb(255, 255, 255); 
     font-weight: 800;
     line-height: 2;
-    background-blend-mode: color-burn;
-    box-shadow: 0px 0px 2px 2px rgb(255, 255, 255);
+    box-shadow: 0px 0px 30px 2px rgb(54, 52, 52);
 
 }
 .triangle-left:hover{

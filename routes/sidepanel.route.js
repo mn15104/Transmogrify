@@ -5,33 +5,17 @@ var formidable = require('formidable');
 
 var Sidepanel = require('../models/sidepanel.model');
 router.get('/', function(req, res, next) {
-
-    // if(!IS_NULL(req.session.user_id)){
-    //     console.log("HEEYYY");
-    //     res.redirect('/sidepanel?id=' + req.session.user_id);
-    // }
-    // else{
-    res.sendFile(path.join(__dirname + '/../public/views/sidepanel.html'));
-        // res.sendFile(path.join(__dirname + '../public/views/sidepanel.html'));
-    // }
+    if(IS_NULL(req.session.user_id)){
+        res.redirect('/intro');
+    }
+    else{
+        res.sendFile(path.join(__dirname + '/../public/views/sidepanel.html'));
+    }
 });
+
 router.get('/getProfilePicture', function(req, res, next) {
     Sidepanel.getProfilePicture(req,res);
 });
-
-router.get('/', function(req, res, next) {
-
-    // res.render('myprofile', { profile_image: '../images/profile_pictures/doggo_1526416712522.png',
-    //     firstname:'',
-    //     surname: '',
-    //     description: '',
-    //     occupation: '',
-    //     email:'',
-    // });
-
-    res.sendFile(path.join(__dirname + '/../public/views/sidepanel.html'));
-});
-
 
 function IS_NULL(x){
     return (x === undefined || x === null || x === NaN); //util.isNullOrUndefined(x) || isNaN(x))

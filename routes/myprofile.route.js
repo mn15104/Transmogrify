@@ -13,8 +13,13 @@ router.post('/uploadprofilepicture', function(req, res, next) {
     Profile.uploadProfilePicture(req, res);
 });
 
+router.post('/loadfile', function(req, res, next) {
+    Profile.loadProfileFile(req, res);
+});
+
 router.get('/', function(req, res, next) {
-    console.log(req.session.user_id);
+
+    req.session.last_window = 'myprofile';
     if(IS_NULL(req.session.user_id))
     {
         res.render('myprofile.ejs', 

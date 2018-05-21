@@ -39,7 +39,7 @@ var ball = {
       vy: 0,
       r: 0,
       type: 'mouse'
-   };
+   }
 
 // Random speed
 function getRandomSpeed(pos){
@@ -69,7 +69,7 @@ function randomArrayItem(arr){
 function randomNumFrom(min, max){
     return Math.random()*(max - min) + min;
 }
-console.log(randomNumFrom(0, 10));
+
 // Random Ball
 function getRandomBall(){
     var pos = randomArrayItem(['top', 'right', 'bottom', 'left']);

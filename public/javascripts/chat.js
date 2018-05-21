@@ -71,6 +71,13 @@ function initChat()
                     console.log(msg['chat_message']);
                     appendReceivedMessage(msg['chat_message']);
                 }
+                else if(   (session_info.friend_id_accepted && msg['message']  === 'friend_message_send')
+                        || (session_info.friend_id_offline && msg['message']  === 'friend_message_send'))
+                {   
+                    console.log("DEBUG 6");
+                    console.log(msg['chat_message']);
+                    appendSentMessage(msg['chat_message']);
+                }
             }
         }
 
