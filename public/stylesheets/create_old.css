@@ -20,21 +20,22 @@ html, body {
 
 body {
     background: var(--clrBack);
+    /* background: linear-gradient(to top, #b19191 , #d5b6b6); */
     font-family: 'Raleway', sans-serif;
-} 
+    margin: 0;
+    height: 100%;
+    overflow: hidden;
+}
 
 
 .upload-btn {
     background-color: var(--clrBox);
-    color: var(--clrRed);
+    color: var(--clrText);
     border: solid;
     border-color: var(--clrText);
-    font: 16px 'Raleway', sans-serif;
-    font-weight: 700;
-    line-height: 2;
+
     margin-top: 30%;
-    width: 45%;
-    height:10%;
+
     z-index: 1;
 }
 
@@ -42,7 +43,6 @@ body {
 .upload-btn:focus,
 .upload-btn:active,
 .upload-btn.active {
-    cursor:pointer;
     background-color: var(--clrBox);
     color: var(--clrTitle);
     border: solid;
@@ -57,33 +57,31 @@ body {
     transform: translate(-50%, -50%);
     text-align: center;
     background-color: transparent;
-    transition: all 1s;
-    font: 16px 'Raleway', sans-serif;
-    font-weight: 700;
-    line-height: 2;
-    opacity: 1.0;
+    opacity: 0.0;
     border: solid;
     z-index: 0;
-    width: 40%;
+
     background-color: var(--clrBox);
-    color: var(--clrRed);
+    color: var(--clrOut);
     border: solid;
     border-color: var(--clrOut);
 }
 
 .convert-btn:hover {
-    cursor: pointer;
+    /* transition: 0.1s; */
+    /* background-color: var(--clrBox); */
     color: var(--clrTitle);
     border: solid;
     border-color: var(--clrTitle);
 }
+
 
 .download-btn {
     display: inline-block;
     /* display: block; */
     position: relative;
     bottom: 0%;
-    width: 26%;
+    width: 30%;
     transform: translateY(50%);
     text-align: center;
     background-color: transparent;
@@ -95,18 +93,20 @@ body {
     z-index: 10;
     font-size: 14px;
     background-color: var(--clrBox);
-    color: var(--clrText);
+    color: var(--clrOut);
     border: solid;
     border-color: var(--clrOut);
 }
 
 .download-btn:hover {
-    cursor: pointer;
+    cursor:pointer;
     transition: 1s;
     color: var(--clrTitle);
+    border: solid;
     border-color: var(--clrTitle);
 }
 .download-btn.activate{
+    border: 2px solid;
     transition:1s all;
     opacity:0;
 }
@@ -123,15 +123,13 @@ body {
     left: 0;
     font-family: 'Raleway', sans-serif;
     font: bold;
-    padding-top:2px;
-    padding-bottom:2px;
-    width: 26%;
+    width: 30%;
     transform: translateY(50%);
     text-align: center;
     background-color: transparent;
     opacity: 0.0;
     color: white;
-    border: rgb(255, 255, 255) 2px solid;
+    border: rgb(255, 255, 255) solid;
     margin-right: 4%;
     padding-right: 0px;
     padding-left: 0px;
@@ -151,9 +149,9 @@ body {
 .retry-btn {
     display: inline-block;
     position: relative;
-    margin-left: 4%;
+    margin-right: 4%;
     bottom: 0%;
-    width: 26%;
+    width: 30%;
     transform: translateY(50%);
     text-align: center;
     background-color: transparent;
@@ -162,7 +160,7 @@ body {
     /* z-index: 10; */
     font-size: 14px;
     background-color: var(--clrBox);
-    color: var(--clrText);
+    color: var(--clrOut);
     border: solid;
     border-color: var(--clrOut);
 }
@@ -171,7 +169,6 @@ body {
     transition: 1s;
     /* background-color: var(--clrBox); */
     color: var(--clrTitle);
-    cursor:pointer;
     border: solid;
     border-color: var(--clrTitle);
 }
@@ -179,24 +176,23 @@ body {
     display: inline-block;
     position: relative;
     bottom: 0%;
-    width: 26%;
+    width: 30%;
     font-size: 14px;
     transform: translateY(50%);
     text-align: center;
     background-color: transparent;
     opacity: 1.0;
     border: solid;
-    margin-left: 8%;
-
+    /* z-index: 10; */
     background-color: var(--clrBox);
-    color: var(--clrText);
+    color: var(--clrOut);
     border: solid;
     border-color: var(--clrOut);
 }
 
 .audiostop-btn:hover {
     transition: 1s;
-    cursor:pointer;
+    /* background-color: var(--clrBox); */
     color: var(--clrTitle);
     border: solid;
     border-color: var(--clrTitle);
@@ -239,9 +235,8 @@ body {
 }
 
 .home_container{
-    position:relative;
-    min-width: 1300px;
-    padding-top: 5vh;
+    min-width: 100px;
+    padding-top: 10.8vh;
     padding-bottom: 10.8vh;
     height: 100%;
     width: 100%;
@@ -255,8 +250,8 @@ body {
 }
 
 #wrap {
-    position:relative;
     min-width: 1000px;
+    padding: 40px;
     text-align: center;
     width: 100%;
     height: 100%;
@@ -266,7 +261,7 @@ body {
     min-width: 400px;
     background: var(--clrBox);
     color: var(--clrText);
-    box-shadow: 0px 0px 20px 5px rgba(255, 254, 254, 0.2);
+
     opacity: 0.7;
     border-radius: 10px;
     display: inline-block;
@@ -293,21 +288,36 @@ body {
 }
 
 #image_test{
-    width:100%;
-    height:100%;
+    padding-top:15%;
+    padding-bottom:15%;
+    padding-left:2%;
+    padding-right:2%;
+    /* vertical-align: middle; */
     position: absolute;
     left: 0;
-    top: 0;
-    margin: 0 auto;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    /* transform: translateX(-50%); */
     max-width:100%;
     max-height:100%;
+    /* margin: 0 auto; */
+    /* z-index: 1; */
 }
 #image_test2{
+    /* padding-top:5%;
+    padding-bottom:5%;
+    padding-left:5%;
+    padding-right:5%; */
+    /* vertical-align: middle; */
     position: absolute;
     right: 0%;
     top: 0%;
+    /* transform: translateY(-50%); */
     max-width:100%;
     max-height:100%;
+    /* margin: 0 auto; */
+    /* z-index: 1; */
 }
 
 #audio_test{
@@ -374,9 +384,8 @@ body {
     padding: auto;
     width: 80%;
 
-    box-shadow: 0px 0px 10px 5px rgba(255, 255, 255, 0.2);
-    border: solid 2px;
-    border-radius: 8px;
+    border: solid;
+    border-radius: 2px;
     border-color: var(--clrText);
     /* background-color: #; */
 }
@@ -385,15 +394,16 @@ body {
     height: 30px;
     text-align: center;
     line-height: 30px;
+
     background-color: var(--clrText);
-    color: white;
+    color: var(--clrBack)
 }
 
 
-.image_title{
+p.image_title{
     /* position:absolute; */
     /* border: solid; */
-    font: 40px 'Raleway', sans-serif;
+    font: 40px 'Open Sans', sans-serif;
     /*Title*/
     color: var(--clrTitle);
     font-weight: 300;
@@ -402,13 +412,15 @@ body {
     line-height: 1;
 }
 .create_title{
-    font: 70px 'Raleway', sans-serif;
-    color: rgba(190, 186, 186,0.7);
-    text-shadow: 0 0 25px rgb(148, 144, 144);
+    /* position:absolute; */
+    /* border: solid; */
+    font: 60px 'Open Sans', sans-serif;
+    /*Title*/
+    color: var(--clrTitle);
     font-weight: 300;
     letter-spacing: 0.5px;
     text-align: center;
-    margin:3%;
+    line-height: 1;
 }
 
 .audioTitle{
@@ -459,53 +471,4 @@ body {
 }
 #conversion-infomation{
     display: none;
-}
-.arrow_box {
-    transition: 1s all;
-    margin-left: 5%;
-    margin-bottom:10%;
-    bottom: 95%;
-    width: 15px;
-    height:20px;
-
-	position: absolute;
-	background: #4f4d4d;
-	border: 4px solid #3a3737;
-}
-.arrow_box:hover{
-    cursor:pointer;
-}
-.arrow_box:hover > h1{
-    transition: 1s all;
-    color: white;
-}
-.arrow_box:after, .arrow_box:before {
-	right: 100%;
-	top: 50%;
-	border: solid transparent;
-	content: " ";
-	height: 0;
-	width: 0;
-	position: absolute;
-	pointer-events: none;
-}
-.arrow_box:after {
-	border-color: rgba(213, 213, 213, 0);
-	border-right-color: #4f4d4d;
-	border-width: 15px;
-	margin-top: -15px;
-}
-.arrow_box:before {
-	border-color: rgba(8, 8, 8, 0);
-	border-right-color: #5f5b5b;
-	border-width: 20px;
-	margin-top: -20px;
-}
-.arrow_box h1{
-    font-family:'Raleway', sans-serif;
-    position:absolute;
-    bottom:-14px;
-    color:rgb(92, 88, 88);
-    font-size:20px;
-    left: 30px;
 }

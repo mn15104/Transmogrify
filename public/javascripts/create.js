@@ -4,7 +4,7 @@ $('.upload-btn').on('click', function (){
     $('.progress-bar').width('0%');
 });
 
-$('.download-btn').on('click', function (){
+$('.download-btn').one('click', function (){
     $(this).toggleClass('activate');
     $('.download-btn-downloaded').toggleClass('activate');
 })
