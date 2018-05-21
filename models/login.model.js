@@ -22,11 +22,13 @@ let db = new sqlite3.Database('./Dev.db', sqlite3.OPEN_CREATE | sqlite3.OPEN_REA
 // **************************************************************************************************** //
 
 Login.loginRequest = function(req, res){
-    db.get("SELECT * FROM 'USER_LOGIN' WHERE email='"+  req.body.email  + "'", function(err, row){
+    var stmt = db.prepare("SELECT * FROM 'USER_LOGIN' WHERE email=(?)")
+    stmt.get(req.body.email, function(err, row){
         if (err) throw err;
         if (!IS_NULL(row)){
             var user_id = row.user_id;
-            db.get("SELECT (password) AS password FROM 'USER_LOGIN' WHERE password='"+req.body.password+"'" , function(err, row){
+            var stmtb = db.prepare("SELECT (password) AS password FROM 'USER_LOGIN' WHERE password=(?)")
+            stmtb.get(req.body.password, function(err, row){
                 if(err) throw err;
                 if (!IS_NULL(row.password)){
                     req.session.user_id = user_id;
@@ -52,7 +54,8 @@ Login.loginRequest = function(req, res){
 
 Login.accountRequest = function(req, res){
     console.log( req.body.firstname + "','" + req.body.surname + "','" + req.body.email + "','" + req.body.password);
-    db.get("SELECT (email) FROM 'USER_LOGIN' WHERE email='"+req.body.email+"'" , function(err, row){
+    var stmt = db.prepare("SELECT (email) FROM 'USER_LOGIN' WHERE email=(?)");
+    stmt.get(req.body.email, function(err, row){
         if(err) throw err;
         if (IS_NULL(row)){
             db.all("SELECT COALESCE(MAX(user_id),0) AS max_user_id FROM USER_LOGIN", function(err, row){
@@ -77,11 +80,11 @@ Login.accountRequest = function(req, res){
 };
 
 insertAccount = function(req, res, user_id){
-    db.get("INSERT INTO USER_LOGIN (firstname, surname, email, user_id, password) VALUES ('" + 
-    req.body.firstname + "','" + req.body.surname + "','" + req.body.email + "','" + user_id + "','" + req.body.password + "')", function(err, row){
+    var stmt = db.prepare("INSERT INTO USER_LOGIN (firstname, surname, email, user_id, password) VALUES (?, ?, ?, ?, ?)");
+    stmt.get([req.body.firstname, req.body.surname, req.body.email, user_id, req.body.password], function(err, row){
         if(err) throw err;
-        db.get("INSERT INTO USER_PROFILE (user_id,occupation,description,profile_picture) VALUES ('" + 
-        user_id + "','" + " ... " + "','" + " ... " + "','" + "../images/profile_pictures/profiledefault.png" + "')", function(err, row){
+        var stmtb = db.prepare("INSERT INTO USER_PROFILE (user_id,occupation,description,profile_picture) VALUES (?,?,?,?)")
+        stmtb.get([user_id, " ... ", " ... ", "../images/profile_pictures/profiledefault.png"], function(err, row){
             if(err) throw err;
     
             res.status(200).send({ 

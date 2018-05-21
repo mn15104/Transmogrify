@@ -27,7 +27,8 @@ let db = new sqlite3.Database('./Dev.db', sqlite3.OPEN_CREATE | sqlite3.OPEN_REA
 
 Explore.loadAudioFileByID = function(req, res){
         var file_id = req.body.file_id;
-        db.get("SELECT * FROM AUDIO_UPLOADS WHERE file_id='"+  file_id  + "'", function(err, row){
+        var stmt = db.prepare("SELECT * FROM AUDIO_UPLOADS WHERE file_id = (?)");
+        stmt.get(file_id, function(err, row){
             if (err) throw err;
             if (!IS_NULL(row)){
                 var filePath = path.join(__dirname, '../audio/' + file_id + '/' + row.file_name);
@@ -53,7 +54,8 @@ Explore.loadFile = function(req, res){
         var pair_id     = req.body.pair_id;
         var num_files   = req.body.num_files;
         if(pair_id === 'max'){
-            db.all("SELECT * FROM IMAGE_UPLOADS ORDER BY pair_id LIMIT '" + num_files + "'", function(err, row){
+            var stmt = db.prepare("SELECT * FROM IMAGE_UPLOADS ORDER BY pair_id LIMIT (?)");
+            stmt.all(num_files, function(err, row){
                 if (err) console.log(err);
                 image_data = row.map(img => {return {pair_id:   img.pair_id, 
                                                      file_path: img.file_path, 
@@ -61,7 +63,8 @@ Explore.loadFile = function(req, res){
                                                      file_name: img.file_name}})
                                                      
                 if (!IS_NULL(row)){
-                    db.all("SELECT * FROM AUDIO_UPLOADS ORDER BY pair_id LIMIT '" + num_files + "'", function(err, row){
+                    var stmtb = db.prepare("SELECT * FROM AUDIO_UPLOADS ORDER BY pair_id LIMIT (?)");
+                    stmtb.all(num_files, function(err, row){
                         if(err) console.log(err);
                         file_data = row.map((aud,index) => {if(image_data.length < index + 1) return {};
                                                              file = aud;
@@ -72,20 +75,23 @@ Explore.loadFile = function(req, res){
                         
 
                         async.forEachOf(file_data, function(file_d, i, inner_callback){
-                            db.get("SELECT * FROM USER_PROFILE WHERE user_id='" + file_d.user_id + "'", function(err, row){
+                            var stmtc = db.prepare("SELECT * FROM USER_PROFILE WHERE user_id=(?)");
+                            stmtc.get(file_d.user_id, function(err, row){
                                 if(err) console.log(err);
                                 if(!IS_NULL(row)){
                                     file_d['profile_picture'] = row.profile_picture;
-                                    db.get("SELECT * FROM USER_LOGIN WHERE user_id='" + file_d.user_id + "'", function(err, row){
+                                    var stmtd = db.prepare("SELECT * FROM USER_LOGIN WHERE user_id=(?)");
+                                    stmtd.get(file_d.user_id, function(err, row){
                                         if(err) console.log(err);
                                         file_d['firstname']       = row.firstname;
                                         file_d['surname']         = row.surname;
                                         inner_callback(null);
                                     })
                                 }   
-                                else{
+                                else{ 
                                     file_d['profile_picture'] = "not found"; 
-                                    db.get("SELECT * FROM USER_LOGIN WHERE user_id='" + file_d.user_id + "'", function(err, row){
+                                    var stmtd = db.prepare("SELECT * FROM USER_LOGIN WHERE user_id=(?)");
+                                    stmtd.get(file_d.user_id, function(err, row){
                                         if(err) console.log(err);
                                         file_d['firstname']       = row.firstname;
                                         file_d['surname']         = row.surname;
@@ -108,14 +114,16 @@ Explore.loadFile = function(req, res){
             });
         }
         else{
-            db.all("SELECT * FROM IMAGE_UPLOADS WHERE pair_id <= " + pair_id + " ORDER BY pair_id LIMIT " + num_files, function(err, row){
+            var stmt = db.prepare("SELECT * FROM IMAGE_UPLOADS WHERE user_id=(?) AND pair_id <= (?) ORDER BY pair_id LIMIT (?)");
+            stmt.all([user_id, num_files], function(err, row){
                 if (err) console.log(err);
                 image_data = row.map(img => {return {pair_id:   img.pair_id, 
                                                      file_path: img.file_path, 
                                                      user_id:   img.user_id}})
                                                      
                 if (!IS_NULL(row)){
-                    db.all("SELECT * FROM AUDIO_UPLOADS WHERE pair_id <= " + pair_id + " ORDER BY pair_id LIMIT " + num_files, function(err, row){
+                    var stmt = db.prepare("SELECT * FROM AUDIO_UPLOADS WHERE user_id=(?) AND pair_id <= (?) ORDER BY pair_id LIMIT (?)");
+                    stmt.all([user_id, num_files], function(err, row){
                         if(err) console.log(err);
                         file_data = row.map((aud,index) => {if(image_data.length < index + 1) return {};
                                                              file = aud;
@@ -126,7 +134,8 @@ Explore.loadFile = function(req, res){
                         
 
                         async.forEachOf(file_data, function(file_d, i, inner_callback){
-                            db.get("SELECT * FROM USER_PROFILE WHERE user_id='" + file_d.user_id + "'", function(err, row){
+                            var stmtc = db.prepare("SELECT * FROM USER_PROFILE WHERE user_id=(?)");
+                            stmtc.get(file_d.user_id, function(err, row){
                                 if(err) console.log(err);
                                 if(!IS_NULL(row)){
                                     file_d['profile_picture']   = row.profile_picture;
@@ -166,7 +175,8 @@ Explore.loadProfileFile = function(req, res){
         user_id  = req.body.user_id;
     console.log(user_id);
     if(pair_id === 'max'){
-        db.all("SELECT * FROM IMAGE_UPLOADS WHERE user_id='" +user_id + "' ORDER BY pair_id LIMIT '" + num_files + "'", function(err, row){
+        var stmt = db.prepare("SELECT * FROM IMAGE_UPLOADS WHERE user_id=(?) ORDER BY pair_id LIMIT (?)");
+        stmt.all([user_id, num_files], function(err, row){
             if (err) console.log(err);
             image_data = row.map(img => {return {pair_id:   img.pair_id, 
                                                  file_path: img.file_path, 
@@ -174,7 +184,8 @@ Explore.loadProfileFile = function(req, res){
                                                  file_name: img.file_name}})
                                                  
             if (!IS_NULL(row)){
-                db.all("SELECT * FROM AUDIO_UPLOADS WHERE user_id='" +user_id + "' ORDER BY pair_id LIMIT '" + num_files + "'", function(err, row){
+                var stmtb = db.prepare("SELECT * FROM AUDIO_UPLOADS WHERE user_id=(?) ORDER BY pair_id LIMIT (?)");
+                stmtb.all([user_id, num_files], function(err, row){
                     if(err) console.log(err);
                     file_data = row.map((aud,index) => {if(image_data.length < index + 1) return {};
                                                          file = aud;
@@ -185,11 +196,13 @@ Explore.loadProfileFile = function(req, res){
                     
 
                     async.forEachOf(file_data, function(file_d, i, inner_callback){
-                        db.get("SELECT * FROM USER_PROFILE WHERE user_id='" + user_id + "'", function(err, row){
+                        var stmtc = db.prepare("SELECT * FROM USER_PROFILE WHERE user_id=(?)");
+                        stmtc.get(user_id, function(err, row){
                             if(err) console.log(err);
                             if(!IS_NULL(row)){
                                 file_d['profile_picture'] = row.profile_picture;
-                                db.get("SELECT * FROM USER_LOGIN WHERE user_id='" + user_id + "'", function(err, row){
+                                var stmtd = db.prepare("SELECT * FROM USER_LOGIN WHERE user_id=(?)");
+                                stmtd.get(user_id, function(err, row){
                                     if(err) console.log(err);
                                     file_d['firstname']       = row.firstname;
                                     file_d['surname']         = row.surname;
@@ -197,8 +210,9 @@ Explore.loadProfileFile = function(req, res){
                                 })
                             }   
                             else{
-                                file_d['profile_picture'] = "not found"; 
-                                db.get("SELECT * FROM USER_LOGIN WHERE user_id='" + user_id + "'", function(err, row){
+                                file_d['profile_picture'] = "not found";
+                                var stmtd = db.prepare("SELECT * FROM USER_LOGIN WHERE user_id=(?)");
+                                db.get(user_id, function(err, row){
                                     if(err) console.log(err);
                                     file_d['firstname']       = row.firstname;
                                     file_d['surname']         = row.surname;
@@ -221,14 +235,16 @@ Explore.loadProfileFile = function(req, res){
         });
     }
     else{
-        db.all("SELECT * FROM IMAGE_UPLOADS WHERE user_id='" +  user_id + '" AND "'  + " pair_id <= " + pair_id + " ORDER BY pair_id LIMIT " + num_files, function(err, row){
+        var stmt = db.prepare("SELECT * FROM IMAGE_UPLOADS WHERE user_id=(?) AND pair_id <= (?) ORDER BY pair_id LIMIT (?)");
+        stmt.all([user_id, num_files], function(err, row){
             if (err) console.log(err);
             image_data = row.map(img => {return {pair_id:   img.pair_id, 
                                                  file_path: img.file_path, 
                                                  user_id:   img.user_id}})
                                                  
             if (!IS_NULL(row)){
-                db.all("SELECT * FROM AUDIO_UPLOADS WHERE user_id='" +  user_id + '" AND "'  + " pair_id <= " + pair_id + " ORDER BY pair_id LIMIT " + num_files, function(err, row){
+                var stmtb = db.prepare("SELECT * FROM AUDIO_UPLOADS WHERE user_id=(?) AND pair_id <= (?) ORDER BY pair_id LIMIT (?)");
+                stmtb.all([user_id, num_files], function(err, row){
                     if(err) console.log(err);
                     file_data = row.map((aud,index) => {if(image_data.length < index + 1) return {};
                                                          file = aud;
@@ -239,7 +255,8 @@ Explore.loadProfileFile = function(req, res){
                     
 
                     async.forEachOf(file_data, function(file_d, i, inner_callback){
-                        db.get("SELECT * FROM USER_PROFILE WHERE user_id='" + user_id + "'", function(err, row){
+                        var stmtc =  db.prepare("SELECT * FROM USER_PROFILE WHERE user_id=(?)");
+                        db.get(user_id, function(err, row){
                             if(err) console.log(err);
                             if(!IS_NULL(row)){
                                 file_d['profile_picture']   = row.profile_picture;
