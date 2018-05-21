@@ -72,6 +72,13 @@ function docReady(){
     $('#login_btn').click(function(){
         submitLogin();
     })
+
+    $('.login_input').on('focus', function(){
+        if($(this).hasClass('error')){
+            $('.login_input').removeClass('error');
+            $('.login_focus-input').removeClass('error');
+        }
+    })
 }
 
 var password_gradient = false;
@@ -119,11 +126,15 @@ var submitLogin = function(){
         },
         error: function(xhr, ajaxOptions, thrownError){
             console.log("ERROR!");
+            flashPasswordField();
             return false;
         }
     });
 }
-
+var flashPasswordField = function(){
+    $('.login_focus-input').addClass('error');
+    $('.login_input').addClass('error');
+}
 var transitionHomepage = function(t_user_id){
     $('.login_form').fadeOut({duration:500});
     $('.login_wrapper').addClass('expand');

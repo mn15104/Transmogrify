@@ -74,9 +74,9 @@
                                     
                                     <span id="profile_occupation">
                                         <div id="occupation_box">
-                                            <div id="profile_occupation_text">
+                                            <textarea id="profile_occupation_text" class="noscroll">
                                                 <%=occupation%>
-                                            </div>
+                                            </textarea>
                                         </div>
                                     </span>
                                 </h3>
@@ -97,7 +97,7 @@
                                 <h5 id="profile_settings_name" class="profile_profile-settings-value"><%=firstname%> <%=surname%></h5>
                                 <h5 class="profile_profile-settings-type">Email Address</h5>
                                 <h5 "profile_settings_email"  class="profile_profile-settings-value" id="profile_email"><%=email%></h5>
-                                <h5 class="profile_profile-settings-type"><%=occupation%></h5>
+                                <textarea class="profile_profile-settings-type"><%=occupation%></textarea>
                                 <h5 class="profile_profile-settings-value">Likes & Listens</h5>
                                 <br>
                                 <h5 class="profile_profile-settings-edit">RESET PASSWORD</h5>

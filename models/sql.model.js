@@ -34,7 +34,8 @@ SQL_MODEL.init = function(){
                                                             surname VARCHAR(10), 
                                                             email VARCHAR(255), 
                                                             user_id INT (100),
-                                                            password VARCHAR(255),
+                                                            password VARCHAR(512),
+                                                            salt    VARCHAR(255),
                                                             PRIMARY KEY(user_id))`, (err) => {
         if (err) {
             console.error(err.message);

@@ -281,7 +281,14 @@
     margin-top: 20px;
     z-index: 1;
   }
-  
+  @keyframes colorchange
+  {
+    0%   {background: rgb(255, 255, 255);}
+    25%  {background: rgb(85, 14, 1);}
+    50%  {background: rgb(255, 255, 255);}
+    75%  {background: rgb(83, 0, 0);}
+    100% {background: rgb(255, 255, 255);}
+  }
   .login_input {
     border-style:none;
     font-family: Oswald-Medium;
@@ -296,8 +303,11 @@
     background: #fff;
     border-radius: 31px;
     padding: 0 35px 0 35px;
+
   }
-  
+  .login_input.error  {
+    animation: colorchange 5s infinite;
+  }
   
   /*------------------------------------------------------------------
   [ Focus Input ]*/
@@ -437,7 +447,9 @@
     -moz-transition: all 0.4s;
     transition: all 0.4s;
   }
-  
+  .login_focus-input.error {
+    animation: colorchange 5s infinite;
+  }
   .login_input:focus + .login_focus-input {
     width: calc(100% + 20px);
     outline: none;
