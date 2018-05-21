@@ -74,9 +74,30 @@ Profile.loadMyProfile = function(req, res, load){
     });
 };
 
+
+Profile.saveEdit = function(req, res){
+    if(!IS_NULL(req.body.occupation_edit)){
+        var stmt = db.prepare("UPDATE USER_PROFILE SET occupation=(?) where user_id=(?)");
+        stmt.get([req.body.occupation_edit, req.session.user_id], function(err, row){
+            if(err) console.log(err);
+            res.status(200).send("success");
+        })
+    }
+    else if (!IS_NULL(req.body.description_edit)){
+        var stmt = db.prepare("UPDATE USER_PROFILE SET occupation=(?) where user_id=(?)");
+        stmt.get([req.body.description_edit, req.session.user_id], function(err, row){
+            if(err) console.log(err);
+            res.status(200).send("success");
+        })
+    }
+}
+
+
 Profile.loadProfileFile = function(req, res){
     ExploreModel.loadProfileFile(req, res);
 };
+
+
 Profile.loadOtherProfile = function(req, res, load){
     var other_user_id = req.query.user_id;
     

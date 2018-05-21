@@ -73,11 +73,13 @@ var init_myprofile = function(){
         $('#occupation_box').removeClass('editable');
         $('#profile_occupation_text').attr('contenteditable', 'false');  
         $('#profile_occupation_pencil').toggleClass('description_edit');
+        saveProfileEdit(true);
     })
     $('#profile_description_text').blur(function(){
         $('#description_box').removeClass('editable');
         $('#profile_description_text').attr('contenteditable', 'false');  
         $('#profile_description_pencil').toggleClass('description_edit');
+        saveProfileEdit(false);
     })
   
     setInterval(updateBlur, 1000);
@@ -150,6 +152,28 @@ var uploadProfilePicture = function(){
     });
 }
 
+var saveProfileEdit = function(isOccupation){
+    if(isOccupation){
+        occupation = $('#profile_occupation_text').text();
+        var edit_data = {'occupation_edit': occupation};
+    }
+    else {
+        description = $('#profile_description_text').text();
+        var edit_data = {'description_edit': description};
+    }
+    console.log(edit_data)
+    $.ajax({
+        type: "POST",
+        url: "/myprofile/saveedit",
+        data : edit_data,
+        success : function(data) {
+            console.log("success");
+        },
+        error: function(err){
+            console.log("error");
+        }
+    });
+}
 
 $('#upload-input').on('change', function(){
     var files = $(this).get(0).files;
