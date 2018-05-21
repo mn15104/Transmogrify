@@ -134,26 +134,19 @@ app.ws('/', function(ws, req) {
                   }
                   // Leave offline message
                   else{
-                          console.log("leaving offline message");
+                      console.log("leaving offline message");
 
-                          var getMessage = function(){ return new Promise((resolve, reject) => { ChatModel.getSelfProfilePicture(req.session.user_id, resolve, reject );}); }
-                          var replyMessage =  function(profile_picture){return new Promise((resolve, reject) => { sendMessage(ws, JSON.stringify({message:'friend_message_send', 
-                                                                                                                     chat_message: msgObj.data['chat_message'], 
-                                                                                                                     profile_picture: profile_picture}), resolve, reject);});}
-                          var insertMessage =  function(){ return new Promise((resolve, reject) => {  ChatModel.insertMessage(req.session.user_id, friend_id, msgObj.data['chat_message'], resolve, reject); })}
-                          async function insert_message(){
-                            getMessage().then(function(prof_pic){replyMessage(prof_pic);}).then(function(){
-                              insertMessage();
-                            })
-                          }
-                          insert_message();
-                          // Promise.all([getMessage, insertMessage]);
-                          
-                      // }
-                     
-                      // insert_message();
-                    
-
+                      var getMessage = function(){ return new Promise((resolve, reject) => { ChatModel.getSelfProfilePicture(req.session.user_id, resolve, reject );}); }
+                      var replyMessage =  function(profile_picture){return new Promise((resolve, reject) => { sendMessage(ws, JSON.stringify({message:'friend_message_send', 
+                                                                                                                  chat_message: msgObj.data['chat_message'], 
+                                                                                                                  profile_picture: profile_picture}), resolve, reject);});}
+                      var insertMessage =  function(){ return new Promise((resolve, reject) => {  ChatModel.insertMessage(req.session.user_id, friend_id, msgObj.data['chat_message'], resolve, reject); })}
+                      async function insert_message(){
+                        getMessage().then(function(prof_pic){replyMessage(prof_pic);}).then(function(){
+                          insertMessage();
+                        })
+                      }
+                      insert_message();
                   }
               }
       }
@@ -179,12 +172,11 @@ app.use('/webcam', webcam_route);
 app.use('/profile', profile_route);
 app.use('/myprofile', myprofile_route);
 app.use('/explore', explore_route);
-
 app.post('/whatsmyid', function(req,res,next){
     res.status(200).send({'user_id':req.session.user_id});
 });
 
-// catch 404 and forward to error handler
+
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
   err.status = 404;

@@ -12,7 +12,7 @@ function init(){
         $('.title.right').fadeOut(3000);
         $('.left_half').delay(1000).addClass('fade_left').animate({left:'0%'}, {duration:1500});
         $('.right_half').delay(2000).animate({left:'140%'}, {duration:2000, complete: function(){
-            location.href="http://localhost:3000/create/home";
+            location.href="http://localhost:3000/create";
             window.URL = 'create'
         }});
       

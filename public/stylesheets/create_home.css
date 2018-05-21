@@ -19,6 +19,7 @@ html, body {
 }
 
 body {
+    background: var(--clrBack);
     font-family: 'Raleway', sans-serif;
 } 
 
