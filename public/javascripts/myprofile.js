@@ -42,28 +42,7 @@ var init_myprofile = function(){
     $('#profile_put_file').on('change' ,function(){
         uploadProfilePicture();
     })
-    // $('textarea').autoResize();
-    $(function() {
-        var txt = $('#profile_occupation_text'),
-          hiddenDiv = $(document.createElement('div')),
-          content = null;
-      
-        // txt.addClass('txtstuff');
-        hiddenDiv.addClass('hiddendiv common');
-      
-        $('body').append(hiddenDiv);
-      
-        txt.on('keyup', function () {
-      
-          content = $(this).val();
-      
-          content = content.replace(/\n/g, '<br>');
-          hiddenDiv.html(content + '<br class="lbr">');
-      
-          $(this).css('height', hiddenDiv.height());
-      
-        });
-      });
+
     // Initialise input text
     $('#profile_occupation_pencil').click(function(){
         if(!$(this).hasClass('occupation_edit')){
@@ -94,11 +73,13 @@ var init_myprofile = function(){
         $('#occupation_box').removeClass('editable');
         $('#profile_occupation_text').attr('contenteditable', 'false');  
         $('#profile_occupation_pencil').toggleClass('description_edit');
+        saveProfileEdit(true);
     })
     $('#profile_description_text').blur(function(){
         $('#description_box').removeClass('editable');
         $('#profile_description_text').attr('contenteditable', 'false');  
         $('#profile_description_pencil').toggleClass('description_edit');
+        saveProfileEdit(false);
     })
   
     setInterval(updateBlur, 1000);
@@ -171,6 +152,28 @@ var uploadProfilePicture = function(){
     });
 }
 
+var saveProfileEdit = function(isOccupation){
+    if(isOccupation){
+        occupation = $('#profile_occupation_text').text();
+        var edit_data = {'occupation_edit': occupation};
+    }
+    else {
+        description = $('#profile_description_text').text();
+        var edit_data = {'description_edit': description};
+    }
+    console.log(edit_data)
+    $.ajax({
+        type: "POST",
+        url: "/myprofile/saveedit",
+        data : edit_data,
+        success : function(data) {
+            console.log("success");
+        },
+        error: function(err){
+            console.log("error");
+        }
+    });
+}
 
 $('#upload-input').on('change', function(){
     var files = $(this).get(0).files;

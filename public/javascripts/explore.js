@@ -18,12 +18,9 @@ function init_explore(){
                         { queue: false, duration: 2000 });
 
 
-    if (performance.navigation.type == 1) {
-      refreshAudio();
-    }
 
 
-    setInterval(updateBlur, 1000);
+    setInterval(updateBlur, 500);
 }
 
 function retrieveFileData(numb, req_file_id){
@@ -179,7 +176,7 @@ function initAudio(player){
 function updateBlur(){
     if($('#CURRENT_PLAYER').length != 0){
         if(!$('#CURRENT_PLAYER').hasClass('pause')){
-            tweenBlur(0, 1);
+            tweenBlur(0, 15);
         }
     }
 }
@@ -194,7 +191,7 @@ function setBlur(radius) {
 
 var tweenBlur = function(startRadius, endRadius) {
     $({blurRadius: startRadius}).animate({blurRadius: endRadius}, {
-        duration: 500,
+        duration: 200,
         easing: 'swing', // or "linear"
                          // use jQuery UI or Easing plugin for more options
         step: function() {

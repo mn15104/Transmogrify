@@ -13,7 +13,7 @@ var Create = require('../models/create.model');
 router.get('/', function(req, res, next) {
   console.log("HEY");
   req.session.last_window = 'create';
-  res.sendFile(path.join(__dirname + '/../public/views/create_home.html'));
+  res.sendFile(path.join(__dirname + '/../public/views/create.html'));
 });
 
 router.post('/uploadaudio', function(req, res, next) {

@@ -4,7 +4,16 @@ $('.upload-btn').on('click', function (){
     $('.progress-bar').width('0%');
 });
 
+$('.download-btn').on('click', function (){
+    $(this).toggleClass('activate');
+    $('.download-btn-downloaded').toggleClass('activate');
+})
+
 var init_create = function(){
+<<<<<<< HEAD
+=======
+  
+>>>>>>> 1252509383ce38e2787bfbcae7a2ccc799129ad9
 
     $('.home_container').css('opacity', 0)
     .slideDown('slow')
@@ -12,6 +21,18 @@ var init_create = function(){
     { opacity: 1 },
     { queue: false, duration: 1000 });
 
+<<<<<<< HEAD
+=======
+    $('.arrow_box').on('click', function(){
+        $('.home_container').fadeOut({duration:1000, complete: function(){
+            location.href="http://localhost:3000/intro";
+        }});
+    })
+}
+
+var fadeInArrow = function(){
+    $('.arrow_box').css('opacity', 0);
+>>>>>>> 1252509383ce38e2787bfbcae7a2ccc799129ad9
 
     $('.arrow_box').on('click', function(){
         $('.home_container').fadeOut({duration:1000, complete: function(){
@@ -284,7 +305,7 @@ function updateProgress(percentage){
         $("#progress-information").html("Applying final touches");
     }
     if (percentage === 100) {
-        document.getElementById("progress-bar-convert").style.color = "#202020";
+        // document.getElementById("progress-bar-convert").style.color = "#202020";
         $("#progress-information").html("Conversion Completed");
     }
 }
@@ -528,7 +549,7 @@ var bpm = 10;
 var musicVariables = new Array(10);
 
 
-$( ".download-btn" ).on( "click", function() {
+$( ".download-btn" ).one( "click", function() {
 
     // image uploaded
     var formData = new FormData();
@@ -2434,75 +2455,3 @@ function dur(noteLength) {
 function mod(n, m) {
   return ((n % m) + m) % m;
 }
-
-// function textPlayer(motif) {
-//
-// }
-//
-// function resolve(one, two, three) {
-//
-// }
-
-
-
-
-// Script for Testing by admin
-// var slider1 = document.getElementById("slider1");
-// var output1 = document.getElementById("range1");
-// output1.innerHTML = slider1.value;
-// slider1.oninput = function() {
-//     output1.innerHTML = this.value;
-// }
-//
-// var slider2 = document.getElementById("slider2");
-// var output2 = document.getElementById("range2");
-// output2.innerHTML = slider2.value;
-// slider2.oninput = function() {
-//     output2.innerHTML = this.value;
-// }
-//
-// var slider3 = document.getElementById("slider3");
-// var output3 = document.getElementById("range3");
-// output3.innerHTML = slider3.value;
-// slider3.oninput = function() {
-//     output3.innerHTML = this.value;
-// }
-//
-// var slider4 = document.getElementById("slider4");
-// var output4 = document.getElementById("range4");
-// output4.innerHTML = slider4.value;
-// slider4.oninput = function() {
-//     output4.innerHTML = this.value;
-// }
-//
-// var slider5 = document.getElementById("slider5");
-// var output5 = document.getElementById("range5");
-// output5.innerHTML = slider5.value;
-// slider5.oninput = function() {
-//     output5.innerHTML = this.value;
-// }
-//
-// var slider6 = document.getElementById("slider6");
-// var output6 = document.getElementById("range6");
-// output6.innerHTML = slider6.value;
-// slider6.oninput = function() {
-//     output6.innerHTML = this.value;
-// }
-//
-// var slider7 = document.getElementById("slider7");
-// var output7 = document.getElementById("range7");
-// output7.innerHTML = slider7.value;
-// slider7.oninput = function() {
-//     output7.innerHTML = this.value;
-// }
-//
-// var slider8 = document.getElementById("slider8");
-// var output8 = document.getElementById("range8");
-// output8.innerHTML = slider8.value;
-// slider8.oninput = function() {
-//     output8.innerHTML = this.value;
-// }
-//
-// function adminTestButton(){
-//     audioTester(1,4,slider1.value,slider2.value,slider3.value,slider4.value,slider5.value,slider6.value,slider7.value,slider8.value);
-// }

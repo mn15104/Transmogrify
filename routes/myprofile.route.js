@@ -17,6 +17,11 @@ router.post('/loadfile', function(req, res, next) {
     Profile.loadProfileFile(req, res);
 });
 
+router.post('/saveedit',function(req, res, next){
+    console.log(req.body);
+    Profile.saveEdit(req, res);
+})
+
 router.get('/', function(req, res, next) {
 
     req.session.last_window = 'myprofile';

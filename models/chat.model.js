@@ -1,6 +1,7 @@
 
 var http = require('http');
 var sqlite3 = require('sqlite3');
+var Promise = require('promise');
 var Chat = function (){
 
 }
@@ -17,7 +18,7 @@ let db = new sqlite3.Database('./Dev.db', sqlite3.OPEN_CREATE | sqlite3.OPEN_REA
 });
 // **************************************************************************************************** //
 
-Chat.safeInsertMessage = function(chat_id, date, user_id, friend_id, chat_message){
+Chat.safeInsertMessage = function(chat_id, date, user_id, friend_id, chat_message, resolve, reject){
 
     db.get("SELECT MAX(session_id) AS session_id FROM CHATMESSAGE", function(err, row){
         if(IS_NULL(row)){
@@ -25,41 +26,68 @@ Chat.safeInsertMessage = function(chat_id, date, user_id, friend_id, chat_messag
             var stmt = db.prepare("INSERT INTO CHATMESSAGE (chat_id, user_send, user_receive, message, time, session_id) VALUES (?, ?, ?, ?, ?, ?)");
             stmt.run([chat_id, user_id, friend_id, chat_message, date, session_id], function(err, row){
                 if(err) console.log(err);
+                if(resolve && typeof(resolve) === "function"){
+                    resolve();
+                }
             })
         }else{
             session_id = row.session_id + 1;
             var stmt = db.prepare("INSERT INTO CHATMESSAGE (chat_id, user_send, user_receive, message, time, session_id) VALUES (?, ?, ?, ?, ?, ?)");
             stmt.run([chat_id, user_id, friend_id, chat_message, date, session_id], function(err, row){
                 if(err) console.log(err);
+                if(resolve && typeof(resolve) === "function"){
+                    resolve();
+                }
             })
         }
     } )
 };
 
-Chat.insertMessage = function(user_id, friend_id, chat_message, callback){
+Chat.getSelfProfilePicture = function(user_id, resolve, reject){
+    var stmtb = db.prepare("SELECT profile_picture AS profile_picture FROM USER_PROFILE WHERE user_id=(?)");
+    stmtb.get(user_id, function(err, row){
+        if(err){
+            console.log("ERR");
+            reject(err);
+        } 
+        else{
+            console.log("RESOLVE")
+            resolve(row.profile_picture);
+        }
+    })
+}
+
+Chat.functionWithPromise = function (params, func)
+{
+    return new Promise((resolve, reject) => {
+        functionWithCallback(params, func, (done) => {
+            if (done)
+                return resolve(true);
+            reject(false);
+        });
+    });
+}
+Chat.functionWithCallback = function (params, func, callback)
+{
+    getSelfProfilePicture(req);
+    func(params);
+    callback(true);
+}
+
+Chat.insertMessage = function(user_id, friend_id, chat_message, resolve, reject){
     date = createDate();
     var stmta = db.prepare("SELECT chat_id AS chat_id FROM FRIENDLIST WHERE (user_idA=(?) and user_idB=(?)) or (user_idA=(?) and user_idB=(?))");
     stmta.get([user_id, friend_id, friend_id, user_id], function(err, row){
         if(IS_NULL(row)){
-            Chat.insertChatID(user_id, friend_id, chat_message, Chat.safeInsertMessage)
+            Chat.insertChatID(user_id, friend_id, chat_message, Chat.safeInsertMessage);
         }else{
             chat_id = row.chat_id;
-            Chat.safeInsertMessage(chat_id, date, user_id, friend_id, chat_message);
+            Chat.safeInsertMessage(chat_id, date, user_id, friend_id, chat_message, resolve, reject);
         }
     } )
-
-    var stmtb = db.prepare("SELECT profile_picture AS profile_picture FROM USER_PROFILE WHERE user_id=(?)");
-    stmtb.get(user_id, function(err, row){
-        if(err) console.log(err);
-        console.log(row); console.log(user_id);
-        profile_picture = row.profile_picture;
-        if(callback && typeof(callback) === "function"){
-            callback(profile_picture);
-        }
-    })
 };
 
-Chat.insertChatID = function(user_id, friend_id, chat_message, callback){
+Chat.insertChatID = function(user_id, friend_id, chat_message, resolve, reject){
     date = createDate();
 
     db.get("SELECT MAX(chat_id) AS chat_id FROM FRIENDLIST", function(err, row){
@@ -68,7 +96,7 @@ Chat.insertChatID = function(user_id, friend_id, chat_message, callback){
             var stmt = db.prepare("INSERT INTO FRIENDLIST (user_idA, user_idB, chat_id) values (?, ?, ?)");
             stmt.get([user_id, friend_id, next_chatid], function(err, row){
                 if(err) throw err;
-                if(callback && typeof callback == 'function') callback(next_chatid, date, user_id, friend_id, chat_message);
+                if(resolve && typeof resolve == 'function') resolve(next_chatid, date, user_id, friend_id, chat_message);
             });
         }
         else{
@@ -77,7 +105,7 @@ Chat.insertChatID = function(user_id, friend_id, chat_message, callback){
             var stmt = db.prepare("INSERT INTO FRIENDLIST (user_idA, user_idB, chat_id) values (?, ?, ?)");
             stmt.get([user_id, friend_id, next_chatid], function(err, row){
                 if(err) throw err;
-                if (callback && typeof callback == 'function') callback(next_chatid, date, user_id, friend_id, chat_message);
+                if (resolve && typeof resolve == 'function') resolve(next_chatid, date, user_id, friend_id, chat_message);
             });
         }
     })

@@ -133,8 +133,11 @@ var initNavLinks = function(){
   $('#create_link').click(function(){
     $('#page_1').fadeOut('slow', function(){
       $('#page_1').empty();
-      $('#page_1').load("../views/create.html")
-      $('#page_1').fadeIn('slow');
+      $('#page_1').load("../views/create.html");
+      $('#page_1').fadeIn({duration: 'slow', complete: function(){
+        fadeInArrow();
+      }});
+      
     });
   })
   $('#explore_link').click(function(){
