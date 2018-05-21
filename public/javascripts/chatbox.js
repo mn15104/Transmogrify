@@ -4,12 +4,6 @@ session_info = Object.create({
     friend_id_accepted : false
 })
 
-function init()
-
-{
-    initChat();
-}
-
 function connect(){
     chat_container = $('.chat_container');
     chat_container.toggleClass('chat_container_closed'); 
@@ -78,6 +72,7 @@ function initChat()
     
 
     $('#send_message').button().click(function(){
+        console.log($(this).siblings('.chat_input').eq(0).val());
         sendMessage($(this).siblings('.chat_input').eq(0).val());
     })
 }
@@ -125,6 +120,7 @@ function connectToFriend(friend_id)
 }
 function sendMessage(msg)
 {
+    console.log("send");
     if(!IS_NULL(msg)){
         console.log("sendingmessage");
         try{

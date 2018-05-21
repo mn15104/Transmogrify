@@ -45,14 +45,14 @@ var toggleNav = function (){
   $("#sidepanel_index_button").toggleClass('open');
   if($(".sidepanel_index-button-container").attr("data-index-open") === "false"){
       $(".sidepanel_index-title").children("span").stop().animate({backgroundColor:'#854442'}, 300);
-      openNav();
+      // openNav();
       $(".sidepanel_index-button-container").attr("data-index-open","true");
       $(".sidepanel_index-title").toggleClass("container-closed");
   }
   else {
-      $(".sidepanel_index-title").children("span").stop().animate({backgroundColor:'#bd4242'}, 100);
-      closeNav();
-      $(".sidepanel_index-button-container").attr("data-index-open","false");
+    $(".sidepanel_index-title").children("span").stop().animate({backgroundColor:'#854442'}, 300);
+      // openNav();
+      $(".sidepanel_index-button-container").attr("data-index-open","true");
       $(".sidepanel_index-title").toggleClass("container-closed");
   }
 }
@@ -82,13 +82,13 @@ function slideIndexItemsRight(){
 }
 
 function slideIndexItemsLeft(){
-
-  $(".sidepanel_index_item").each( function(index){
-    $(this).hide("slide", "swing", index * 200);
-  });
   $(".sidepanel_index_item_H").each( function(indexa){
-    $(this).show("slide", "swing", indexa * 200);
+    $(this).show("slide", "swing", indexa * 300);
   });
+  $(".sidepanel_index_item").each( function(index){
+    $(this).show("slide", "swing", index * 200);
+  });
+
 }
 
 var changeurl = function(url)

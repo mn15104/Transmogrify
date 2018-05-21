@@ -345,13 +345,38 @@ h1.profile_title{
   position: relative;
   width: 100%;
   border-radius: 3px;
+  overflow:hidden;
+  max-height:50px;
+}
+#profile_occupation_text{
+  position:relative;
+  width: 100%;
+  min-height: 50px;
+  min-width: 100%;
+  max-width: 100%;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  color: #444;
+  padding: 5px;
 }
 .editable {
   border:2px solid #7e5201;
   box-shadow: inset 0 0 10px #555;
 }
+.hiddendiv {
+  display: none;
+  white-space: pre-wrap;
+  width: 100%;
+  min-height: 50px;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  padding: 5px;
+  word-wrap: break-word;
+}
 
-
+.noscroll {
+  overflow: hidden;
+}
 .box:hover .edit {
   opacity: 1;
 }

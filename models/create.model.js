@@ -25,19 +25,13 @@ let db = new sqlite3.Database('./Dev.db', sqlite3.OPEN_CREATE | sqlite3.OPEN_REA
 // **************************************************************************************************** //
 
 insertAudioToDB = function(file_name, file_size, file_upload_date, file_id, user_id){
-    db.run("INSERT INTO AUDIO_UPLOADS (file_name, file_size, file_upload_date, file_id) VALUES ('" 
-                                        + file_name + "', '" + file_size + "', '" + file_upload_date + "', '" + file_id + "', '" + user_id + "')", function (err, row){
+    var stmt = db.prepare("INSERT INTO AUDIO_UPLOADS (file_name, file_size, file_upload_date, file_id) VALUES (?, ?, ?, ?, ?)");
+    stmt.run([file_name, file_size, file_upload_date, file_id, user_id], function (err, row){
         if (err) throw err;
         console.log("Inserted into db");
     });
 }
-insertImageToDB = function(file_name, file_size, file_upload_date, file_id, user_id){
-    db.run("INSERT INTO IMAGE_UPLOADS (file_name, file_size, file_upload_date, file_id) VALUES ('" 
-                                        + file_name + "', '" + file_size + "', '" + file_upload_date + "', '" + file_id + "', '" + user_id +  "')", function (err, row){
-        if (err) throw err;
-        console.log("Inserted into db");
-    });
-}
+
 
 createDate = function(){
     now = new Date(); 
@@ -52,22 +46,22 @@ Create.uploadAudio = function(req, res){
         if(IS_NULL(row.pair_id)){
             pair_id = 0;
             time = createDate();
-            db.get("INSERT INTO AUDIO_UPLOADS (user_id, pair_id, time, primaryDetected, colourDetected, decision1, decision2, decision3, decision4, yClrSym, yFineSym, xClrSym, xFineSym)" + 
-            "VALUES ('" +    req.session.user_id + "','" + pair_id + "','" + time + "','"  + aud_vars.primaryDetected + "','" + aud_vars.colourDetected + "','" + 
-                             aud_vars.decision1  + "','" + aud_vars.decision2   + "','" + aud_vars.decision3       + "','" + aud_vars.decision4      + "','" + 
-                             aud_vars.yClrSym    + "','" + aud_vars.yFineSym    + "','" + aud_vars.xClrSym         + "','" + aud_vars.xFineSym + "')", function(err, row){
-                                res.status(200).send(JSON.stringify({ uploaded: true }));
-                             }  )
+            var stmt = db.prepare("INSERT INTO AUDIO_UPLOADS (user_id, pair_id, time, primaryDetected, colourDetected, decision1, decision2, decision3, decision4, yClrSym, yFineSym, xClrSym, xFineSym)" +
+                       " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+            stmt.get( [req.session.user_id,pair_id,time,aud_vars.primaryDetected,aud_vars.colourDetected, aud_vars.decision1, aud_vars.decision2, aud_vars.decision3, aud_vars.decision4, 
+                        aud_vars.yClrSym, aud_vars.yFineSym, aud_vars.xClrSym, aud_vars.xFineSym], function(err, row){
+                         res.status(200).send(JSON.stringify({ uploaded: true }));
+                    })
         }
         else {
             pair_id = row.pair_id + 1;
             time = createDate();
-            db.get("INSERT INTO AUDIO_UPLOADS (user_id, pair_id, time, primaryDetected, colourDetected, decision1, decision2, decision3, decision4, yClrSym, yFineSym, xClrSym, xFineSym)" + 
-            "VALUES ('" +    req.session.user_id + "','" + pair_id + "','" + time + "','"  + aud_vars.primaryDetected + "','" + aud_vars.colourDetected + "','" + 
-                             aud_vars.decision1  + "','" + aud_vars.decision2   + "','" + aud_vars.decision3       + "','" + aud_vars.decision4      + "','" + 
-                             aud_vars.yClrSym    + "','" + aud_vars.yFineSym    + "','" + aud_vars.xClrSym         + "','" + aud_vars.xFineSym + "')"  , function(err, row){
-                                res.status(200).send(JSON.stringify({ uploaded: true }));
-                             })
+            var stmt = db.prepare("INSERT INTO AUDIO_UPLOADS (user_id, pair_id, time, primaryDetected, colourDetected, decision1, decision2, decision3, decision4, yClrSym, yFineSym, xClrSym, xFineSym)" +
+                       " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+            stmt.get( [req.session.user_id,pair_id,time,aud_vars.primaryDetected,aud_vars.colourDetected, aud_vars.decision1, aud_vars.decision2, aud_vars.decision3, aud_vars.decision4, 
+                        aud_vars.yClrSym, aud_vars.yFineSym, aud_vars.xClrSym, aud_vars.xFineSym], function(err, row){
+                         res.status(200).send(JSON.stringify({ uploaded: true }));
+                    })
         }
     })
 }
@@ -93,6 +87,7 @@ Create.uploadImage = function(req, res, callback){
         db.get("SELECT MAX(pair_id) AS pair_id FROM IMAGE_UPLOADS", function(err,row){
             if(IS_NULL(row)){
                 pair_id = 0;
+                console.log(row);
                 insertImage(user_id, pair_id, time, fileName, relative_file_path);
             }
             else{
@@ -103,8 +98,8 @@ Create.uploadImage = function(req, res, callback){
     });
 
     var insertImage = function( user_id, pair_id, time, file_name, file_path){
-        db.get("INSERT INTO IMAGE_UPLOADS (user_id, pair_id, time, file_name, file_path) VALUES ('" + 
-                                                    user_id + "','" + pair_id + "','" + time  + "','" + file_name + "','" + file_path + "')", function(err, row){
+        var stmt = db.prepare("INSERT INTO IMAGE_UPLOADS (user_id, pair_id, time, file_name, file_path) VALUES (?, ?, ?, ?, ?)"); 
+        stmt.get([user_id, pair_id, time, file_name, file_path], function(err, row){
                                                         res.status(200).send(JSON.stringify({ uploaded: true }));
                                                 })
     }

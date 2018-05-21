@@ -28,13 +28,15 @@ let db = new sqlite3.Database('./Dev.db', sqlite3.OPEN_CREATE | sqlite3.OPEN_REA
 
 Profile.loadMyProfile = function(req, res, load){
     var user_id = req.session.user_id;
-    db.get("SELECT * FROM 'USER_PROFILE' WHERE user_id='"+  user_id  + "'", function(err, row){
+    var stmt = db.prepare("SELECT * FROM 'USER_PROFILE' WHERE user_id=(?)")
+    stmt.get(user_id, function(err, row){
         if (err) throw err;
         if (!IS_NULL(row)){
             var occupation = row.occupation;
             var description = row.description;
             var profile_picture = row.profile_picture;
-            db.get("SELECT firstname, surname, email FROM USER_LOGIN WHERE user_id='"+  user_id  + "'", function(err, row){
+            var stmtb =  db.prepare("SELECT firstname, surname, email FROM USER_LOGIN WHERE user_id=(?)");
+            stmtb.get(user_id, function(err, row){
                 if (err) throw err;
                 if (!IS_NULL(row)){
                     console.log(row);
@@ -77,21 +79,23 @@ Profile.loadProfileFile = function(req, res){
 };
 Profile.loadOtherProfile = function(req, res, load){
     var other_user_id = req.query.user_id;
-    console.log(other_user_id);
-    db.get("SELECT * FROM 'USER_PROFILE' WHERE user_id='"+  other_user_id  + "'", function(err, row){
+    
+    var stmt = db.prepare("SELECT * FROM 'USER_PROFILE' WHERE user_id=(?)")
+    stmt.get(other_user_id, function(err, row){
         if (err) throw err;
         if (!IS_NULL(row)){
             var occupation = row.occupation;
             var description = row.description;
             var friend_profile_picture = row.profile_picture;
-
-            db.get("SELECT firstname, surname FROM USER_LOGIN WHERE user_id='"+  other_user_id  + "'", function(err, row){
+            var stmtb = db.prepare("SELECT firstname, surname FROM USER_LOGIN WHERE user_id=(?)")
+            stmtb.get(other_user_id, function(err, row){
                 if (err) throw err;
                 if (!IS_NULL(row)){
 
                     var firstname = row.firstname;
                     var surname = row.surname;
-                    db.get("SELECT profile_picture AS 'profile_picture' FROM 'USER_PROFILE' WHERE user_id='"+  req.session.user_id  + "'", function(err, row){
+                    var stmtc = db.prepare("SELECT profile_picture AS 'profile_picture' FROM 'USER_PROFILE' WHERE user_id=(?)")
+                    stmtc.get(req.session.user_id, function(err, row){
                         if(err) console.log(err);
                         if(IS_NULL(row))
                             our_profile_picture = ""
@@ -138,8 +142,8 @@ Profile.loadChatHistory = function(req, res){
     var user_id = req.session.user_id;
     var messages = [];
     var counter = 0;
-    db.all("SELECT * FROM USER_CHATHISTORY WHERE user_idA='"+  user_id  + "' OR '" + other_user_id
-            + " AND user_idB = '" + user_id + "' OR '" + otheruser_id + "' ORDER BY id DESC LIMIT 20", (err, rows) => {
+    var stmt = db.prepare("SELECT * FROM USER_CHATHISTORY WHERE user_idA=(?) OR (?) AND user_idB = (?) OR (?) ORDER BY id DESC LIMIT 20")
+    stmt.all([user_id, other_user_id, user_id, otheruser_id], (err, rows) => {
                 if (err) throw err;
                 counter = rows.length;
                 rows.forEach((row) => {
@@ -171,9 +175,8 @@ Profile.uploadProfilePicture = function(req, res){
         file.path = path.join( path.join(__dirname, '../public/images/profile_pictures')
                                 , `${fileName}_${new Date().getTime()}.${fileExt}`);
         relative_file_path = '../images/profile_pictures/' + `${fileName}_${new Date().getTime()}.${fileExt}`;
-        console.log(relative_file_path);
-        db.get("UPDATE USER_PROFILE SET profile_picture = '" + relative_file_path 
-                + "' WHERE user_id='" + req.session.user_id + "'", function(row,err) {
+        var stmt = db.prepare("UPDATE USER_PROFILE SET profile_picture = (?) WHERE user_id=(?)");
+        stmt.get([relative_file_path, req.session.user_id], function(row,err) {
                     if(err) console.log(err); 
                     else {console.log(relative_file_path + "  " +req.session.user_id);res.status(200).json({ uploaded: true })}
         });

@@ -129,20 +129,20 @@ function retrieveFileData(numb, req_file_id, req_user_id){
             }
             for(var i = 0; i < dataObj.length; i++){
                 generateBrick(dataObj[i]);
-                $('.brick .brick_profile_img').click(function(){
-                    brick_user_id = $($(this).closest('.brick')).data('user-id');
-                    $('.explore_wrapper').animate(
-                        { "margin-left": "-100vw" },
-                        { queue: false, duration: 2000, complete:function(){
-                             viewProfile(brick_user_id);
-                        } });
-                })
                 console.log(i);
             }
             $('.play-container').click(function(){
                 var player = $(this);
                 initAudio(player);
             });
+            $('.brick .brick_profile_img').click(function(){
+                brick_user_id = $($(this).closest('.brick')).data('user-id');
+                $('.explore_wrapper').animate(
+                    { "margin-left": "-100vw" },
+                    { queue: false, duration: 2000, complete:function(){
+                         viewProfile(brick_user_id);
+                    } });
+            })
             return data;
         },
         error: function (err) {

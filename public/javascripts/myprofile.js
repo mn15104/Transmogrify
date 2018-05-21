@@ -42,7 +42,29 @@ var init_myprofile = function(){
     $('#profile_put_file').on('change' ,function(){
         uploadProfilePicture();
     })
-
+    // $('textarea').autoResize();
+    $(function() {
+        var txt = $('#profile_occupation_text'),
+          hiddenDiv = $(document.createElement('div')),
+          content = null;
+      
+        // txt.addClass('txtstuff');
+        hiddenDiv.addClass('hiddendiv common');
+      
+        $('body').append(hiddenDiv);
+      
+        txt.on('keyup', function () {
+      
+          content = $(this).val();
+      
+          content = content.replace(/\n/g, '<br>');
+          hiddenDiv.html(content + '<br class="lbr">');
+      
+          $(this).css('height', hiddenDiv.height());
+      
+        });
+      });
+    // Initialise input text
     $('#profile_occupation_pencil').click(function(){
         if(!$(this).hasClass('occupation_edit')){
             $('#occupation_box').addClass('editable');
@@ -68,6 +90,17 @@ var init_myprofile = function(){
         }
     });
 
+    $('#profile_occupation_text').blur(function(){
+        $('#occupation_box').removeClass('editable');
+        $('#profile_occupation_text').attr('contenteditable', 'false');  
+        $('#profile_occupation_pencil').toggleClass('description_edit');
+    })
+    $('#profile_description_text').blur(function(){
+        $('#description_box').removeClass('editable');
+        $('#profile_description_text').attr('contenteditable', 'false');  
+        $('#profile_description_pencil').toggleClass('description_edit');
+    })
+  
     setInterval(updateBlur, 1000);
 }
 
