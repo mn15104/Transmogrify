@@ -39,7 +39,7 @@ app.use(session({
   httpOnly: true,
   secure: true,
   ephemeral: true,
-  saveUninitialized: false,
+  saveUninitialized: true,
   resave: true
 }));
 app.use(logger('dev'));
@@ -87,18 +87,18 @@ function onListening() {
 app.ws('/', function(ws, req) {
   ws_user_id = req.session.user_id;
   newClient(ws_user_id, ws, undefined);
-  ws.on('message', function (msg) 
+  ws.on('message', function (msg)
   {
       console.log(req.session.user_id);
       console.log("-> server received message: " + msg);
-      
+
       if(IsJsonString(msg))
       {
           var msgObj = JSON.parse(msg);
-       
+
               if          (msgObj.message === 'friend_id_req')
               {
-                  //Friend exists, retrieve connection and set friend info 
+                  //Friend exists, retrieve connection and set friend info
                   if(!IS_NULL(clients[msgObj.data['friend_id']])){
                     console.log(req.session.user_id);
                       setFriend(req.session.user_id, msgObj.data['friend_id']);
@@ -122,10 +122,10 @@ app.ws('/', function(ws, req) {
                   if(!IS_NULL(clients[friend_id])){
                       friend_con = clients[friend_id]['user_data']['con'];
                       var sendFunc = function(profile_picture){
-                        sendMessage(friend_con, JSON.stringify({message:'friend_message_rec', 
+                        sendMessage(friend_con, JSON.stringify({message:'friend_message_rec',
                             chat_message: msgObj.data['chat_message'], profile_picture: profile_picture})
                         );
-                        sendMessage(ws, JSON.stringify({message:'friend_message_send', 
+                        sendMessage(ws, JSON.stringify({message:'friend_message_send',
                             chat_message: msgObj.data['chat_message'], profile_picture: profile_picture})
                         );
                       }
@@ -135,7 +135,7 @@ app.ws('/', function(ws, req) {
                   else{
                       console.log("leaving offline message");
                       var sendFunc = function(profile_picture){
-                        sendMessage(ws, JSON.stringify({message:'friend_message_send', 
+                        sendMessage(ws, JSON.stringify({message:'friend_message_send',
                             chat_message: msgObj.data['chat_message'], profile_picture: profile_picture})
                         );
                       }
@@ -215,11 +215,11 @@ function setFriend(user_id, friend_id){
   clients[user_id]['user_data']['friend_id'] = friend_id; //['con'];
 }
 function doesClientExist(user_id){
-  return !IS_NULL(clients[user_id]); 
+  return !IS_NULL(clients[user_id]);
 }
 function newClient(user_id, con, friend_id){
-  clients[user_id] = { user_data: 
-                          {   con: con, 
+  clients[user_id] = { user_data:
+                          {   con: con,
                               friend_id: friend_id
                           }
                       };
@@ -228,7 +228,7 @@ function newClient(user_id, con, friend_id){
 function removeClient(conn){
   for(var client in clients){
       if(IS_NULL(client['user_data'])) {
-          continue;    
+          continue;
       }
       else{
           if(client['user_data']['con'] == conn){
@@ -247,7 +247,7 @@ function removeQueue(user_id){
 function firstNull(){
   for (var i = 0; i < 200000; i++){
       var val = clients[parseInt(i)];
-      
+
       if(IS_NULL(val)){
           return parseInt(i);
       }

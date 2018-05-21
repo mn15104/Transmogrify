@@ -5,12 +5,15 @@ var formidable = require('formidable');
 
 var Sidepanel = require('../models/sidepanel.model');
 router.get('/', function(req, res, next) {
-    if(IS_NULL(req.session.user_id)){
-        res.redirect('/intro');
-    }
-    else{
-        res.sendFile(path.join(__dirname + '/../public/views/sidepanel.html'));
-    }
+
+    res.sendFile(path.join(__dirname + '/../public/views/sidepanel.html'));
+    // if(IS_NULL(req.session.user_id)){
+    //     res.redirect('/intro');
+    // }
+    // else{
+    //     res.sendFile(path.join(__dirname + '/../public/views/sidepanel.html'));
+    // }
+    //
 });
 
 router.get('/getProfilePicture', function(req, res, next) {
